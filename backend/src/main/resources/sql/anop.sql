@@ -11,7 +11,7 @@
  Target Server Version : 100410
  File Encoding         : 65001
 
- Date: 04/04/2020 23:02:56
+ Date: 04/04/2020 23:09:54
 */
 
 SET NAMES utf8mb4;
@@ -92,6 +92,12 @@ CREATE TABLE `permission`  (
   `pid` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES (1, '/user', 'user', NULL, 0);
+INSERT INTO `permission` VALUES (2, '/resource', 'resource', NULL, 0);
 
 -- ----------------------------
 -- Table structure for receiver
@@ -176,6 +182,12 @@ CREATE TABLE `user`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (1, 'admin', '1822467@qq.com', 'e10adc3949ba59abbe56e057f20f883e', 0, 1);
+INSERT INTO `user` VALUES (2, 'user', '23421923@qq.com', 'e10adc3949ba59abbe56e057f20f883e', 0, 2);
+
+-- ----------------------------
 -- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
@@ -186,6 +198,12 @@ CREATE TABLE `user_info`  (
   `avatar_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_info
+-- ----------------------------
+INSERT INTO `user_info` VALUES (1, 'zhangsan', '2020-04-07 18:57:08', '');
+INSERT INTO `user_info` VALUES (2, 'lisi', '2020-04-01 22:23:36', '');
 
 -- ----------------------------
 -- Table structure for user_request
