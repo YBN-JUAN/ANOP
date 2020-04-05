@@ -1,16 +1,16 @@
 package edu.fzu.anop.controller;
 
+import edu.fzu.anop.security.user.User;
+import edu.fzu.anop.util.JsonResult;
+import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
-public class DemoController {
+public class UserController {
 
     @GetMapping("/resource")
     public Message home() {
@@ -19,8 +19,13 @@ public class DemoController {
 
     @RequestMapping(path = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public Object user() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getPrincipal();
+        User loginUser = SecurityUtil.getLoginUser(User.class);
+        return JsonResult.ok(loginUser);
+    }
+
+    @PostMapping(path = "/failed")
+    public Object failed() {
+        return JsonResult.unauthorized("用户名或者密码错误", null);
     }
 
 }

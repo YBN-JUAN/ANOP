@@ -17,8 +17,12 @@ public class JsonResult<T> extends ResponseEntity<Message> {
         super(Message.custom(code, msg), code);
     }
 
-    public static <T> JsonResult<T> ok(String message, T data) {
-        return new JsonResult(HttpStatus.OK, message, data);
+    public static <T> JsonResult<T> unauthorized(String message, T data) {
+        return new JsonResult(HttpStatus.UNAUTHORIZED, message, data);
+    }
+
+    public static <T> JsonResult<T> forbidden(String message, T data) {
+        return new JsonResult(HttpStatus.FORBIDDEN, message, data);
     }
 
     public static <T> JsonResult<T> badRequest(String message, T data) {
@@ -29,16 +33,12 @@ public class JsonResult<T> extends ResponseEntity<Message> {
         return new JsonResult(HttpStatus.NOT_FOUND, message, data);
     }
 
-    public static <T> JsonResult<T> noContent(String message, T data) {
-        return new JsonResult(HttpStatus.NO_CONTENT, message, data);
-    }
-
-    public static <T> JsonResult<T> created(String message, T data) {
-        return new JsonResult(HttpStatus.CREATED, message, data);
-    }
-
     public static <T> JsonResult<T> unprocessableEntity(String message, T data) {
         return new JsonResult<>(HttpStatus.UNPROCESSABLE_ENTITY, message, data);
+    }
+
+    public static <T> JsonResult<T> internalServerError(String message, T data) {
+        return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, message, data);
     }
 
     public static <T> JsonResult<T> custom(HttpStatus code) {

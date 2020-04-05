@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
             .formLogin()
-            .successForwardUrl("/user");
+            .successForwardUrl("/user")
+            .failureForwardUrl("/failed");
     }
 }

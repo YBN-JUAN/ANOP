@@ -1,6 +1,7 @@
 logging:
   level:
     org.springframework.security: DEBUG
+    edu.fzu.anop.mapper: DEBUG
 
 spring:
   datasource:
