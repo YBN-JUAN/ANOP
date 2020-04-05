@@ -1,9 +1,12 @@
 package edu.fzu.anop;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("edu.fzu.anop.mapper")
+@MapperScan("edu.fzu.anop.security.mapper")
 public class AnopApplication {
 
     public static void main(String[] args) {
