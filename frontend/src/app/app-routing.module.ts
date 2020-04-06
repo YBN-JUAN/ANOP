@@ -5,6 +5,7 @@ import {NotificationComponent} from './pages/notification/notification.component
 import {MemorandumComponent} from './pages/memorandum/memorandum.component';
 import {LoginComponent} from './pages/welcome/login/login.component';
 import {RegisterComponent} from './pages/welcome/register/register.component';
+import {UserCenterComponent} from './pages/user-center/user-center.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   { path: 'notification', component: NotificationComponent },
   { path: 'memorandum', component: MemorandumComponent},
+  { path: 'user', component: UserCenterComponent },
   { path: '', redirectTo: '/welcome/login', pathMatch: 'full'},
   { path: '**', redirectTo: '/welcome/login', pathMatch: 'full'}
 ];
