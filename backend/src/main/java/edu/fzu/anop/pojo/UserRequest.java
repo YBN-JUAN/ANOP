@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserRequest implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer groupId;
+
     private Integer userId;
+
     private Byte status;
+
     private Date requestTime;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

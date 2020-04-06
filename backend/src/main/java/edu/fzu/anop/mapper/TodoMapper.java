@@ -2,9 +2,7 @@ package edu.fzu.anop.mapper;
 
 import edu.fzu.anop.pojo.Todo;
 import edu.fzu.anop.pojo.example.TodoExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface TodoMapper {

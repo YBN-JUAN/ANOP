@@ -76,7 +76,7 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="receiver" domainObjectName="Receiver"
+        <table tableName="noti_receiver" domainObjectName="Receiver"
                enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
@@ -94,7 +94,7 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="user_request" domainObjectName="UserRequest"
+        <table tableName="noti_user_request" domainObjectName="UserRequest"
                enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
@@ -106,7 +106,7 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="category" domainObjectName="Category"
+        <table tableName="todo_category" domainObjectName="Category"
                enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>

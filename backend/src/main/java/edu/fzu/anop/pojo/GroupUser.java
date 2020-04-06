@@ -3,11 +3,15 @@ package edu.fzu.anop.pojo;
 import java.io.Serializable;
 
 public class GroupUser implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer groupId;
+
     private Integer userId;
+
     private Byte role;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

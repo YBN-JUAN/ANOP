@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ValidEmail implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private String email;
+
     private String code;
+
     private Date expire;
+
     private Byte status;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

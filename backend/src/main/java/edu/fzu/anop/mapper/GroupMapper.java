@@ -2,9 +2,7 @@ package edu.fzu.anop.mapper;
 
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.pojo.example.GroupExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface GroupMapper {

@@ -3,10 +3,13 @@ package edu.fzu.anop.pojo;
 import java.io.Serializable;
 
 public class Category implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer userId;
+
     private String name;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

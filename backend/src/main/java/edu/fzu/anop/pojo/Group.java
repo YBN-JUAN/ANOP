@@ -4,13 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Group implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer userId;
+
     private String name;
+
     private String remark;
+
     private Date creationDate;
+
     private Byte permission;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

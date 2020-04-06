@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
+    private static final long serialVersionUID = 1L;
+
     private String nickname;
+
     private Date creationTime;
+
     private String avatarUrl;
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -16,6 +21,14 @@ public class UserInfo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getNickname() {
@@ -46,6 +59,7 @@ public class UserInfo implements Serializable {
     public String toString() {
         return "UserInfo{" +
             "id=" + id +
+            ", userId=" + userId +
             ", nickname='" + nickname + '\'' +
             ", creationTime=" + creationTime +
             ", avatarUrl='" + avatarUrl + '\'' +

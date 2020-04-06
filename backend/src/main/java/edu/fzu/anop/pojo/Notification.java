@@ -4,13 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Notification implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer groupId;
+
     private Integer userId;
+
     private String title;
+
     private String content;
+
     private Date creationDate;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
