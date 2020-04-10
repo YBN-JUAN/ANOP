@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-center.component.css']
 })
 export class UserCenterComponent implements OnInit {
+  isCollapsed = false;
 
   constructor() { }
 
