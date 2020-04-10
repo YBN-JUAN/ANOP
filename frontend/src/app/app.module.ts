@@ -23,7 +23,7 @@ registerLocaleData(zh);
     WelcomeComponent,
     NotificationComponent,
     MemorandumComponent,
-    UserCenterComponent
+    UserCenterComponent,
   ],
   imports: [
     BrowserModule,
