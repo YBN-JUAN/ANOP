@@ -1,0 +1,28 @@
+.head-button {
+  width: 250px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+

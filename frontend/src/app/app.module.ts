@@ -14,6 +14,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { NotificationComponent } from './pages/notification/notification.component';
 import { MemorandumComponent } from './pages/memorandum/memorandum.component';
 import {UserCenterComponent} from './pages/user-center/user-center.component';
+import {DropMenuComponent} from './share/drop-menu/drop-menu.component';
+import { HeadBarComponent } from './share/head-bar/head-bar.component';
 
 registerLocaleData(zh);
 
@@ -24,6 +26,8 @@ registerLocaleData(zh);
     NotificationComponent,
     MemorandumComponent,
     UserCenterComponent,
+    DropMenuComponent,
+    HeadBarComponent
   ],
   imports: [
     BrowserModule,
