@@ -29,10 +29,14 @@
             <nz-badge nzColor="cyan"></nz-badge>
             姓名
         </div>
-        <div nz-col nzSpan="16" class="row">
+        <div nz-col nzSpan="16" class="row" id="show">
             {{userName}}
-            <button nz-button nzType="dashed">修改姓名</button>
+            <button nz-button nzType="dashed" (click)="onEdit()">修改姓名</button>
         </div>
+        <div nz-col nzSpan="13" class="row" id="hide">
+            <input nz-input [value]="userName"/>
+            <button nz-button nzType="dashed" (click)="onSubmit()">确认</button>
+        </div>      
     </div>
 
     <div nz-row>

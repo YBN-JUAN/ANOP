@@ -46,3 +46,12 @@ h1 {
 button {
     font-size: 17px;
 }
+
+#hide {
+    display: none;
+}
+
+input {
+    width: 300px;
+    font-size: 20px;
+}

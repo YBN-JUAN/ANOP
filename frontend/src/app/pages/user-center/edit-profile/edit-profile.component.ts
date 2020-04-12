@@ -21,4 +21,13 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onEdit() {
+    document.getElementById('show').style.display='none';
+    document.getElementById('hide').style.display='block';
+  }
+
+  onSubmit() {
+    document.getElementById('hide').style.display='none';
+    document.getElementById('show').style.display='block';
+  }
 }
