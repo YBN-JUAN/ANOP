@@ -48,23 +48,6 @@ nz-content {
     width: 100%;
 }
 
-nz-breadcrumb {
-    margin: 16px 0;
-}
-
-.left-content {
-    padding: 24px;
-    margin-right: 50px;
-    background: #fff;
-    float: left;
-    width: 70%;
-    height: 100%;
-}
-
-.right-content {
-    padding: 24px;
-    background: #fff;
-    float: left;
-    width: 20%;
-    height: 100%;
+nz-footer {
+    text-align: center;
 }

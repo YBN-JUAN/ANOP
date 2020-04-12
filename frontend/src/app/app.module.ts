@@ -16,6 +16,8 @@ import { MemorandumComponent } from './pages/memorandum/memorandum.component';
 import {UserCenterComponent} from './pages/user-center/user-center.component';
 import {DropMenuComponent} from './share/drop-menu/drop-menu.component';
 import { HeadBarComponent } from './share/head-bar/head-bar.component';
+import { EditProfileComponent } from './pages/user-center/edit-profile/edit-profile.component';
+import { EditPasswordComponent } from './pages/user-center/edit-password/edit-password.component';
 
 registerLocaleData(zh);
 
@@ -27,7 +29,9 @@ registerLocaleData(zh);
     MemorandumComponent,
     UserCenterComponent,
     DropMenuComponent,
-    HeadBarComponent
+    HeadBarComponent,
+    EditProfileComponent,
+    EditPasswordComponent
   ],
   imports: [
     BrowserModule,

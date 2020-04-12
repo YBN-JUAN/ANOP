@@ -1,0 +1,52 @@
+nz-breadcrumb {
+    margin: 16px 0;
+}
+
+.left-content {
+    padding: 15px 0px 15px 15px;
+    margin-right: 50px;
+    background: #fff;
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+
+.right-content {
+    text-align: center;
+    background: #fff;
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+nz-avatar {
+    margin-top: 50px;
+}
+
+h1 {
+    padding: 24px;
+    margin: 30px;
+}
+
+.upload-button {
+    padding: 0 15px;
+    margin: 30px;
+}
+
+.row {
+    margin: 15px auto;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.row p{
+    margin: 10px;
+}
+
+.row button {
+    margin-left: 20px;
+}
+
+button {
+    font-size: 17px;
+}
