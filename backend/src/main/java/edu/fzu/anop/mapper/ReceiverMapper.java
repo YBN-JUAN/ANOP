@@ -2,7 +2,9 @@ package edu.fzu.anop.mapper;
 
 import edu.fzu.anop.pojo.Receiver;
 import edu.fzu.anop.pojo.example.ReceiverExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ReceiverMapper {

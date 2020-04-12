@@ -2,7 +2,9 @@ package edu.fzu.anop.mapper;
 
 import edu.fzu.anop.pojo.Notification;
 import edu.fzu.anop.pojo.example.NotificationExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface NotificationMapper {

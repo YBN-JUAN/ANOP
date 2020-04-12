@@ -12,7 +12,7 @@ public class ValidEmail implements Serializable {
 
     private Date expire;
 
-    private Byte status;
+    private Byte isValid;
 
     private static final long serialVersionUID = 1L;
 
@@ -48,12 +48,12 @@ public class ValidEmail implements Serializable {
         this.expire = expire;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getIsValid() {
+        return isValid;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ValidEmail implements Serializable {
             ", email='" + email + '\'' +
             ", code='" + code + '\'' +
             ", expire=" + expire +
-            ", status=" + status +
+            ", isValid=" + isValid +
             '}';
     }
 }

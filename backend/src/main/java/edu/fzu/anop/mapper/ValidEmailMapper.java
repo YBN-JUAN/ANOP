@@ -2,7 +2,9 @@ package edu.fzu.anop.mapper;
 
 import edu.fzu.anop.pojo.ValidEmail;
 import edu.fzu.anop.pojo.example.ValidEmailExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ValidEmailMapper {

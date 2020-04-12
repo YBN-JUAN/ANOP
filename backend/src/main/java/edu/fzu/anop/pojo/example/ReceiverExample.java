@@ -284,63 +284,63 @@ public class ReceiverExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("\"status\" is null");
+        public Criteria andIsReadIsNull() {
+            addCriterion("is_read is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("\"status\" is not null");
+        public Criteria andIsReadIsNotNull() {
+            addCriterion("is_read is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Byte value) {
-            addCriterion("\"status\" =", value, "status");
+        public Criteria andIsReadEqualTo(Byte value) {
+            addCriterion("is_read =", value, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Byte value) {
-            addCriterion("\"status\" <>", value, "status");
+        public Criteria andIsReadNotEqualTo(Byte value) {
+            addCriterion("is_read <>", value, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Byte value) {
-            addCriterion("\"status\" >", value, "status");
+        public Criteria andIsReadGreaterThan(Byte value) {
+            addCriterion("is_read >", value, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" >=", value, "status");
+        public Criteria andIsReadGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_read >=", value, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Byte value) {
-            addCriterion("\"status\" <", value, "status");
+        public Criteria andIsReadLessThan(Byte value) {
+            addCriterion("is_read <", value, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" <=", value, "status");
+        public Criteria andIsReadLessThanOrEqualTo(Byte value) {
+            addCriterion("is_read <=", value, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Byte> values) {
-            addCriterion("\"status\" in", values, "status");
+        public Criteria andIsReadIn(List<Byte> values) {
+            addCriterion("is_read in", values, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Byte> values) {
-            addCriterion("\"status\" not in", values, "status");
+        public Criteria andIsReadNotIn(List<Byte> values) {
+            addCriterion("is_read not in", values, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" between", value1, value2, "status");
+        public Criteria andIsReadBetween(Byte value1, Byte value2) {
+            addCriterion("is_read between", value1, value2, "isRead");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" not between", value1, value2, "status");
+        public Criteria andIsReadNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_read not between", value1, value2, "isRead");
             return (Criteria) this;
         }
     }

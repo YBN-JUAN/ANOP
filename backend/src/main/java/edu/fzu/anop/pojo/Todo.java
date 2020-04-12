@@ -20,7 +20,7 @@ public class Todo implements Serializable {
 
     private Integer categoryId;
 
-    private Byte status;
+    private Byte isCompleted;
 
     private Byte isImportant;
 
@@ -92,12 +92,12 @@ public class Todo implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getIsCompleted() {
+        return isCompleted;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setIsCompleted(Byte isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     public Byte getIsImportant() {
@@ -127,7 +127,7 @@ public class Todo implements Serializable {
             ", endDate=" + endDate +
             ", remindDate=" + remindDate +
             ", categoryId=" + categoryId +
-            ", status=" + status +
+            ", isCompleted=" + isCompleted +
             ", isImportant=" + isImportant +
             ", isFavorite=" + isFavorite +
             '}';

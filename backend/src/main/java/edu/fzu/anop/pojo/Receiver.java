@@ -9,7 +9,7 @@ public class Receiver implements Serializable {
 
     private Integer userId;
 
-    private Byte status;
+    private Byte isRead;
 
     private static final long serialVersionUID = 1L;
 
@@ -37,12 +37,12 @@ public class Receiver implements Serializable {
         this.userId = userId;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getIsRead() {
+        return isRead;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setIsRead(Byte isRead) {
+        this.isRead = isRead;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Receiver implements Serializable {
             "id=" + id +
             ", notificationId=" + notificationId +
             ", userId=" + userId +
-            ", status=" + status +
+            ", isRead=" + isRead +
             '}';
     }
 }

@@ -284,63 +284,63 @@ public class GroupUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoleIsNull() {
-            addCriterion("\"role\" is null");
+        public Criteria andIsAdminIsNull() {
+            addCriterion("is_admin is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIsNotNull() {
-            addCriterion("\"role\" is not null");
+        public Criteria andIsAdminIsNotNull() {
+            addCriterion("is_admin is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleEqualTo(Byte value) {
-            addCriterion("\"role\" =", value, "role");
+        public Criteria andIsAdminEqualTo(Byte value) {
+            addCriterion("is_admin =", value, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotEqualTo(Byte value) {
-            addCriterion("\"role\" <>", value, "role");
+        public Criteria andIsAdminNotEqualTo(Byte value) {
+            addCriterion("is_admin <>", value, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleGreaterThan(Byte value) {
-            addCriterion("\"role\" >", value, "role");
+        public Criteria andIsAdminGreaterThan(Byte value) {
+            addCriterion("is_admin >", value, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleGreaterThanOrEqualTo(Byte value) {
-            addCriterion("\"role\" >=", value, "role");
+        public Criteria andIsAdminGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_admin >=", value, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLessThan(Byte value) {
-            addCriterion("\"role\" <", value, "role");
+        public Criteria andIsAdminLessThan(Byte value) {
+            addCriterion("is_admin <", value, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLessThanOrEqualTo(Byte value) {
-            addCriterion("\"role\" <=", value, "role");
+        public Criteria andIsAdminLessThanOrEqualTo(Byte value) {
+            addCriterion("is_admin <=", value, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIn(List<Byte> values) {
-            addCriterion("\"role\" in", values, "role");
+        public Criteria andIsAdminIn(List<Byte> values) {
+            addCriterion("is_admin in", values, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotIn(List<Byte> values) {
-            addCriterion("\"role\" not in", values, "role");
+        public Criteria andIsAdminNotIn(List<Byte> values) {
+            addCriterion("is_admin not in", values, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleBetween(Byte value1, Byte value2) {
-            addCriterion("\"role\" between", value1, value2, "role");
+        public Criteria andIsAdminBetween(Byte value1, Byte value2) {
+            addCriterion("is_admin between", value1, value2, "isAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotBetween(Byte value1, Byte value2) {
-            addCriterion("\"role\" not between", value1, value2, "role");
+        public Criteria andIsAdminNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_admin not between", value1, value2, "isAdmin");
             return (Criteria) this;
         }
     }

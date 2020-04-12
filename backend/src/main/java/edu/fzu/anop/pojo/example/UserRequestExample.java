@@ -285,63 +285,63 @@ public class UserRequestExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("\"status\" is null");
+        public Criteria andIsAcceptedIsNull() {
+            addCriterion("is_accepted is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("\"status\" is not null");
+        public Criteria andIsAcceptedIsNotNull() {
+            addCriterion("is_accepted is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Byte value) {
-            addCriterion("\"status\" =", value, "status");
+        public Criteria andIsAcceptedEqualTo(Byte value) {
+            addCriterion("is_accepted =", value, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Byte value) {
-            addCriterion("\"status\" <>", value, "status");
+        public Criteria andIsAcceptedNotEqualTo(Byte value) {
+            addCriterion("is_accepted <>", value, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Byte value) {
-            addCriterion("\"status\" >", value, "status");
+        public Criteria andIsAcceptedGreaterThan(Byte value) {
+            addCriterion("is_accepted >", value, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" >=", value, "status");
+        public Criteria andIsAcceptedGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_accepted >=", value, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Byte value) {
-            addCriterion("\"status\" <", value, "status");
+        public Criteria andIsAcceptedLessThan(Byte value) {
+            addCriterion("is_accepted <", value, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" <=", value, "status");
+        public Criteria andIsAcceptedLessThanOrEqualTo(Byte value) {
+            addCriterion("is_accepted <=", value, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Byte> values) {
-            addCriterion("\"status\" in", values, "status");
+        public Criteria andIsAcceptedIn(List<Byte> values) {
+            addCriterion("is_accepted in", values, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Byte> values) {
-            addCriterion("\"status\" not in", values, "status");
+        public Criteria andIsAcceptedNotIn(List<Byte> values) {
+            addCriterion("is_accepted not in", values, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" between", value1, value2, "status");
+        public Criteria andIsAcceptedBetween(Byte value1, Byte value2) {
+            addCriterion("is_accepted between", value1, value2, "isAccepted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" not between", value1, value2, "status");
+        public Criteria andIsAcceptedNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_accepted not between", value1, value2, "isAccepted");
             return (Criteria) this;
         }
 

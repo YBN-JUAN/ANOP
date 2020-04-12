@@ -10,7 +10,7 @@ public class UserRequest implements Serializable {
 
     private Integer userId;
 
-    private Byte status;
+    private Byte isAccepted;
 
     private Date requestTime;
 
@@ -40,12 +40,12 @@ public class UserRequest implements Serializable {
         this.userId = userId;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getIsAccepted() {
+        return isAccepted;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setIsAccepted(Byte isAccepted) {
+        this.isAccepted = isAccepted;
     }
 
     public Date getRequestTime() {
@@ -62,7 +62,7 @@ public class UserRequest implements Serializable {
             "id=" + id +
             ", groupId=" + groupId +
             ", userId=" + userId +
-            ", status=" + status +
+            ", isAccepted=" + isAccepted +
             ", requestTime=" + requestTime +
             '}';
     }

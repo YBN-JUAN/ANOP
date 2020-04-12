@@ -9,7 +9,7 @@ public class GroupUser implements Serializable {
 
     private Integer userId;
 
-    private Byte role;
+    private Byte isAdmin;
 
     private static final long serialVersionUID = 1L;
 
@@ -37,12 +37,12 @@ public class GroupUser implements Serializable {
         this.userId = userId;
     }
 
-    public Byte getRole() {
-        return role;
+    public Byte getIsAdmin() {
+        return isAdmin;
     }
 
-    public void setRole(Byte role) {
-        this.role = role;
+    public void setIsAdmin(Byte isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class GroupUser implements Serializable {
             "id=" + id +
             ", groupId=" + groupId +
             ", userId=" + userId +
-            ", role=" + role +
+            ", isAdmin=" + isAdmin +
             '}';
     }
 }

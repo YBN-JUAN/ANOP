@@ -6,14 +6,15 @@ import java.util.Date;
 public class UserInfo implements Serializable {
     private Integer id;
 
-    private static final long serialVersionUID = 1L;
+    private Integer userId;
 
     private String nickname;
 
     private Date creationTime;
 
     private String avatarUrl;
-    private Integer userId;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

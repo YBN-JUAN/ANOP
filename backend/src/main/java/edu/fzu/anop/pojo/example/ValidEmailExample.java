@@ -365,63 +365,63 @@ public class ValidEmailExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("\"status\" is null");
+        public Criteria andIsValidIsNull() {
+            addCriterion("is_valid is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("\"status\" is not null");
+        public Criteria andIsValidIsNotNull() {
+            addCriterion("is_valid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Byte value) {
-            addCriterion("\"status\" =", value, "status");
+        public Criteria andIsValidEqualTo(Byte value) {
+            addCriterion("is_valid =", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Byte value) {
-            addCriterion("\"status\" <>", value, "status");
+        public Criteria andIsValidNotEqualTo(Byte value) {
+            addCriterion("is_valid <>", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Byte value) {
-            addCriterion("\"status\" >", value, "status");
+        public Criteria andIsValidGreaterThan(Byte value) {
+            addCriterion("is_valid >", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" >=", value, "status");
+        public Criteria andIsValidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_valid >=", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Byte value) {
-            addCriterion("\"status\" <", value, "status");
+        public Criteria andIsValidLessThan(Byte value) {
+            addCriterion("is_valid <", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" <=", value, "status");
+        public Criteria andIsValidLessThanOrEqualTo(Byte value) {
+            addCriterion("is_valid <=", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Byte> values) {
-            addCriterion("\"status\" in", values, "status");
+        public Criteria andIsValidIn(List<Byte> values) {
+            addCriterion("is_valid in", values, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Byte> values) {
-            addCriterion("\"status\" not in", values, "status");
+        public Criteria andIsValidNotIn(List<Byte> values) {
+            addCriterion("is_valid not in", values, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" between", value1, value2, "status");
+        public Criteria andIsValidBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid between", value1, value2, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" not between", value1, value2, "status");
+        public Criteria andIsValidNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid not between", value1, value2, "isValid");
             return (Criteria) this;
         }
     }

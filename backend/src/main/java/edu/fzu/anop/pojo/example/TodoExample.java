@@ -605,63 +605,63 @@ public class TodoExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("\"status\" is null");
+        public Criteria andIsCompletedIsNull() {
+            addCriterion("is_completed is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("\"status\" is not null");
+        public Criteria andIsCompletedIsNotNull() {
+            addCriterion("is_completed is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Byte value) {
-            addCriterion("\"status\" =", value, "status");
+        public Criteria andIsCompletedEqualTo(Byte value) {
+            addCriterion("is_completed =", value, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Byte value) {
-            addCriterion("\"status\" <>", value, "status");
+        public Criteria andIsCompletedNotEqualTo(Byte value) {
+            addCriterion("is_completed <>", value, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Byte value) {
-            addCriterion("\"status\" >", value, "status");
+        public Criteria andIsCompletedGreaterThan(Byte value) {
+            addCriterion("is_completed >", value, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" >=", value, "status");
+        public Criteria andIsCompletedGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_completed >=", value, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Byte value) {
-            addCriterion("\"status\" <", value, "status");
+        public Criteria andIsCompletedLessThan(Byte value) {
+            addCriterion("is_completed <", value, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("\"status\" <=", value, "status");
+        public Criteria andIsCompletedLessThanOrEqualTo(Byte value) {
+            addCriterion("is_completed <=", value, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Byte> values) {
-            addCriterion("\"status\" in", values, "status");
+        public Criteria andIsCompletedIn(List<Byte> values) {
+            addCriterion("is_completed in", values, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Byte> values) {
-            addCriterion("\"status\" not in", values, "status");
+        public Criteria andIsCompletedNotIn(List<Byte> values) {
+            addCriterion("is_completed not in", values, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" between", value1, value2, "status");
+        public Criteria andIsCompletedBetween(Byte value1, Byte value2) {
+            addCriterion("is_completed between", value1, value2, "isCompleted");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("\"status\" not between", value1, value2, "status");
+        public Criteria andIsCompletedNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_completed not between", value1, value2, "isCompleted");
             return (Criteria) this;
         }
 

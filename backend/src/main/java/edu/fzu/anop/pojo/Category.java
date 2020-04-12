@@ -7,7 +7,7 @@ public class Category implements Serializable {
 
     private Integer userId;
 
-    private String name;
+    private String typeName;
 
     private static final long serialVersionUID = 1L;
 
@@ -27,12 +27,12 @@ public class Category implements Serializable {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Category implements Serializable {
         return "Category{" +
             "id=" + id +
             ", userId=" + userId +
-            ", name='" + name + '\'' +
+            ", typeName='" + typeName + '\'' +
             '}';
     }
 }

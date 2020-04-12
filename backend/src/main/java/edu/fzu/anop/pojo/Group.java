@@ -8,7 +8,7 @@ public class Group implements Serializable {
 
     private Integer userId;
 
-    private String name;
+    private String title;
 
     private String remark;
 
@@ -34,12 +34,12 @@ public class Group implements Serializable {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getRemark() {
@@ -71,7 +71,7 @@ public class Group implements Serializable {
         return "Group{" +
             "id=" + id +
             ", userId=" + userId +
-            ", name='" + name + '\'' +
+            ", title='" + title + '\'' +
             ", remark='" + remark + '\'' +
             ", creationDate=" + creationDate +
             ", permission=" + permission +
