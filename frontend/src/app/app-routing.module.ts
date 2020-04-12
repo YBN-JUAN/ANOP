@@ -5,7 +5,9 @@ import {NotificationComponent} from './pages/notification/notification.component
 import {MemorandumComponent} from './pages/memorandum/memorandum.component';
 import {LoginComponent} from './pages/welcome/login/login.component';
 import {RegisterComponent} from './pages/welcome/register/register.component';
-import {UserCenterComponent} from './pages/user-center/user-center.component';
+import { UserCenterComponent } from './pages/user-center/user-center.component';
+import { EditPasswordComponent } from './pages/user-center/edit-password/edit-password.component';
+import { EditProfileComponent } from './pages/user-center/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -19,7 +21,14 @@ const routes: Routes = [
   },
   { path: 'notification', component: NotificationComponent },
   { path: 'memorandum', component: MemorandumComponent},
-  { path: 'user', component: UserCenterComponent },
+  { path: 'user', component: UserCenterComponent,
+    children:[
+      { path: 'profile', component: EditProfileComponent },
+      { path: 'password', component: EditPasswordComponent },
+      { path: '**', component: EditProfileComponent },
+      { path: '', component: EditProfileComponent }
+    ]
+  },
   { path: '', redirectTo: '/welcome/login', pathMatch: 'full'},
   { path: '**', redirectTo: '/welcome/login', pathMatch: 'full'}
 ];
