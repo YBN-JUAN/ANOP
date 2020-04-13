@@ -8,6 +8,9 @@ import {RegisterComponent} from './pages/welcome/register/register.component';
 import { UserCenterComponent } from './pages/user-center/user-center.component';
 import { EditPasswordComponent } from './pages/user-center/edit-password/edit-password.component';
 import { EditProfileComponent } from './pages/user-center/edit-profile/edit-profile.component';
+import {PublishCenterComponent} from './pages/notification/publish-center/publish-center.component';
+import {SubscriptionCenterComponent} from './pages/notification/subscription-center/subscription-center.component';
+import {ExamineCenterComponent} from './pages/notification/examine-center/examine-center.component';
 
 const routes: Routes = [
   {
@@ -19,7 +22,15 @@ const routes: Routes = [
       { path: '', component:LoginComponent }
     ]
   },
-  { path: 'notification', component: NotificationComponent },
+  { path: 'notification', component: NotificationComponent,
+    children:[
+      { path: 'publish', component: PublishCenterComponent },
+      { path: 'subscription', component: SubscriptionCenterComponent },
+      { path: 'examine', component: ExamineCenterComponent },
+      { path: '**', component: PublishCenterComponent },
+      { path: '', component: PublishCenterComponent }
+    ]
+  },
   { path: 'memorandum', component: MemorandumComponent},
   { path: 'user', component: UserCenterComponent,
     children:[
