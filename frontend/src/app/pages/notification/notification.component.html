@@ -6,11 +6,11 @@
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item>
         <i nz-icon nzType="search" class="side-icon"></i>
-        <span routerLink="/notification/publish">发布中心</span>
+        <span routerLink="/notification/subscription">订阅中心</span>
       </li>
       <li nz-menu-item>
         <i nz-icon nzType="edit" class="side-icon"></i>
-        <span routerLink="/notification/subscription">订阅中心</span>
+        <span routerLink="/notification/publish">发布中心</span>
       </li>
       <li nz-menu-item>
         <i nz-icon nzType="check" class="side-icon"></i>
@@ -21,10 +21,6 @@
   <nz-layout>
     <app-head-bar></app-head-bar>
     <nz-content>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>

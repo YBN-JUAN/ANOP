@@ -18,6 +18,9 @@ import {DropMenuComponent} from './share/drop-menu/drop-menu.component';
 import { HeadBarComponent } from './share/head-bar/head-bar.component';
 import { EditProfileComponent } from './pages/user-center/edit-profile/edit-profile.component';
 import { EditPasswordComponent } from './pages/user-center/edit-password/edit-password.component';
+import {ExamineCenterComponent} from './pages/notification/examine-center/examine-center.component';
+import {PublishCenterComponent} from './pages/notification/publish-center/publish-center.component';
+import {SubscriptionCenterComponent} from './pages/notification/subscription-center/subscription-center.component';
 
 registerLocaleData(zh);
 
@@ -31,7 +34,10 @@ registerLocaleData(zh);
     DropMenuComponent,
     HeadBarComponent,
     EditProfileComponent,
-    EditPasswordComponent
+    EditPasswordComponent,
+    ExamineCenterComponent,
+    PublishCenterComponent,
+    SubscriptionCenterComponent
   ],
   imports: [
     BrowserModule,
