@@ -21,6 +21,10 @@ import { EditPasswordComponent } from './pages/user-center/edit-password/edit-pa
 import {ExamineCenterComponent} from './pages/notification/examine-center/examine-center.component';
 import {PublishCenterComponent} from './pages/notification/publish-center/publish-center.component';
 import {SubscriptionCenterComponent} from './pages/notification/subscription-center/subscription-center.component';
+import {GroupListComponent} from './pages/notification/subscription-center/group-list/group-list.component';
+import { GroupDetailComponent } from './pages/notification/subscription-center/group-detail/group-detail.component';
+import { JoinGroupComponent } from './pages/notification/subscription-center/join-group/join-group.component';
+import { GroupComponent } from './pages/notification/subscription-center/group/group.component';
 
 registerLocaleData(zh);
 
@@ -37,7 +41,11 @@ registerLocaleData(zh);
     EditPasswordComponent,
     ExamineCenterComponent,
     PublishCenterComponent,
-    SubscriptionCenterComponent
+    SubscriptionCenterComponent,
+    GroupListComponent,
+    GroupDetailComponent,
+    JoinGroupComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,
