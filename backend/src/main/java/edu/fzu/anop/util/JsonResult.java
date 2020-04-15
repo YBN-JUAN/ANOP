@@ -72,8 +72,7 @@ class Message<T> {
     }
 
     public Message(HttpStatus status, String message, T data) {
-        this.status = status.value();
-        this.message = message == null ? status.getReasonPhrase() : message;
+        this(status, message);
         this.data = data;
     }
 
