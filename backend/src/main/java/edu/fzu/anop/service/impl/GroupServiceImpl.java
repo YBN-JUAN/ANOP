@@ -6,12 +6,14 @@ import edu.fzu.anop.mapper.GroupMapper;
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.pojo.example.GroupExample;
 import edu.fzu.anop.resource.GroupAddResource;
+import edu.fzu.anop.resource.GroupResource;
 import edu.fzu.anop.resource.GroupUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.GroupService;
+import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.SecurityUtil;
-import edu.fzu.anop.util.ShallowMapperUtil;
+import edu.fzu.anop.util.PropertyMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Group addGroup(@RequestBody @Valid GroupAddResource resource) {
-        Group newGroup = ShallowMapperUtil.map(resource, Group.class);
+        Group newGroup = PropertyMapperUtil.map(resource, Group.class);
         newGroup.setCreationDate(new Date());
         newGroup.setUserId(SecurityUtil.getLoginUser(User.class).getId());
         groupMapper.insert(newGroup);
@@ -50,7 +52,7 @@ public class GroupServiceImpl implements GroupService {
         GroupExample groupExample = new GroupExample();
         GroupExample.Criteria criteria = groupExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        PageSortHelper.pageAndSort(page, GroupResource.class);
         List<Group> groups = groupMapper.selectByExample(groupExample);
         return new PageInfo(groups);
     }
@@ -68,7 +70,7 @@ public class GroupServiceImpl implements GroupService {
         if (!oldGroup.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
             return -1;
         }
-        Group newgroup = ShallowMapperUtil.map(resource, Group.class);
+        Group newgroup = PropertyMapperUtil.map(resource, Group.class);
         return groupMapper.updateByPrimaryKeySelective(newgroup);
     }
 }

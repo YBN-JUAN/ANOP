@@ -14,8 +14,6 @@ public class GroupResource implements Serializable {
 
     private Date creationDate;
 
-    private Byte permission;
-
     public Integer getId() {
         return id;
     }
@@ -54,13 +52,5 @@ public class GroupResource implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public Byte getPermission() {
-        return permission;
-    }
-
-    public void setPermission(Byte permission) {
-        this.permission = permission;
     }
 }
