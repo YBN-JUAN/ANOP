@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fzu.anop.mapper.CustomUserRequestMapper">
+    <resultMap id="BaseResultMap" type="edu.fzu.anop.resource.UserRequestResource">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+        <result column="title" jdbcType="VARCHAR" property="groupName"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="nickname" jdbcType="VARCHAR" property="username"/>
+        <result column="is_accepted" jdbcType="TINYINT" property="isAccepted"/>
+        <result column="request_time" jdbcType="TIMESTAMP" property="requestTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    req.id, req.group_id, g.title, req.user_id, u.nickname, req.is_accepted, req.request_time
+  </sql>
+    <select id="listUserRequest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from noti_user_request as req
+        join noti_group as g
+        join user_info as u
+        where req.is_accepted = 0 and req.group_id = g.id and g.user_id = #{userId,jdbcType=INTEGER} and u.user_id =
+        req.user_id
+    </select>
+    <select id="listManageUserRequest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from noti_user_request as req
+        join noti_group as g
+        join noti_group_user as gu
+        join user_info as u
+        where req.is_accepted = 0 and req.group_id = g.id and gu.user_id = #{userId,jdbcType=INTEGER} and g.id =
+        gu.group_id and gu.is_admin = 1 and u.user_id = req.user_id
+    </select>
+</mapper>

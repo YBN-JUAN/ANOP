@@ -1,6 +1,5 @@
 package edu.fzu.anop.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CustomGroupMapper;
 import edu.fzu.anop.mapper.GroupMapper;
@@ -14,8 +13,8 @@ import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.util.PageSortHelper;
-import edu.fzu.anop.util.SecurityUtil;
 import edu.fzu.anop.util.PropertyMapperUtil;
+import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +35,30 @@ public class GroupServiceImpl implements GroupService {
     private GroupUserService groupUserService;
 
     @Override
+    public boolean hasGroup(int groupId) {
+        Group group = groupMapper.selectByPrimaryKey(groupId);
+        return group != null;
+    }
+
+    @Override
+    public boolean hasAdminRole(int userId, int groupId) {
+        Group group = groupMapper.selectByPrimaryKey(groupId);
+        return group.getUserId() == userId;
+    }
+
+    @Override
+    public boolean isPublicGroup(int groupId) {
+        Group group = groupMapper.selectByPrimaryKey(groupId);
+        return group.getPermission() == 1;
+    }
+
+    @Override
+    public boolean isPrivateGroup(int groupId) {
+        Group group = groupMapper.selectByPrimaryKey(groupId);
+        return group.getPermission() == 2;
+    }
+
+    @Override
     public Group addGroup(@RequestBody @Valid GroupAddResource resource) {
         Group newGroup = PropertyMapperUtil.map(resource, Group.class);
         newGroup.setCreationDate(new Date());
@@ -51,7 +74,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public PageInfo<List<Group>> getUserCreateGroup(PageParmResource page) {
+    public PageInfo<List<Group>> getUserCreateGroups(PageParmResource page) {
         GroupExample groupExample = new GroupExample();
         GroupExample.Criteria criteria = groupExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
@@ -61,7 +84,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public PageInfo<List<Group>> getUserManageGroup(PageParmResource page) {
+    public PageInfo<List<Group>> getUserManageGroups(PageParmResource page) {
         PageSortHelper.pageAndSort(page, GroupResource.class);
         List<Group> groups = customGroupMapper.listUserManageGroups(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(groups);

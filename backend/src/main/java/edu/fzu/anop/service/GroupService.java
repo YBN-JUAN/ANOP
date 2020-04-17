@@ -10,13 +10,21 @@ import edu.fzu.anop.resource.PageParmResource;
 import java.util.List;
 
 public interface GroupService {
+    boolean hasGroup(int groupId);
+
+    boolean hasAdminRole(int userId, int groupId);
+
+    boolean isPublicGroup(int groupId);
+
+    boolean isPrivateGroup(int groupId);
+
     Group addGroup(GroupAddResource resource);
 
     Group getGroup(int groupId);
 
-    PageInfo<List<Group>> getUserManageGroup(PageParmResource page);
+    PageInfo<List<Group>> getUserManageGroups(PageParmResource page);
 
-    PageInfo<List<Group>> getUserCreateGroup(PageParmResource page);
+    PageInfo<List<Group>> getUserCreateGroups(PageParmResource page);
 
     int deleteGroup(Group group);
 

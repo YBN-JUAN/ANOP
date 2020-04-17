@@ -1,22 +1,16 @@
 package edu.fzu.anop.service;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-import edu.fzu.anop.pojo.Group;
-import edu.fzu.anop.pojo.UserRequest;
-
-import java.util.List;
+import edu.fzu.anop.pojo.GroupUser;
+import edu.fzu.anop.resource.GroupUserAddResource;
+import edu.fzu.anop.resource.GroupUserUpdateResource;
 
 public interface GroupUserService {
-    boolean hasAdminRole(int groupId, int userId);
+    boolean hasAdminRole(int userId, int groupId);
 
-    int addGroupUser(int groupId, int userId);
+    boolean isInGroup(int userId, int groupId);
 
-    int deleteGroupUser(int groupId, int userId);
+    int deleteGroupUser(GroupUser groupUser);
 
-    int updateGroupRole(int groupId, int userId, int role);
+    int updateGroupUserRole(GroupUser oldGroupUser, GroupUserUpdateResource resource);
 
-    PageInfo<List<UserRequest>> getUserRequest();
-
-    int acceptOrDenyUserRequest(UserRequest request);
 }

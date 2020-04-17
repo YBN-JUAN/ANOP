@@ -45,7 +45,7 @@ public class GroupController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.getUserCreateGroup(page));
+        return JsonResult.ok(groupService.getUserCreateGroups(page));
     }
 
     @GetMapping("/manage")
@@ -53,7 +53,7 @@ public class GroupController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.getUserManageGroup(page));
+        return JsonResult.ok(groupService.getUserManageGroups(page));
     }
 
     @PatchMapping("/{id}")

@@ -1,13 +1,16 @@
 package edu.fzu.anop.service.impl;
 
-import com.github.pagehelper.PageInfo;
-import edu.fzu.anop.mapper.GroupMapper;
+import edu.fzu.anop.mapper.CustomUserRequestMapper;
 import edu.fzu.anop.mapper.GroupUserMapper;
-import edu.fzu.anop.mapper.UserRequestMapper;
-import edu.fzu.anop.pojo.UserRequest;
-import edu.fzu.anop.pojo.example.GroupExample;
+import edu.fzu.anop.pojo.GroupUser;
 import edu.fzu.anop.pojo.example.GroupUserExample;
+import edu.fzu.anop.resource.GroupUserAddResource;
+import edu.fzu.anop.resource.GroupUserUpdateResource;
+import edu.fzu.anop.security.user.User;
+import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.GroupUserService;
+import edu.fzu.anop.util.PropertyMapperUtil;
+import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +21,11 @@ import java.util.List;
 @Transactional
 public class GroupUserServiceImpl implements GroupUserService {
     @Autowired
-    GroupMapper groupMapper;
-    @Autowired
     GroupUserMapper groupUserMapper;
     @Autowired
-    UserRequestMapper userRequestMapper;
+    CustomUserRequestMapper customGroupUserMapper;
+    @Autowired
+    GroupService groupService;
 
     @Override
     public boolean hasAdminRole(int userId, int groupId) {
@@ -30,32 +33,44 @@ public class GroupUserServiceImpl implements GroupUserService {
         GroupUserExample.Criteria criteria = example.createCriteria();
         criteria.andGroupIdEqualTo(groupId);
         criteria.andUserIdEqualTo(userId);
-        criteria.andIsAdminEqualTo((byte) 1);
-        return groupUserMapper.countByExample(example) > 0;
+        List<GroupUser> groupUsers = groupUserMapper.selectByExample(example);
+        if (groupUsers.size() > 0) {
+            return groupUsers.get(0).getIsAdmin() == 1;
+        }
+        return false;
     }
 
     @Override
-    public int addGroupUser(int groupId, int userId) {
-        return 0;
+    public boolean isInGroup(int userId, int groupId) {
+        GroupUserExample example = new GroupUserExample();
+        GroupUserExample.Criteria criteria = example.createCriteria();
+        criteria.andGroupIdEqualTo(groupId);
+        criteria.andUserIdEqualTo(userId);
+        List<GroupUser> groupUsers = groupUserMapper.selectByExample(example);
+        return groupUsers.size() > 0;
     }
 
     @Override
-    public int deleteGroupUser(int groupId, int userId) {
-        return 0;
+    public int deleteGroupUser(GroupUser groupUser) {
+        if (!groupService.hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), groupUser.getId())) {
+            if (!hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), groupUser.getGroupId())) {
+                if (!isInGroup(groupUser.getUserId(), groupUser.getGroupId())) {
+                    return -1;
+                }
+            }
+        }
+        return groupUserMapper.deleteByPrimaryKey(groupUser.getId());
     }
 
     @Override
-    public int updateGroupRole(int groupId, int userId, int role) {
-        return 0;
-    }
-
-    @Override
-    public PageInfo<List<UserRequest>> getUserRequest() {
-        return null;
-    }
-
-    @Override
-    public int acceptOrDenyUserRequest(UserRequest request) {
-        return 0;
+    public int updateGroupUserRole(GroupUser oldGroupUser, GroupUserUpdateResource resource) {
+        if (!groupService.hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), oldGroupUser.getGroupId())) {
+            if (!isInGroup(oldGroupUser.getUserId(), oldGroupUser.getGroupId())) {
+                return -1;
+            }
+        }
+        GroupUser newGroupUser = PropertyMapperUtil.map(resource, GroupUser.class);
+        newGroupUser.setId(oldGroupUser.getId());
+        return groupUserMapper.updateByPrimaryKeySelective(newGroupUser);
     }
 }
