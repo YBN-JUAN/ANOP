@@ -11,7 +11,7 @@ public class PageSortHelper {
             orderBy = pageParm.getOrderBy().trim();
             String[] strings = orderBy.split("\\s+");
             if (strings.length > 1) {
-                if (PropertyMapperUtil.hasProperty(strings[0], GroupResource.class)) {
+                if (PropertyMapperUtil.hasProperty(strings[0], sortClass)) {
                     String property = PropertyMapperUtil.getUnderscoreFormat(strings[0]);
                     PageHelper.startPage(pageParm.getPageNum(), pageParm.getPageSize(), property + " " + strings[1]);
                     return;
