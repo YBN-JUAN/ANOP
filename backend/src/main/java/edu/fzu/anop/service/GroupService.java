@@ -14,7 +14,9 @@ public interface GroupService {
 
     Group getGroup(int groupId);
 
-    PageInfo<List<Group>> getUserGroups(PageParmResource page);
+    PageInfo<List<Group>> getUserManageGroup(PageParmResource page);
+
+    PageInfo<List<Group>> getUserCreateGroup(PageParmResource page);
 
     int deleteGroup(Group group);
 

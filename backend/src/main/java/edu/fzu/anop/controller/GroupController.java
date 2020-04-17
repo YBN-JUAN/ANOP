@@ -8,14 +8,12 @@ import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/pub/groups")
@@ -34,7 +32,7 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Object getGroup(@PathVariable("id") int id) {
+    public Object getCreteGroup(@PathVariable("id") int id) {
         Group group = groupService.getGroup(id);
         if (group == null) {
             return JsonResult.notFound("group was not found", null);
@@ -43,11 +41,19 @@ public class GroupController {
     }
 
     @GetMapping()
-    public Object getGroups(@Valid PageParmResource page, BindingResult bindingResult) {
+    public Object getCreateGroups(@Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.getUserGroups(page));
+        return JsonResult.ok(groupService.getUserCreateGroup(page));
+    }
+
+    @GetMapping("/manage")
+    public Object getManageGroups(@Valid PageParmResource page, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
+        }
+        return JsonResult.ok(groupService.getUserManageGroup(page));
     }
 
     @PatchMapping("/{id}")
