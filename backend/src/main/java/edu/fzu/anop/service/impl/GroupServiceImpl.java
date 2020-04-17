@@ -3,8 +3,11 @@ package edu.fzu.anop.service.impl;
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CustomGroupMapper;
 import edu.fzu.anop.mapper.GroupMapper;
+import edu.fzu.anop.mapper.UserRequestMapper;
 import edu.fzu.anop.pojo.Group;
+import edu.fzu.anop.pojo.UserRequest;
 import edu.fzu.anop.pojo.example.GroupExample;
+import edu.fzu.anop.pojo.example.UserRequestExample;
 import edu.fzu.anop.resource.GroupAddResource;
 import edu.fzu.anop.resource.GroupResource;
 import edu.fzu.anop.resource.GroupUpdateResource;
@@ -33,6 +36,8 @@ public class GroupServiceImpl implements GroupService {
     private CustomGroupMapper customGroupMapper;
     @Autowired
     private GroupUserService groupUserService;
+    @Autowired
+    private UserRequestMapper userRequestMapper;
 
     @Override
     public boolean hasGroup(int groupId) {
@@ -105,8 +110,18 @@ public class GroupServiceImpl implements GroupService {
                 return -1;
             }
         }
-        Group newgroup = PropertyMapperUtil.map(resource, Group.class);
-        newgroup.setId(oldGroup.getId());
-        return groupMapper.updateByPrimaryKeySelective(newgroup);
+        if (resource.getPermission() != null && resource.getPermission() == 2 && oldGroup.getPermission() != 2) {
+            UserRequestExample example = new UserRequestExample();
+            UserRequestExample.Criteria criteria = example.createCriteria();
+            criteria.andGroupIdEqualTo(oldGroup.getId());
+            criteria.andIsAcceptedEqualTo((byte) 0);
+            UserRequest userRequest = new UserRequest();
+            userRequest.setIsAccepted((byte) 2);
+            userRequestMapper.updateByExampleSelective(userRequest, example);
+        }
+
+        Group newGroup = PropertyMapperUtil.map(resource, Group.class);
+        newGroup.setId(oldGroup.getId());
+        return groupMapper.updateByPrimaryKeySelective(newGroup);
     }
 }

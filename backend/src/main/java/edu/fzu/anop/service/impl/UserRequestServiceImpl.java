@@ -38,6 +38,15 @@ public class UserRequestServiceImpl implements UserRequestService {
     @Autowired
     GroupUserMapper groupUserMapper;
 
+    private int addGroupUser(int userId, int groupId) {
+        GroupUserAddResource resource = new GroupUserAddResource();
+        resource.setUserId(userId);
+        resource.setGroupId(groupId);
+        GroupUser newGroupUser = PropertyMapperUtil.map(resource, GroupUser.class);
+        newGroupUser.setIsAdmin((byte) 0);
+        return groupUserMapper.insert(newGroupUser);
+    }
+
     @Override
     public int addUserRequest(UserRequestAddResource resource) {
         int currentUserId = SecurityUtil.getLoginUser(User.class).getId();
@@ -46,6 +55,12 @@ public class UserRequestServiceImpl implements UserRequestService {
         }
         if (groupService.hasAdminRole(currentUserId, resource.getGroupId()) || groupUserService.isInGroup(currentUserId, resource.getGroupId())) {
             return -1;
+        }
+        if (groupService.isPrivateGroup(resource.getGroupId())) {
+            return -1;
+        }
+        if (groupService.isPublicGroup(resource.getGroupId())) {
+            return addGroupUser(currentUserId, resource.getGroupId());
         }
         UserRequestExample requestExample = new UserRequestExample();
         UserRequestExample.Criteria criteria = requestExample.createCriteria();
@@ -108,10 +123,9 @@ public class UserRequestServiceImpl implements UserRequestService {
                 }
             }
             if (request.getUserId() != currentUserId && !groupUserService.isInGroup(request.getUserId(), request.getGroupId())) {
-                GroupUserAddResource resource = PropertyMapperUtil.map(request, GroupUserAddResource.class);
-                GroupUser newGroupUser = PropertyMapperUtil.map(resource, GroupUser.class);
-                newGroupUser.setIsAdmin((byte) 0);
-                groupUserMapper.insert(newGroupUser);
+                if (!groupService.isPrivateGroup(request.getGroupId())) {
+                    addGroupUser(request.getUserId(), request.getGroupId());
+                }
             }
             request.setIsAccepted((byte) 1);
             return userRequestMapper.updateByPrimaryKey(request);
