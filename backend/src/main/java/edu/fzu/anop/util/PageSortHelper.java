@@ -10,10 +10,14 @@ public class PageSortHelper {
         if (!StringUtil.isNullOrWhiteSpace(orderBy)) {
             orderBy = pageParm.getOrderBy().trim();
             String[] strings = orderBy.split("\\s+");
-            if (strings.length > 1) {
+            if (strings.length > 0) {
                 if (PropertyMapperUtil.hasProperty(strings[0], sortClass)) {
                     String property = PropertyMapperUtil.getUnderscoreFormat(strings[0]);
-                    PageHelper.startPage(pageParm.getPageNum(), pageParm.getPageSize(), property + " " + strings[1]);
+                    if (strings.length > 1) {
+                        PageHelper.startPage(pageParm.getPageNum(), pageParm.getPageSize(), property + " " + strings[1]);
+                    } else {
+                        PageHelper.startPage(pageParm.getPageNum(), pageParm.getPageSize(), property);
+                    }
                     return;
                 }
             }
