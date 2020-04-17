@@ -2,6 +2,7 @@ package edu.fzu.anop.resource;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
@@ -11,11 +12,11 @@ import java.util.Date;
 
 public class GroupAddResource implements Serializable {
     @NotNull
-    @Length(min = 1, max = 15)
+    @Length(min = 0, max = 15)
     private String title;
 
     @NotNull
-    @Length(min = 1, max = 127)
+    @Length(min = 0, max = 127)
     private String remark;
 
 

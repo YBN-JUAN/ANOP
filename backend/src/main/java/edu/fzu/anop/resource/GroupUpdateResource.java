@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class GroupUpdateResource implements Serializable {
-    @Length(min = 1, max = 15)
+    @Length(min = 0, max = 15)
     private String title;
 
-    @Length(min = 1, max = 127)
+    @Length(min = 0, max = 127)
     private String remark;
 
     @Range(min = 0, max = 2)
