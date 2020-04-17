@@ -24,7 +24,7 @@ public class GroupController {
     GroupService groupService;
 
     @PostMapping()
-    public ResponseEntity addGroup(
+    public Object addGroup(
         @RequestBody @Valid GroupAddResource resource, BindingResult bindingResult) throws URISyntaxException {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
@@ -51,11 +51,14 @@ public class GroupController {
     }
 
     @PatchMapping("/{id}")
-    public Object updateGroup(@RequestBody @Valid GroupUpdateResource resource, BindingResult bindingResult) {
+    public Object updateGroup(
+        @RequestBody @Valid GroupUpdateResource resource,
+        @PathVariable("id") int id,
+        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        Group group = groupService.getGroup(resource.getId());
+        Group group = groupService.getGroup(id);
         if (group == null) {
             return JsonResult.notFound("group was not found", null);
         }

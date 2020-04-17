@@ -8,9 +8,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class GroupUpdateResource implements Serializable {
-    @NotNull
-    private Integer id;
-
     @Length(min = 1, max = 15)
     private String title;
 
@@ -19,14 +16,6 @@ public class GroupUpdateResource implements Serializable {
 
     @Range(min = 0, max = 2)
     private Byte permission;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

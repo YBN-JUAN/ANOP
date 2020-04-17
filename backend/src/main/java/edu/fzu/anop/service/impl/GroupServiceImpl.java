@@ -71,6 +71,7 @@ public class GroupServiceImpl implements GroupService {
             return -1;
         }
         Group newgroup = PropertyMapperUtil.map(resource, Group.class);
+        newgroup.setId(oldGroup.getId());
         return groupMapper.updateByPrimaryKeySelective(newgroup);
     }
 }
