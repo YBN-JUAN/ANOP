@@ -1,14 +1,19 @@
 package edu.fzu.anop.service.impl;
 
+import com.github.pagehelper.PageInfo;
+import edu.fzu.anop.mapper.CustomGroupUserMapper;
 import edu.fzu.anop.mapper.CustomUserRequestMapper;
 import edu.fzu.anop.mapper.GroupUserMapper;
 import edu.fzu.anop.pojo.GroupUser;
 import edu.fzu.anop.pojo.example.GroupUserExample;
+import edu.fzu.anop.resource.GroupUserResource;
 import edu.fzu.anop.resource.GroupUserUpdateResource;
+import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.GroupUserService;
+import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +28,7 @@ public class GroupUserServiceImpl implements GroupUserService {
     @Autowired
     GroupUserMapper groupUserMapper;
     @Autowired
-    CustomUserRequestMapper customGroupUserMapper;
+    CustomGroupUserMapper customGroupUserMapper;
     @Autowired
     GroupService groupService;
     @Autowired
@@ -53,21 +58,49 @@ public class GroupUserServiceImpl implements GroupUserService {
     }
 
     @Override
+    public GroupUserResource getGroupUserInfo(int userId, int groupId) {
+        if (!isInGroup(SecurityUtil.getLoginUser(User.class).getId(), groupId)) {
+            return null;
+        }
+        return customGroupUserMapper.selectGroupUser(userId, groupId);
+    }
+
+    @Override
+    public GroupUser getGroupUser(int userId, int groupId) {
+        GroupUserExample example = new GroupUserExample();
+        GroupUserExample.Criteria criteria = example.createCriteria();
+        criteria.andGroupIdEqualTo(groupId);
+        criteria.andUserIdEqualTo(userId);
+        List<GroupUser> groupUsers = groupUserMapper.selectByExample(example);
+        if (groupUsers.size() > 0) {
+            return groupUsers.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public PageInfo<List<GroupUserResource>> listGroupUser(PageParmResource page, int groupId) {
+        if (!isInGroup(SecurityUtil.getLoginUser(User.class).getId(), groupId)) {
+            return null;
+        }
+        PageSortHelper.pageAndSort(page, GroupUserResource.class);
+        List<GroupUserResource> groupUsers = customGroupUserMapper.listGroupUser(groupId);
+        return new PageInfo(groupUsers);
+    }
+
+
+    @Override
     public int deleteGroupUser(GroupUser groupUser) {
-        if (!authService.canDeleteGroupUser(groupUser.getGroupId())) {
-            if (!isInGroup(groupUser.getUserId(), groupUser.getGroupId())) {
-                return -1;
-            }
+        if (!authService.canDeleteGroupUser(groupUser.getGroupId()) || !isInGroup(groupUser.getUserId(), groupUser.getGroupId())) {
+            return -1;
         }
         return groupUserMapper.deleteByPrimaryKey(groupUser.getId());
     }
 
     @Override
     public int updateGroupUserRole(GroupUser oldGroupUser, GroupUserUpdateResource resource) {
-        if (!authService.canUpdateGroupUserRole(oldGroupUser.getGroupId())) {
-            if (!isInGroup(oldGroupUser.getUserId(), oldGroupUser.getGroupId())) {
-                return -1;
-            }
+        if (!authService.canUpdateGroupUserRole(oldGroupUser.getGroupId()) || !isInGroup(oldGroupUser.getUserId(), oldGroupUser.getGroupId())) {
+            return -1;
         }
         GroupUser newGroupUser = PropertyMapperUtil.map(resource, GroupUser.class);
         newGroupUser.setId(oldGroupUser.getId());
