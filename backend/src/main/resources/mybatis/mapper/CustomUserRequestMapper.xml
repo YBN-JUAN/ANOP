@@ -7,12 +7,13 @@
         <result column="title" jdbcType="VARCHAR" property="groupName"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="nickname" jdbcType="VARCHAR" property="username"/>
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
         <result column="is_accepted" jdbcType="TINYINT" property="isAccepted"/>
         <result column="request_time" jdbcType="TIMESTAMP" property="requestTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    req.id, req.group_id, g.title, req.user_id, u.nickname, req.is_accepted, req.request_time
+    req.id, req.group_id, g.title, req.user_id, u.nickname, u.avatar_url, req.is_accepted, req.request_time
   </sql>
     <select id="listUserRequest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
