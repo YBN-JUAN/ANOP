@@ -12,7 +12,7 @@ import java.util.List;
 public interface GroupService {
     boolean hasGroup(int groupId);
 
-    boolean hasAdminRole(int userId, int groupId);
+    boolean isGroupCreator(int userId, int groupId);
 
     boolean isPublicGroup(int groupId);
 

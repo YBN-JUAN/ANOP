@@ -12,6 +12,7 @@ import edu.fzu.anop.resource.UserRequestAddResource;
 import edu.fzu.anop.resource.UserRequestResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
+import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.UserRequestService;
 import edu.fzu.anop.service.GroupUserService;
@@ -37,6 +38,8 @@ public class UserRequestServiceImpl implements UserRequestService {
     UserRequestMapper userRequestMapper;
     @Autowired
     GroupUserMapper groupUserMapper;
+    @Autowired
+    GroupAuthService authService;
 
     private int addGroupUser(int userId, int groupId) {
         GroupUserAddResource resource = new GroupUserAddResource();
@@ -53,7 +56,7 @@ public class UserRequestServiceImpl implements UserRequestService {
         if (!groupService.hasGroup(resource.getGroupId())) {
             return -1;
         }
-        if (groupService.hasAdminRole(currentUserId, resource.getGroupId()) || groupUserService.isInGroup(currentUserId, resource.getGroupId())) {
+        if (groupUserService.isInGroup(currentUserId, resource.getGroupId())) {
             return -1;
         }
         if (groupService.isPrivateGroup(resource.getGroupId())) {
@@ -116,13 +119,10 @@ public class UserRequestServiceImpl implements UserRequestService {
             return 1;
         }
         if (isAccepted == 1) {
-            int currentUserId = SecurityUtil.getLoginUser(User.class).getId();
-            if (!groupService.hasAdminRole(currentUserId, request.getGroupId())) {
-                if (!groupUserService.hasAdminRole(currentUserId, request.getGroupId())) {
-                    return -1;
-                }
+            if (!authService.canHandleUserRequest(request.getGroupId())) {
+                return -1;
             }
-            if (request.getUserId() != currentUserId && !groupUserService.isInGroup(request.getUserId(), request.getGroupId())) {
+            if (!groupUserService.isInGroup(request.getUserId(), request.getGroupId())) {
                 if (!groupService.isPrivateGroup(request.getGroupId())) {
                     addGroupUser(request.getUserId(), request.getGroupId());
                 }

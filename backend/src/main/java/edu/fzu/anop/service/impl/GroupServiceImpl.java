@@ -13,6 +13,7 @@ import edu.fzu.anop.resource.GroupResource;
 import edu.fzu.anop.resource.GroupUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
+import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.util.PageSortHelper;
@@ -35,9 +36,9 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private CustomGroupMapper customGroupMapper;
     @Autowired
-    private GroupUserService groupUserService;
-    @Autowired
     private UserRequestMapper userRequestMapper;
+    @Autowired
+    private GroupAuthService authService;
 
     @Override
     public boolean hasGroup(int groupId) {
@@ -46,7 +47,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean hasAdminRole(int userId, int groupId) {
+    public boolean isGroupCreator(int userId, int groupId) {
         Group group = groupMapper.selectByPrimaryKey(groupId);
         return group.getUserId() == userId;
     }
@@ -97,7 +98,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public int deleteGroup(Group group) {
-        if (!group.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+        if (!authService.canDeleteGroup(group.getId())) {
             return -1;
         }
         return groupMapper.deleteByPrimaryKey(group.getId());
@@ -105,10 +106,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public int updateGroup(Group oldGroup, GroupUpdateResource resource) {
-        if (!oldGroup.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
-            if (!groupUserService.hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), oldGroup.getId())) {
-                return -1;
-            }
+        if (!authService.canUpdateGroupInfo(oldGroup.getId())) {
+            return -1;
         }
         if (resource.getPermission() != null && resource.getPermission() == 2 && oldGroup.getPermission() != 2) {
             UserRequestExample example = new UserRequestExample();

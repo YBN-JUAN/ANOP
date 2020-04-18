@@ -4,9 +4,9 @@ import edu.fzu.anop.mapper.CustomUserRequestMapper;
 import edu.fzu.anop.mapper.GroupUserMapper;
 import edu.fzu.anop.pojo.GroupUser;
 import edu.fzu.anop.pojo.example.GroupUserExample;
-import edu.fzu.anop.resource.GroupUserAddResource;
 import edu.fzu.anop.resource.GroupUserUpdateResource;
 import edu.fzu.anop.security.user.User;
+import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.util.PropertyMapperUtil;
@@ -26,6 +26,8 @@ public class GroupUserServiceImpl implements GroupUserService {
     CustomUserRequestMapper customGroupUserMapper;
     @Autowired
     GroupService groupService;
+    @Autowired
+    GroupAuthService authService;
 
     @Override
     public boolean hasAdminRole(int userId, int groupId) {
@@ -47,16 +49,14 @@ public class GroupUserServiceImpl implements GroupUserService {
         criteria.andGroupIdEqualTo(groupId);
         criteria.andUserIdEqualTo(userId);
         List<GroupUser> groupUsers = groupUserMapper.selectByExample(example);
-        return groupUsers.size() > 0;
+        return groupUsers.size() > 0 || groupService.isGroupCreator(userId, groupId);
     }
 
     @Override
     public int deleteGroupUser(GroupUser groupUser) {
-        if (!groupService.hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), groupUser.getId())) {
-            if (!hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), groupUser.getGroupId())) {
-                if (!isInGroup(groupUser.getUserId(), groupUser.getGroupId())) {
-                    return -1;
-                }
+        if (!authService.canDeleteGroupUser(groupUser.getGroupId())) {
+            if (!isInGroup(groupUser.getUserId(), groupUser.getGroupId())) {
+                return -1;
             }
         }
         return groupUserMapper.deleteByPrimaryKey(groupUser.getId());
@@ -64,7 +64,7 @@ public class GroupUserServiceImpl implements GroupUserService {
 
     @Override
     public int updateGroupUserRole(GroupUser oldGroupUser, GroupUserUpdateResource resource) {
-        if (!groupService.hasAdminRole(SecurityUtil.getLoginUser(User.class).getId(), oldGroupUser.getGroupId())) {
+        if (!authService.canUpdateGroupUserRole(oldGroupUser.getGroupId())) {
             if (!isInGroup(oldGroupUser.getUserId(), oldGroupUser.getGroupId())) {
                 return -1;
             }
