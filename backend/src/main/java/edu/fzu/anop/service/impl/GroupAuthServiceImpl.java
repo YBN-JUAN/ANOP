@@ -51,4 +51,19 @@ public class GroupAuthServiceImpl implements GroupAuthService {
     public boolean canHandleUserRequest(int groupId) {
         return hasBaseRole(groupId);
     }
+
+    @Override
+    public boolean canAddNotification(int groupId) {
+        return hasBaseRole(groupId);
+    }
+
+    @Override
+    public boolean canUpdateNotification(int groupId) {
+        return hasBaseRole(groupId);
+    }
+
+    @Override
+    public boolean canDeleteNotification(int groupId) {
+        return hasBaseRole(groupId);
+    }
 }

@@ -10,4 +10,10 @@ public interface GroupAuthService {
     boolean canDeleteGroupUser(int groupId);
 
     boolean canHandleUserRequest(int groupId);
+
+    boolean canAddNotification(int groupId);
+
+    boolean canUpdateNotification(int groupId);
+
+    boolean canDeleteNotification(int groupId);
 }

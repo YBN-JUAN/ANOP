@@ -91,7 +91,7 @@ public class GroupUserServiceImpl implements GroupUserService {
 
     @Override
     public int deleteGroupUser(GroupUser groupUser) {
-        if (!authService.canDeleteGroupUser(groupUser.getGroupId()) || !isInGroup(groupUser.getUserId(), groupUser.getGroupId())) {
+        if (!authService.canDeleteGroupUser(groupUser.getGroupId())) {
             return -1;
         }
         return groupUserMapper.deleteByPrimaryKey(groupUser.getId());
@@ -99,7 +99,7 @@ public class GroupUserServiceImpl implements GroupUserService {
 
     @Override
     public int updateGroupUserRole(GroupUser oldGroupUser, GroupUserUpdateResource resource) {
-        if (!authService.canUpdateGroupUserRole(oldGroupUser.getGroupId()) || !isInGroup(oldGroupUser.getUserId(), oldGroupUser.getGroupId())) {
+        if (!authService.canUpdateGroupUserRole(oldGroupUser.getGroupId())) {
             return -1;
         }
         GroupUser newGroupUser = PropertyMapperUtil.map(resource, GroupUser.class);
