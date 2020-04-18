@@ -15,22 +15,26 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("springboot利用swagger构建api文档")
-            .description("简单优雅的restfun风格")
-            .termsOfServiceUrl("http://www.anop.fzu.edu.cn")
-            .version("1.0")
-            .build();
+                .title("ANOP(通之) 内部接口文档")
+                .description(
+                        "开发者：快乐就队\n" +
+                        "项目：ANOP 通之\n\n" +
+                        "powered by swagger2"
+                )
+                .termsOfServiceUrl("http://www.anop.fzu.edu.cn")
+                .version("1.0")
+                .build();
     }
 
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-            .apiInfo(apiInfo())
-            .select()
-            //扫描basePackage包下面的“/rest/”路径下的内容作为接口文档构建的目标
-            .apis(RequestHandlerSelectors.basePackage("edu.fzu.anop.controller"))
-            .paths(PathSelectors.regex("/.*"))
-            .build();
+                .apiInfo(apiInfo())
+                .select()
+                //扫描basePackage包下面的“/rest/”路径下的内容作为接口文档构建的目标
+                .apis(RequestHandlerSelectors.basePackage("edu.fzu.anop.controller"))
+                .paths(PathSelectors.regex("/.*"))
+                .build();
     }
 
 
