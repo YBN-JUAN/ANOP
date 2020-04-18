@@ -1,11 +1,19 @@
-.login-form {
-  max-width: 300px;
+.login-logo {
+  font-size: 50px;
+  margin: 0px;
+  padding-left: 24%;
 }
 
-.login-form-forgot {
-  float: right;
+.content {
+  padding: 0px;
+  margin-left: 720px;
+  margin-top: 320px;
 }
 
-.login-form-button {
-  width: 100%;
+.tabs {
+  margin-left: 30px;
+}
+
+.login-tab {
+  margin-left: 20px;
 }

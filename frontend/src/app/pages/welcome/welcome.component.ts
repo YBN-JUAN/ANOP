@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {AuthService} from '../../share/service/auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-welcome',
@@ -10,51 +8,33 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-  validateForm: FormGroup;
-  error: boolean = false;
-  errMsg:string;
-
-  constructor(private fb: FormBuilder,
-              private http:HttpClient,
-              private router: Router,
-              private app: AuthService) {}
+  selectIndex = 0;
+  tabs: any[] = [
+    {
+      key: 'login',
+      title: '登录'
+    },
+    {
+      key: 'register',
+      title: '注册'
+    }
+  ];
+  constructor(private router:Router) {}
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-    });
+    this.initTab();
   }
 
-  submitForm(): void {
-    if (!this.validateForm.valid) {
-      this.openDirtyControl(this.validateForm);
-    } else {
-      console.log(this.validateForm.value);
-      this.app.authenticate<object>(this.validateForm.value, () => {
-          this.router.navigateByUrl('/notification');
-        },
-        (result)=>{
-          this.error = true;
-          alert(result.message);
-          this.errMsg=result.message;
-        });
-    }
+  taoTo(tab) {
+    this.router.navigateByUrl(`/welcome/${tab.key}`);
   }
 
-  // 打开脏检验
-  openDirtyControl(data) {
-    for (const i in data.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
+  initTab() {
+    // 设置再次刷新页面时还是显示之前的tab
+    const key = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
+    const idx = this.tabs.findIndex(w => w.key === key);
+    this.selectIndex = idx;
+    this.router.navigateByUrl(`/cardWhole/${this.tabs[this.selectIndex].key}`);
   }
 
-  // 关闭脏校验
-  closeDirtyControl(data) {
-    for (const i in data.controls) {
-      this.validateForm.controls[i].clearValidators();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-  }
 }

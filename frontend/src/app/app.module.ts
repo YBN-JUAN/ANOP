@@ -27,6 +27,8 @@ import { JoinGroupComponent } from './pages/notification/subscription-center/joi
 import { GroupComponent } from './pages/notification/subscription-center/group/group.component';
 import {CookieService} from 'ngx-cookie-service';
 import {GlobalInterceptor} from './interceptor/global-interceptor.interceptor';
+import {LoginComponent} from './pages/welcome/login/login.component';
+import {RegisterComponent} from './pages/welcome/register/register.component';
 
 registerLocaleData(zh);
 
@@ -34,6 +36,8 @@ registerLocaleData(zh);
   declarations: [
     AppComponent,
     WelcomeComponent,
+    LoginComponent,
+    RegisterComponent,
     NotificationComponent,
     MemorandumComponent,
     UserCenterComponent,

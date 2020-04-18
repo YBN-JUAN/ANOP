@@ -1,23 +1,18 @@
+<div class="content -fullscreen">
+  <nz-col></nz-col>
+  <nz-col>
+    <nz-card>
+      <p class="login-logo">
+        <strong>A N O P</strong>
+      </p>
+      <nz-tabset nzSize="large" [(nzSelectedIndex)]="selectIndex" class="tabs">
+        <nz-tab  class="login-tab" [nzTitle]="item.title" *ngFor="let item of tabs" (nzClick)='taoTo(item)'></nz-tab>
+      </nz-tabset>
+      <router-outlet></router-outlet>
+    </nz-card>
+  </nz-col>
+  <nz-col></nz-col>
+</div>
 
-<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-  <nz-form-item>
-    <nz-form-control nzErrorTip="请输入用户名!">
-      <nz-input-group nzPrefixIcon="user">
-        <input type="text" nz-input formControlName="username" placeholder="Username" />
-      </nz-input-group>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control nzErrorTip="请输入密码!">
-      <nz-input-group nzPrefixIcon="lock">
-        <input type="password" nz-input formControlName="password" placeholder="Password" />
-      </nz-input-group>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control>
-      <button nz-button class="login-form-button" [nzType]="'primary'">登录</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
-<router-outlet></router-outlet>
+
+
