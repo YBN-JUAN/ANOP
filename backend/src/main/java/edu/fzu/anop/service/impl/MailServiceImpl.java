@@ -37,7 +37,7 @@ public class MailServiceImpl implements MailService {
     private FreeMarkerConfigurer freeMarkerConfigurer;
 
     @Override
-    public void SendRemindMails() throws IOException, TemplateException, MessagingException {
+    public void sendRemindMails() throws IOException, TemplateException, MessagingException {
         List<RemindEmail> remindEmails = remindMailMapper.selectRemindMails();
         Template template = freeMarkerConfigurer.getConfiguration().getTemplate("EmailTemplate.html");
 
@@ -52,6 +52,7 @@ public class MailServiceImpl implements MailService {
     /**
      * 发送html邮件
      */
+    @Override
     public void sendHtmlMail(String to, String subject, String content) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);

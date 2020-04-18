@@ -6,5 +6,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 
 public interface MailService {
-    void SendRemindMails() throws IOException, TemplateException, MessagingException;
+    void sendRemindMails() throws IOException, TemplateException, MessagingException;
+
+    void sendHtmlMail(String to, String subject, String content) throws MessagingException;
 }
