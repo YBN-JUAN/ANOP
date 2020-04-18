@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -25,6 +25,8 @@ import {GroupListComponent} from './pages/notification/subscription-center/group
 import { GroupDetailComponent } from './pages/notification/subscription-center/group-detail/group-detail.component';
 import { JoinGroupComponent } from './pages/notification/subscription-center/join-group/join-group.component';
 import { GroupComponent } from './pages/notification/subscription-center/group/group.component';
+import {CookieService} from 'ngx-cookie-service';
+import {GlobalInterceptor} from './interceptor/global-interceptor.interceptor';
 
 registerLocaleData(zh);
 
@@ -48,6 +50,7 @@ registerLocaleData(zh);
     GroupComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     IconsProviderModule,
@@ -56,7 +59,9 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN },
+    { provide: HTTP_INTERCEPTORS, useClass: GlobalInterceptor, multi: true },
+              CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

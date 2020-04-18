@@ -9,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class GlobalInterceptorInterceptor implements HttpInterceptor {
+export class GlobalInterceptor implements HttpInterceptor {
 
   constructor(private cookieService:CookieService) {}
 
