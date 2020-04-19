@@ -14,11 +14,13 @@ import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     @Resource

@@ -11,6 +11,7 @@ import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Service
+@Transactional
 public class TodoServiceImpl implements TodoService {
 
     @Resource
