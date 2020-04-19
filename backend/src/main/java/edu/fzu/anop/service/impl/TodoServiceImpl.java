@@ -34,7 +34,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public int deleteTodo(Todo todo) {
-        return 0;
+        return todoMapper.deleteByPrimaryKey(todo.getId());
     }
 
     @Override
