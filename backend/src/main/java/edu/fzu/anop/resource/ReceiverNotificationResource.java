@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ReceiverNotificationResource implements Serializable {
-    private Integer notificationId;
+    private Integer Id;
 
     private Integer groupId;
 
@@ -22,12 +22,12 @@ public class ReceiverNotificationResource implements Serializable {
 
     private Byte isRead;
 
-    public Integer getNotificationId() {
-        return notificationId;
+    public Integer getId() {
+        return Id;
     }
 
-    public void setNotificationId(Integer notificationId) {
-        this.notificationId = notificationId;
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public Integer getGroupId() {

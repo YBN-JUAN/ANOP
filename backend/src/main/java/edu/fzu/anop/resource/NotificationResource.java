@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class NotificationResource implements Serializable {
+    private Integer Id;
+
     private Integer groupId;
 
     private Integer userId;
@@ -17,6 +19,14 @@ public class NotificationResource implements Serializable {
     private String content;
 
     private Date creationDate;
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 
     public Integer getGroupId() {
         return groupId;
