@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fzu.anop.mapper.CustomCategoryMapper">
+    <resultMap id="BaseResultMap" type="edu.fzu.anop.resource.CategoryListResource">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="todo_num" jdbcType="VARCHAR" property="todoNum"/>
+    </resultMap>
+    <select id="listCategories" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT tc.id,
+               tc.type_name,
+               (SELECT COUNT(todo.id) FROM todo WHERE todo.category_id = tc.id) as todo_num
+        FROM todo_category as tc
+                 JOIN user_info as ui
+        WHERE tc.user_id = ui.user_id
+          AND ui.user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+</mapper>
