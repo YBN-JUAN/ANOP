@@ -17,15 +17,14 @@
         select
         <include refid="Base_Column_List"/>
         from noti_group_user as gu
-        join user_info as u
-        where gu.group_id = #{groupId,jdbcType=INTEGER} and gu.user_id = u.user_id
+        join user_info as u on gu.user_id = u.user_id
+        where gu.group_id = #{groupId,jdbcType=INTEGER}
     </select>
     <select id="selectGroupUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from noti_group_user as gu
-        join user_info as u
-        where gu.group_id = #{groupId,jdbcType=INTEGER} and gu.user_id = #{userId,jdbcType=INTEGER} and gu.user_id =
-        u.user_id
+        join user_info as u on gu.user_id = u.user_id
+        where gu.group_id = #{groupId,jdbcType=INTEGER} and gu.user_id = #{userId,jdbcType=INTEGER}
     </select>
 </mapper>

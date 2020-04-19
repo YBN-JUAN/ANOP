@@ -17,7 +17,7 @@
         <include refid="Base_Column_List"/>
         from noti_group_user as gu
         join user_info as u on gu.user_id = u.user_id
-        left join noti_receiver as r on r.notification_id = #{notificationId,jdbcType=INTEGER} and r.user_id=gu.user_id
+        left join noti_receiver as r on r.user_id=gu.user_id and r.notification_id = #{notificationId,jdbcType=INTEGER}
         where gu.group_id = #{groupId,jdbcType=INTEGER} and gu.is_admin = 0
     </select>
 

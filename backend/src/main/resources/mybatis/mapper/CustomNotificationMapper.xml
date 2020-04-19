@@ -28,16 +28,15 @@
         select
         <include refid="Base_Column_List"/>
         from notification as n
-        join user_info as u
-        where n.group_id = #{groupId,jdbcType=INTEGER} and n.user_id = u.user_id
+        join user_info as u on n.user_id = u.user_id
+        where n.group_id = #{groupId,jdbcType=INTEGER}
     </select>
     <select id="selectNotification" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from notification as n
-        join user_info as u
-        where n.id = #{notificationId,jdbcType=INTEGER} and n.group_id = #{groupId,jdbcType=INTEGER} and n.user_id =
-        u.user_id
+        join user_info as u on n.user_id = u.user_id
+        where n.id = #{notificationId,jdbcType=INTEGER} and n.group_id = #{groupId,jdbcType=INTEGER}
     </select>
     <sql id="Detail_Column_List">
         n.id, n.group_id, n.user_id, u.nickname, u.avatar_url, n.title, n.content, n.creation_date, r.is_read

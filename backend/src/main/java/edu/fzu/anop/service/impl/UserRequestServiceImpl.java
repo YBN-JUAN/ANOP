@@ -94,13 +94,13 @@ public class UserRequestServiceImpl implements UserRequestService {
     }
 
     @Override
-    public PageInfo<List<UserRequestResource>> getUserRequests(PageParmResource page) {
+    public PageInfo<List<UserRequestResource>> listUserRequest(PageParmResource page) {
         List<UserRequestResource> resources = customUserRequestMapper.listUserRequest(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(resources);
     }
 
     @Override
-    public PageInfo<List<UserRequestResource>> getUserManageRequests(PageParmResource page) {
+    public PageInfo<List<UserRequestResource>> listManageUserRequest(PageParmResource page) {
         List<UserRequestResource> resources = customUserRequestMapper.listManageUserRequest(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(resources);
     }

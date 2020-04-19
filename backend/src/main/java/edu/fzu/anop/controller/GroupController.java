@@ -32,7 +32,7 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Object getCreteGroup(@PathVariable("id") int id) {
+    public Object getGroup(@PathVariable("id") int id) {
         Group group = groupService.getGroup(id);
         if (group == null) {
             return JsonResult.notFound("group was not found", null);
@@ -45,7 +45,7 @@ public class GroupController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.getUserCreateGroups(page));
+        return JsonResult.ok(groupService.listUserCreateGroup(page));
     }
 
     @GetMapping("/manage")
@@ -53,7 +53,7 @@ public class GroupController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.getUserManageGroups(page));
+        return JsonResult.ok(groupService.listUserManageGroup(page));
     }
 
     @PatchMapping("/{id}")

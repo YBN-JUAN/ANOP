@@ -19,19 +19,18 @@
         select
         <include refid="Base_Column_List"/>
         from noti_user_request as req
-        join noti_group as g
-        join user_info as u
-        where req.is_accepted = 0 and req.group_id = g.id and g.user_id = #{userId,jdbcType=INTEGER} and u.user_id =
-        req.user_id
+        join noti_group as g on req.group_id = g.id
+        join user_info as u on u.user_id = req.user_id
+        where g.user_id = #{userId,jdbcType=INTEGER} and req.is_accepted = 0
     </select>
     <select id="listManageUserRequest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from noti_user_request as req
-        join noti_group as g
-        join noti_group_user as gu
-        join user_info as u
-        where req.is_accepted = 0 and req.group_id = g.id and gu.user_id = #{userId,jdbcType=INTEGER} and g.id =
-        gu.group_id and gu.is_admin = 1 and u.user_id = req.user_id
+        join noti_group_user as gu on req.group_id = gu.group_id and gu.user_id = #{userId,jdbcType=INTEGER} and
+        gu.is_admin = 1
+        join noti_group as g on req.group_id = g.id
+        join user_info as u on u.user_id = req.user_id
+        where req.is_accepted = 0
     </select>
 </mapper>

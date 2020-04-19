@@ -22,9 +22,9 @@ public interface GroupService {
 
     Group getGroup(int groupId);
 
-    PageInfo<List<Group>> getUserManageGroups(PageParmResource page);
+    PageInfo<List<Group>> listUserManageGroup(PageParmResource page);
 
-    PageInfo<List<Group>> getUserCreateGroups(PageParmResource page);
+    PageInfo<List<Group>> listUserCreateGroup(PageParmResource page);
 
     int deleteGroup(Group group);
 

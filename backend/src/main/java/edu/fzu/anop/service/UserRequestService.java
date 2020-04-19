@@ -13,9 +13,9 @@ public interface UserRequestService {
 
     UserRequest getUserRequest(int requestId);
 
-    PageInfo<List<UserRequestResource>> getUserRequests(PageParmResource page);
+    PageInfo<List<UserRequestResource>> listUserRequest(PageParmResource page);
 
-    PageInfo<List<UserRequestResource>> getUserManageRequests(PageParmResource page);
+    PageInfo<List<UserRequestResource>> listManageUserRequest(PageParmResource page);
 
     int acceptOrDenyUserRequest(UserRequest request, byte isAccepted);
 }

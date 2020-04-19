@@ -1,13 +1,9 @@
 package edu.fzu.anop.controller;
 
-import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.pojo.UserRequest;
-import edu.fzu.anop.resource.GroupAddResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.UserRequestAddResource;
 import edu.fzu.anop.resource.UserRequestUpdateResource;
-import edu.fzu.anop.service.GroupService;
-import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.service.UserRequestService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
@@ -16,8 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/v1/pub/requests")
@@ -44,7 +38,7 @@ public class UserRequestController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(userRequestService.getUserRequests(page));
+        return JsonResult.ok(userRequestService.listUserRequest(page));
     }
 
     @GetMapping("/manage")
@@ -52,7 +46,7 @@ public class UserRequestController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(userRequestService.getUserManageRequests(page));
+        return JsonResult.ok(userRequestService.listManageUserRequest(page));
     }
 
     @PostMapping("/{id}")

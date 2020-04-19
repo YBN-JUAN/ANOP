@@ -80,7 +80,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public PageInfo<List<Group>> getUserCreateGroups(PageParmResource page) {
+    public PageInfo<List<Group>> listUserCreateGroup(PageParmResource page) {
         GroupExample groupExample = new GroupExample();
         GroupExample.Criteria criteria = groupExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
@@ -90,7 +90,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public PageInfo<List<Group>> getUserManageGroups(PageParmResource page) {
+    public PageInfo<List<Group>> listUserManageGroup(PageParmResource page) {
         PageSortHelper.pageAndSort(page, GroupResource.class);
         List<Group> groups = customGroupMapper.listUserManageGroups(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(groups);
