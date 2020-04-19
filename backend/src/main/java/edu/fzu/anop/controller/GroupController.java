@@ -2,6 +2,7 @@ package edu.fzu.anop.controller;
 
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.resource.GroupAddResource;
+import edu.fzu.anop.resource.GroupResource;
 import edu.fzu.anop.resource.GroupUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.service.GroupService;
@@ -33,7 +34,7 @@ public class GroupController {
 
     @GetMapping("/{id}")
     public Object getGroup(@PathVariable("id") int id) {
-        Group group = groupService.getGroup(id);
+        GroupResource group = groupService.getGroupInfo(id);
         if (group == null) {
             return JsonResult.notFound("group was not found", null);
         }
@@ -45,7 +46,7 @@ public class GroupController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.listUserCreateGroup(page));
+        return JsonResult.ok(groupService.listUserCreateGroupInfo(page));
     }
 
     @GetMapping("/manage")
@@ -53,7 +54,7 @@ public class GroupController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(groupService.listUserManageGroup(page));
+        return JsonResult.ok(groupService.listUserManageGroupInfo(page));
     }
 
     @PatchMapping("/{id}")

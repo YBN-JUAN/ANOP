@@ -80,19 +80,21 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public PageInfo<List<Group>> listUserCreateGroup(PageParmResource page) {
-        GroupExample groupExample = new GroupExample();
-        GroupExample.Criteria criteria = groupExample.createCriteria();
-        criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
+    public GroupResource getGroupInfo(int groupId) {
+        return customGroupMapper.selectGroupByPrimary(groupId);
+    }
+
+    @Override
+    public PageInfo<List<GroupResource>> listUserCreateGroupInfo(PageParmResource page) {
         PageSortHelper.pageAndSort(page, GroupResource.class);
-        List<Group> groups = groupMapper.selectByExample(groupExample);
+        List<GroupResource> groups = customGroupMapper.listUserCreateGroup(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(groups);
     }
 
     @Override
-    public PageInfo<List<Group>> listUserManageGroup(PageParmResource page) {
+    public PageInfo<List<GroupResource>> listUserManageGroupInfo(PageParmResource page) {
         PageSortHelper.pageAndSort(page, GroupResource.class);
-        List<Group> groups = customGroupMapper.listUserManageGroups(SecurityUtil.getLoginUser(User.class).getId());
+        List<GroupResource> groups = customGroupMapper.listUserManageGroup(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(groups);
     }
 

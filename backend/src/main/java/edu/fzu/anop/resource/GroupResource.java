@@ -10,12 +10,23 @@ public class GroupResource implements Serializable {
 
     private Integer userId;
 
+    private String nickname;
+
+    private String avatarUrl;
+
     private String remark;
 
     private Date creationDate;
 
+    private Byte permission;
+
     public Integer getId() {
         return id;
+    }
+
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getUserId() {
@@ -26,8 +37,20 @@ public class GroupResource implements Serializable {
         this.userId = userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getTitle() {
@@ -52,5 +75,13 @@ public class GroupResource implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Byte getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Byte permission) {
+        this.permission = permission;
     }
 }
