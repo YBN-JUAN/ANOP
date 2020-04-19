@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserCenterService } from '../../../share/service/user-center.service';
+import { UserInfo } from '../../../share/model/UserInfo';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-profile',
@@ -6,22 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-  public loginName = "登录名xxxxx";
+  public user:UserInfo;
 
-  public userId = "用户IDxxxxxx";
+  public nickname = "昵称";
 
-  public userName = "User";
+  public creationTime = "注册时间xxxxx";
 
-  public email = "注册邮箱xxxx";
-
-  public date = "注册时间xxxxx";
-
-  constructor() { }
+  constructor(
+    public service:UserCenterService,
+    public http:HttpClient
+  ) { }
 
   ngOnInit(): void {
+    this.service.getConfig().subscribe(data => this.user = data);
   }
 
-  onEdit() {
+  onEditUsername() {
     document.getElementById('show').style.display='none';
     document.getElementById('hide').style.display='block';
   }
