@@ -6,6 +6,7 @@ import edu.fzu.anop.mapper.CustomCategoryMapper;
 import edu.fzu.anop.pojo.Category;
 import edu.fzu.anop.resource.CategoryAddResource;
 import edu.fzu.anop.resource.CategoryListResource;
+import edu.fzu.anop.resource.CategoryUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.CategoryService;
@@ -46,5 +47,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategory(Integer id) {
         return categoryMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateCategory(Category oldCategory, CategoryUpdateResource resource) {
+        Category newCategory = PropertyMapperUtil.map(resource, Category.class);
+        newCategory.setId(oldCategory.getId());
+        return categoryMapper.updateByPrimaryKeySelective(newCategory);
     }
 }

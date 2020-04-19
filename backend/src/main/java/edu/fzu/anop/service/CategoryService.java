@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Category;
 import edu.fzu.anop.resource.CategoryAddResource;
 import edu.fzu.anop.resource.CategoryListResource;
+import edu.fzu.anop.resource.CategoryUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface CategoryService {
     PageInfo<List<CategoryListResource>> listCategories(PageParmResource page);
 
     Category getCategory(Integer id);
+
+    int updateCategory(Category oldCategory, CategoryUpdateResource resource);
 }

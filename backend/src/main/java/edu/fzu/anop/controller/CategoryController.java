@@ -2,6 +2,7 @@ package edu.fzu.anop.controller;
 
 import edu.fzu.anop.pojo.Category;
 import edu.fzu.anop.resource.CategoryAddResource;
+import edu.fzu.anop.resource.CategoryUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.service.CategoryService;
 import edu.fzu.anop.util.BindingResultUtil;
@@ -51,5 +52,25 @@ public class CategoryController {
             return JsonResult.notFound("category was not found", null);
         }
         return JsonResult.ok(category);
+    }
+
+    @ApiOperation(value = "更新指定id的分类", notes = "更新指定id的分类")
+    @PutMapping("/{id}")
+    public Object updateCategories(
+            CategoryUpdateResource resource,
+            @PathVariable int id
+            , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
+        }
+        Category category = categoryService.getCategory(id);
+        if (category == null) {
+            return JsonResult.notFound("todoItem was not found", null);
+        }
+        int result = categoryService.updateCategory(category, resource);
+        if (result == -1) {
+            return JsonResult.forbidden(null,null);
+        }
+        return JsonResult.noContent().build();
     }
 }
