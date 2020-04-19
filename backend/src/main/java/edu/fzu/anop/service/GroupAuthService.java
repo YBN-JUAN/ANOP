@@ -16,4 +16,12 @@ public interface GroupAuthService {
     boolean canUpdateNotification(int groupId);
 
     boolean canDeleteNotification(int groupId);
+
+    boolean canMarkNotification(int groupId);
+
+    boolean canListReceiver(int groupId);
+
+    boolean canTurnNotificationIntoTodo(int groupId);
+
+    boolean canGetReceiverNotification(int groupId);
 }

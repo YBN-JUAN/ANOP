@@ -20,7 +20,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping("/v1/pub/groups/requests")
+@RequestMapping("/v1/pub/requests")
 public class UserRequestController {
     @Autowired
     UserRequestService userRequestService;

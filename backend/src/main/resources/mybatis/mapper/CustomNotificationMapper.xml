@@ -11,6 +11,16 @@
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="creation_date" jdbcType="TIMESTAMP" property="creationDate"/>
     </resultMap>
+    <resultMap id="ReceiverResultMap" type="edu.fzu.anop.resource.ReceiverNotificationResource">
+        <id column="id" jdbcType="INTEGER" property="notificationId"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="creation_date" jdbcType="TIMESTAMP" property="creationDate"/>
+    </resultMap>
     <sql id="Base_Column_List">
         n.group_id, n.user_id, n.title, n.content, n.creation_date, u.nickname, u.avatar_url
     </sql>
@@ -28,5 +38,24 @@
         join user_info as u
         where n.id = #{notificationId,jdbcType=INTEGER} and n.group_id = #{groupId,jdbcType=INTEGER} and n.user_id =
         u.user_id
+    </select>
+    <sql id="Detail_Column_List">
+        n.id, n.group_id, n.user_id, u.nickname, u.avatar_url, n.title, n.content, n.creation_date, r.is_read
+    </sql>
+    <select id="listReceiverNotification" parameterType="java.lang.Integer" resultMap="ReceiverResultMap">
+        select
+        <include refid="Detail_Column_List"/>
+        from notification as n
+        JOIN user_info as u on n.user_id = u.user_id
+        LEFT JOIN noti_receiver as r on r.notification_id = n.id and r.user_id = #{userId,jdbcType=INTEGER}
+        where n.group_id = #{groupId,jdbcType=INTEGER}
+    </select>
+    <select id="selectReceiverNotification" parameterType="java.lang.Integer" resultMap="ReceiverResultMap">
+        select
+        <include refid="Detail_Column_List"/>
+        from notification as n
+        JOIN user_info as u on n.user_id = u.user_id
+        LEFT JOIN noti_receiver as r on r.notification_id = n.id and r.user_id = #{userId,jdbcType=INTEGER}
+        where n.id = #{notificationId,jdbcType=INTEGER} and n.group_id = #{groupId,jdbcType=INTEGER}
     </select>
 </mapper>
