@@ -21,4 +21,6 @@ public interface NotificationService {
     int updateNotification(Notification oldNotification, NotificationUpdateResource resource);
 
     int addNotification(NotificationAddResource resource, int groupId);
+
+    int asTodo(Notification notification);
 }

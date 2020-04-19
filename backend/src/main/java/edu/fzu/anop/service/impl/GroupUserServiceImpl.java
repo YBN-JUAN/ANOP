@@ -36,25 +36,17 @@ public class GroupUserServiceImpl implements GroupUserService {
 
     @Override
     public boolean hasAdminRole(int userId, int groupId) {
-        GroupUserExample example = new GroupUserExample();
-        GroupUserExample.Criteria criteria = example.createCriteria();
-        criteria.andGroupIdEqualTo(groupId);
-        criteria.andUserIdEqualTo(userId);
-        List<GroupUser> groupUsers = groupUserMapper.selectByExample(example);
-        if (groupUsers.size() > 0) {
-            return groupUsers.get(0).getIsAdmin() == 1;
+        GroupUser user = getGroupUser(userId, groupId);
+        if (user != null && user.getIsAdmin() == 1) {
+            return true;
         }
         return false;
     }
 
     @Override
     public boolean isInGroup(int userId, int groupId) {
-        GroupUserExample example = new GroupUserExample();
-        GroupUserExample.Criteria criteria = example.createCriteria();
-        criteria.andGroupIdEqualTo(groupId);
-        criteria.andUserIdEqualTo(userId);
-        List<GroupUser> groupUsers = groupUserMapper.selectByExample(example);
-        return groupUsers.size() > 0 || groupService.isGroupCreator(userId, groupId);
+        GroupUser user = getGroupUser(userId, groupId);
+        return user != null || groupService.isGroupCreator(userId, groupId);
     }
 
     @Override

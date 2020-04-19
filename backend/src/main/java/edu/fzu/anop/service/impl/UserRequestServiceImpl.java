@@ -77,17 +77,14 @@ public class UserRequestServiceImpl implements UserRequestService {
         } else {
             isNew = true;
             userRequest = PropertyMapperUtil.map(resource, UserRequest.class);
+            userRequest.setUserId(currentUserId);
         }
-        userRequest.setUserId(currentUserId);
         userRequest.setIsAccepted((byte) 0);
         userRequest.setRequestTime(new Date());
-        int result;
         if (isNew) {
-            result = userRequestMapper.insert(userRequest);
-        } else {
-            result = userRequestMapper.updateByPrimaryKey(userRequest);
+            return userRequestMapper.insert(userRequest);
         }
-        return result;
+        return userRequestMapper.updateByPrimaryKey(userRequest);
     }
 
     @Override

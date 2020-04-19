@@ -3,12 +3,16 @@ package edu.fzu.anop.service.impl;
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CustomNotificationMapper;
 import edu.fzu.anop.mapper.NotificationMapper;
+import edu.fzu.anop.mapper.ReceiverMapper;
 import edu.fzu.anop.pojo.Notification;
+import edu.fzu.anop.pojo.Receiver;
+import edu.fzu.anop.pojo.example.ReceiverExample;
 import edu.fzu.anop.resource.*;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.service.NotificationService;
+import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
@@ -27,13 +31,17 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     CustomNotificationMapper customNotificationMapper;
     @Autowired
+    ReceiverMapper receiverMapper;
+    @Autowired
     GroupUserService groupUserService;
     @Autowired
     GroupAuthService authService;
+    @Autowired
+    TodoService todoService;
 
     @Override
     public boolean isInGroup(int notificationId, int groupId) {
-        return getNotification(notificationId, groupId) == null;
+        return getNotification(notificationId, groupId) != null;
     }
 
     @Override
@@ -76,6 +84,13 @@ public class NotificationServiceImpl implements NotificationService {
         if (!authService.canUpdateNotification(oldNotification.getGroupId())) {
             return -1;
         }
+        ReceiverExample example = new ReceiverExample();
+        ReceiverExample.Criteria criteria = example.createCriteria();
+        criteria.andNotificationIdEqualTo(oldNotification.getId());
+        Receiver receiver = new Receiver();
+        receiver.setIsRead((byte) 1);
+        receiverMapper.updateByExampleSelective(receiver, example);
+
         Notification newNotification = PropertyMapperUtil.map(resource, Notification.class);
         newNotification.setId(oldNotification.getId());
         newNotification.setCreationDate(new Date());
@@ -92,5 +107,18 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setCreationDate(new Date());
         notification.setUserId(SecurityUtil.getLoginUser(User.class).getId());
         return notificationMapper.insert(notification);
+    }
+
+    @Override
+    public int asTodo(Notification notification) {
+        if (!authService.canTurnNotificationIntoTodo(notification.getGroupId())) {
+            return -1;
+        }
+        TodoAddResource resource = new TodoAddResource();
+        resource.setTitle(notification.getTitle());
+        resource.setContent(notification.getContent());
+        resource.setIsFavorite((byte) 0);
+        resource.setIsImportant((byte) 0);
+        return todoService.addTodo(resource) != null ? 1 : 0;
     }
 }

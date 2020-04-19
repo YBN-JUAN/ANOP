@@ -27,6 +27,13 @@ public class GroupAuthServiceImpl implements GroupAuthService {
         return groupService.isGroupCreator(currentUserId, groupId);
     }
 
+    private boolean isCommonRole(int groupId) {
+        Integer currentUserId = SecurityUtil.getLoginUser(User.class).getId();
+        return groupUserService.isInGroup(currentUserId, groupId)
+            && !groupUserService.hasAdminRole(currentUserId, groupId)
+            && !groupService.isGroupCreator(currentUserId, groupId);
+    }
+
     @Override
     public boolean canUpdateGroupInfo(int groupId) {
         return hasBaseRole(groupId);
@@ -65,5 +72,20 @@ public class GroupAuthServiceImpl implements GroupAuthService {
     @Override
     public boolean canDeleteNotification(int groupId) {
         return hasBaseRole(groupId);
+    }
+
+    @Override
+    public boolean canMarkNotification(int groupId) {
+        return isCommonRole(groupId);
+    }
+
+    @Override
+    public boolean canListReceiver(int groupId) {
+        return hasBaseRole(groupId);
+    }
+
+    @Override
+    public boolean canTurnNotificationIntoTodo(int groupId) {
+        return isCommonRole(groupId);
     }
 }
