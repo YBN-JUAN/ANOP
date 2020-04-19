@@ -18,4 +18,6 @@ public interface CategoryService {
     Category getCategory(Integer id);
 
     int updateCategory(Category oldCategory, CategoryUpdateResource resource);
+
+    int deleteCategory(Integer id);
 }

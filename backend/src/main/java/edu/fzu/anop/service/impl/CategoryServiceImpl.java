@@ -57,4 +57,9 @@ public class CategoryServiceImpl implements CategoryService {
         newCategory.setId(oldCategory.getId());
         return categoryMapper.updateByPrimaryKeySelective(newCategory);
     }
+
+    @Override
+    public int deleteCategory(Integer id) {
+        return categoryMapper.deleteByPrimaryKey(id);
+    }
 }
