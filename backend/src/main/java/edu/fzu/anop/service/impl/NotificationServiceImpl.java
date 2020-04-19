@@ -58,7 +58,11 @@ public class NotificationServiceImpl implements NotificationService {
         if (!authService.canGetReceiverNotification(groupId)) {
             return null;
         }
-        return customNotificationMapper.selectReceiverNotification(notificationId, currentUserId, groupId);
+        ReceiverNotificationResource resource = customNotificationMapper.selectReceiverNotification(notificationId, currentUserId, groupId);
+        if (resource.getIsRead() == null) {
+            resource.setIsRead((byte) 0);
+        }
+        return resource;
     }
 
     @Override
