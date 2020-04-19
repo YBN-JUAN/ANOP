@@ -3,6 +3,7 @@ import {AuthService} from '../../../share/service/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserCenterService} from '../../../share/service/user-center.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private http:HttpClient,
               private router: Router,
-              private app: AuthService) {}
+              private app: AuthService,
+              private userCenterService: UserCenterService) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -30,9 +32,9 @@ export class LoginComponent implements OnInit {
     if (!this.validateForm.valid) {
       this.openDirtyControl(this.validateForm);
     } else {
-      console.log(this.validateForm.value);
       this.app.authenticate<object>(this.validateForm.value, () => {
           this.router.navigateByUrl('/notification');
+          this.userCenterService.storageUser();
         },
         (result)=>{
           this.error = true;
