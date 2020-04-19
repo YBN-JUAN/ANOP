@@ -21,14 +21,14 @@ import java.net.URISyntaxException;
 
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("v1/todos")
 public class TodoController {
 
     @Resource(name = "todoServiceImpl")
     TodoService todoService;
 
     @ApiOperation(value = "添加待办事项", notes = "添加待办事项")
-    @PostMapping("todos")
+    @PostMapping()
     public Object addTodo(
             @RequestBody @Valid TodoAddResource resource, BindingResult bindingResult) throws URISyntaxException {
         if (bindingResult.hasErrors()) {
@@ -44,7 +44,7 @@ public class TodoController {
             @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "Integer")
     })
-    @GetMapping("todos")
+    @GetMapping()
     public Object getTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
@@ -56,7 +56,7 @@ public class TodoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "Integer"),
     })
-    @PutMapping("todos/{id}")
+    @PutMapping("/{id}")
     public Object updateTodo(
             @RequestBody @Valid TodoUpdateResource resource,
             @PathVariable int id,
@@ -80,11 +80,14 @@ public class TodoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "Integer"),
     })
-    @PutMapping("todos/check/{id}")
+    @PutMapping("/check/{id}")
     public Object checkTodo(
             @RequestBody @Valid TodoCheckResource resource,
             @PathVariable int id,
             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
+        }
         Todo todo = todoService.getTodo(id);
         if (todo == null) {
             return JsonResult.notFound("todoItem was not found", null);
@@ -94,5 +97,29 @@ public class TodoController {
             return JsonResult.forbidden(null, null);
         }
         return JsonResult.noContent().build();
+    }
+
+    @ApiOperation(value = "删除指定id的待办事项", notes = "删除指定id的待办事项")
+    @DeleteMapping("/{id}")
+    public Object deleteTodo(@PathVariable int id) {
+        Todo todo = todoService.getTodo(id);
+        if (todo == null) {
+            return JsonResult.notFound("todoItem was not found", null);
+        }
+        int result = todoService.deleteTodo(todo);
+        if (result == -1) {
+            return JsonResult.forbidden(null, null);
+        }
+        return JsonResult.noContent().build();
+    }
+
+    @ApiOperation(value = "获取指定id的待办事项信息",notes = "获取指定id的待办事项信息")
+    @GetMapping("/{id}")
+    public Object getTodo(@PathVariable int id) {
+        Todo todo = todoService.getTodo(id);
+        if (todo == null) {
+            return JsonResult.notFound("todoItem was not found", null);
+        }
+        return JsonResult.ok(todo);
     }
 }
