@@ -42,4 +42,9 @@ public class CategoryServiceImpl implements CategoryService {
         );
         return new PageInfo(categories);
     }
+
+    @Override
+    public Category getCategory(Integer id) {
+        return categoryMapper.selectByPrimaryKey(id);
+    }
 }

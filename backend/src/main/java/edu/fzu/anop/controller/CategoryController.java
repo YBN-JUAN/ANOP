@@ -34,12 +34,22 @@ public class CategoryController {
     }
 
     // 写分类列表0接口
-    @ApiOperation(value = "获取当前用户的分类列表",notes = "获取当前用户的分类列表")
+    @ApiOperation(value = "获取当前用户的分类列表", notes = "获取当前用户的分类列表")
     @GetMapping()
     public Object listCategories(@Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
         return JsonResult.ok(categoryService.listCategories(page));
+    }
+
+    @ApiOperation(value = "获取指定id的分类的基本信息", notes = "获取指定id的分类的基本信息")
+    @GetMapping("/{id}")
+    public Object getCategories(@PathVariable int id) {
+        Category category = categoryService.getCategory(id);
+        if (category == null) {
+            return JsonResult.notFound("category was not found", null);
+        }
+        return JsonResult.ok(category);
     }
 }

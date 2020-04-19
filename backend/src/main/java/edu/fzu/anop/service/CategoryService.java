@@ -13,4 +13,6 @@ public interface CategoryService {
     Category addCategory(CategoryAddResource resource);
 
     PageInfo<List<CategoryListResource>> listCategories(PageParmResource page);
+
+    Category getCategory(Integer id);
 }
