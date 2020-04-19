@@ -41,8 +41,8 @@ public class TodoController {
     @ApiOperation(value = "获取待办事项列表", notes = "获取所有的待办事项列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "orderBy", value = "排序规则", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "Integer")
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "int")
     })
     @GetMapping()
     public Object getTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
