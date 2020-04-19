@@ -88,4 +88,9 @@ public class GroupAuthServiceImpl implements GroupAuthService {
     public boolean canTurnNotificationIntoTodo(int groupId) {
         return isCommonRole(groupId);
     }
+
+    @Override
+    public boolean canGetReceiverNotification(int groupId) {
+        return isCommonRole(groupId);
+    }
 }

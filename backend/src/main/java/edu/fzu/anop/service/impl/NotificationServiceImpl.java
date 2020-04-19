@@ -53,6 +53,15 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public ReceiverNotificationResource getReceiverNotification(int notificationId, int groupId) {
+        int currentUserId = SecurityUtil.getLoginUser(User.class).getId();
+        if (!authService.canGetReceiverNotification(groupId)) {
+            return null;
+        }
+        return customNotificationMapper.selectReceiverNotification(notificationId, currentUserId, groupId);
+    }
+
+    @Override
     public Notification getNotification(int notificationId, int groupId) {
         Notification notification = notificationMapper.selectByPrimaryKey(notificationId);
         if (notification != null && notification.getGroupId() != groupId) {
@@ -62,12 +71,28 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public PageInfo<List<NotificationResource>> listNotification(PageParmResource page, int groupId) {
+    public PageInfo<List<NotificationResource>> listNotificationInfo(PageParmResource page, int groupId) {
         if (!groupUserService.isInGroup(SecurityUtil.getLoginUser(User.class).getId(), groupId)) {
             return null;
         }
         PageSortHelper.pageAndSort(page, NotificationResource.class);
         List<NotificationResource> notificationResources = customNotificationMapper.listNotification(groupId);
+        return new PageInfo(notificationResources);
+    }
+
+    @Override
+    public PageInfo<List<ReceiverNotificationResource>> listReceiverNotification(PageParmResource page, int groupId) {
+        int currentUserId = SecurityUtil.getLoginUser(User.class).getId();
+        if (!authService.canGetReceiverNotification(groupId)) {
+            return null;
+        }
+        PageSortHelper.pageAndSort(page, ReceiverNotificationResource.class);
+        List<ReceiverNotificationResource> notificationResources = customNotificationMapper.listReceiverNotification(currentUserId, groupId);
+        for (ReceiverNotificationResource resource : notificationResources) {
+            if (resource.getIsRead() == null) {
+                resource.setIsRead((byte) 0);
+            }
+        }
         return new PageInfo(notificationResources);
     }
 

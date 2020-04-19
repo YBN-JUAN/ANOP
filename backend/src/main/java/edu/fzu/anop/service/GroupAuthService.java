@@ -22,4 +22,6 @@ public interface GroupAuthService {
     boolean canListReceiver(int groupId);
 
     boolean canTurnNotificationIntoTodo(int groupId);
+
+    boolean canGetReceiverNotification(int groupId);
 }

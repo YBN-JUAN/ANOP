@@ -12,9 +12,13 @@ public interface NotificationService {
 
     NotificationResource getNotificationInfo(int notificationId, int groupId);
 
+    ReceiverNotificationResource getReceiverNotification(int notificationId, int groupId);
+
     Notification getNotification(int notificationId, int groupId);
 
-    PageInfo<List<NotificationResource>> listNotification(PageParmResource page, int groupId);
+    PageInfo<List<NotificationResource>> listNotificationInfo(PageParmResource page, int groupId);
+
+    PageInfo<List<ReceiverNotificationResource>> listReceiverNotification(PageParmResource page, int groupId);
 
     int deleteNotification(Notification notification);
 

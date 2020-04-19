@@ -58,7 +58,7 @@ public class NotificationController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        PageInfo<List<NotificationResource>> listPageInfo = notificationService.listNotification(page, groupId);
+        PageInfo<List<NotificationResource>> listPageInfo = notificationService.listNotificationInfo(page, groupId);
         if (listPageInfo == null) {
             return JsonResult.forbidden(null, null);
         }
