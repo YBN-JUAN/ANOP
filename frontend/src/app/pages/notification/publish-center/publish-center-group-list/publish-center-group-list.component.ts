@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import {Group} from '../../../../share/model/group-info';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
+import {NzModalService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-publish-center-group-list',
@@ -37,14 +38,25 @@ export class PublishCenterGroupListComponent implements OnInit {
     this.loadDataFromServer(pageIndex, pageSize);
   }
 
-  deletGroup() {
-
+  deletGroup(id: number): void {
+    this.modal.confirm({
+      nzTitle: '你确定要删除这个群组吗?',
+      //nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: '确定',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        this.service.deleteGroup(id);
+        this.ngOnInit();
+      },
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
   }
 
-  constructor(private service: PublishCenterService) {}
+  constructor(private service: PublishCenterService,
+              private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.loadDataFromServer(this.pageIndex, this.pageSize);
-    console.log(JSON.stringify(this.listOfGroups));
   }
 }
