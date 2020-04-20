@@ -28,6 +28,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {GlobalInterceptor} from './interceptor/global-interceptor.interceptor';
 import {LoginComponent} from './pages/welcome/login/login.component';
 import {RegisterComponent} from './pages/welcome/register/register.component';
+import { HeadButtonComponent } from './share/head-button/head-button.component';
 
 registerLocaleData(zh);
 
@@ -50,6 +51,7 @@ registerLocaleData(zh);
     GroupDetailComponent,
     JoinGroupComponent,
     GroupComponent,
+    HeadButtonComponent,
   ],
   imports: [
     ReactiveFormsModule,
