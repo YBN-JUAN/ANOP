@@ -16,7 +16,26 @@
     </nz-sider>
 
     <nz-layout>
-      <app-head-bar></app-head-bar>
+      <nz-header>
+        <nz-row>
+          <nz-col [nzSpan]="2">
+            <i
+              class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              (click)="isCollapsed = !isCollapsed"
+            ></i>
+          </nz-col>
+          <nz-col [nzSpan]="12" [nzOffset]="6">
+            <button nz-button class="head-button" routerLink="/notification">通知中心</button>
+            <button nz-button class="head-button" routerLink="/memorandum">备忘录</button>
+          </nz-col>
+          <nz-col [nzSpan]="2" [nzOffset]="2">
+            <nz-avatar nzSize="64" nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+            <app-drop-menu></app-drop-menu>
+          </nz-col>
+        </nz-row>
+      </nz-header>
       <nz-content>
         <router-outlet></router-outlet>
       </nz-content>

@@ -51,7 +51,7 @@ registerLocaleData(zh);
     GroupListComponent,
     GroupDetailComponent,
     JoinGroupComponent,
-    GroupComponent
+    GroupComponent,
   ],
   imports: [
     ReactiveFormsModule,
