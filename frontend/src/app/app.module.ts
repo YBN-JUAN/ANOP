@@ -29,6 +29,7 @@ import {GlobalInterceptor} from './interceptor/global-interceptor.interceptor';
 import {LoginComponent} from './pages/welcome/login/login.component';
 import {RegisterComponent} from './pages/welcome/register/register.component';
 import { HeadButtonComponent } from './share/head-button/head-button.component';
+import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
 
 registerLocaleData(zh);
 
@@ -52,6 +53,7 @@ registerLocaleData(zh);
     JoinGroupComponent,
     GroupComponent,
     HeadButtonComponent,
+    PublishCenterGroupListComponent
   ],
   imports: [
     ReactiveFormsModule,
