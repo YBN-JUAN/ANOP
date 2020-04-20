@@ -1,3 +1,33 @@
-<div class="plus-button">
-  <i nz-icon nzType="plus-circle" nzTheme="twotone" nzTwotoneColor="#eb2f96"></i>
-</div>
+<nz-table
+  nzShowSizeChanger
+  [nzData]="listOfGroups"
+  [nzFrontPagination]="false"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+  <tr>
+    <th nzColumnKey="id" [nzSortFn]="true">id</th>
+    <th nzColumnKey="title" >名称</th>
+    <th nzColumnKey="remark" >备注</th>
+    <th>消息</th>
+    <th>详情</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of listOfGroups">
+    <td>{{ data.id }}</td>
+    <td>{{ data.title }}</td>
+    <td>{{ data.remark }}</td>
+    <td>
+      <p>有未读消息</p>
+    </td>
+    <td>
+      <i nz-icon nzType="info-circle" nzTheme="twotone" size="large"></i>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
