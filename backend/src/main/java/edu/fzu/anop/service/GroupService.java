@@ -24,6 +24,8 @@ public interface GroupService {
 
     GroupResource getGroupInfo(int groupId);
 
+    PageInfo<List<GroupResource>> listUserSubscribeGroupInfo(PageParmResource page);
+
     PageInfo<List<GroupResource>> listUserManageGroupInfo(PageParmResource page);
 
     PageInfo<List<GroupResource>> listUserCreateGroupInfo(PageParmResource page);

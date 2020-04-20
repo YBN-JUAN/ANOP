@@ -6,7 +6,6 @@ import edu.fzu.anop.mapper.GroupMapper;
 import edu.fzu.anop.mapper.UserRequestMapper;
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.pojo.UserRequest;
-import edu.fzu.anop.pojo.example.GroupExample;
 import edu.fzu.anop.pojo.example.UserRequestExample;
 import edu.fzu.anop.resource.GroupAddResource;
 import edu.fzu.anop.resource.GroupResource;
@@ -15,7 +14,6 @@ import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
-import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
@@ -85,6 +83,13 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public PageInfo<List<GroupResource>> listUserSubscribeGroupInfo(PageParmResource page) {
+        PageSortHelper.pageAndSort(page, GroupResource.class);
+        List<GroupResource> groups = customGroupMapper.listUserGroup(SecurityUtil.getLoginUser(User.class).getId(), (byte) 0);
+        return new PageInfo(groups);
+    }
+
+    @Override
     public PageInfo<List<GroupResource>> listUserCreateGroupInfo(PageParmResource page) {
         PageSortHelper.pageAndSort(page, GroupResource.class);
         List<GroupResource> groups = customGroupMapper.listUserCreateGroup(SecurityUtil.getLoginUser(User.class).getId());
@@ -94,7 +99,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public PageInfo<List<GroupResource>> listUserManageGroupInfo(PageParmResource page) {
         PageSortHelper.pageAndSort(page, GroupResource.class);
-        List<GroupResource> groups = customGroupMapper.listUserManageGroup(SecurityUtil.getLoginUser(User.class).getId());
+        List<GroupResource> groups = customGroupMapper.listUserGroup(SecurityUtil.getLoginUser(User.class).getId(), (byte) 1);
         return new PageInfo(groups);
     }
 

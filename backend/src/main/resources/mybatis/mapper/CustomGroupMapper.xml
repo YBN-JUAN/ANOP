@@ -19,11 +19,12 @@
         join user_info as u on g.user_id = u.user_id
         where g.id = #{groupId,jdbcType=INTEGER}
     </select>
-    <select id="listUserManageGroup" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="listUserGroup" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from noti_group as g
-        join noti_group_user as gu on g.id = gu.group_id and gu.user_id = #{userId,jdbcType=INTEGER} and gu.is_admin = 1
+        join noti_group_user as gu on g.id = gu.group_id and gu.user_id = #{userId,jdbcType=INTEGER} and gu.is_admin =
+        #{isAdmin,jdbcType=TINYINT}
         join user_info as u on g.user_id = u.user_id
     </select>
     <select id="listUserCreateGroup" parameterType="java.lang.Integer" resultMap="BaseResultMap">
