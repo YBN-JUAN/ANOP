@@ -14,7 +14,7 @@
       <th nzColumnKey="title" >名称</th>
       <th nzColumnKey="remark" >备注</th>
       <th nzColumnKey="creationDate" >创建时间</th>
-      <th>button</th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +23,14 @@
       <td>{{ data.title }}</td>
       <td>{{ data.remark }}</td>
       <td>{{ data.creationDate }}</td>
+      <td>
+        <i nz-icon nzType="info-circle" nzTheme="twotone" size="large"></i>
+        &nbsp;
+        <i nz-icon nzType="delete" nzTheme="twotone" nzTwotoneColor="#eb2f96" size="large"></i>
+        &nbsp;
+        <i nz-icon nzType="edit" nzTheme="twotone" nzTwotoneColor="#52c41a" size="large"></i>
+        &nbsp;
+      </td>
     </tr>
   </tbody>
 </nz-table>

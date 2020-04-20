@@ -20,7 +20,7 @@ export class PublishCenterGroupListComponent implements OnInit {
     pageSize: number,
   ): void {
     this.loading = true;
-    this.service.getUsers("id", pageIndex, pageSize).subscribe(data => {
+    this.service.getGroups("id", pageIndex, pageSize).subscribe(data => {
       this.loading = false;
       this.total = 200; // mock the total data here
       this.listOfGroups = data.list;
@@ -35,6 +35,10 @@ export class PublishCenterGroupListComponent implements OnInit {
     console.log(params);
     const { pageSize, pageIndex} = params;
     this.loadDataFromServer(pageIndex, pageSize);
+  }
+
+  deletGroup() {
+
   }
 
   constructor(private service: PublishCenterService) {}
