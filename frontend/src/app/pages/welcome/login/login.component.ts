@@ -30,19 +30,19 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    // if (!this.validateForm.valid) {
-    //   this.openDirtyControl(this.validateForm);
-    // } else {
-    //   this.app.authenticate<object>(this.validateForm.value, () => {
-           this.router.navigateByUrl('/notification');
-    //       this.userCenterService.storageUser();
-    //     },
-    //     (result) => {
-    //       this.error = true;
-    //       alert(result.message);
-    //       this.errMsg = result.message;
-    //     });
-    // }
+    if (!this.validateForm.valid) {
+      this.openDirtyControl(this.validateForm);
+    } else {
+      this.app.authenticate<object>(this.validateForm.value, () => {
+          this.router.navigateByUrl('/notification');
+          this.userCenterService.storageUser();
+        },
+        (result) => {
+          this.error = true;
+          alert(result.message);
+          this.errMsg = result.message;
+        });
+    }
   }
 
   // 打开脏检验
