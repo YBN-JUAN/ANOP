@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../share/service/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -13,13 +13,14 @@ import {UserCenterService} from '../../../share/service/user-center.service';
 export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   error: boolean = false;
-  errMsg:string;
+  errMsg: string;
 
   constructor(private fb: FormBuilder,
-              private http:HttpClient,
+              private http: HttpClient,
               private router: Router,
               private app: AuthService,
-              private userCenterService: UserCenterService) {}
+              private userCenterService: UserCenterService) {
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -29,19 +30,19 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (!this.validateForm.valid) {
-      this.openDirtyControl(this.validateForm);
-    } else {
-      this.app.authenticate<object>(this.validateForm.value, () => {
-          this.router.navigateByUrl('/notification');
-          this.userCenterService.storageUser();
-        },
-        (result)=>{
-          this.error = true;
-          alert(result.message);
-          this.errMsg=result.message;
-        });
-    }
+    // if (!this.validateForm.valid) {
+    //   this.openDirtyControl(this.validateForm);
+    // } else {
+    //   this.app.authenticate<object>(this.validateForm.value, () => {
+           this.router.navigateByUrl('/notification');
+    //       this.userCenterService.storageUser();
+    //     },
+    //     (result) => {
+    //       this.error = true;
+    //       alert(result.message);
+    //       this.errMsg = result.message;
+    //     });
+    // }
   }
 
   // 打开脏检验
