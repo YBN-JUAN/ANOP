@@ -25,7 +25,7 @@ export class GroupInfo {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
   navigatePages: number;
-  navigatePageNums: number[];
+  navigatepageNums: number[];
   navigateFirstPage: number;
   navigateLastPage: number;
 }
