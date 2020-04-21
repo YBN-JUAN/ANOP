@@ -1,1 +1,12 @@
 <p>join-group works!</p>
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label nzFor="inviteCode">请输入口令</nz-form-label>
+    <nz-form-control nzSpan="10">
+      <input nz-input datatype="text" name="inviteCode" type="search" id="search" [(ngModel)]="groupId" >
+    </nz-form-control>
+  </nz-form-item>
+  <button nz-button type="reset" id="reset-button">重置</button>
+  <button nz-button nzSearch id="search-button" (click)="doSearch()">搜索</button>
+  <button nz-button type="submit" id="submit-button" (click)="doJoin()">加入</button>
+</form>
