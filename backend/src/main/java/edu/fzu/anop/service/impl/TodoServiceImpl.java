@@ -69,7 +69,7 @@ public class TodoServiceImpl implements TodoService {
         TodoExample todoExample = new TodoExample();
         TodoExample.Criteria criteria = todoExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
-        PageSortHelper.pageAndSort(page, TodoListResource.class);
+        PageSortHelper.pageAndSort(page, TodoResource.class);
         List<Todo> todos = todoMapper.selectByExample(todoExample);
         return new PageInfo(todos);
     }

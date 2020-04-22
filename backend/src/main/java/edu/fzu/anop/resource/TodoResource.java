@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class TodoListResource implements Serializable {
+public class TodoResource implements Serializable {
 
     private Integer id;
 
