@@ -1,17 +1,19 @@
 <div id="content">
   <h1>加入群组</h1>
-  <form nz-form (submit)="doJoin()">
+  <form nz-form>
     <div id="search-bar">
-    <nz-form-item id="search-form">
+      <nz-form-item id="search-form">
 
-      <nz-form-label id="search-label">请输入口令</nz-form-label>
-      <nz-form-control nzSpan="10">
-        <input nz-input datatype="text" name="inviteCode" type="search" id="search-text" [(ngModel)]="groupId"
-               placeholder="输入口令查询或加入群组">
-      </nz-form-control>
+        <nz-form-label id="search-label">请输入口令</nz-form-label>
+        <nz-form-control nzSpan="10">
+          <label for="search-text"></label>
+          <input nz-input datatype="text" name="inviteCode" type="search"
+                 id="search-text" [(ngModel)]="groupId"
+                 placeholder="输入口令查询或加入群组">
+        </nz-form-control>
 
-    </nz-form-item>
-</div>
+      </nz-form-item>
+    </div>
     <button nz-button type="reset" id="reset-button">重置</button>
     <button nz-button id="search-button" (click)="doSearch()">搜索</button>
     <button nz-button type="submit" id="submit-button" (click)="doJoin()">加入</button>

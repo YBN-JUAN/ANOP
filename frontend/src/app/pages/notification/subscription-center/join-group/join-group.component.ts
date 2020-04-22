@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {JoinGroupService} from "../../../../share/service/join-group.service";
+import {JoinGroupService} from '../../../../share/service/join-group.service';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-join-group',
@@ -10,16 +11,16 @@ import {JoinGroupService} from "../../../../share/service/join-group.service";
 export class JoinGroupComponent implements OnInit {
 
   public groupId: string = '';
-  private service: JoinGroupService;
 
-  constructor() {
+
+  constructor(private service: JoinGroupService) {
   }
 
   ngOnInit(): void {
   }
 
   doSearch() {
-    alert("搜索群组" + this.groupId);
+    alert('搜索群组' + this.groupId);
   }
 
   doJoin() {
@@ -29,10 +30,10 @@ export class JoinGroupComponent implements OnInit {
       return;
     }
     this.service.joinGroup(this.groupId).subscribe(
-      data => {
-        console.log(data);
-      }, error => {
-        console.error(error);
-      })
+      () => {
+        alert("申请加群成功，请等待管理员审核。");
+      }, (response: HttpErrorResponse) => {
+        alert(response.error.status + ':ng l' + response.error.message);
+      });
   }
 }
