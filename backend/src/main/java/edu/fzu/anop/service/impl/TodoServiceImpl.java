@@ -39,11 +39,20 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public int deleteTodo(Todo todo) {
+
+        if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
+
         return todoMapper.deleteByPrimaryKey(todo.getId());
     }
 
     @Override
     public int updateTodo(Todo oldTodo, TodoUpdateResource resource) {
+
+        if (!oldTodo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
 
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
@@ -55,6 +64,11 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public int completeTodo(Todo todo) {
+
+        if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
+
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(todo.getId());
