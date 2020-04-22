@@ -13,7 +13,7 @@ import java.util.Date;
 public class TodoAddResource implements Serializable {
 
     @NotNull
-    @Length(min = 0, max = 15)
+    @Length(min = 1, max = 15)
     private String title;
 
     @NotNull
