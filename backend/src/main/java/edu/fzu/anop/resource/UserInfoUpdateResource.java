@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 public class UserInfoUpdateResource {
 
     @NotNull
-    @Length(min = 0, max = 31)
+    @Length(min = 1, max = 31)
     private String nickname;
 
     @NotNull
