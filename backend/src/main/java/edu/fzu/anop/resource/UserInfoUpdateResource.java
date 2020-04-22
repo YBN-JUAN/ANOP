@@ -1,46 +1,33 @@
 package edu.fzu.anop.resource;
 
-import io.swagger.models.auth.In;
-import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-@Data
 public class UserInfoUpdateResource {
 
     @NotNull
-    private Integer id;
+    @Length(min = 0, max = 31)
+    private String nickname;
 
     @NotNull
-    @Length(min = 0, max = 31)
-    private String nickName;
+    @Length(min = 0, max = 255)
+    private String avatarUrl;
 
-    @NotNull
-    @Length(min = 0, max = 31)
-    private String userName;
-
-    public Integer getId() {
-        return id;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

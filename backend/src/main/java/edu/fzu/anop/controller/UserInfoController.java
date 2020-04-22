@@ -1,6 +1,7 @@
 package edu.fzu.anop.controller;
 
 import edu.fzu.anop.pojo.UserInfo;
+import edu.fzu.anop.resource.UserInfoResource;
 import edu.fzu.anop.resource.UserInfoUpdateResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.UserInfoService;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("v1")
@@ -24,13 +22,13 @@ public class UserInfoController {
     UserInfoService userInfoService;
 
     @GetMapping("/profile")
-    public Object getUserInfo(BindingResult bindingResult) {
+    public Object getUserInfo() {
         User loginUser = SecurityUtil.getLoginUser(User.class);
-        UserInfo userInfo = userInfoService.getUserInfo(loginUser.getInfoId());
-        if(userInfo == null) {
-            return JsonResult.notFound("todoItem was not found", null);
+        UserInfoResource resource = userInfoService.getUserInfoResource(loginUser.getId());
+        if(resource == null) {
+            return JsonResult.notFound("userInfo was not found", null);
         }
-        return JsonResult.ok(userInfo);
+        return JsonResult.ok(resource);
     }
 
     @PutMapping("/profile")
@@ -41,7 +39,7 @@ public class UserInfoController {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
         User loginUser = SecurityUtil.getLoginUser(User.class);
-        UserInfo userInfo = userInfoService.getUserInfo(loginUser.getInfoId());
+        UserInfo userInfo = userInfoService.getUserInfoByUserId(loginUser.getId());
 
         if (userInfo == null) {
             return JsonResult.notFound("userInfo was not found", null);
