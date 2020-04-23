@@ -1,8 +1,8 @@
 export class UserInfo {
     id:number;
-    username:string;
-    nickname:string;
+    email:string;
+    userName:string;
+    nickName:string;
     creationTime:string;
     avatarUrl:string;
-    email:string;
 }
