@@ -3,9 +3,11 @@ package edu.fzu.anop.service.impl;
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CustomGroupMapper;
 import edu.fzu.anop.mapper.GroupMapper;
+import edu.fzu.anop.mapper.GroupUserMapper;
 import edu.fzu.anop.mapper.UserRequestMapper;
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.pojo.UserRequest;
+import edu.fzu.anop.pojo.example.GroupUserExample;
 import edu.fzu.anop.pojo.example.UserRequestExample;
 import edu.fzu.anop.resource.GroupAddResource;
 import edu.fzu.anop.resource.GroupResource;
@@ -33,6 +35,8 @@ public class GroupServiceImpl implements GroupService {
     private CustomGroupMapper customGroupMapper;
     @Autowired
     private UserRequestMapper userRequestMapper;
+    @Autowired
+    GroupUserMapper groupUserMapper;
     @Autowired
     private GroupAuthService authService;
 
@@ -92,6 +96,18 @@ public class GroupServiceImpl implements GroupService {
         PageSortHelper.pageAndSort(page, GroupResource.class);
         List<GroupResource> groups = customGroupMapper.listUserCreateGroup(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(groups);
+    }
+
+    @Override
+    public int quitGroup(Group group) {
+        if (!authService.canQuitGroup(group.getId())) {
+            return -1;
+        }
+        GroupUserExample example = new GroupUserExample();
+        GroupUserExample.Criteria criteria = example.createCriteria();
+        criteria.andGroupIdEqualTo(group.getId());
+        criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
+        return groupUserMapper.deleteByExample(example);
     }
 
     @Override

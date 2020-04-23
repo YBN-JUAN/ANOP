@@ -9,10 +9,7 @@ import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -33,7 +30,7 @@ public class SubscriberGroupController {
     }
 
     @GetMapping("/{id}/notifications/unread_count")
-    public Object getGroups(@PathVariable("id") int groupId) {
+    public Object getGroupUnreadNotificationCount(@PathVariable("id") int groupId) {
         Group group = groupService.getGroup(groupId);
         if (group == null) {
             return JsonResult.notFound("group was not found", null);
@@ -43,5 +40,18 @@ public class SubscriberGroupController {
             return JsonResult.forbidden(null, null);
         }
         return JsonResult.ok(resource);
+    }
+
+    @DeleteMapping("/{id}")
+    public Object quitGroup(@PathVariable("id") int groupId) {
+        Group group = groupService.getGroup(groupId);
+        if (group == null) {
+            return JsonResult.notFound("group was not found", null);
+        }
+        int result = groupService.quitGroup(group);
+        if (result == -1) {
+            return JsonResult.forbidden(null, null);
+        }
+        return JsonResult.noContent().build();
     }
 }

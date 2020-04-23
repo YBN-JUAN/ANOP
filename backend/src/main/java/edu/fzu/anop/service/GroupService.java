@@ -30,6 +30,8 @@ public interface GroupService {
 
     PageInfo<List<GroupResource>> listUserCreateGroupInfo(PageParmResource page);
 
+    int quitGroup(Group group);
+
     int deleteGroup(Group group);
 
     int updateGroup(Group oldGroup, GroupUpdateResource resource);
