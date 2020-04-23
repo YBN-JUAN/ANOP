@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {GroupInfo} from '../model/group-info';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {error} from 'selenium-webdriver';
+import {ResposeList} from '../model/respose-list';
+import {Group} from '../model/group-info';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class PublishCenterService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<GroupInfo>(`${this.url}`, { params });
+    return this.http.get<ResposeList<Group>>(`${this.url}`, { params });
   }
 
   deleteGroup(id: number){
