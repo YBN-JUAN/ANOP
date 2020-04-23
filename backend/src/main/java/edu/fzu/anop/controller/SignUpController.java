@@ -3,7 +3,6 @@ package edu.fzu.anop.controller;
 import edu.fzu.anop.pojo.ValidEmail;
 import edu.fzu.anop.resource.UserSignUpResource;
 import edu.fzu.anop.resource.ValidEmailResource;
-import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.SignUpService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("v1")
@@ -29,21 +26,25 @@ public class SignUpController {
     @PostMapping("/valid_email")
     public Object validEmail(
             @RequestBody @Valid ValidEmailResource resource,
-            BindingResult bindingResult) throws MessagingException {
+            BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
         if(signUpService.isSignedUp(resource.getEmail())) {
             return JsonResult.badRequest("Email has been signed up", null);
         }
-        signUpService.sendValidEmail(resource.getEmail());
+        try {
+            signUpService.sendValidEmail(resource.getEmail());
+        } catch (MessagingException e) {
+            return JsonResult.internalServerError("Failed to send email", null);
+        }
         return JsonResult.noContent().build();
     }
 
     @PostMapping("/signup")
     public Object signUp(
             @RequestBody @Valid UserSignUpResource resource,
-            BindingResult bindingResult) throws URISyntaxException {
+            BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
