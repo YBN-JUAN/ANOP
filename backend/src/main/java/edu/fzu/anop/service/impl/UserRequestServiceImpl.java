@@ -8,14 +8,14 @@ import edu.fzu.anop.pojo.GroupUser;
 import edu.fzu.anop.pojo.UserRequest;
 import edu.fzu.anop.pojo.example.UserRequestExample;
 import edu.fzu.anop.resource.GroupUserAddResource;
+import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.UserRequestAddResource;
 import edu.fzu.anop.resource.UserRequestResource;
-import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
-import edu.fzu.anop.service.UserRequestService;
 import edu.fzu.anop.service.GroupUserService;
+import edu.fzu.anop.service.UserRequestService;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +74,9 @@ public class UserRequestServiceImpl implements UserRequestService {
         boolean isNew = false;
         if (requests.size() > 0) {
             userRequest = requests.get(0);
+            if (userRequest.getIsAccepted() == 0) {
+                return 1;
+            }
         } else {
             isNew = true;
             userRequest = PropertyMapperUtil.map(resource, UserRequest.class);
