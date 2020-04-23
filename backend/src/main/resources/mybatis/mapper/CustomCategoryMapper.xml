@@ -9,7 +9,10 @@
     <select id="listCategories" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT tc.id,
                tc.type_name,
-               (SELECT COUNT(todo.id) FROM todo WHERE todo.category_id = tc.id) as todo_num
+               (SELECT COUNT(todo.id)
+                FROM todo
+                WHERE todo.category_id = tc.id
+                  AND todo.is_completed = 0) as todo_num
         FROM todo_category as tc
                  JOIN user_info as ui
         WHERE tc.user_id = ui.user_id

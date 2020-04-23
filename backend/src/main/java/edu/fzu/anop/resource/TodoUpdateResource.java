@@ -15,7 +15,7 @@ public class TodoUpdateResource {
     private Integer id;
 
     @NotNull
-    @Length(min = 0, max = 15)
+    @Length(min = 1, max = 15)
     private String title;
 
     @NotNull

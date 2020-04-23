@@ -53,6 +53,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int updateCategory(Category oldCategory, CategoryUpdateResource resource) {
+
+        if(!oldCategory.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
+
         Category newCategory = PropertyMapperUtil.map(resource, Category.class);
         newCategory.setId(oldCategory.getId());
         return categoryMapper.updateByPrimaryKeySelective(newCategory);
@@ -60,6 +65,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int deleteCategory(Integer id) {
+
+        if(!id.equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
+
         return categoryMapper.deleteByPrimaryKey(id);
     }
 }

@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Todo;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.TodoAddResource;
-import edu.fzu.anop.resource.TodoCheckResource;
 import edu.fzu.anop.resource.TodoUpdateResource;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface TodoService {
 
     int updateTodo(Todo oldTodo, TodoUpdateResource resource);
 
-    int checkTodo(Todo oldTodo, TodoCheckResource resource);
+    int completeTodo(Todo todo);
 
     Todo getTodo(int todoId);
 

@@ -76,7 +76,7 @@ public class CategoryController {
         }
         int result = categoryService.updateCategory(category, resource);
         if (result == -1) {
-            return JsonResult.forbidden(null, null);
+            return JsonResult.forbidden("you have no permission to modify this category", null);
         }
         return JsonResult.noContent().build();
     }
@@ -90,7 +90,7 @@ public class CategoryController {
         }
         int result = categoryService.deleteCategory(id);
         if (result == -1) {
-            return JsonResult.forbidden(null, null);
+            return JsonResult.forbidden("you have no permission to delete this category", null);
         }
         return JsonResult.noContent().build();
     }

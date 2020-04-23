@@ -4,7 +4,10 @@ import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.TodoMapper;
 import edu.fzu.anop.pojo.Todo;
 import edu.fzu.anop.pojo.example.TodoExample;
-import edu.fzu.anop.resource.*;
+import edu.fzu.anop.resource.PageParmResource;
+import edu.fzu.anop.resource.TodoAddResource;
+import edu.fzu.anop.resource.TodoResource;
+import edu.fzu.anop.resource.TodoUpdateResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.PageSortHelper;
@@ -36,11 +39,20 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public int deleteTodo(Todo todo) {
+
+        if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
+
         return todoMapper.deleteByPrimaryKey(todo.getId());
     }
 
     @Override
     public int updateTodo(Todo oldTodo, TodoUpdateResource resource) {
+
+        if (!oldTodo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
 
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
@@ -51,12 +63,17 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public int checkTodo(Todo oldTodo, TodoCheckResource resource) {
+    public int completeTodo(Todo todo) {
+
+        if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return -1;
+        }
+
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
-        Todo newTodo = PropertyMapperUtil.map(resource, Todo.class);
-        criteria.andIdEqualTo(oldTodo.getId());
-        return todoMapper.updateByExampleSelective(newTodo, example);
+        criteria.andIdEqualTo(todo.getId());
+        todo.setIsCompleted((byte) 1);
+        return todoMapper.updateByExampleSelective(todo, example);
     }
 
     @Override
@@ -69,7 +86,7 @@ public class TodoServiceImpl implements TodoService {
         TodoExample todoExample = new TodoExample();
         TodoExample.Criteria criteria = todoExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
-        PageSortHelper.pageAndSort(page, TodoListResource.class);
+        PageSortHelper.pageAndSort(page, TodoResource.class);
         List<Todo> todos = todoMapper.selectByExample(todoExample);
         return new PageInfo(todos);
     }

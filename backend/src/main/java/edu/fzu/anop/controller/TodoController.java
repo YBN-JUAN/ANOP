@@ -3,7 +3,6 @@ package edu.fzu.anop.controller;
 import edu.fzu.anop.pojo.Todo;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.TodoAddResource;
-import edu.fzu.anop.resource.TodoCheckResource;
 import edu.fzu.anop.resource.TodoUpdateResource;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.BindingResultUtil;
@@ -54,7 +53,7 @@ public class TodoController {
 
     @ApiOperation(value = "更新待办事项的信息", notes = "更新待办事项的信息（不包括完成状态）")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
     })
     @PutMapping("/{id}")
     public Object updateTodo(
@@ -71,35 +70,32 @@ public class TodoController {
         }
         int result = todoService.updateTodo(todo, resource);
         if (result == -1) {
-            return JsonResult.forbidden(null, null);
+            return JsonResult.forbidden("you have no permission to modify this todoitem", null);
         }
         return JsonResult.noContent().build();
     }
 
     @ApiOperation(value = "更新待办事项完成标记", notes = "勾选待办事项时触发")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
     })
     @PutMapping("/check/{id}")
-    public Object checkTodo(
-            @RequestBody @Valid TodoCheckResource resource,
-            @PathVariable int id,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
-        }
+    public Object checkTodo(@PathVariable int id) {
         Todo todo = todoService.getTodo(id);
         if (todo == null) {
             return JsonResult.notFound("todoItem was not found", null);
         }
-        int result = todoService.checkTodo(todo, resource);
+        int result = todoService.completeTodo(todo);
         if (result == -1) {
-            return JsonResult.forbidden(null, null);
+            return JsonResult.forbidden("you have no permission to complete this todoitem", null);
         }
         return JsonResult.noContent().build();
     }
 
     @ApiOperation(value = "删除指定id的待办事项", notes = "删除指定id的待办事项")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
+    })
     @DeleteMapping("/{id}")
     public Object deleteTodo(@PathVariable int id) {
         Todo todo = todoService.getTodo(id);
@@ -108,12 +104,15 @@ public class TodoController {
         }
         int result = todoService.deleteTodo(todo);
         if (result == -1) {
-            return JsonResult.forbidden(null, null);
+            return JsonResult.forbidden("you have no permission to delete this todoitem", null);
         }
         return JsonResult.noContent().build();
     }
 
-    @ApiOperation(value = "获取指定id的待办事项信息",notes = "获取指定id的待办事项信息")
+    @ApiOperation(value = "获取指定id的待办事项信息", notes = "获取指定id的待办事项信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
+    })
     @GetMapping("/{id}")
     public Object getTodo(@PathVariable int id) {
         Todo todo = todoService.getTodo(id);
