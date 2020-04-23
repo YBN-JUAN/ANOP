@@ -30,6 +30,7 @@ import {RegisterComponent} from './pages/welcome/register/register.component';
 import {HeadButtonComponent} from './share/head-button/head-button.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
 import {JoinGroupService} from './share/service/join-group.service';
+import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import { TodoItemComponent } from './pages/memorandum/todo-item/todo-item.component';
 
 registerLocaleData(zh);
@@ -55,6 +56,7 @@ registerLocaleData(zh);
     GroupComponent,
     HeadButtonComponent,
     PublishCenterGroupListComponent,
+    AllTodoComponent,
     TodoItemComponent
   ],
   imports: [
