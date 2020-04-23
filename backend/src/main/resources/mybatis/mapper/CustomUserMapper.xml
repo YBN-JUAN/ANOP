@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fzu.anop.mapper.CustomUserMapper">
+    <resultMap id="BaseResultMap" type="edu.fzu.anop.security.user.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="username" jdbcType="VARCHAR" property="username"/>
+        <id column="email" jdbcType="VARCHAR" property="email"/>
+        <id column="password" jdbcType="VARCHAR" property="password"/>
+    </resultMap>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.fzu.anop.security.user.User"
+            useGeneratedKeys="true">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
