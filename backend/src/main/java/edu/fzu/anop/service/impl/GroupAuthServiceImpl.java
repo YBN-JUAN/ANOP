@@ -27,11 +27,14 @@ public class GroupAuthServiceImpl implements GroupAuthService {
         return groupService.isGroupCreator(currentUserId, groupId);
     }
 
-    private boolean isCommonRole(int groupId) {
+    private boolean hasAdminRole(int groupId) {
         Integer currentUserId = SecurityUtil.getLoginUser(User.class).getId();
-        return groupUserService.isInGroup(currentUserId, groupId)
-            && !groupUserService.hasAdminRole(currentUserId, groupId)
-            && !groupService.isGroupCreator(currentUserId, groupId);
+        return groupUserService.hasAdminRole(currentUserId, groupId);
+    }
+
+    private boolean hasCommonRole(int groupId) {
+        Integer currentUserId = SecurityUtil.getLoginUser(User.class).getId();
+        return groupUserService.hasCommonRole(currentUserId, groupId);
     }
 
     @Override
@@ -76,7 +79,7 @@ public class GroupAuthServiceImpl implements GroupAuthService {
 
     @Override
     public boolean canMarkNotification(int groupId) {
-        return isCommonRole(groupId);
+        return hasCommonRole(groupId);
     }
 
     @Override
@@ -86,11 +89,16 @@ public class GroupAuthServiceImpl implements GroupAuthService {
 
     @Override
     public boolean canTurnNotificationIntoTodo(int groupId) {
-        return isCommonRole(groupId);
+        return hasCommonRole(groupId);
     }
 
     @Override
     public boolean canGetReceiverNotification(int groupId) {
-        return isCommonRole(groupId);
+        return hasCommonRole(groupId);
+    }
+
+    @Override
+    public boolean canQuitGroup(int groupId) {
+        return hasCommonRole(groupId) || hasAdminRole(groupId);
     }
 }

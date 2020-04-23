@@ -3,9 +3,11 @@ package edu.fzu.anop.service.impl;
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CustomGroupMapper;
 import edu.fzu.anop.mapper.GroupMapper;
+import edu.fzu.anop.mapper.GroupUserMapper;
 import edu.fzu.anop.mapper.UserRequestMapper;
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.pojo.UserRequest;
+import edu.fzu.anop.pojo.example.GroupUserExample;
 import edu.fzu.anop.pojo.example.UserRequestExample;
 import edu.fzu.anop.resource.GroupAddResource;
 import edu.fzu.anop.resource.GroupResource;
@@ -20,9 +22,7 @@ import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +35,8 @@ public class GroupServiceImpl implements GroupService {
     private CustomGroupMapper customGroupMapper;
     @Autowired
     private UserRequestMapper userRequestMapper;
+    @Autowired
+    GroupUserMapper groupUserMapper;
     @Autowired
     private GroupAuthService authService;
 
@@ -63,7 +65,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group addGroup(@RequestBody @Valid GroupAddResource resource) {
+    public Group addGroup(GroupAddResource resource) {
         Group newGroup = PropertyMapperUtil.map(resource, Group.class);
         newGroup.setCreationDate(new Date());
         newGroup.setUserId(SecurityUtil.getLoginUser(User.class).getId());
@@ -94,6 +96,18 @@ public class GroupServiceImpl implements GroupService {
         PageSortHelper.pageAndSort(page, GroupResource.class);
         List<GroupResource> groups = customGroupMapper.listUserCreateGroup(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(groups);
+    }
+
+    @Override
+    public int quitGroup(Group group) {
+        if (!authService.canQuitGroup(group.getId())) {
+            return -1;
+        }
+        GroupUserExample example = new GroupUserExample();
+        GroupUserExample.Criteria criteria = example.createCriteria();
+        criteria.andGroupIdEqualTo(group.getId());
+        criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
+        return groupUserMapper.deleteByExample(example);
     }
 
     @Override

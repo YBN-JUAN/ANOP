@@ -2,7 +2,6 @@ package edu.fzu.anop.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CustomGroupUserMapper;
-import edu.fzu.anop.mapper.CustomUserRequestMapper;
 import edu.fzu.anop.mapper.GroupUserMapper;
 import edu.fzu.anop.pojo.GroupUser;
 import edu.fzu.anop.pojo.example.GroupUserExample;
@@ -38,6 +37,15 @@ public class GroupUserServiceImpl implements GroupUserService {
     public boolean hasAdminRole(int userId, int groupId) {
         GroupUser user = getGroupUser(userId, groupId);
         if (user != null && user.getIsAdmin() == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasCommonRole(int userId, int groupId) {
+        GroupUser user = getGroupUser(userId, groupId);
+        if (user != null && user.getIsAdmin() == 0) {
             return true;
         }
         return false;

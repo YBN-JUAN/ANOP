@@ -1,6 +1,5 @@
 package edu.fzu.anop.mapper;
 
-import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.resource.NotificationResource;
 import edu.fzu.anop.resource.ReceiverNotificationResource;
 
@@ -14,4 +13,6 @@ public interface CustomNotificationMapper {
     ReceiverNotificationResource selectReceiverNotification(Integer notificationId, Integer userId, Integer groupId);
 
     List<ReceiverNotificationResource> listReceiverNotification(Integer userId, Integer groupId);
+
+    Long countGroupUnreadNotification(Integer userId, Integer groupId);
 }

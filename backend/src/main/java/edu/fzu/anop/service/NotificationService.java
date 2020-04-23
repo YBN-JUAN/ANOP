@@ -1,7 +1,6 @@
 package edu.fzu.anop.service;
 
 import com.github.pagehelper.PageInfo;
-import edu.fzu.anop.pojo.GroupUser;
 import edu.fzu.anop.pojo.Notification;
 import edu.fzu.anop.resource.*;
 
@@ -19,6 +18,8 @@ public interface NotificationService {
     PageInfo<List<NotificationResource>> listNotificationInfo(PageParmResource page, int groupId);
 
     PageInfo<List<ReceiverNotificationResource>> listReceiverNotification(PageParmResource page, int groupId);
+
+    GroupUnreadNotificationCountResource countGroupUnreadNotification(int groupId);
 
     int deleteNotification(Notification notification);
 

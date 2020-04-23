@@ -3,14 +3,13 @@ package edu.fzu.anop.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
 public class PropertyMapperUtil {
     private static Logger LOGGER = LoggerFactory.getLogger(PropertyMapperUtil.class);
-    private static final String GET_PATTERN = "get\\w+";
+    private static final Pattern GET_PATTERN = Pattern.compile("get\\w+");
     private static final String GET = "get";
     private static final String SET = "set";
 
@@ -23,7 +22,7 @@ public class PropertyMapperUtil {
         Method[] methods = aClass.getMethods();
         for (int i = 0; i < methods.length; i++) {
             Method getMethod = methods[i];
-            if (Pattern.matches(GET_PATTERN, getMethod.getName())) {
+            if (GET_PATTERN.matcher(getMethod.getName()).matches()) {
                 String setMethodName = getMethod.getName().replace(GET, SET);
                 Class<?> returnType = getMethod.getReturnType();
                 try {
@@ -31,7 +30,7 @@ public class PropertyMapperUtil {
                     Object value = getMethod.invoke(source);
                     setMethod.invoke(target, value);
                 } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                    LOGGER.info("Exception in mapping:" + e.getMessage(), source, target);
+                    LOGGER.info("mapping failed:" + e.getMessage());
                 }
             }
         }
@@ -45,7 +44,7 @@ public class PropertyMapperUtil {
         try {
             target = targetClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.info("Exception in mapping:" + e.getMessage(), source, targetClass);
+            LOGGER.info("can not create instance of" + e.getMessage());
             return null;
         }
         map(source, target);
@@ -67,7 +66,6 @@ public class PropertyMapperUtil {
             Method property = targetClass.getMethod(GET + name.trim());
             return true;
         } catch (NoSuchMethodException e) {
-            LOGGER.info("no property found:" + e.getMessage(), targetClass);
             return false;
         }
     }

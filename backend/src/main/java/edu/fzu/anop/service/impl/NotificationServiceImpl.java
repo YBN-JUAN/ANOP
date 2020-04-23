@@ -101,6 +101,19 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public GroupUnreadNotificationCountResource countGroupUnreadNotification(int groupId) {
+        int currentUserId = SecurityUtil.getLoginUser(User.class).getId();
+        if (!authService.canGetReceiverNotification(groupId)) {
+            return null;
+        }
+        Long unreadCount = customNotificationMapper.countGroupUnreadNotification(currentUserId, groupId);
+        GroupUnreadNotificationCountResource resource = new GroupUnreadNotificationCountResource();
+        resource.setGroupId(groupId);
+        resource.setUnreadCount(unreadCount);
+        return resource;
+    }
+
+    @Override
     public int deleteNotification(Notification notification) {
         if (!authService.canDeleteNotification(notification.getGroupId())) {
             return -1;
