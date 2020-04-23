@@ -54,8 +54,8 @@ public class SignUpController {
         if( !resource.getCode().equals(validEmail.getCode()) ) {
             return JsonResult.badRequest("Verification code mismatch", null);
         }
-        User user = signUpService.signUp(resource);
-        return JsonResult.created(new URI("http://localhost:8080/v1/profile")).body(user);
+        signUpService.signUp(resource);
+        return JsonResult.noContent().build();
     }
 
 }
