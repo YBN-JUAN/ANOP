@@ -57,4 +57,10 @@
         LEFT JOIN noti_receiver as r on r.notification_id = n.id and r.user_id = #{userId,jdbcType=INTEGER}
         where n.id = #{notificationId,jdbcType=INTEGER} and n.group_id = #{groupId,jdbcType=INTEGER}
     </select>
+    <select id="countGroupUnreadNotification" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        select count(*)
+        from notification as n
+        left join noti_receiver as r on n.id=r.notification_id and r.user_id = #{userId,jdbcType=INTEGER}
+        where n.group_id = #{groupId,jdbcType=INTEGER} and r.is_read is NULL or r.is_read = 0
+    </select>
 </mapper>

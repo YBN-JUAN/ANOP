@@ -1,12 +1,16 @@
 package edu.fzu.anop.controller;
 
+import edu.fzu.anop.pojo.Group;
+import edu.fzu.anop.resource.GroupUnreadNotificationCountResource;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.service.GroupService;
+import edu.fzu.anop.service.NotificationService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +21,8 @@ import javax.validation.Valid;
 public class SubscriberGroupController {
     @Autowired
     GroupService groupService;
+    @Autowired
+    NotificationService notificationService;
 
     @GetMapping()
     public Object getGroups(@Valid PageParmResource page, BindingResult bindingResult) {
@@ -24,5 +30,18 @@ public class SubscriberGroupController {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
         return JsonResult.ok(groupService.listUserSubscribeGroupInfo(page));
+    }
+
+    @GetMapping("/{id}/notifications/unread_count")
+    public Object getGroups(@PathVariable("id") int groupId) {
+        Group group = groupService.getGroup(groupId);
+        if (group == null) {
+            return JsonResult.notFound("group was not found", null);
+        }
+        GroupUnreadNotificationCountResource resource = notificationService.countGroupUnreadNotification(groupId);
+        if (resource == null) {
+            return JsonResult.forbidden(null, null);
+        }
+        return JsonResult.ok(resource);
     }
 }
