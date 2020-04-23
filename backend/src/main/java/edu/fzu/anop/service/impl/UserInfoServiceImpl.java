@@ -6,15 +6,13 @@ import edu.fzu.anop.pojo.UserInfo;
 import edu.fzu.anop.pojo.example.UserInfoExample;
 import edu.fzu.anop.resource.UserInfoResource;
 import edu.fzu.anop.resource.UserInfoUpdateResource;
-import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.UserInfoService;
 import edu.fzu.anop.util.PropertyMapperUtil;
-import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional
@@ -31,7 +29,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfoExample example = new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
-        return userInfoMapper.selectByExample(example).get(0);
+        List<UserInfo> list =  userInfoMapper.selectByExample(example);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class UserInfoController {
         }
         int result = userInfoService.updateUserInfo(userInfo, resource);
         if (result == -1) {
-            return JsonResult.forbidden(null, null);
+            return JsonResult.forbidden("you have no permission to modify userInfo", null);
         }
         return JsonResult.noContent().build();
     }
