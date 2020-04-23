@@ -15,6 +15,7 @@ import {GroupComponent} from './pages/notification/subscription-center/group/gro
 import {GroupDetailComponent} from './pages/notification/subscription-center/group-detail/group-detail.component';
 import {GroupListComponent} from './pages/notification/subscription-center/group-list/group-list.component';
 import {JoinGroupComponent} from './pages/notification/subscription-center/join-group/join-group.component';
+import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 
 const routes: Routes = [
   {
@@ -44,7 +45,24 @@ const routes: Routes = [
       { path: '', component: PublishCenterComponent }
     ]
   },
-  { path: 'memorandum', component: MemorandumComponent},
+  { path: 'memorandum', component: MemorandumComponent,
+    children:[
+      { path: 'all', component: AllTodoComponent },
+      { path: 'subscription', component: SubscriptionCenterComponent,
+        children:[
+          { path: 'group', component: GroupComponent },
+          { path: 'group-detail', component: GroupDetailComponent },
+          { path: 'group-list', component: GroupListComponent },
+          { path: 'join-group', component: JoinGroupComponent },
+          { path: '**', component: GroupListComponent },
+          { path: '', component: GroupListComponent }
+        ]
+      },
+      { path: 'examine', component: ExamineCenterComponent },
+      { path: '**', component: AllTodoComponent },
+      { path: '', component: AllTodoComponent }
+    ]
+  },
   { path: 'user', component: UserCenterComponent,
     children:[
       { path: 'profile', component: EditProfileComponent },
