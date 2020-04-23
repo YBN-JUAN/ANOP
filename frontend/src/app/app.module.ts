@@ -30,6 +30,7 @@ import {RegisterComponent} from './pages/welcome/register/register.component';
 import {HeadButtonComponent} from './share/head-button/head-button.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
 import {JoinGroupService} from './share/service/join-group.service';
+import { TodoItemComponent } from './pages/memorandum/todo-item/todo-item.component';
 
 registerLocaleData(zh);
 
@@ -53,7 +54,8 @@ registerLocaleData(zh);
     JoinGroupComponent,
     GroupComponent,
     HeadButtonComponent,
-    PublishCenterGroupListComponent
+    PublishCenterGroupListComponent,
+    TodoItemComponent
   ],
   imports: [
     ReactiveFormsModule,
