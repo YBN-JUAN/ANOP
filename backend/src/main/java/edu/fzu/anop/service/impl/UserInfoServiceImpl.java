@@ -53,18 +53,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public String saveAvatarFile(MultipartFile file) throws IOException {
-        File newFile = new File(FileHandleConfig.getUploadPath() + file.getOriginalFilename());
-        file.transferTo(newFile);
 
-        String fileName = newFile.getName();
+        String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf("."));
-        FileInputStream in = new FileInputStream(newFile);
-        String MD5Name = DigestUtils.md5DigestAsHex(in);
-        in.close();
+        String MD5Name = DigestUtils.md5DigestAsHex(file.getBytes());
 
-        File newName = new File(FileHandleConfig.getUploadPath() + MD5Name + suffix);
-        if(newFile.renameTo(newName) == false) {
-            newFile.delete();
+        File newFile = new File(FileHandleConfig.getUploadPath() +MD5Name + suffix);
+        if(newFile.exists() == false) {
+            file.transferTo(newFile);
         }
 
         return newFile.getPath();
