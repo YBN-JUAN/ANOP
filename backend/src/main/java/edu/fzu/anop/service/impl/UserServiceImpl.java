@@ -4,6 +4,7 @@ import edu.fzu.anop.config.BeanConfig;
 import edu.fzu.anop.mapper.CustomUserMapper;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.UserService;
+import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,9 @@ public class UserServiceImpl implements UserService {
     CustomUserMapper customUserMapper;
 
     @Override
-    public int resetPassword(User user, String newPassword) {
+    public int resetPassword(String newPassword) {
+        User user = new User();
+        user.setId(SecurityUtil.getLoginUser(User.class).getId());
         PasswordEncoder passwordEncoder = new BeanConfig().passwordEncoder();
         user.setPassword(passwordEncoder.encode(newPassword));
         return customUserMapper.updateByPrimaryKeySelective(user);

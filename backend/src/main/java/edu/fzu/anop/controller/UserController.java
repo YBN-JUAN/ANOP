@@ -9,8 +9,6 @@ import edu.fzu.anop.util.JsonResult;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +52,7 @@ public class UserController {
             return JsonResult.badRequest("The old password is incorrect", null);
         }
 
-        int result = userService.resetPassword(user, resource.getNewPassword());
+        int result = userService.resetPassword(resource.getNewPassword());
         if(result == -1) {
             return JsonResult.internalServerError("Failed to update password", null);
         }
