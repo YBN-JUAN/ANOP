@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -84,6 +85,17 @@ public class TodoServiceImpl implements TodoService {
         TodoExample todoExample = new TodoExample();
         TodoExample.Criteria criteria = todoExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
+        PageSortHelper.pageAndSort(page, TodoResource.class);
+        List<Todo> todos = todoMapper.selectByExample(todoExample);
+        return new PageInfo(todos);
+    }
+
+    @Override
+    public PageInfo<List<Todo>> getHistoryTodoList(PageParmResource page) {
+        TodoExample todoExample = new TodoExample();
+        TodoExample.Criteria criteria = todoExample.createCriteria();
+        criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
+                .andEndDateLessThan(new Date());
         PageSortHelper.pageAndSort(page, TodoResource.class);
         List<Todo> todos = todoMapper.selectByExample(todoExample);
         return new PageInfo(todos);

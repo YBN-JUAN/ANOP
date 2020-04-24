@@ -19,6 +19,7 @@ public interface TodoService {
 
     Todo getTodo(int todoId);
 
-    PageInfo<List<Todo>> getUserTodoList(PageParmResource resource);
+    PageInfo<List<Todo>> getUserTodoList(PageParmResource page);
 
+    PageInfo<List<Todo>> getHistoryTodoList(PageParmResource page);
 }

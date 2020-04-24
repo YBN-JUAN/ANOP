@@ -121,4 +121,18 @@ public class TodoController {
         }
         return JsonResult.ok(todo);
     }
+
+    @ApiOperation(value = "获取历史待办事项列表",notes = "获取历史待办事项列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orderBy", value = "排序规则", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "int")
+    })
+    @GetMapping("/histories")
+    public Object getHistoryTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
+        }
+        return JsonResult.ok(todoService.getHistoryTodoList(page));
+    }
 }
