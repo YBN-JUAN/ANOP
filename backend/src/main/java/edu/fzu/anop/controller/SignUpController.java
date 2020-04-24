@@ -52,7 +52,7 @@ public class SignUpController {
         if(validEmail == null) {
             return JsonResult.badRequest("Email is not verified", null);
         }
-        if( !resource.getCode().equals(validEmail.getCode()) ) {
+        if( !resource.getCode().equals(validEmail.getCode().toUpperCase()) ) {
             return JsonResult.badRequest("Verification code mismatch", null);
         }
         signUpService.signUp(resource);
