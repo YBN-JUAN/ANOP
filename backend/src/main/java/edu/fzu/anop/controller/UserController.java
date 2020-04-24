@@ -13,19 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @RestController
 public class UserController {
 
     @Autowired
     UserService userService;
-
-    @GetMapping("/resource")
-    public Message home() {
-        return new Message("Hello World");
-    }
-
     @RequestMapping(path = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public Object user() {
         User loginUser = SecurityUtil.getLoginUser(User.class);
@@ -59,32 +52,4 @@ public class UserController {
         return JsonResult.noContent().build();
     }
 
-}
-
-class Message {
-    private String id = UUID.randomUUID().toString();
-    private String content;
-
-    public Message(String content) {
-        this.content = content;
-    }
-
-    public Message() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
