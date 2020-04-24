@@ -9,6 +9,9 @@ import edu.fzu.anop.resource.PageParmResource;
 
 import java.util.List;
 
+/**
+ * @author ZYF
+ */
 public interface CategoryService {
 
     Category addCategory(CategoryAddResource resource);

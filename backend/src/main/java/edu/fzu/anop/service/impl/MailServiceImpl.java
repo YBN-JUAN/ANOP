@@ -21,6 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 邮件服务
+ *
+ * @author ZYF
+ */
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -42,16 +47,13 @@ public class MailServiceImpl implements MailService {
         Template template = freeMarkerConfigurer.getConfiguration().getTemplate("EmailTemplate.html");
 
         for (RemindEmail remindEmail : remindEmails) {
-            Map<String, Object> model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>(1);
             model.put("info", remindEmail);
             String templateHtml = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
             this.sendHtmlMail(remindEmail.getEmail(), "您有待办事项即将到期", templateHtml);
         }
     }
 
-    /**
-     * 发送html邮件
-     */
     @Override
     public void sendHtmlMail(String to, String subject, String content) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();

@@ -20,8 +20,11 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author ZYF
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class TodoServiceImpl implements TodoService {
 
     @Resource
@@ -81,7 +84,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public PageInfo<List<Todo>> getUserTodoList(PageParmResource page) {
+    public PageInfo<List<Todo>> listUserTodo(PageParmResource page) {
         TodoExample todoExample = new TodoExample();
         TodoExample.Criteria criteria = todoExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
@@ -91,7 +94,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public PageInfo<List<Todo>> getHistoryTodoList(PageParmResource page) {
+    public PageInfo<List<Todo>> listHistoryTodo(PageParmResource page) {
         TodoExample todoExample = new TodoExample();
         TodoExample.Criteria criteria = todoExample.createCriteria();
         criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())

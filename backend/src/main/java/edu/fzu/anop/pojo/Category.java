@@ -2,6 +2,9 @@ package edu.fzu.anop.pojo;
 
 import java.io.Serializable;
 
+/**
+ * @author ZYF
+ */
 public class Category implements Serializable {
     private Integer id;
 

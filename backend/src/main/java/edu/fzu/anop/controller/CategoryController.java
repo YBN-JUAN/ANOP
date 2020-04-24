@@ -18,6 +18,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * @author ZYF
+ */
 @RestController
 @RequestMapping("v1/categories")
 public class CategoryController {
@@ -36,7 +39,6 @@ public class CategoryController {
         return JsonResult.created(new URI("http://localhost:8080/v1/categories/" + category.getId())).body(category);
     }
 
-    // 写分类列表0接口
     @ApiOperation(value = "获取当前用户的分类列表", notes = "获取当前用户的分类列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "orderBy", value = "排序规则", required = true, dataType = "String"),

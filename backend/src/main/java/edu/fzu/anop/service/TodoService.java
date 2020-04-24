@@ -8,6 +8,9 @@ import edu.fzu.anop.resource.TodoUpdateResource;
 
 import java.util.List;
 
+/**
+ * @author ZYF
+ */
 public interface TodoService {
     Todo addTodo(TodoAddResource resource);
 
@@ -19,7 +22,7 @@ public interface TodoService {
 
     Todo getTodo(int todoId);
 
-    PageInfo<List<Todo>> getUserTodoList(PageParmResource page);
+    PageInfo<List<Todo>> listUserTodo(PageParmResource page);
 
-    PageInfo<List<Todo>> getHistoryTodoList(PageParmResource page);
+    PageInfo<List<Todo>> listHistoryTodo(PageParmResource page);
 }

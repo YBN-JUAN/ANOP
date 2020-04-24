@@ -8,6 +8,9 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * @author ZYF
+ */
 @Data
 public class TodoUpdateResource {
 

@@ -19,6 +19,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 
+/**
+ * @author ZYF
+ */
 @RestController
 @RequestMapping("v1/todos")
 public class TodoController {
@@ -48,7 +51,7 @@ public class TodoController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(todoService.getUserTodoList(page));
+        return JsonResult.ok(todoService.listUserTodo(page));
     }
 
     @ApiOperation(value = "更新待办事项的信息", notes = "更新待办事项的信息（不包括完成状态）")
@@ -133,6 +136,6 @@ public class TodoController {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(todoService.getHistoryTodoList(page));
+        return JsonResult.ok(todoService.listHistoryTodo(page));
     }
 }

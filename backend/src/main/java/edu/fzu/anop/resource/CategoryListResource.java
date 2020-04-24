@@ -2,6 +2,9 @@ package edu.fzu.anop.resource;
 
 import lombok.Data;
 
+/**
+ * @author ZYF
+ */
 @Data
 public class CategoryListResource {
 

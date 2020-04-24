@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author ZYF
+ */
 @Data
 public class TodoAddResource implements Serializable {
 

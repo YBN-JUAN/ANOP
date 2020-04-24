@@ -5,6 +5,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author ZYF
+ */
 @Data
 public class TodoResource implements Serializable {
 

@@ -11,6 +11,7 @@ import java.util.Date;
 
 /**
  * 提醒邮件信息
+ * @author ZYF
  */
 @Data
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class RemindEmail implements Serializable {
 
     private Date remindDate;
 
+    @Override
     public String toString() {
         return String.format("email: %s\tusername: %s\ttitle: %s\tremindDate:%s", email, username, title, remindDate);
     }
