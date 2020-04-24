@@ -6,6 +6,7 @@
         <id column="username" jdbcType="VARCHAR" property="username"/>
         <id column="email" jdbcType="VARCHAR" property="email"/>
         <id column="password" jdbcType="VARCHAR" property="password"/>
+        <id column="status" javaType="INTEGER" property="status"/>
     </resultMap>
 
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.fzu.anop.security.user.User"
@@ -40,5 +41,24 @@
             </if>
         </trim>
     </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="edu.fzu.anop.security.user.User">
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
 </mapper>

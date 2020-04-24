@@ -13,7 +13,6 @@ public class User implements UserDetails, Serializable {
     private String username;
     private String password;
     private String email;
-    private Integer infoId;
     private int status;
 
     private List<Role> authorities;
@@ -50,14 +49,6 @@ public class User implements UserDetails, Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getInfoId() {
-        return infoId;
-    }
-
-    public void setInfoId(Integer infoId) {
-        this.infoId = infoId;
     }
 
     public int getStatus() {
