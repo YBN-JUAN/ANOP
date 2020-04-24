@@ -26,9 +26,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 通知群组是默认实现
+ *
+ * @author Xue_Feng
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class GroupServiceImpl implements GroupService {
+    private static final byte PERMIT_ALL = 1;
+    private static final byte REJECT_ALL = 2;
     @Autowired
     private GroupMapper groupMapper;
     @Autowired
@@ -55,13 +62,13 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public boolean isPublicGroup(int groupId) {
         Group group = groupMapper.selectByPrimaryKey(groupId);
-        return group.getPermission() == 1;
+        return group.getPermission() == PERMIT_ALL;
     }
 
     @Override
     public boolean isPrivateGroup(int groupId) {
         Group group = groupMapper.selectByPrimaryKey(groupId);
-        return group.getPermission() == 2;
+        return group.getPermission() == REJECT_ALL;
     }
 
     @Override
@@ -130,7 +137,7 @@ public class GroupServiceImpl implements GroupService {
         if (!authService.canUpdateGroupInfo(oldGroup.getId())) {
             return -1;
         }
-        if (resource.getPermission() != null && resource.getPermission() == 2 && oldGroup.getPermission() != 2) {
+        if (resource.getPermission() != null && resource.getPermission() == REJECT_ALL && oldGroup.getPermission() != REJECT_ALL) {
             UserRequestExample example = new UserRequestExample();
             UserRequestExample.Criteria criteria = example.createCriteria();
             criteria.andGroupIdEqualTo(oldGroup.getId());
