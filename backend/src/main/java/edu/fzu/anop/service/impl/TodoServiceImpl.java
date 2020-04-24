@@ -15,10 +15,8 @@ import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -29,7 +27,7 @@ public class TodoServiceImpl implements TodoService {
     TodoMapper todoMapper;
 
     @Override
-    public Todo addTodo(@RequestBody @Valid TodoAddResource resource) {
+    public Todo addTodo(TodoAddResource resource) {
         Todo todo = PropertyMapperUtil.map(resource, Todo.class);
         todo.setIsCompleted(new Byte("0"));
         todo.setUserId(SecurityUtil.getLoginUser(User.class).getId());
