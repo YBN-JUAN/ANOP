@@ -1,7 +1,9 @@
 package edu.fzu.anop.controller;
 
+import edu.fzu.anop.resource.UserResource;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.util.JsonResult;
+import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +22,8 @@ public class UserController {
     @RequestMapping(path = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public Object user() {
         User loginUser = SecurityUtil.getLoginUser(User.class);
-        return JsonResult.ok(loginUser);
+        UserResource resource = PropertyMapperUtil.map(loginUser, UserResource.class);
+        return JsonResult.ok(resource);
     }
 
     @PostMapping(path = "/failed")
