@@ -75,7 +75,7 @@ public class TodoController {
         return JsonResult.noContent().build();
     }
 
-    @ApiOperation(value = "更新待办事项完成标记", notes = "勾选待办事项时触发")
+    @ApiOperation(value = "切换待办事项完成状态", notes = "切换待办事项完成状态")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
     })
@@ -85,7 +85,7 @@ public class TodoController {
         if (todo == null) {
             return JsonResult.notFound("todoItem was not found", null);
         }
-        int result = todoService.completeTodo(todo);
+        int result = todoService.checkTodo(todo);
         if (result == -1) {
             return JsonResult.forbidden("you have no permission to complete this todoitem", null);
         }

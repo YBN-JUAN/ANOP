@@ -61,7 +61,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public int completeTodo(Todo todo) {
+    public int checkTodo(Todo todo) {
 
         if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
             return -1;
@@ -70,7 +70,7 @@ public class TodoServiceImpl implements TodoService {
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(todo.getId());
-        todo.setIsCompleted((byte) 1);
+        todo.setIsCompleted((byte) ((todo.getIsCompleted() == (byte) 1) ? 0 : 1));
         return todoMapper.updateByExampleSelective(todo, example);
     }
 

@@ -15,7 +15,7 @@ public interface TodoService {
 
     int updateTodo(Todo oldTodo, TodoUpdateResource resource);
 
-    int completeTodo(Todo todo);
+    int checkTodo(Todo todo);
 
     Todo getTodo(int todoId);
 
