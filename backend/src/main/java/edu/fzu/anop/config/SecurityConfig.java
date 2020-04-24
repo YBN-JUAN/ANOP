@@ -1,6 +1,7 @@
 package edu.fzu.anop.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -26,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             //.antMatchers("/resource").hasRole("admin")
+            .antMatchers(HttpMethod.POST, "/v1/signin", "/v1/signout").permitAll()
             .anyRequest().authenticated()
             .and()
             .cors()
@@ -33,7 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
             .formLogin()
+            .loginProcessingUrl("/v1/signin")
             .successForwardUrl("/user")
-            .failureForwardUrl("/failed");
+            .failureForwardUrl("/failed")
+            .and()
+            .logout()
+            .logoutUrl("/v1/signout");
     }
 }
