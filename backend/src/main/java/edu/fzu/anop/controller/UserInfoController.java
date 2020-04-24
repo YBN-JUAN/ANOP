@@ -73,7 +73,7 @@ public class UserInfoController {
         if(result == -1) {
             return JsonResult.forbidden("you have no permission to modify avatar", null);
         }
-        return JsonResult.noContent().build();
+        return JsonResult.ok(url);
 
     }
 
