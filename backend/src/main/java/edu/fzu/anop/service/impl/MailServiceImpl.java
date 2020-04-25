@@ -1,7 +1,7 @@
 package edu.fzu.anop.service.impl;
 
 import edu.fzu.anop.mapper.RemindMailMapper;
-import edu.fzu.anop.pojo.RemindEmail;
+import edu.fzu.anop.pojo.RemindEmailDetail;
 import edu.fzu.anop.service.MailService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -45,14 +45,14 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendRemindMails() throws IOException, TemplateException, MessagingException {
-        List<RemindEmail> remindEmails = remindMailMapper.selectRemindMails();
+        List<RemindEmailDetail> remindEmails = remindMailMapper.selectRemindMailDetails();
         Template template = freeMarkerConfigurer.getConfiguration().getTemplate("EmailTemplate.html");
 
-        for (RemindEmail remindEmail : remindEmails) {
+        for (RemindEmailDetail remindEmail : remindEmails) {
             Map<String, Object> model = new HashMap<>(1);
             model.put("info", remindEmail);
             String templateHtml = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-            this.sendHtmlMail(remindEmail.getEmail(), "您有待办事项即将到期", templateHtml);
+            this.sendHtmlMail(remindEmail.getEmail(), "您有未完成的待办事项", templateHtml);
         }
     }
 

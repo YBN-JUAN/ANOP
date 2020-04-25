@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.fzu.anop.mapper.RemindMailMapper">
-    <resultMap id="BaseResultMap" type="edu.fzu.anop.pojo.RemindEmail">
+    <resultMap id="BaseResultMap" type="edu.fzu.anop.pojo.RemindEmailDetail">
+        <id property="id" jdbcType="INTEGER" column="id"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="remind_date" jdbcType="TIMESTAMP" property="remindDate"/>
+        <collection property="todosToRemind" ofType="edu.fzu.anop.resource.MailTodoResource" column="id"
+                    select="edu.fzu.anop.mapper.CustomTodoMapper.selectByUserId"/>
     </resultMap>
-    <select id="selectRemindMails" resultMap="BaseResultMap">
-        SELECT DISTINCT `user`.`email`, `user`.`username`, `todo`.`title`, `todo`.`remind_date`
-        FROM `todo`,
-             `user`
-        WHERE `todo`.`user_id` = `user`.id
-          AND `todo`.`is_completed` = 0
+    <select id="selectRemindMailDetails" resultMap="BaseResultMap">
+        SELECT DISTINCT `user`.id, `user`.`email`, `user`.`username`
+        FROM `user`,
+             todo
+        WHERE todo.user_id = `user`.id
+          AND todo.is_completed = 0
           AND `todo`.`remind_date` &lt;= NOW()
           AND `todo`.`remind_date` &gt; (date_sub(now(), interval 1 hour));
+
     </select>
 </mapper>

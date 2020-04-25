@@ -28,9 +28,8 @@ public class ScheduleJob {
      * @throws IOException
      * @throws MessagingException
      */
-//    @Scheduled(cron = "0 0 * * * ? *")
     @Async
-    @Scheduled(cron = "0 */10 * * * ? ")
+    @Scheduled(cron = "* * 0/1 * * ? ")
     public void remindTodo() throws TemplateException, IOException, MessagingException {
         log.info("-- Start sending remind mails --");
         mailService.sendRemindMails();

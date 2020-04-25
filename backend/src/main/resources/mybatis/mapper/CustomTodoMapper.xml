@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fzu.anop.mapper.CustomTodoMapper">
+    <resultMap id="BaseResultMap" type="edu.fzu.anop.resource.MailTodoResource">
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="end_date" jdbcType="VARCHAR" property="endDate"/>
+    </resultMap>
+    <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
+        select todo.title, todo.end_date
+        from todo
+        where todo.user_id = #{userId}
+          AND `todo`.`is_completed` = 0
+          AND `todo`.`remind_date` &lt;= NOW()
+          AND `todo`.`remind_date` &gt; (date_sub(now(), interval 1 hour));
+    </select>
+
+</mapper>
