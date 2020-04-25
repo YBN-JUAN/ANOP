@@ -7,6 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+/**
+ * @author SilverBay
+ */
 public interface UserInfoService {
 
     UserInfo getUserInfoByUserId(int userId);

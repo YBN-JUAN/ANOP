@@ -22,6 +22,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author SilverBay
+ */
 @Service
 @Transactional
 public class SignUpServiceImpl implements SignUpService {
@@ -35,15 +38,15 @@ public class SignUpServiceImpl implements SignUpService {
     @Autowired
     UserInfoMapper userInfoMapper;
 
-    private static final int codeLength = 5;
-    private static final char[] codeChars = {'A','B','C','D',
+    private static final int CODE_LENGTH = 5;
+    private static final char[] CODE_CHAR = {'A','B','C','D',
             'E','F','G','H','I','J','K','L','M', 'N','O', 'P',
             'Q','R','S','T','U','V','W','X','Y', 'Z', '0','1',
             '2','3','4','5','6','7','8','9'};
-    private static final long expireMesc = 1000 * 60 * 10;
+    private static final long EXPIRE_MESC = 1000 * 60 * 10;
 
-    private static final String emailSubject = "ANOP:用户注册验证码";
-    private static final String emailContent = "您的注册验证码为:";
+    private static final String EMAIL_SUBJECT = "ANOP:用户注册验证码";
+    private static final String EMAIL_CONTENT = "您的注册验证码为:";
 
     @Override
     public ValidEmail getValidEmail(String email) {
@@ -68,14 +71,14 @@ public class SignUpServiceImpl implements SignUpService {
             validEmail.setEmail(email);
             validEmail.setCode(code);
             Date expire = new Date();
-            expire.setTime(expire.getTime() + expireMesc);
+            expire.setTime(expire.getTime() + EXPIRE_MESC);
             validEmail.setExpire(expire);
             validEmailMapper.insertSelective(validEmail);
         }
         else {
             validEmail.setCode(code);
             Date expire = new Date();
-            expire.setTime(expire.getTime() + expireMesc);
+            expire.setTime(expire.getTime() + EXPIRE_MESC);
             validEmail.setExpire(expire);
             validEmailMapper.updateByPrimaryKey(validEmail);
         }
@@ -85,10 +88,10 @@ public class SignUpServiceImpl implements SignUpService {
     public String sendValidEmail(String email) throws MessagingException {
         String code = "";
         Random random = new Random();
-        for(int i=0; i<codeLength; i++) {
-            code += codeChars[random.nextInt(codeChars.length)];
+        for(int i=0; i<CODE_LENGTH; i++) {
+            code += CODE_CHAR[random.nextInt(CODE_CHAR.length)];
         }
-        mailService.sendHtmlMail(email, emailSubject,emailContent + code);
+        mailService.sendHtmlMail(email, EMAIL_SUBJECT,EMAIL_CONTENT + code);
 
         saveValidEmail(email, code);
         return code;

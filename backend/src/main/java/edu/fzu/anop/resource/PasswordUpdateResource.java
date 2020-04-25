@@ -4,6 +4,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author SilverBay
+ */
 public class PasswordUpdateResource {
 
     @NotNull

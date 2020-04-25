@@ -1,5 +1,8 @@
 package edu.fzu.anop.resource;
 
+/**
+ * @author SilverBay
+ */
 public class UserResource {
 
     private Integer id;
