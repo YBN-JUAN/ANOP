@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserCenterService } from '../../../share/service/user-center.service';
 import { UserInfo } from '../../../share/model/user-info';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-profile',
@@ -28,7 +28,6 @@ export class EditProfileComponent implements OnInit {
   onSubmit() {
     document.getElementById('hide').style.display='none';
     document.getElementById('show').style.display='block';
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-
+    this.service.updateUserInfo(this.user.nickName);
   }
 }
