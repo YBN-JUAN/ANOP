@@ -28,6 +28,8 @@
         <div nz-col nzSpan="8" class="row">
             <nz-badge nzColor="cyan"></nz-badge>
             姓名
+            <i nz-icon nz-tooltip nzTitle="长度在1-31之间"
+            nzType="question-circle" nzTheme="outline"></i>
         </div>
         <div nz-col nzSpan="16" class="row" id="show">
             {{user.nickName}}
@@ -35,8 +37,9 @@
         </div>
         <div nz-col nzSpan="16" class="row" id="hide">
             <input nz-input [(ngModel)]="user.nickName"/>
-            <button nz-button nzType="dashed" (click)="onSubmit()">确认</button>
-        </div>      
+            <button nz-button nzType="dashed" (click)="onSubmit()"
+            [disabled]="user.nickName.length>0 && user.nickName.length<=31 ? false : true">确认</button>
+        </div>   
     </div>
 
     <div nz-row>
@@ -55,7 +58,7 @@
             注册时间
         </div>
         <div nz-col nzSpan="16" class="row">
-            {{user.creationTime | date: 'yyyy.MM.dd'}}
+            {{user.creationTime | date: 'yyyy-MM-dd HH:mm:ss'}}
         </div>
     </div>
 </div>

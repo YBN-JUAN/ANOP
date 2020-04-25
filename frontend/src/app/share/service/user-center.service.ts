@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserCenterService {
-  public url:string = 'http://localhost:8080/v1/profile';
+  public url: string = 'http://localhost:8080/v1/profile';
   storageOk: boolean = false;
 
-  constructor(public http:HttpClient) { 
+  constructor(public http:HttpClient) {
   }
 
   getConfig(){
@@ -20,21 +20,21 @@ export class UserCenterService {
   storageUser() {
     if (this.storageOk) { return; }
     this.http.get<UserInfo>(this.url).subscribe(data => (
-      localStorage.setItem("userid", String(data.id)),
-        localStorage.setItem("username", String(data.userName))
+      localStorage.setItem('userid', String(data.id)),
+        localStorage.setItem('username', String(data.userName))
     ))
     this.storageOk = true;
   }
 
   updateUserInfo(nickName: string) {
-    const httpOptions = { 
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json' 
-      }) 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     };
     this.http.put(this.url, {nickname:nickName}, httpOptions)
-      .subscribe(response => { 
-        console.log(response); 
+      .subscribe(response => {
+        console.log(response);
       }
     );
   }
