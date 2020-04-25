@@ -5,6 +5,7 @@ import edu.fzu.anop.pojo.RemindEmail;
 import edu.fzu.anop.service.MailService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @author ZYF
  */
 @Service
+@Slf4j
 public class MailServiceImpl implements MailService {
 
     @Resource
@@ -64,6 +66,7 @@ public class MailServiceImpl implements MailService {
         helper.setText(content, true);
 
         mailSender.send(message);
+        log.info("Success to send Email to：" + to);
     }
 
 
