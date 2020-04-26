@@ -8,6 +8,7 @@ import {Group} from '../model/group-info';
 })
 export class SubscriptionCenterService {
   public url:string = 'http://localhost:8080/v1/sub/groups';
+  public url1:string = 'http://localhost:8080/v1/pub/groups';
   getGroups(
     orderBy: string,
     pageNum: number,
@@ -18,6 +19,10 @@ export class SubscriptionCenterService {
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResposeList<Group>>(`${this.url}`, { params });
+  }
+
+  getGroup(id: number) {
+    return this.http.get<Group>(`${this.url1}/${id}`);
   }
   constructor(private http: HttpClient) { }
 }

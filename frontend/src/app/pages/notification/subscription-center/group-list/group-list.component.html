@@ -1,3 +1,6 @@
+<div class="plus-button">
+  <i nz-icon nzType="plus-circle" nzTheme="twotone" nzTwotoneColor="#eb2f96" routerLink="/notification/subscription/join-group"></i>
+</div>
 <nz-table
   nzShowSizeChanger
   [nzData]="listOfGroups"
@@ -26,7 +29,11 @@
       <p>有未读消息</p>
     </td>
     <td>
-      <i nz-icon nzType="info-circle" nzTheme="twotone" size="large"></i>
+      <i nz-icon
+         nzType="info-circle"
+         nzTheme="twotone"
+         size="large"
+         routerLink="/notification/subscription/group-detail/{{data.id}}"></i>
     </td>
   </tr>
   </tbody>

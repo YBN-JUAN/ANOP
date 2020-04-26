@@ -1,8 +1,13 @@
-[nz-icon] {
-  font-size: 50px;
-}
-
 .plus-button {
   padding-left: 95%;
   padding-top: 10px;
+}
+
+.content {
+  padding: 5px;
+  border-radius: 5%;
+}
+
+.plus-button [nz-icon] {
+  font-size: 50px;
 }

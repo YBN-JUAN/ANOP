@@ -33,7 +33,7 @@ const routes: Routes = [
       { path: 'subscription', component: SubscriptionCenterComponent,
         children:[
           { path: 'group', component: GroupComponent },
-          { path: 'group-detail', component: GroupDetailComponent },
+          { path: 'group-detail/:id', component: GroupDetailComponent },
           { path: 'group-list', component: GroupListComponent },
           { path: 'join-group', component: JoinGroupComponent },
           { path: '**', component: GroupListComponent },

@@ -23,11 +23,6 @@ nz-avatar {
     margin-top: 50px;
 }
 
-h1 {
-    padding: 24px;
-    margin: 30px;
-}
-
 .upload-button {
     padding: 0 15px;
     margin: 30px;
@@ -54,4 +49,12 @@ button {
 input {
     width: 300px;
     font-size: 20px;
+}
+
+.name-header {
+    word-wrap: break-word;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 24px;
+    margin: 30px;
 }
