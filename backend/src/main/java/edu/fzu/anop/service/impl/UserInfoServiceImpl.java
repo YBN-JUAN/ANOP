@@ -16,10 +16,13 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * @author SilverBay
+ */
 @Service
 @Transactional
 public class UserInfoServiceImpl implements UserInfoService {

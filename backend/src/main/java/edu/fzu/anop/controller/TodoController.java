@@ -7,6 +7,7 @@ import edu.fzu.anop.resource.TodoUpdateResource;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import java.net.URISyntaxException;
 /**
  * @author ZYF
  */
+@Api(tags = "待办事项相关接口")
 @RestController
 @RequestMapping("v1/todos")
 public class TodoController {

@@ -10,12 +10,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author SilverBay
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
     CustomUserMapper customUserMapper;
+
+    @Override
+    public boolean isRightOldPassword(String oldPassword) {
+        PasswordEncoder passwordEncoder = new BeanConfig().passwordEncoder();
+        oldPassword = passwordEncoder.encode(oldPassword);
+        String userPassword = SecurityUtil.getLoginUser(User.class).getPassword();
+        return oldPassword.equals(userPassword);
+    }
 
     @Override
     public int resetPassword(String newPassword) {

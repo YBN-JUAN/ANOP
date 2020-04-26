@@ -41,7 +41,7 @@ public class UserController {
         }
 
         User user = SecurityUtil.getLoginUser(User.class);
-        if( !user.getPassword().equals(resource.getOldPassword()) ) {
+        if( !userService.isRightOldPassword(resource.getOldPassword()) ) {
             return JsonResult.badRequest("The old password is incorrect", null);
         }
 

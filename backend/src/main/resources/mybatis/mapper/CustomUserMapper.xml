@@ -9,6 +9,12 @@
         <id column="status" javaType="INTEGER" property="status"/>
     </resultMap>
 
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from user
+        where username = #{username, jdbcType=VARCHAR};
+    </select>
+
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.fzu.anop.security.user.User"
             useGeneratedKeys="true">
         insert into user

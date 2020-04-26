@@ -7,8 +7,11 @@
 <body>
 <div style="border: black;width: 400px;height: 400px;">
     <h3>尊敬的用户${info.username},您好！</h3>
-    您有待办事项即将到期：<br>
-    标题：${info.title}<br>
-    截止时间：${(info.remindDate?string("yyyy年MM月dd日 HH时mm分"))}<br>
+    <p>您有待办事项即将到期：</p><hr/><br>
+    <#list info.todosToRemind as todo>
+        <b>${todo.title}</b>
+        <p>截止时间：${(todo.endDate?string("yyyy年MM月dd日 HH时mm分"))!'未设置'}</p>
+        <br>
+    </#list>
 </div>
 </body>

@@ -2,6 +2,9 @@ package edu.fzu.anop.resource;
 
 import java.util.Date;
 
+/**
+ * @author SilverBay
+ */
 public class UserInfoResource {
 
     private Integer id;
