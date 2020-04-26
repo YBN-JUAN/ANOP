@@ -1,23 +1,27 @@
 <div class="content">
-  <div>
-    <h class="head-title">通知群组详细信息</h>
+  <div class="head-div">
+    <p class="head-title">通知群组详细信息</p>
   </div>
   <hr/>
   <nz-content>
     <div class="group-info">
       <nz-row>
-        <nz-badge nzColor="blue" nzText="名称:"></nz-badge>
+        <nz-badge nzColor="blue" nzText="名称:{{group.title}}"></nz-badge>
       </nz-row>
       <nz-row>
         <nz-badge nzColor="blue" nzText="口令:"></nz-badge>
       </nz-row>
       <nz-row>
-        <nz-badge nzColor="blue" nzText="创建时间:"></nz-badge>
+        {{ group.avatarUrl }}
+      </nz-row>
+      <nz-row>
+        <nz-badge nzColor="blue" nzText="创建时间:{{group.creationDate}}"></nz-badge>
       </nz-row>
       <nz-row>
         <nz-badge nzColor="blue" nzText="备注:"></nz-badge>
       </nz-row>
       <div class="detail-mark">
+          {{ group.remark }}
       </div>
     </div>
     <div class="user-list">
