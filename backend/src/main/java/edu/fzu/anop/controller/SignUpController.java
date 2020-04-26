@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.util.Date;
 
 @RestController
 @RequestMapping("v1")
@@ -30,7 +31,7 @@ public class SignUpController {
         if(bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        if(signUpService.isSignedUp(resource.getEmail())) {
+        if(signUpService.isSignedUpEmail(resource.getEmail())) {
             return JsonResult.badRequest("Email has been signed up", null);
         }
         try {
@@ -51,6 +52,15 @@ public class SignUpController {
         ValidEmail validEmail = signUpService.getValidEmail(resource.getEmail());
         if(validEmail == null) {
             return JsonResult.badRequest("Email is not verified", null);
+        }
+        if( signUpService.isSignedUpEmail(resource.getEmail()) ) {
+            return JsonResult.badRequest("Email has been signed up", null);
+        }
+        if( signUpService.isSignedUpUsername(resource.getUsername()) ) {
+            return JsonResult.badRequest("Username has been used", null);
+        }
+        if( validEmail.getExpire().before(new Date()) ) {
+            return JsonResult.badRequest("Verification code is expired", null);
         }
         if( !resource.getCode().equals(validEmail.getCode().toUpperCase()) ) {
             return JsonResult.badRequest("Verification code mismatch", null);

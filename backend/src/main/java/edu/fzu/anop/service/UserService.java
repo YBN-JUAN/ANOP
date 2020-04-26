@@ -6,6 +6,7 @@ package edu.fzu.anop.service;
 public interface UserService {
 
     boolean isRightOldPassword(String oldPassword);
+
     int resetPassword(String newPassword);
 
 }

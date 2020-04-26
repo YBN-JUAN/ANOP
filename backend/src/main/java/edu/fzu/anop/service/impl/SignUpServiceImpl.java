@@ -58,9 +58,15 @@ public class SignUpServiceImpl implements SignUpService {
     }
 
     @Override
-    public boolean isSignedUp(String email) {
+    public boolean isSignedUpEmail(String email) {
         ValidEmail validEmail = getValidEmail(email);
         return (validEmail != null && validEmail.getIsValid() == 1);
+    }
+
+    @Override
+    public boolean isSignedUpUsername(String username) {
+        User user = customUserMapper.selectByUsername(username);
+        return user != null;
     }
 
     @Override
@@ -77,6 +83,7 @@ public class SignUpServiceImpl implements SignUpService {
         }
         else {
             validEmail.setCode(code);
+            validEmail.setIsValid((byte)0);
             Date expire = new Date();
             expire.setTime(expire.getTime() + EXPIRE_MESC);
             validEmail.setExpire(expire);

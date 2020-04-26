@@ -12,7 +12,8 @@ import javax.mail.MessagingException;
 public interface SignUpService {
 
     ValidEmail getValidEmail(String email);
-    boolean isSignedUp(String email);
+    boolean isSignedUpEmail(String email);
+    boolean isSignedUpUsername(String userName);
     void saveValidEmail(String email, String code);
     String sendValidEmail(String email) throws MessagingException;
     User signUp(UserSignUpResource resource);
