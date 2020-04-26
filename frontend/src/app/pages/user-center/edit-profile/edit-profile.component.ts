@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserCenterService } from '../../../share/service/user-center.service';
 import { UserInfo } from '../../../share/model/user-info';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,8 +11,7 @@ export class EditProfileComponent implements OnInit {
   public user:UserInfo;
 
   constructor(
-    public service:UserCenterService,
-    public http:HttpClient
+    public service:UserCenterService
   ) { }
 
   ngOnInit(): void {
