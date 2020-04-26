@@ -3,10 +3,13 @@ package edu.fzu.anop.resource;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * 通知群组更新资源
+ *
+ * @author Xue_Feng
+ */
 public class GroupUpdateResource implements Serializable {
     @Length(min = 0, max = 15)
     private String title;

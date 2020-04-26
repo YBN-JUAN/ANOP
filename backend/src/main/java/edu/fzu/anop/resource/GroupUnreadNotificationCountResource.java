@@ -1,5 +1,10 @@
 package edu.fzu.anop.resource;
 
+/**
+ * 通知未读通知统计资源
+ *
+ * @author Xue_Feng
+ */
 public class GroupUnreadNotificationCountResource {
     private Integer groupId;
     private Long unreadCount;

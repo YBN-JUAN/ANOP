@@ -2,6 +2,11 @@ package edu.fzu.anop.resource;
 
 import java.io.Serializable;
 
+/**
+ * 通知群组用户添加资源
+ *
+ * @author Xue_Feng
+ */
 public class GroupUserAddResource implements Serializable {
     private Integer groupId;
 

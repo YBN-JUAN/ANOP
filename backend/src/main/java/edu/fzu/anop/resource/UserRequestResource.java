@@ -3,6 +3,11 @@ package edu.fzu.anop.resource;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 通知群组申请资源
+ *
+ * @author Xue_Feng
+ */
 public class UserRequestResource implements Serializable {
     private Integer id;
 

@@ -3,6 +3,11 @@ package edu.fzu.anop.resource;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * 通知接收者添加资源
+ *
+ * @author Xue_Feng
+ */
 public class ReceiverAddResource implements Serializable {
     @NotNull
     private Integer notificationId;

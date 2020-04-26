@@ -4,8 +4,12 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
+/**
+ * 通知添加资源
+ *
+ * @author Xue_Feng
+ */
 public class NotificationAddResource implements Serializable {
     @NotNull
     @Length(min = 0, max = 31)

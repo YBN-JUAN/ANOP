@@ -5,6 +5,11 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * 通知群组用户更新资源
+ *
+ * @author Xue_Feng
+ */
 public class GroupUserUpdateResource implements Serializable {
     @NotNull
     @Range(min = 0, max = 1)

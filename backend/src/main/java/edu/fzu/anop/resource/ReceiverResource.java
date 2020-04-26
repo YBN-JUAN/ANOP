@@ -2,6 +2,11 @@ package edu.fzu.anop.resource;
 
 import java.io.Serializable;
 
+/**
+ * 接收者资源
+ *
+ * @author Xue_Feng
+ */
 public class ReceiverResource implements Serializable {
     private Integer userId;
 

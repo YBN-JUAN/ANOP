@@ -3,8 +3,13 @@ package edu.fzu.anop.resource;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 接受者通知资源
+ *
+ * @author Xue_Feng
+ */
 public class ReceiverNotificationResource implements Serializable {
-    private Integer Id;
+    private Integer id;
 
     private Integer groupId;
 
@@ -23,11 +28,11 @@ public class ReceiverNotificationResource implements Serializable {
     private Byte isRead;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public Integer getGroupId() {

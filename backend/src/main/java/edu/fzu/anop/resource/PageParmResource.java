@@ -1,13 +1,17 @@
 package edu.fzu.anop.resource;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
+/**
+ * 分页参数资源
+ *
+ * @author Xue_Feng
+ */
 public class PageParmResource implements Serializable {
     @Min(1)
     @Max(20)

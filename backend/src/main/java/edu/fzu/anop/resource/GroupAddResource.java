@@ -2,14 +2,15 @@ package edu.fzu.anop.resource;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
+/**
+ * 通知群组添加资源
+ *
+ * @author Xue_Feng
+ */
 public class GroupAddResource implements Serializable {
     @NotNull
     @Length(min = 0, max = 15)

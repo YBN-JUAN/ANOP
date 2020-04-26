@@ -3,8 +3,12 @@ package edu.fzu.anop.resource;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
-import java.util.Date;
 
+/**
+ * 通知更新资源
+ *
+ * @author Xue_Feng
+ */
 public class NotificationUpdateResource implements Serializable {
     @Length(min = 0, max = 31)
     private String title;
