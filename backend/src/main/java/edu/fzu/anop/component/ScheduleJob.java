@@ -29,7 +29,7 @@ public class ScheduleJob {
      * @throws MessagingException
      */
     @Async
-    @Scheduled(cron = "* * 0/1 * * ? ")
+    @Scheduled(cron = "0 0 * * * ?")
     public void remindTodo() throws TemplateException, IOException, MessagingException {
         log.info("-- Start sending remind mails --");
         mailService.sendRemindMails();
