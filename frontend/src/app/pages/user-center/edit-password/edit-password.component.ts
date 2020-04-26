@@ -9,6 +9,7 @@ import { UserCenterService } from '../../../share/service/user-center.service';
 })
 export class EditPasswordComponent implements OnInit {
   public resetForm: FormGroup;
+  public errorInput: boolean = false;
 
   constructor(
     public fb: FormBuilder,
@@ -28,9 +29,7 @@ export class EditPasswordComponent implements OnInit {
       this.resetForm.controls[i].markAsDirty();
       this.resetForm.controls[i].updateValueAndValidity();
     }
-    this.service.resetPassword(this.resetForm.controls.newPassword.value, this.resetForm.controls.oldPassword.value);
-    console.log(this.resetForm.controls.newPassword.value);
-    console.log(this.resetForm.controls.oldPassword.value);
+    this.service.resetPassword(this.resetForm.controls.newPassword.value, this.resetForm.controls.oldPassword.value, this.errorInput);
   }
 
   updateConfirmValidator(): void {

@@ -37,15 +37,23 @@ export class UserCenterService {
       });
   }
 
-  resetPassword(newPassword: string, oldPassword: string) {
+  resetPassword(newPassword: string, oldPassword: string, errorInput: boolean) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     this.http.post(this.url + "account/password",{newPassword:newPassword, oldPassword:oldPassword}, httpOptions)
-      .subscribe(response => {
-        console.log(response);
-      });
-  }
+      .subscribe(
+        data => {
+          console.log(data);
+          window.alert("修改成功，请重新登录！");
+          //signOut();
+        },
+        error => {
+          console.log(error);
+          window.alert("原密码输入错误，请重新输入！");
+          }
+      );
+    }
 }
