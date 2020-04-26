@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {UserRequest} from '../model/user-request';
 import {ResposeList} from '../model/respose-list';
-import {Group} from '../model/group-info';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubscriptionCenterService {
-  public url:string = 'http://localhost:8080/v1/sub/groups';
-  getGroups(
+export class UserRequestService {
+  public url: string = "http://localhost:8080/v1/pub/requests";
+  constructor(private http: HttpClient) { }
+
+  getUserRequest(
     orderBy: string,
     pageNum: number,
     pageSize: number
@@ -17,7 +19,6 @@ export class SubscriptionCenterService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<Group>>(`${this.url}`, { params });
+    return this.http.get<ResposeList<UserRequest>>(`${this.url}`, { params });
   }
-  constructor(private http: HttpClient) { }
 }

@@ -32,6 +32,7 @@ import {PublishCenterGroupListComponent} from './pages/notification/publish-cent
 import {JoinGroupService} from './share/service/join-group.service';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import { TodoItemComponent } from './pages/memorandum/todo-item/todo-item.component';
+import { RequestListComponent } from './pages/notification/examine-center/request-list/request-list.component';
 
 registerLocaleData(zh);
 
@@ -57,7 +58,8 @@ registerLocaleData(zh);
     HeadButtonComponent,
     PublishCenterGroupListComponent,
     AllTodoComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    RequestListComponent
   ],
   imports: [
     ReactiveFormsModule,

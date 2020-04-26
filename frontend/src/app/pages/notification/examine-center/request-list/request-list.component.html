@@ -1,0 +1,33 @@
+<nz-table
+  nzShowSizeChanger
+  [nzData]="requestList"
+  [nzFrontPagination]="false"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+  <tr>
+    <th nzColumnKey="id" [nzSortFn]="true" [hidden]="true">id</th>
+    <th nzColumnKey="username" >用户</th>
+    <th nzColumnKey="groupName" >申请通知群组名称</th>
+    <th nzColumnKey="requestTime" >申请日期</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of requestList">
+    <td [hidden]="true">{{ data.id }}</td>
+    <td>{{ data.username }}</td>
+    <td>{{ data.groupName }}</td>
+    <td>{{ data.requestTime }}</td>
+    <td>
+      <i nz-icon nzType="check" nzTheme="outline" size="large"></i>
+      &nbsp;&nbsp;
+      <i nz-icon nzType="close" nzTheme="outline" size="large"></i>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
