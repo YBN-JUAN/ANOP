@@ -12,7 +12,7 @@ interface User{
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl:string='http://localhost:8080/';
+  private baseUrl:string='http://localhost:8080/v1/';
   user:User;
   authenticated = false;
   constructor(private http: HttpClient) { }
@@ -20,12 +20,12 @@ export class AuthService {
   authenticate<T>(credentials, successCallback?:()=>void, errorCallback?:(result:JsonResult<T>)=>void) {
     if(!credentials)
       return;
-    this.http.options(this.baseUrl+'login').pipe(
+    this.http.options(this.baseUrl+'signin').pipe(
       finalize(()=>{
         let formData=new URLSearchParams();
         formData.set('username',credentials.username);
         formData.set('password',credentials.password);
-        this.http.post<User>(this.baseUrl+'login',formData.toString(),{
+        this.http.post<User>(this.baseUrl+'signin',formData.toString(),{
           headers:{
             'Content-Type':'application/x-www-form-urlencoded'
           }
