@@ -8,6 +8,8 @@ import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
+import edu.fzu.anop.util.Message;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +18,26 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * 通知群组控制器
+ *
+ * @author Xue_Feng
+ */
+@Api(value = "通知群组", tags = {"通知群组"})
 @RestController
 @RequestMapping("/v1/pub/groups")
 public class GroupController {
     @Autowired
     GroupService groupService;
 
+    @ApiOperation(value = "创建通知群组")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "resource", value = "创建通知群组信息", required = true, dataType = "GroupAddResource"),
+    })
+    @ApiResponses({
+        @ApiResponse(code = 201, message = "创建成功", response = Group.class),
+        @ApiResponse(code = 422, message = "请求体参数验证错误", response = Message.class)
+    })
     @PostMapping()
     public Object addGroup(
         @RequestBody @Valid GroupAddResource resource, BindingResult bindingResult) throws URISyntaxException {

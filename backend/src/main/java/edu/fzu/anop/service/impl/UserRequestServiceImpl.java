@@ -25,9 +25,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 通知群组加入请求业务逻辑默认实现
+ *
+ * @author Xue_Feng
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class UserRequestServiceImpl implements UserRequestService {
+    private static final byte ACCEPT = 1;
+    private static final byte DENY = 2;
+    private static final byte PENDING = 0;
+    private static final byte COMMON_ROLE = 0;
+
     @Autowired
     CustomUserRequestMapper customUserRequestMapper;
     @Autowired
@@ -46,7 +56,7 @@ public class UserRequestServiceImpl implements UserRequestService {
         resource.setUserId(userId);
         resource.setGroupId(groupId);
         GroupUser newGroupUser = PropertyMapperUtil.map(resource, GroupUser.class);
-        newGroupUser.setIsAdmin((byte) 0);
+        newGroupUser.setIsAdmin(COMMON_ROLE);
         return groupUserMapper.insert(newGroupUser);
     }
 
@@ -74,7 +84,7 @@ public class UserRequestServiceImpl implements UserRequestService {
         boolean isNew = false;
         if (requests.size() > 0) {
             userRequest = requests.get(0);
-            if (userRequest.getIsAccepted() == 0) {
+            if (userRequest.getIsAccepted() == PENDING) {
                 return 1;
             }
         } else {
@@ -82,7 +92,7 @@ public class UserRequestServiceImpl implements UserRequestService {
             userRequest = PropertyMapperUtil.map(resource, UserRequest.class);
             userRequest.setUserId(currentUserId);
         }
-        userRequest.setIsAccepted((byte) 0);
+        userRequest.setIsAccepted(PENDING);
         userRequest.setRequestTime(new Date());
         if (isNew) {
             return userRequestMapper.insert(userRequest);
@@ -110,15 +120,17 @@ public class UserRequestServiceImpl implements UserRequestService {
 
     @Override
     public int acceptOrDenyUserRequest(UserRequest request, byte isAccepted) {
-        if (request.getIsAccepted() != 0) {
+        if (request.getIsAccepted() != PENDING) {
             return -1;
         }
-        if (isAccepted == 2) {
-            request.setIsAccepted((byte) 2);
-            userRequestMapper.updateByPrimaryKey(request);
-            return 1;
+        if (!groupService.hasGroup(request.getGroupId())) {
+            return -1;
         }
-        if (isAccepted == 1) {
+        if (isAccepted == DENY) {
+            request.setIsAccepted(DENY);
+            return userRequestMapper.updateByPrimaryKey(request);
+        }
+        if (isAccepted == ACCEPT) {
             if (!authService.canHandleUserRequest(request.getGroupId())) {
                 return -1;
             }
@@ -127,7 +139,7 @@ public class UserRequestServiceImpl implements UserRequestService {
                     addGroupUser(request.getUserId(), request.getGroupId());
                 }
             }
-            request.setIsAccepted((byte) 1);
+            request.setIsAccepted(ACCEPT);
             return userRequestMapper.updateByPrimaryKey(request);
         } else {
             return -1;

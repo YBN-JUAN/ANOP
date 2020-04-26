@@ -21,9 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 通知群组业务通知中心权限检查业务逻辑默认实现
+ *
+ * @author Xue_Feng
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class GroupUserServiceImpl implements GroupUserService {
+    private static final byte ADMIN_ROLE = 1;
+    private static final byte COMMON_ROLE = 0;
     @Autowired
     GroupUserMapper groupUserMapper;
     @Autowired
@@ -36,7 +43,7 @@ public class GroupUserServiceImpl implements GroupUserService {
     @Override
     public boolean hasAdminRole(int userId, int groupId) {
         GroupUser user = getGroupUser(userId, groupId);
-        if (user != null && user.getIsAdmin() == 1) {
+        if (user != null && user.getIsAdmin() == ADMIN_ROLE) {
             return true;
         }
         return false;
@@ -45,7 +52,7 @@ public class GroupUserServiceImpl implements GroupUserService {
     @Override
     public boolean hasCommonRole(int userId, int groupId) {
         GroupUser user = getGroupUser(userId, groupId);
-        if (user != null && user.getIsAdmin() == 0) {
+        if (user != null && user.getIsAdmin() == COMMON_ROLE) {
             return true;
         }
         return false;

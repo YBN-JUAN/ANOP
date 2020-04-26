@@ -19,9 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 通知接收者业务逻辑默认实现
+ *
+ * @author Xue_Feng
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class ReceiverServiceImpl implements ReceiverService {
+    private static final byte READ = 1;
+    private static final byte UNREAD = 0;
     @Autowired
     ReceiverMapper receiverMapper;
     @Autowired
@@ -60,10 +67,10 @@ public class ReceiverServiceImpl implements ReceiverService {
             isNew = true;
             receiver = PropertyMapperUtil.map(resource, Receiver.class);
             receiver.setUserId(currentUserId);
-        } else if (receiver.getIsRead() == 1) {
-            return 1;
+        } else if (receiver.getIsRead() == READ) {
+            return 0;
         }
-        receiver.setIsRead((byte) 1);
+        receiver.setIsRead(READ);
         if (isNew) {
             return receiverMapper.insert(receiver);
         }
@@ -81,7 +88,7 @@ public class ReceiverServiceImpl implements ReceiverService {
         List<ReceiverResource> resources = customReceiverMapper.listReceiver(notificationId, groupId);
         for (ReceiverResource resource : resources) {
             if (resource.getIsRead() == null) {
-                resource.setIsRead((byte) 0);
+                resource.setIsRead(UNREAD);
             }
         }
         return resources;

@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 通知群组是默认实现
+ * 通知群组业务通知中心权限检查业务逻辑默认实现
  *
  * @author Xue_Feng
  */
@@ -36,6 +36,8 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
     private static final byte PERMIT_ALL = 1;
     private static final byte REJECT_ALL = 2;
+    private static final byte PENDING = 0;
+    private static final byte DENY = 2;
     @Autowired
     private GroupMapper groupMapper;
     @Autowired
@@ -141,9 +143,9 @@ public class GroupServiceImpl implements GroupService {
             UserRequestExample example = new UserRequestExample();
             UserRequestExample.Criteria criteria = example.createCriteria();
             criteria.andGroupIdEqualTo(oldGroup.getId());
-            criteria.andIsAcceptedEqualTo((byte) 0);
+            criteria.andIsAcceptedEqualTo(PENDING);
             UserRequest userRequest = new UserRequest();
-            userRequest.setIsAccepted((byte) 2);
+            userRequest.setIsAccepted(DENY);
             userRequestMapper.updateByExampleSelective(userRequest, example);
         }
 

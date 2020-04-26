@@ -23,9 +23,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 通知业务逻辑默认实现
+ *
+ * @author Xue_Feng
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class NotificationServiceImpl implements NotificationService {
+    private static final Byte READ = 1;
+    private static final Byte UNREAD = 0;
+    private static final Byte NOT_FAVORITE = 0;
+    private static final Byte NOT_IMPORTANT = 0;
     @Autowired
     NotificationMapper notificationMapper;
     @Autowired
@@ -60,7 +69,7 @@ public class NotificationServiceImpl implements NotificationService {
         }
         ReceiverNotificationResource resource = customNotificationMapper.selectReceiverNotification(notificationId, currentUserId, groupId);
         if (resource.getIsRead() == null) {
-            resource.setIsRead((byte) 0);
+            resource.setIsRead(UNREAD);
         }
         return resource;
     }
@@ -94,7 +103,7 @@ public class NotificationServiceImpl implements NotificationService {
         List<ReceiverNotificationResource> notificationResources = customNotificationMapper.listReceiverNotification(currentUserId, groupId);
         for (ReceiverNotificationResource resource : notificationResources) {
             if (resource.getIsRead() == null) {
-                resource.setIsRead((byte) 0);
+                resource.setIsRead(UNREAD);
             }
         }
         return new PageInfo(notificationResources);
@@ -130,7 +139,7 @@ public class NotificationServiceImpl implements NotificationService {
         ReceiverExample.Criteria criteria = example.createCriteria();
         criteria.andNotificationIdEqualTo(oldNotification.getId());
         Receiver receiver = new Receiver();
-        receiver.setIsRead((byte) 1);
+        receiver.setIsRead(READ);
         receiverMapper.updateByExampleSelective(receiver, example);
 
         Notification newNotification = PropertyMapperUtil.map(resource, Notification.class);
@@ -159,8 +168,8 @@ public class NotificationServiceImpl implements NotificationService {
         TodoAddResource resource = new TodoAddResource();
         resource.setTitle(notification.getTitle());
         resource.setContent(notification.getContent());
-        resource.setIsFavorite((byte) 0);
-        resource.setIsImportant((byte) 0);
+        resource.setIsFavorite(NOT_FAVORITE);
+        resource.setIsImportant(NOT_IMPORTANT);
         return todoService.addTodo(resource) != null ? 1 : 0;
     }
 }

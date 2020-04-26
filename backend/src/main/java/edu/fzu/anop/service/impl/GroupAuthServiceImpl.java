@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 通知中心权限检查业务逻辑默认实现
+ *
+ * @author Xue_Feng
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class GroupAuthServiceImpl implements GroupAuthService {
     @Autowired
     GroupUserService groupUserService;
