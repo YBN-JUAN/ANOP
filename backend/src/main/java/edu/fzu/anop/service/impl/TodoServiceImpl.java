@@ -27,13 +27,17 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class TodoServiceImpl implements TodoService {
 
+    private static final byte UN_COMPLETED = 0;
+
+    private static final byte COMPLETED = 1;
+
     @Resource
     TodoMapper todoMapper;
 
     @Override
     public Todo addTodo(TodoAddResource resource) {
         Todo todo = PropertyMapperUtil.map(resource, Todo.class);
-        todo.setIsCompleted(new Byte("0"));
+        todo.setIsCompleted(UN_COMPLETED);
         todo.setUserId(SecurityUtil.getLoginUser(User.class).getId());
         todoMapper.insert(todo);
         return todo;
@@ -74,7 +78,7 @@ public class TodoServiceImpl implements TodoService {
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(todo.getId());
-        todo.setIsCompleted((byte) ((todo.getIsCompleted() == (byte) 1) ? 0 : 1));
+        todo.setIsCompleted((byte) ((todo.getIsCompleted() == COMPLETED) ? UN_COMPLETED : COMPLETED));
         return todoMapper.updateByExampleSelective(todo, example);
     }
 
