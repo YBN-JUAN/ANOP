@@ -6,9 +6,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+/**
+ * 安全配置类
+ *
+ * @author Xue_Feng
+ */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //    @Bean
+    private final String SIGN_IN_URL = "/v1/signin";
+    private final String SIGN_OUT_URL = "/v1/signout";
+    private final String SIGN_UP_URL = "/v1/signup";
+    private final String VALID_EMAIL_URL = "/v1/valid_email";
+
+//    @Bean
 //    CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
 //        configuration.setAllowedOrigins(Arrays.asList("*"));
@@ -20,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        return source;
 //    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -27,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             //.antMatchers("/resource").hasRole("admin")
-            .antMatchers(HttpMethod.POST, "/v1/signin", "/v1/signout").permitAll()
+            .antMatchers(HttpMethod.POST, SIGN_IN_URL, SIGN_OUT_URL).permitAll()
+            .antMatchers(HttpMethod.POST, SIGN_UP_URL, VALID_EMAIL_URL).permitAll()
             .anyRequest().authenticated()
             .and()
             .cors()

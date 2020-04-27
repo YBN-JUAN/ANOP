@@ -27,11 +27,11 @@ public interface CustomGroupMapper {
     List<GroupResource> listUserCreateGroup(Integer userId);
 
     /**
-     * 获取指定用户管理的通知群组列表
+     * 获取指定用户的所在指定身份的通知群组列表
      *
-     * @param userId
-     * @param isAdmin
-     * @return
+     * @param userId  用户id
+     * @param isAdmin 用户身份
+     * @return 通知群组列表
      */
     List<GroupResource> listUserGroup(Integer userId, Byte isAdmin);
 }
