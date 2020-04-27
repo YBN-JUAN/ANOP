@@ -17,6 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final String SIGN_OUT_URL = "/v1/signout";
     private final String SIGN_UP_URL = "/v1/signup";
     private final String VALID_EMAIL_URL = "/v1/valid_email";
+    private final String SUCCESS_FORWARD_URL = "/user";
+    private final String FAILURE_FORWARD_URL = "/failed";
 
 //    @Bean
 //    CorsConfigurationSource corsConfigurationSource() {
@@ -47,11 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
             .formLogin()
-            .loginProcessingUrl("/v1/signin")
-            .successForwardUrl("/user")
-            .failureForwardUrl("/failed")
+            .loginProcessingUrl(SIGN_IN_URL)
+            .successForwardUrl(SUCCESS_FORWARD_URL)
+            .failureForwardUrl(FAILURE_FORWARD_URL)
             .and()
             .logout()
-            .logoutUrl("/v1/signout");
+            .logoutUrl(SIGN_OUT_URL);
     }
 }
