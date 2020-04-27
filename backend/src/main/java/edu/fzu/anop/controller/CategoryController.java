@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 /**
  * @author ZYF
  */
-@Api(tags = "待办事项分类相关接口")
+@Api(tags = "待办事项分类")
 @RestController
 @RequestMapping("v1/categories")
 public class CategoryController {

@@ -23,7 +23,7 @@ import java.net.URISyntaxException;
 /**
  * @author ZYF
  */
-@Api(tags = "待办事项相关接口")
+@Api(tags = "待办事项")
 @RestController
 @RequestMapping("v1/todos")
 public class TodoController {

@@ -5,8 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @Author: ZYF
- * @Date: 2020-4-25 16:59
+ * 用于显示在提醒邮件正文的待办事项资源
+ *
+ * @author ZYF
  */
 @Data
 public class MailTodoResource {

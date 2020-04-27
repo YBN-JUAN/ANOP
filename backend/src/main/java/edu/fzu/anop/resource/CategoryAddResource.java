@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 /**
+ * 待办事项分类添加资源
+ *
  * @author ZYF
  */
 @Data
