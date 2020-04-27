@@ -19,6 +19,7 @@ export class GroupDetailComponent implements OnInit {
   loading = true;
   pageSize = 5;
   pageIndex = 1;
+
   constructor(private route: ActivatedRoute,
               private pubService: PublishCenterService,
               private subService: SubscriptionCenterService,

@@ -21,4 +21,16 @@ export class UserRequestService {
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResposeList<UserRequest>>(`${this.url}`, { params });
   }
+
+  getManageRequest(
+    orderBy: string,
+    pageNum: number,
+    pageSize: number
+  ) {
+    let params = new HttpParams()
+      .append('orderBy', orderBy)
+      .append('pageNum', `${pageNum}`)
+      .append('pageSize', `${pageSize}`);
+    return this.http.get<ResposeList<UserRequest>>(`${this.url}/manage`, { params });
+  }
 }

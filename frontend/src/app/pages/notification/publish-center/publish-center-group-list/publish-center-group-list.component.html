@@ -1,3 +1,8 @@
+<nz-row>
+  <nz-col nz-col="3" [nzOffset]="1">
+    <button nz-button nzType="primary" nzSize="large" (click)="changeList()">{{buttonTitle}}</button>
+  </nz-col>
+</nz-row>
 <nz-table
   nzShowSizeChanger
   [nzData]="listOfGroups"

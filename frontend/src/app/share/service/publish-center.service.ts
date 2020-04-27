@@ -9,7 +9,7 @@ import {GroupUser} from '../model/user-info';
 })
 export class PublishCenterService {
   public url:string = 'http://localhost:8080/v1/pub/groups';
-  getGroups(
+  getCreateGroups(
     orderBy: string,
     pageNum: number,
     pageSize: number
@@ -21,6 +21,30 @@ export class PublishCenterService {
     return this.http.get<ResposeList<Group>>(`${this.url}`, { params });
   }
 
+  getManageGroups(
+    orderBy: string,
+    pageNum: number,
+    pageSize: number
+  ) {
+    let params = new HttpParams()
+      .append('orderBy', orderBy)
+      .append('pageNum', `${pageNum}`)
+      .append('pageSize', `${pageSize}`);
+    return this.http.get<ResposeList<Group>>(`${this.url}/manage`, { params });
+  }
+
+  getGroups(
+    listType: number,
+    orderBy: string,
+    pageNum: number,
+    pageSize: number
+  ) {
+    if (listType == 0) {
+      return this.getCreateGroups(orderBy, pageNum, pageSize);
+    } else {
+      return this.getManageGroups(orderBy, pageNum, pageSize);
+    }
+  }
   deleteGroup(id: number){
     this.http.delete(`${this.url}/${id}`).subscribe(
       data => {
