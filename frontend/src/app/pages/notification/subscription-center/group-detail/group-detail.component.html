@@ -25,6 +25,32 @@
       </div>
     </div>
     <div class="user-list">
+      <nz-row>
+        <nz-col [nzOffset]="8">
+          <nz-badge nzColor="blue" nzText="成员列表:"></nz-badge>
+        </nz-col>
+      </nz-row>
+      <nz-table
+        nzShowSizeChanger
+        [nzData]="listOfUsers"
+        [nzFrontPagination]="false"
+        [nzLoading]="loading"
+        [nzTotal]="total"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="pageIndex"
+        (nzQueryParams)="onQueryParamsChange($event)"
+      >
+        <thead>
+        <tr>
+          <th nzColumnKey="nickname">成员昵称</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of listOfUsers">
+          <td>{{ data.nickname }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
     </div>
     <nz-row class="buttons">
       <nz-col nz-col="3" [nzOffset]="8">

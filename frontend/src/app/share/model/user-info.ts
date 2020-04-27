@@ -6,3 +6,11 @@ export class UserInfo {
     creationTime: string;
     avatarUrl: string;
 }
+
+export class GroupUser {
+  groupId: number;
+  id: number;
+  nickname: string;
+  avatarUrl: string;
+  isAdmin: number;
+}
