@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserCenterService } from '../../share/service/user-center.service';
 import { UserInfo } from '../../share/model/user-info';
-import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-drop-menu',
@@ -12,8 +11,7 @@ export class DropMenuComponent {
   public user: UserInfo;
 
   constructor(
-    private service: UserCenterService,
-    private route: Router
+    private service: UserCenterService
   ){ }
 
   ngOnInit(): void {
@@ -21,6 +19,6 @@ export class DropMenuComponent {
   }
 
   signOut() {
-    this.route.navigateByUrl('/welcome/login');
+    this.service.signOut();
   }
 }
