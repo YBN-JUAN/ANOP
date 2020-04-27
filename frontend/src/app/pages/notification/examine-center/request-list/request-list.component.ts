@@ -14,6 +14,8 @@ export class RequestListComponent implements OnInit {
   loading = true;
   pageSize = 10;
   pageIndex = 1;
+  buttonTitle = "切换到我管理的群组的用户请求";
+  listType = 0;
 
   constructor(private service: UserRequestService) { }
 
@@ -22,7 +24,7 @@ export class RequestListComponent implements OnInit {
     pageSize: number,
   ): void {
     this.loading = true;
-    this.service.getUserRequest("id", pageIndex, pageSize).subscribe(data => {
+    this.service.getUserRequest(this.listType,"id", pageIndex, pageSize).subscribe(data => {
         this.loading = false;
         this.total = 200; // mock the total data here
         this.requestList = data.list;
@@ -37,6 +39,18 @@ export class RequestListComponent implements OnInit {
     console.log(params);
     const { pageSize, pageIndex} = params;
     this.loadDataFromServer(pageIndex, pageSize);
+  }
+
+  changeList() {
+    if (this.listType == 0) {
+      this.buttonTitle = "切换到我创建的群组的用户请求";
+      this.listType = 1;
+    } else {
+      this.buttonTitle = "切换到我管理的群组的用户请求";
+      this.listType = 0;
+    }
+    this.pageIndex = 1;
+    this.loadDataFromServer(this.pageIndex, this.pageSize);
   }
 
   ngOnInit(): void {

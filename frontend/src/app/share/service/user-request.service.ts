@@ -10,7 +10,7 @@ export class UserRequestService {
   public url: string = "http://localhost:8080/v1/pub/requests";
   constructor(private http: HttpClient) { }
 
-  getUserRequest(
+  getCreateRequest(
     orderBy: string,
     pageNum: number,
     pageSize: number
@@ -33,4 +33,19 @@ export class UserRequestService {
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResposeList<UserRequest>>(`${this.url}/manage`, { params });
   }
+
+  getUserRequest(
+    listType: number,
+    orderBy: string,
+    pageNum: number,
+    pageSize: number
+  ) {
+    if (listType == 0) {
+      return this.getCreateRequest(orderBy, pageNum, pageSize);
+    } else {
+      return this.getManageRequest(orderBy, pageNum, pageSize);
+    }
+  }
+
+
 }
