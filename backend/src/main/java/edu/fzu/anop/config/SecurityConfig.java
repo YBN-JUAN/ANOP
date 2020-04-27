@@ -13,12 +13,12 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final String SIGN_IN_URL = "/v1/signin";
-    private final String SIGN_OUT_URL = "/v1/signout";
-    private final String SIGN_UP_URL = "/v1/signup";
-    private final String VALID_EMAIL_URL = "/v1/valid_email";
-    private final String SUCCESS_FORWARD_URL = "/user";
-    private final String FAILURE_FORWARD_URL = "/failed";
+    private static final String SIGN_IN_URL = "/v1/signin";
+    private static final String SIGN_OUT_URL = "/v1/signout";
+    private static final String SIGN_UP_URL = "/v1/signup";
+    private static final String VALID_EMAIL_URL = "/v1/valid_email";
+    private static final String SUCCESS_FORWARD_URL = "/user";
+    private static final String FAILURE_FORWARD_URL = "/failed";
 
 //    @Bean
 //    CorsConfigurationSource corsConfigurationSource() {
