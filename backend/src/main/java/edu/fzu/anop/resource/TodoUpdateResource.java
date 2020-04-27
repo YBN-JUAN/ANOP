@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
+ * 待办事项更新资源
+ *
  * @author ZYF
  */
 @Data

@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 待办事项列表资源
+ *
  * @author ZYF
  */
 @Data
