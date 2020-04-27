@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Group} from '../../../../share/model/group-info';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
-import {NzTableQueryParams} from 'ng-zorro-antd';
+import {NzModalService, NzTableQueryParams} from 'ng-zorro-antd';
 import {GroupUser} from '../../../../share/model/user-info';
+import {PublishCenterService} from '../../../../share/service/publish-center.service';
 
 @Component({
   selector: 'app-group-detail',
@@ -19,7 +20,9 @@ export class GroupDetailComponent implements OnInit {
   pageSize = 5;
   pageIndex = 1;
   constructor(private route: ActivatedRoute,
-              private service: SubscriptionCenterService) {
+              private pubService: PublishCenterService,
+              private subService: SubscriptionCenterService,
+              private modal: NzModalService) {
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class GroupDetailComponent implements OnInit {
   }
 
   getGroupInfo(id:number) {
-    this.service.getGroup(id).subscribe(
+    this.pubService.getGroup(id).subscribe(
       data => {
         this.group = data;
         console.log(data)
@@ -47,13 +50,27 @@ export class GroupDetailComponent implements OnInit {
     )
   }
 
+  quitGroup() {
+    this.modal.confirm({
+      nzTitle: '你确定要退出这个群组吗?',
+      //nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: '确定',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        this.subService.quitGroup(this.group.id);
+        this.ngOnInit();
+      },
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
 
   loadDataFromServer(
     pageIndex: number,
     pageSize: number,
   ): void {
     this.loading = true;
-    this.service.getGroupUser(this.group.id,"id", pageIndex, pageSize).subscribe(data => {
+    this.pubService.getGroupUser(this.group.id,"id", pageIndex, pageSize).subscribe(data => {
         this.loading = false;
         this.total = 200; // mock the total data here
         this.listOfUsers = data.list;

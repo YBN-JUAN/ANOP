@@ -5,7 +5,7 @@
 
 .content {
   width: 550px;
-  height: 760px;
+  height: 685px;
   border-radius: 12px 12px 12px 12px;
   margin-left: 35%;
   margin-top: 10px;
@@ -25,7 +25,7 @@
   margin-left: 22px;
   margin-top: 20px;
   width: 500px;
-  height: 380px;
+  height: 300px;
   border-style: groove;
   border-radius: 12px 12px 12px 12px;
 }
