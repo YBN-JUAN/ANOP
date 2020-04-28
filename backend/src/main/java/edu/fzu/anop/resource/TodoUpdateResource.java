@@ -34,10 +34,10 @@ public class TodoUpdateResource {
     @ApiModelProperty(value = "开始时间", name = "beginDate", example = "2020-04-01 19:00")
     private Date beginDate;
 
-    @ApiModelProperty(value = "结束时间", name = "beginDate", example = "2020-04-01 19:00")
+    @ApiModelProperty(value = "结束时间", name = "endDate", example = "2020-04-03 19:00")
     private Date endDate;
 
-    @ApiModelProperty(value = "提醒时间（要大于当前时间）", name = "remindDate", example = "2020-04-01 19:00")
+    @ApiModelProperty(value = "提醒时间（要大于当前时间）", name = "remindDate", example = "2020-04-02 19:00")
     private Date remindDate;
 
     @ApiModelProperty(value = "所属分类id", name = "categoryId", example = "1")

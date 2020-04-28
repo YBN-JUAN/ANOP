@@ -65,7 +65,10 @@ public class TodoServiceImpl implements TodoService {
         criteria.andIdEqualTo(oldTodo.getId());
         Todo newTodo = PropertyMapperUtil.map(resource, Todo.class);
         newTodo.setId(oldTodo.getId());
-        return todoMapper.updateByExampleSelective(newTodo, example);
+        newTodo.setUserId(oldTodo.getUserId());
+        newTodo.setIsCompleted(oldTodo.getIsCompleted());
+
+        return todoMapper.updateByExample(newTodo, example);
     }
 
     @Override
