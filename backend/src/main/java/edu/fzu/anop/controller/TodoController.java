@@ -3,6 +3,7 @@ package edu.fzu.anop.controller;
 import edu.fzu.anop.pojo.Todo;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.TodoAddResource;
+import edu.fzu.anop.resource.TodoFlagResource;
 import edu.fzu.anop.resource.TodoUpdateResource;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.BindingResultUtil;
@@ -42,18 +43,13 @@ public class TodoController {
         return JsonResult.created(new URI("http://localhost:8080/v1/todos/" + todo.getId())).body(todo);
     }
 
-    @ApiOperation(value = "获取待办事项列表", notes = "获取所有的待办事项列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "orderBy", value = "排序规则", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "int")
-    })
+    @ApiOperation(value = "获取待办事项列表", notes = "获取指定类型的待办事项列表")
     @GetMapping()
-    public Object getTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
+    public Object getTodoList(@Valid TodoFlagResource flagResource, @Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
-        return JsonResult.ok(todoService.listUserTodo(page));
+        return JsonResult.ok(todoService.listUserTodo(page, flagResource));
     }
 
     @ApiOperation(value = "更新待办事项的信息", notes = "更新待办事项的信息（不包括完成状态）")
@@ -127,12 +123,7 @@ public class TodoController {
         return JsonResult.ok(todo);
     }
 
-    @ApiOperation(value = "获取历史待办事项列表",notes = "获取历史待办事项列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "orderBy", value = "排序规则", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "int")
-    })
+    @ApiOperation(value = "获取历史待办事项列表", notes = "获取历史待办事项列表")
     @GetMapping("/histories")
     public Object getHistoryTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
