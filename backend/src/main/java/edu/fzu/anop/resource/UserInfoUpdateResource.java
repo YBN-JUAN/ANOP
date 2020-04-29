@@ -14,6 +14,10 @@ public class UserInfoUpdateResource {
     @Length(min = 1, max = 31)
     private String nickname;
 
+    @NotNull
+    @Length(min = 1, max = 31)
+    private String avatarUrl;
+
     public String getNickname() {
         return nickname;
     }
@@ -21,5 +25,15 @@ public class UserInfoUpdateResource {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+
 
 }
