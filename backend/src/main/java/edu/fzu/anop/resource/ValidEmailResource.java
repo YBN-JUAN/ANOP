@@ -2,6 +2,7 @@ package edu.fzu.anop.resource;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class ValidEmailResource {
 
     @NotNull
+    @Email
     @Length(min = 1, max = 255)
     private String email;
 

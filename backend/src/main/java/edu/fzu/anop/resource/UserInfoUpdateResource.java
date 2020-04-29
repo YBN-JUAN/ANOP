@@ -15,7 +15,7 @@ public class UserInfoUpdateResource {
     private String nickname;
 
     @NotNull
-    @Length(min = 1, max = 31)
+    @Length(min = 1, max = 255)
     private String avatarUrl;
 
     public String getNickname() {
