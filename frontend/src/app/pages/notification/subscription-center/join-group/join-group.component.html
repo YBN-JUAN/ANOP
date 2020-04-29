@@ -18,4 +18,27 @@
     <button nz-button id="search-button" (click)="doSearch()">搜索</button>
     <button nz-button type="submit" id="submit-button" (click)="doJoin()">加入</button>
   </form>
+
+</div>
+<div style="border: #000c17 1px solid" class="table">
+  <nz-table style="border: #000c17 1px" [nzData]="group">
+    <thead>
+    <tr>
+      <th>群组ID</th>
+      <th>群组名</th>
+      <th>创建者</th>
+      <th>创建时间</th>
+      <th>可加入状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{group.id}}</td>
+      <td>{{group.title}}</td>
+      <td>{{group.nickname}}</td>
+      <td>{{group.creationDate}}</td>
+      <td>{{group.getPermissionDescription()}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
 </div>

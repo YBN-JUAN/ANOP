@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Group} from '../../../../share/model/group-info';
 import {NzTableQueryParams} from 'ng-zorro-antd';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
@@ -27,16 +27,20 @@ export class GroupListComponent implements OnInit {
         console.log(this.listOfGroups);
         console.log(data);
       },
-      error => { console.log(error); }
+      error => {
+        console.log(error);
+      }
     );
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params);
-    const { pageSize, pageIndex} = params;
+    const {pageSize, pageIndex} = params;
     this.loadDataFromServer(pageIndex, pageSize);
   }
-  constructor(private service:SubscriptionCenterService) { }
+
+  constructor(private service: SubscriptionCenterService) {
+  }
 
   ngOnInit(): void {
     this.loadDataFromServer(this.pageIndex, this.pageSize);

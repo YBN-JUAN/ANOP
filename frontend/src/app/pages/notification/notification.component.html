@@ -22,12 +22,8 @@
     <nz-header>
       <nz-row>
         <nz-col [nzSpan]="2">
-          <i
-            class="trigger"
-            nz-icon
-            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            (click)="isCollapsed = !isCollapsed"
-          ></i>
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+             (click)="isCollapsed = !isCollapsed"></i>
         </nz-col>
         <nz-col [nzSpan]="12" [nzOffset]="6">
           <app-head-button></app-head-button>

@@ -32,7 +32,5 @@ export class SubscriptionCenterService {
     )
   }
 
-
-
   constructor(private http: HttpClient) { }
 }
