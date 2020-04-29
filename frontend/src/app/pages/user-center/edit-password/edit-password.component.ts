@@ -13,7 +13,8 @@ export class EditPasswordComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public service: UserCenterService
+    public service: UserCenterService,
+    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class EditPasswordComponent implements OnInit {
       this.resetForm.controls[i].markAsDirty();
       this.resetForm.controls[i].updateValueAndValidity();
     }
-    this.service.resetPassword(this.resetForm.controls.newPassword.value, this.resetForm.controls.oldPassword.value, this.errorInput);
+    this.service.resetPassword(this.resetForm.controls.newPassword.value, this.resetForm.controls.oldPassword.value);
   }
 
   updateConfirmValidator(): void {

@@ -7,8 +7,15 @@ import { UserInfo } from '../../share/model/user-info';
   templateUrl: './drop-menu.component.html'
 })
 export class DropMenuComponent {
+  public user: UserInfo = {
+    id: 0,
+    email: '',
+    userName: '',
+    nickName: '',
+    creationTime: '',
+    avatarUrl: '',
+  };
   visible = false;
-  public user: UserInfo;
 
   constructor(
     private service: UserCenterService

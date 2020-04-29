@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserInfo } from '../model/user-info';
 import { Router} from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserCenterService {
+  public user:UserInfo;
   public url: string = 'http://localhost:8080/v1/';
   storageOk: boolean = false;
   httpOptions = {
@@ -16,11 +18,11 @@ export class UserCenterService {
   };
 
   constructor(
-    public http:HttpClient,
+    private http: HttpClient,
     private route: Router
-    ) { }
+  ) { }
 
-  getConfig(){
+  getConfig(): Observable<UserInfo>{
     return this.http.get<UserInfo>(this.url + "profile");
   }
 
@@ -40,7 +42,7 @@ export class UserCenterService {
       });
   }
 
-  resetPassword(newPassword: string, oldPassword: string, errorInput: boolean) {
+  resetPassword(newPassword: string, oldPassword: string) {
     this.http.post(this.url + "account/password",{newPassword:newPassword, oldPassword:oldPassword}, this.httpOptions)
       .subscribe(
         data => {

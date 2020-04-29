@@ -1,4 +1,5 @@
-<nz-avatar nzSize="small" nzIcon="user" [nzSrc]="user.avatarUrl"></nz-avatar>
+<nz-avatar *ngIf="!user.avatarUrl" nzSize="small" nzIcon="user"></nz-avatar>
+<nz-avatar *ngIf="user.avatarUrl" nzSize="small" [nzSrc]="user.avatarUrl"></nz-avatar>
 &nbsp; {{user.userName}} &nbsp;
 <a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" [(nzVisible)]="visible">
   <i nz-icon nzType="ellipsis"></i>
