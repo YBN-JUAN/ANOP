@@ -13,16 +13,17 @@ import {PublishCenterService} from "../../../../share/service/publish-center.ser
 export class JoinGroupComponent implements OnInit {
 
   public groupId: number;
-  public group: Group = new Group();
+  public group: Group;
 
   constructor(private joinGroupService: JoinGroupService, private searchGroupService: PublishCenterService) {
   }
 
   ngOnInit(): void {
+    this.group = new Group();
   }
 
   doSearch() {
-    alert('搜索群组' + this.groupId);
+    // alert('搜索群组' + this.groupId);
     this.searchGroupService.getGroup(this.groupId).subscribe(
       (data: Group) => {
         console.log(data);
@@ -34,7 +35,7 @@ export class JoinGroupComponent implements OnInit {
   doJoin() {
     // alert("加入群组" + this.groupId);
     if (this.groupId == null) {
-      alert('null groupId');
+      alert('请输入群组ID');
       return;
     }
     this.joinGroupService.joinGroup(this.groupId).subscribe(
@@ -43,5 +44,9 @@ export class JoinGroupComponent implements OnInit {
       }, (response: HttpErrorResponse) => {
         alert(response.error.status + ':' + response.error.message);
       });
+  }
+
+  doReset(){
+    this.group = new Group();
   }
 }

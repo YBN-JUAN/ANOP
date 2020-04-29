@@ -14,14 +14,14 @@
 
       </nz-form-item>
     </div>
-    <button nz-button type="reset" id="reset-button">重置</button>
+    <button nz-button type="reset" id="reset-button" (click)="doReset()">重置</button>
     <button nz-button id="search-button" (click)="doSearch()">搜索</button>
     <button nz-button type="submit" id="submit-button" (click)="doJoin()">加入</button>
   </form>
 
 </div>
-<div style="border: #000c17 1px solid" class="table">
-  <nz-table style="border: #000c17 1px" [nzData]="group">
+<div style="width: 70%;margin: 10px auto auto" class="table">
+  <nz-table>
     <thead>
     <tr>
       <th>群组ID</th>
