@@ -107,7 +107,7 @@ public interface GroupService {
     /**
      * 解散当前登录用户创建的通知群组
      *
-     * @param group 通知群组群号
+     * @param group 通知群组
      * @return 如果当前登录用户不是指定通知群组的创建者返回<code>-1</code>，否则返回数据库受影响行数
      */
     int deleteGroup(Group group);
