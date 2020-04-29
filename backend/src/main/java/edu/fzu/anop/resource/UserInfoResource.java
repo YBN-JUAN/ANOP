@@ -3,6 +3,7 @@ package edu.fzu.anop.resource;
 import java.util.Date;
 
 /**
+ * 用户信息封装资源类
  * @author SilverBay
  */
 public class UserInfoResource {

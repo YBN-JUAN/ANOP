@@ -7,7 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class FileHandleConfig implements WebMvcConfigurer {
 
-    private static final String AVATAR_IMG_PATH = "\\src\\main\\resources\\static\\avatarimg\\";
+    private static final String AVATAR_UPLOAD_PATH = "\\src\\main\\resources\\static\\avatarimg\\";
+    public static final String AVATAR_SAVE_PATH = "avatarimg\\";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -19,6 +20,6 @@ public class FileHandleConfig implements WebMvcConfigurer {
     }
 
     public static String getUploadPath() {
-        return System.getProperty("user.dir") + AVATAR_IMG_PATH;
+        return System.getProperty("user.dir") + AVATAR_UPLOAD_PATH;
     }
 }

@@ -1,6 +1,7 @@
 package edu.fzu.anop.resource;
 
 /**
+ * 用户资源类
  * @author SilverBay
  */
 public class UserResource {

@@ -66,7 +66,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             file.transferTo(newFile);
         }
 
-        return newFile.getPath();
+        return FileHandleConfig.AVATAR_SAVE_PATH + newFile.getName();
     }
 
     @Override

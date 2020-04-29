@@ -46,7 +46,7 @@ public class SignUpServiceImpl implements SignUpService {
     private static final long EXPIRE_MESC = 1000 * 60 * 10;
 
     private static final String EMAIL_SUBJECT = "ANOP:用户注册验证码";
-    private static final String EMAIL_CONTENT = "您的注册验证码为:";
+    private static final String EMAIL_CONTENT = "您的注册验证码为（有效期10分钟）:";
 
     @Override
     public ValidEmail getValidEmail(String email) {

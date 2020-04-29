@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 /**
+ * 更新密码资源类
  * @author SilverBay
  */
 public class PasswordUpdateResource {
