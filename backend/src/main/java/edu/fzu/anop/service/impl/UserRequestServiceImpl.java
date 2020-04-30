@@ -123,9 +123,6 @@ public class UserRequestServiceImpl implements UserRequestService {
         if (request.getIsAccepted() != PENDING) {
             return -1;
         }
-        if (!groupService.hasGroup(request.getGroupId())) {
-            return -1;
-        }
         if (isAccepted == DENY) {
             request.setIsAccepted(DENY);
             return userRequestMapper.updateByPrimaryKey(request);
