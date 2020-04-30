@@ -39,7 +39,7 @@
       <input nz-input [(ngModel)]="user.nickName"/>
       <button nz-button nzType="dashed" (click)="onSubmit()"
       [disabled]="user.nickName.length>0 && user.nickName.length<=31 ? false : true">确认</button>
-    </div>   
+    </div>
   </div>
 
   <div nz-row>
@@ -64,9 +64,20 @@
 </div>
 
 <div class="right-content">
-  <nz-avatar [nzSize]="150" nzIcon="user" [nzSrc]="user.avatarUrl"></nz-avatar>
+  <nz-avatar *ngIf="user.avatarUrl" [nzSrc]="user.avatarUrl"></nz-avatar>
   <div class="name-header">{{user.nickName}}</div>
-  <div class="upload-button">
-    <button nz-button nzType="dashed"><i nz-icon nzType="upload"></i><span>上传头像</span></button>
+  <div class="upload-button" id="upload-show">
+    <button nz-button
+    nzType="dashed"
+    nzPopoverTitle="头像设置"
+    nzPopoverContent="文件:点击头像/URL:点击按钮"
+    (click)="onUrlUpload()">
+    <i nz-icon nzType="upload"></i><span>上传头像</span>
+    </button>
+  </div>
+
+  <div class="upload-button" id="upload-hide">
+    <input nz-input [(ngModel)]="avatarURL"/>
+    <button nz-button nzType="dashed" (click)="getAvatarUrl()">确认</button>
   </div>
 </div>

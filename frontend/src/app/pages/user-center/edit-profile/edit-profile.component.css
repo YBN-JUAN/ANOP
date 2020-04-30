@@ -1,60 +1,64 @@
 nz-breadcrumb {
-    margin: 16px 0;
+  margin: 16px 0;
 }
 
 .left-content {
-    padding: 15px 0px 15px 15px;
-    margin-right: 50px;
-    background: #fff;
-    float: left;
-    width: 70%;
-    height: 100%;
+  padding: 15px 0px 15px 15px;
+  margin-right: 50px;
+  background: #fff;
+  float: left;
+  width: 70%;
+  height: 100%;
 }
 
 .right-content {
-    text-align: center;
-    background: #fff;
-    float: left;
-    width: 20%;
-    height: 100%;
-}
-
-nz-avatar {
-    margin-top: 50px;
-}
-
-.upload-button {
-    padding: 0 15px;
-    margin: 30px;
+  text-align: center;
+  background: #fff;
+  float: left;
+  width: 20%;
+  height: 100%;
 }
 
 .row {
-    margin: 15px auto;
-    font-size: 20px;
-    padding: 10px;
+  margin: 15px auto;
+  font-size: 20px;
+  padding: 10px;
 }
 
 .row button {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 button {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 #hide {
-    display: none;
+  display: none;
 }
 
 input {
-    width: 300px;
-    font-size: 20px;
+  width: 300px;
+  font-size: 20px;
 }
 
 .name-header {
-    word-wrap: break-word;
-    font-size: 30px;
-    font-weight: bold;
-    padding: 24px;
-    margin: 30px;
+  word-wrap: break-word;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 24px;
+  margin: 30px;
+}
+
+nz-avatar {
+  width: 150px;
+  height: 150px;
+}
+
+#upload-hide {
+  display: none;
+}
+
+.upload-button input{
+  width: 150px;
 }
