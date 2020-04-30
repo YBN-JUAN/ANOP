@@ -44,6 +44,9 @@ public class TodoController {
     }
 
     @ApiOperation(value = "获取待办事项列表", notes = "获取指定类型的待办事项列表")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "flag", value = "0:所有 1:重要 2:收藏", required = false, dataType = "int")
+    )
     @GetMapping()
     public Object getTodoList(@Valid TodoFlagResource flagResource, @Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -76,17 +79,18 @@ public class TodoController {
         return JsonResult.noContent().build();
     }
 
-    @ApiOperation(value = "切换待办事项完成状态", notes = "切换待办事项完成状态")
+    @ApiOperation(value = "切换待办事项状态", notes = "切换待办事项状态")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "flag", value = "0:完成 1:重要 2:收藏", required = false, dataType = "int"),
     })
     @PutMapping("/check/{id}")
-    public Object checkTodo(@PathVariable int id) {
+    public Object checkTodo(@PathVariable int id, @Valid TodoFlagResource resource) {
         Todo todo = todoService.getTodo(id);
         if (todo == null) {
             return JsonResult.notFound("todoItem was not found", null);
         }
-        int result = todoService.checkTodo(todo);
+        int result = todoService.checkTodo(todo, resource);
         if (result == -1) {
             return JsonResult.forbidden("you have no permission to complete this todoitem", null);
         }
