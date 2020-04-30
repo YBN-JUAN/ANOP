@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost-mysql
+ Source Server         : MySQL
  Source Server Type    : MySQL
- Source Server Version : 100410
+ Source Server Version : 80015
  Source Host           : localhost:3306
  Source Schema         : anop
 
  Target Server Type    : MySQL
- Target Server Version : 100410
+ Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 28/04/2020 20:36:31
+ Date: 30/04/2020 15:24:15
 */
 
 SET NAMES utf8mb4;
@@ -189,7 +189,7 @@ CREATE TABLE `sys_permission`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `pid` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_permission
@@ -250,15 +250,15 @@ CREATE TABLE `todo`  (
 -- ----------------------------
 INSERT INTO `todo` VALUES (1, 1, '我的待办', '阿道夫就安分的链接克隆。。。。', '2020-04-01 19:00:00', NULL, '2020-04-30 19:00:00', 1, 0, 1, 1);
 INSERT INTO `todo` VALUES (2, 2, 'rdfdfsds啊飒飒', 'qweertqweqweqweqweqweqweqwewqe', NULL, NULL, NULL, 3, 0, 1, 0);
-INSERT INTO `todo` VALUES (3, 1, '阿拉山口附件', '打发打发', '2020-04-29 16:25:52', '2020-05-07 16:25:56', '2020-04-30 16:26:01', 1, 1, 1, 1);
-INSERT INTO `todo` VALUES (4, 3, '阿斯顿法定', '暗室逢灯', NULL, '2020-04-30 16:27:37', NULL, 5, 0, 0, 0);
+INSERT INTO `todo` VALUES (3, 1, '阿拉山口附件', '打发打发', '2020-04-29 16:25:52', '2021-01-07 16:25:56', '2020-04-30 16:26:01', 1, 1, 1, 1);
+INSERT INTO `todo` VALUES (4, 3, '阿斯顿法定', '暗室逢灯', NULL, '2020-09-30 16:27:37', NULL, 5, 0, 0, 0);
 INSERT INTO `todo` VALUES (5, 4, '的方法的地方 ', '爱的发声', '2020-04-24 16:28:52', '2020-04-26 16:28:59', NULL, NULL, 0, 1, 1);
-INSERT INTO `todo` VALUES (6, 1, '地方阿弟', '啊打发打发', '2020-04-28 16:32:05', '2020-05-14 16:32:07', '2020-04-30 16:32:57', NULL, 0, 0, 0);
-INSERT INTO `todo` VALUES (7, 1, '发士大夫', '烦烦烦的', '2020-04-27 16:33:27', '2020-05-30 16:33:32', '2020-04-30 16:33:35', 2, 0, 0, 1);
-INSERT INTO `todo` VALUES (8, 2, '打发打发', '发达发达地方', '2020-04-28 16:35:36', '2020-04-30 16:35:39', NULL, NULL, 0, 0, 0);
+INSERT INTO `todo` VALUES (6, 1, '地方阿弟', '啊打发打发', '2020-04-28 16:32:05', '2021-01-29 16:32:07', '2020-04-30 16:32:57', NULL, 0, 0, 0);
+INSERT INTO `todo` VALUES (7, 1, '发士大夫', '烦烦烦的', '2020-04-27 16:33:27', '2020-09-30 16:33:32', '2020-04-30 16:33:35', 2, 0, 0, 1);
+INSERT INTO `todo` VALUES (8, 2, '打发打发', '发达发达地方', '2020-04-28 16:35:36', '2020-09-30 16:35:39', NULL, NULL, 0, 0, 0);
 INSERT INTO `todo` VALUES (9, 1, '啊士大夫士大夫', '反对反对反对法', NULL, NULL, NULL, 6, 1, 0, 0);
-INSERT INTO `todo` VALUES (10, 1, '啊打发士大夫', '对方对方的', NULL, '2020-04-30 18:33:11', NULL, 6, 0, 0, 0);
-INSERT INTO `todo` VALUES (11, 4, '打发十分', '反对反对反对法', '2020-04-16 20:14:33', '2020-04-30 20:14:39', '2020-04-29 20:17:45', NULL, 0, 0, 0);
+INSERT INTO `todo` VALUES (10, 1, '啊打发士大夫', '对方对方的', NULL, '2020-04-20 18:33:11', NULL, 6, 0, 0, 0);
+INSERT INTO `todo` VALUES (11, 4, '打发十分', '反对反对反对法', '2020-04-16 20:14:33', '2020-09-30 20:14:39', '2020-04-29 20:17:45', NULL, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for todo_category
@@ -271,7 +271,7 @@ CREATE TABLE `todo_category`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE,
   CONSTRAINT `fk_user_todo_category` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of todo_category
@@ -347,7 +347,7 @@ CREATE TABLE `valid_email`  (
   `is_valid` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `idx_email`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of valid_email
