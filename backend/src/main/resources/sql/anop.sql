@@ -124,8 +124,8 @@ INSERT INTO `noti_user_request` VALUES (3, 8, 2, 0, '2020-04-16 21:28:00');
 INSERT INTO `noti_user_request` VALUES (6, 8, 3, 0, '2020-04-17 23:17:49');
 INSERT INTO `noti_user_request` VALUES (9, 9, 3, 1, '2020-04-17 00:44:52');
 INSERT INTO `noti_user_request` VALUES (10, 9, 4, 0, '2020-04-08 00:44:55');
-INSERT INTO `noti_user_request` VALUES (11, 10, 2, 0, '2020-04-22 22:45:30');
-INSERT INTO `noti_user_request` VALUES (12, 10, 2, 0, '2020-04-22 22:44:25');
+INSERT INTO `noti_user_request` VALUES (11, 10, 2, 1, '2020-04-22 22:45:30');
+INSERT INTO `noti_user_request` VALUES (12, 14, 2, 0, '2020-04-22 22:44:25');
 
 -- ----------------------------
 -- Table structure for notification
