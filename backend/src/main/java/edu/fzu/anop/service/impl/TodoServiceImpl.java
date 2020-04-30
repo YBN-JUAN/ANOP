@@ -26,7 +26,11 @@ public class TodoServiceImpl implements TodoService {
 
     private static final byte UN_COMPLETED = 0;
 
-    private static final byte COMPLETED = 1;
+    private static final byte UN_CHECKED = 0;
+
+    private static final byte CHECKED = 1;
+
+    private static final byte COMPLETE = 0;
 
     private static final byte IMPORTANT = 1;
 
@@ -73,7 +77,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public int checkTodo(Todo todo) {
+    public int checkTodo(Todo todo, TodoFlagResource resource) {
 
         if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
             return -1;
@@ -82,7 +86,16 @@ public class TodoServiceImpl implements TodoService {
         TodoExample example = new TodoExample();
         TodoExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(todo.getId());
-        todo.setIsCompleted((byte) ((todo.getIsCompleted() == COMPLETED) ? UN_COMPLETED : COMPLETED));
+
+        if (resource.getFlag() == IMPORTANT) {
+            todo.setIsImportant((todo.getIsImportant() == CHECKED) ? UN_CHECKED : CHECKED);
+        }
+        else if (resource.getFlag() == FAVORITE) {
+            todo.setIsFavorite((todo.getIsFavorite() == CHECKED) ? UN_CHECKED : CHECKED);
+        }
+        else if (resource.getFlag() == COMPLETE) {
+            todo.setIsCompleted((todo.getIsCompleted() == CHECKED) ? UN_CHECKED : CHECKED);
+        }
         return todoMapper.updateByExampleSelective(todo, example);
     }
 
