@@ -16,6 +16,8 @@ import {GroupDetailComponent} from './pages/notification/subscription-center/gro
 import {GroupListComponent} from './pages/notification/subscription-center/group-list/group-list.component';
 import {JoinGroupComponent} from './pages/notification/subscription-center/join-group/join-group.component';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
+import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
+import {PublishCenterGroupDetailComponent} from './pages/notification/publish-center/publish-center-group-detail/publish-center-group-detail.component';
 
 const routes: Routes = [
   {
@@ -29,7 +31,14 @@ const routes: Routes = [
   },
   { path: 'notification', component: NotificationComponent,
     children:[
-      { path: 'publish', component: PublishCenterComponent },
+      { path: 'publish', component: PublishCenterComponent,
+        children:[
+          { path: 'group-list', component: PublishCenterGroupListComponent},
+          { path: 'group-detail/:id', component: PublishCenterGroupDetailComponent},
+          { path: '**', component: PublishCenterGroupListComponent },
+          { path: '', component: PublishCenterGroupListComponent}
+        ]
+      },
       { path: 'subscription', component: SubscriptionCenterComponent,
         children:[
           { path: 'group', component: GroupComponent },

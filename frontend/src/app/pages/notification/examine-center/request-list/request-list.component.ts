@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NzTableQueryParams} from 'ng-zorro-antd';
+import {NzModalService, NzTableQueryParams} from 'ng-zorro-antd';
 import {UserRequest} from '../../../../share/model/user-request';
 import {UserRequestService} from '../../../../share/service/user-request.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-request-list',
@@ -17,7 +18,9 @@ export class RequestListComponent implements OnInit {
   buttonTitle = "切换到我管理的群组的用户请求";
   listType = 0;
 
-  constructor(private service: UserRequestService) { }
+  constructor(private service: UserRequestService,
+              private route: Router,
+              private modal: NzModalService) { }
 
   loadDataFromServer(
     pageIndex: number,
@@ -51,6 +54,54 @@ export class RequestListComponent implements OnInit {
     }
     this.pageIndex = 1;
     this.loadDataFromServer(this.pageIndex, this.pageSize);
+  }
+
+  dealAll(isAccepted: number) {
+    let title = "";
+    if (isAccepted == 1) {
+      title = "你确定要接受所有用户的请求吗?";
+    } else {
+      title = "你确定要拒绝所有用户的请求吗?";
+    }
+    this.modal.confirm({
+      nzTitle: title,
+      nzOkText: '确定',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        for (let req of this.requestList) {
+          this.service.dealRequest(req.id, isAccepted).subscribe(
+            response => {
+            }
+          );
+        }
+        this.ngOnInit();
+      },
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
+
+  dealOne(id: number, isAccepted: number) {
+    let title = "";
+    if (isAccepted == 1) {
+      title = "你确定要接受该用户的请求吗?";
+    } else {
+      title = "你确定要拒绝该用户的请求吗?";
+    }
+    this.modal.confirm({
+      nzTitle: title,
+      nzOkText: '确定',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        this.service.dealRequest(id, isAccepted).subscribe(
+          response => {
+          }
+        );
+        this.ngOnInit();
+      },
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
+    });
   }
 
   ngOnInit(): void {
