@@ -50,6 +50,7 @@ class TodoServiceTest {
     }
 
     @Test
+    @Transactional
     void addTodo() {
         Todo todo;
         TodoAddResource resource = new TodoAddResource();
