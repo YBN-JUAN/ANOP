@@ -22,7 +22,9 @@ export class DropMenuComponent {
   ){ }
 
   ngOnInit(): void {
-    this.service.getConfig().subscribe(data => this.user = data);
+    this.service.getConfig().subscribe(data => {
+      this.user = data;
+    });
   }
 
   signOut() {

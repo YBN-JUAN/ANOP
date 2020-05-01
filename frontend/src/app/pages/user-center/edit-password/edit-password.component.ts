@@ -14,7 +14,6 @@ export class EditPasswordComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public service: UserCenterService,
-    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {

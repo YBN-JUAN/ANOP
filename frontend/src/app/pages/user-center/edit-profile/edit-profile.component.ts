@@ -19,7 +19,7 @@ export class EditProfileComponent implements OnInit {
   public avatarURL = '';
 
   constructor(
-    public service:UserCenterService,
+    public service:UserCenterService
   ) { }
 
   ngOnInit(): void {
@@ -49,5 +49,9 @@ export class EditProfileComponent implements OnInit {
     document.getElementById('upload-hide').style.display='none';
     document.getElementById('upload-show').style.display='block';
     this.service.updateUserInfo(this.user.nickName, this.avatarURL);
+    this.service.getConfig().subscribe(data => {
+      this.user.avatarUrl = data.avatarUrl;
+    });
+    window.location.reload();
   }
 }

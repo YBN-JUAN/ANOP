@@ -64,20 +64,36 @@
 </div>
 
 <div class="right-content">
-  <nz-avatar *ngIf="user.avatarUrl" [nzSrc]="user.avatarUrl"></nz-avatar>
+  <!-- <nz-upload 
+    class="avatar-uploader"
+    nzAction= "http://localhost:8080/v1/avatar"
+    nzName="avatarimg"
+    nzListType="picture-card"
+    [(nzFileList)]="fileList"
+    [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
+    (nzChange)="handleChange($event)"
+  >
+    <ng-container *ngIf="!user.avatarUrl">
+      <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+      <div class="ant-upload-text">上传头像</div>
+    </ng-container> -->
+    <nz-avatar [nzSrc]="user.avatarUrl"></nz-avatar>
+  <!-- </nz-upload> -->
+
   <div class="name-header">{{user.nickName}}</div>
   <div class="upload-button" id="upload-show">
-    <button nz-button
+    <button nz-button nz-popover
     nzType="dashed"
     nzPopoverTitle="头像设置"
-    nzPopoverContent="文件:点击头像/URL:点击按钮"
-    (click)="onUrlUpload()">
-    <i nz-icon nzType="upload"></i><span>上传头像</span>
+    nzPopoverContent="文件:点击头像/URL:点击按钮" (click)="onUrlUpload()">
+    <i nz-icon nzType="upload">
+    </i><span>上传头像</span>
     </button>
   </div>
 
   <div class="upload-button" id="upload-hide">
-    <input nz-input [(ngModel)]="avatarURL"/>
+    <input nz-input [(ngModel)]="avatarURL" placeholder="URL地址"/>
     <button nz-button nzType="dashed" (click)="getAvatarUrl()">确认</button>
   </div>
 </div>

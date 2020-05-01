@@ -35,11 +35,18 @@ export class UserCenterService {
     this.storageOk = true;
   }
 
-  updateUserInfo(nickName: string) {
-    this.http.put(this.url + "profile", {nickname:nickName}, this.httpOptions)
-      .subscribe(response => {
-        console.log(response);
-      });
+  updateUserInfo(nickName: string, avatarUrl: string) {
+    this.http.put(this.url + "profile", {nickname:nickName, avatarUrl:avatarUrl}, this.httpOptions)
+      .subscribe(
+        response => {
+          console.log(response);
+          window.alert("修改成功！");
+        },
+        error => {
+          console.log(error);
+          window.alert("修改失败！");
+        }
+      );
   }
 
   resetPassword(newPassword: string, oldPassword: string) {
@@ -55,15 +62,15 @@ export class UserCenterService {
           window.alert("原密码输入错误，请重新输入！");
           }
       );
-    }
+  }
 
-    signOut() {
-      this.http.post(this.url + "signout", {}, this.httpOptions)
-      .subscribe(response => {
-        console.log(response);
-        localStorage.removeItem('userid');
-        localStorage.removeItem('username');
-        this.route.navigateByUrl('/welcome/login');
-      });
-    }
+  signOut() {
+    this.http.post(this.url + "signout", {}, this.httpOptions)
+    .subscribe(response => {
+      console.log(response);
+      localStorage.removeItem('userid');
+      localStorage.removeItem('username');
+      this.route.navigateByUrl('/welcome/login');
+    });
+  }
 }
