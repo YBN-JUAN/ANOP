@@ -176,7 +176,7 @@ class TodoServiceTest {
         page.setOrderBy("id desc");
         flagResource.setFlag(COMPLETE);
         pageInfo = todoService.listUserTodo(page, flagResource);
-        assertThat(pageInfo.getList()).hasSize(4);
+        assertThat(pageInfo.getList()).hasSize(3);
     }
 
     @Test
