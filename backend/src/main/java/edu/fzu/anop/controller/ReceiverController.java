@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 已读通知控制器
+ *
+ * @author Xue_Feng
+ */
 @Api(value = "已读通知", tags = {"已读通知"})
 @RestController
 @RequestMapping("/v1/sub/groups/{gid}/notifications/{nid}/readers")

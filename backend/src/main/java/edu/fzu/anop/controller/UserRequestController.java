@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * 通知群加入申请控制器
+ *
+ * @author Xue_Feng
+ */
 @Api(value = "通知群组加入申请", tags = {"通知群组加入申请"})
 @RestController
 @RequestMapping("/v1/pub/requests")

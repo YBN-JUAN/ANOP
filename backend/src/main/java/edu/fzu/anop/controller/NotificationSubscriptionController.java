@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * 订阅者通知控制器
+ *
+ * @author Xue_Feng
+ */
 @Api(value = "订阅者通知", tags = {"订阅者通知"})
 @RestController
 @RequestMapping("/v1/sub/groups/{gid}/notifications")
