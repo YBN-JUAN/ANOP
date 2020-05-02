@@ -1,5 +1,6 @@
 package edu.fzu.anop.controller;
 
+import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Group;
 import edu.fzu.anop.resource.GroupAddResource;
 import edu.fzu.anop.resource.GroupResource;
@@ -67,7 +68,7 @@ public class GroupController {
 
     @ApiOperation(value = "获取用户创建的通知群组列表")
     @ApiResponses({
-        @ApiResponse(code = 200, message = "获取成功", response = GroupResource.class),
+        @ApiResponse(code = 200, message = "获取成功", response = PageInfo.class),
         @ApiResponse(code = 422, message = "请求体参数验证错误", response = Message.class),
     })
     @GetMapping()
@@ -80,7 +81,7 @@ public class GroupController {
 
     @ApiOperation(value = "获取用户管理的通知群组列表")
     @ApiResponses({
-        @ApiResponse(code = 200, message = "获取成功", response = GroupResource.class),
+        @ApiResponse(code = 200, message = "获取成功", response = PageInfo.class),
         @ApiResponse(code = 422, message = "请求体参数验证错误", response = Message.class),
     })
     @GetMapping("/manage")
