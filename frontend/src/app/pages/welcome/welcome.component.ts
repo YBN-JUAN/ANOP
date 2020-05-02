@@ -11,12 +11,20 @@ export class WelcomeComponent implements OnInit {
   selectIndex = 0;
   tabs: any[] = [
     {
+      key: '',
+      title: ''
+    },
+    {
       key: 'login',
       title: '登录'
     },
     {
       key: 'register',
       title: '注册'
+    },
+    {
+      key: '',
+      title: ''
     }
   ];
   constructor(private router:Router) {}

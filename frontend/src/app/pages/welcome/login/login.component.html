@@ -19,3 +19,7 @@
     </nz-form-control>
   </nz-form-item>
 </form>
+<div class="alert alert-danger" [hidden]="!error">
+  <nz-alert nzType="error" nzMessage="{{errMsg}}"></nz-alert>
+</div>
+
