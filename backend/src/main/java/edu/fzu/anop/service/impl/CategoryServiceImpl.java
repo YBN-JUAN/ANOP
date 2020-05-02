@@ -75,4 +75,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<CategoryListResource> listAllCategories() {
+        List<CategoryListResource> categories = customCategoryMapper.listCategories(
+                SecurityUtil.getLoginUser(User.class).getId()
+        );
+        return categories;
+    }
 }

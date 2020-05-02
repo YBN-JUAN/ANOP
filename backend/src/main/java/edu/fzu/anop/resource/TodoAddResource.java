@@ -6,7 +6,6 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,15 +29,12 @@ public class TodoAddResource implements Serializable {
     @ApiModelProperty(value = "待办内容", name = "content", example = "阿道夫就安分的链接克隆。。。。")
     private String content;
 
-    @Future
-    @ApiModelProperty(value = "开始时间（要大于当前时间）", name = "beginDate", example = "2020-04-01 19:00")
+    @ApiModelProperty(value = "开始时间", name = "beginDate", example = "2020-04-01 19:00")
     private Date beginDate;
 
-    @Future
     @ApiModelProperty(value = "结束时间（要大于当前时间）", name = "beginDate", example = "2020-04-01 19:00")
     private Date endDate;
 
-    @Future
     @ApiModelProperty(value = "提醒时间（要大于当前时间）", name = "remindDate", example = "2020-04-01 19:00")
     private Date remindDate;
 
