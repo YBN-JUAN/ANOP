@@ -105,4 +105,10 @@ class CategoryServiceTest {
         assertThat(affectedRow).isEqualTo(-1);
         assertThat(category).isNotNull();
     }
+
+    @Test
+    void listAllCategory() {
+        List<CategoryListResource> resources = categoryService.listAllCategories();
+        assertThat(resources).hasSize(3);
+    }
 }

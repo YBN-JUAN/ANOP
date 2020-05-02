@@ -23,4 +23,6 @@ public interface CategoryService {
     int updateCategory(Category oldCategory, CategoryUpdateResource resource);
 
     int deleteCategory(Integer id);
+
+    List<CategoryListResource> listAllCategories();
 }

@@ -60,6 +60,16 @@ public class CategoryController {
         return JsonResult.ok(categoryService.listCategories(page));
     }
 
+    @ApiOperation(value = "获取当前用户的所有分类", notes = "获取当前用户的所有分类")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功获取"),
+            @ApiResponse(code = 422, message = "参数未通过验证")
+    })
+    @GetMapping("/all")
+    public Object listAllCategories() {
+        return JsonResult.ok(categoryService.listAllCategories());
+    }
+
     @ApiOperation(value = "获取指定id的分类的基本信息", notes = "获取指定id的分类的基本信息")
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功获取"),
