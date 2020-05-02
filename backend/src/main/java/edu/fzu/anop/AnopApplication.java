@@ -7,6 +7,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Spring Boot 启动类
+ *
+ * @author Xue_Feng
+ */
 @SpringBootApplication
 @MapperScan("edu.fzu.anop.mapper")
 @MapperScan("edu.fzu.anop.security.mapper")

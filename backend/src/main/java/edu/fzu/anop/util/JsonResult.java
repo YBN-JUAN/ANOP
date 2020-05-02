@@ -3,6 +3,12 @@ package edu.fzu.anop.util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * Json结果包装类
+ *
+ * @param <T> 数据负载类型
+ * @author Xue_Feng
+ */
 public class JsonResult<T> extends ResponseEntity<Message> {
 
     public JsonResult(HttpStatus status) {

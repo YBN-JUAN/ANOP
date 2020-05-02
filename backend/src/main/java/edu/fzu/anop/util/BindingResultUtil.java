@@ -6,6 +6,11 @@ import org.springframework.validation.FieldError;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 生成绑定错误结果列表工具
+ *
+ * @author Xue_Feng
+ */
 public class BindingResultUtil {
     public static List<String> getErrorList(BindingResult bindingResult) {
         List<String> errorList = new ArrayList<>(bindingResult.getFieldErrorCount());

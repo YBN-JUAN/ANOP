@@ -2,6 +2,12 @@ package edu.fzu.anop.util;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * 消息载体
+ *
+ * @param <T> 数据负载类型
+ * @author Xue_Feng
+ */
 public class Message<T> {
 
     int status;

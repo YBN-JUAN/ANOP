@@ -1,9 +1,13 @@
 package edu.fzu.anop.util;
 
 import com.github.pagehelper.PageHelper;
-import edu.fzu.anop.resource.GroupResource;
 import edu.fzu.anop.resource.PageParmResource;
 
+/**
+ * 分页帮助类
+ *
+ * @author Xue_Feng
+ */
 public class PageSortHelper {
     public static void pageAndSort(PageParmResource pageParm, Class<?> sortClass) {
         String orderBy = pageParm.getOrderBy();

@@ -7,6 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
+/**
+ * 属性映射帮助工具
+ *
+ * @author Xue_Feng
+ */
 public class PropertyMapperUtil {
     private static Logger LOGGER = LoggerFactory.getLogger(PropertyMapperUtil.class);
     private static final Pattern GET_PATTERN = Pattern.compile("get\\w+");
