@@ -23,9 +23,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isRightOldPassword(String oldPassword) {
         PasswordEncoder passwordEncoder = new BeanConfig().passwordEncoder();
-        oldPassword = passwordEncoder.encode(oldPassword);
         String userPassword = SecurityUtil.getLoginUser(User.class).getPassword();
-        return oldPassword.equals(userPassword);
+        return passwordEncoder.matches(oldPassword, userPassword);
     }
 
     @Override

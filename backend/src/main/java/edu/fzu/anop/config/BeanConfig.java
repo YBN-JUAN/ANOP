@@ -17,7 +17,7 @@ public class BeanConfig {
             //对密码进行加密
             @Override
             public String encode(CharSequence charSequence) {
-                System.out.println(charSequence.toString());
+                //System.out.println(charSequence.toString());
                 return DigestUtils.md5DigestAsHex(charSequence.toString().getBytes());
             }
 
