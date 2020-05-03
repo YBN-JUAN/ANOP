@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ResposeList} from '../model/respose-list';
-import {Group} from '../model/group-info';
+import {ResponseModel} from '../model/response.model';
+import {GroupInfoModel} from '../model/group-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class SubscriptionCenterService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<Group>>(`${this.url}`, { params });
+    return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}`, { params });
   }
 
   quitGroup(id: number) {

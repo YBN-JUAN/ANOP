@@ -1,4 +1,4 @@
-export class UserInfo {
+export class UserInfoModel {
     id: number;
     email: string;
     userName: string;

@@ -1,4 +1,4 @@
-export class ResposeList<T> {
+export class ResponseModel<T> {
   total: number;
   list: T[];
   pageNum: number;

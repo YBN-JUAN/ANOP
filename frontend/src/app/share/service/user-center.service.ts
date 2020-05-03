@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserInfo } from '../model/user-info';
-import { Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {UserInfoModel} from '../model/user-info.model';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserCenterService {
-  public user:UserInfo;
+  public user: UserInfoModel;
   public url: string = 'http://localhost:8080/v1/';
   storageOk: boolean = false;
   httpOptions = {
@@ -20,15 +20,18 @@ export class UserCenterService {
   constructor(
     private http: HttpClient,
     private route: Router
-  ) { }
+  ) {
+  }
 
-  getConfig(): Observable<UserInfo>{
-    return this.http.get<UserInfo>(this.url + "profile");
+  getConfig(): Observable<UserInfoModel> {
+    return this.http.get<UserInfoModel>(this.url + "profile");
   }
 
   storageUser() {
-    if (this.storageOk) { return; }
-    this.http.get<UserInfo>(this.url + "profile").subscribe(data => (
+    if (this.storageOk) {
+      return;
+    }
+    this.http.get<UserInfoModel>(this.url + "profile").subscribe(data => (
       localStorage.setItem('userid', String(data.id)),
         localStorage.setItem('username', String(data.userName))
     ))
@@ -36,7 +39,7 @@ export class UserCenterService {
   }
 
   updateUserInfo(nickName: string, avatarUrl: string) {
-    this.http.put(this.url + "profile", {nickname:nickName, avatarUrl:avatarUrl}, this.httpOptions)
+    this.http.put(this.url + "profile", {nickname: nickName, avatarUrl: avatarUrl}, this.httpOptions)
       .subscribe(
         response => {
           console.log(response);
@@ -50,7 +53,10 @@ export class UserCenterService {
   }
 
   resetPassword(newPassword: string, oldPassword: string) {
-    this.http.post(this.url + "account/password",{newPassword:newPassword, oldPassword:oldPassword}, this.httpOptions)
+    this.http.post(this.url + "account/password", {
+      newPassword: newPassword,
+      oldPassword: oldPassword
+    }, this.httpOptions)
       .subscribe(
         data => {
           console.log(data);
@@ -60,17 +66,17 @@ export class UserCenterService {
         error => {
           console.log(error);
           window.alert("原密码输入错误，请重新输入！");
-          }
+        }
       );
   }
 
   signOut() {
     this.http.post(this.url + "signout", {}, this.httpOptions)
-    .subscribe(response => {
-      console.log(response);
-      localStorage.removeItem('userid');
-      localStorage.removeItem('username');
-      this.route.navigateByUrl('/welcome/login');
-    });
+      .subscribe(response => {
+        console.log(response);
+        localStorage.removeItem('userid');
+        localStorage.removeItem('username');
+        this.route.navigateByUrl('/welcome/login');
+      });
   }
 }
