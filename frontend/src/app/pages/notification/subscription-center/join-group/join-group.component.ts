@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {JoinGroupService} from './join-group.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Group} from "../../../../share/model/group-info";
-import {PublishCenterService} from "../../../../share/service/publish-center.service";
+import {GroupInfoModel} from '../../../../share/model/group-info.model';
+import {PublishCenterService} from '../../../../share/service/publish-center.service';
 
 @Component({
   selector: 'app-join-group',
@@ -13,21 +13,26 @@ import {PublishCenterService} from "../../../../share/service/publish-center.ser
 export class JoinGroupComponent implements OnInit {
 
   public groupId: number;
-  public group: Group;
+  public group: GroupInfoModel;
+  public permissionDescribe: string;
 
   constructor(private joinGroupService: JoinGroupService, private searchGroupService: PublishCenterService) {
   }
 
   ngOnInit(): void {
-    this.group = new Group();
+    this.group = new GroupInfoModel();
   }
 
   doSearch() {
     // alert('搜索群组' + this.groupId);
     this.searchGroupService.getGroup(this.groupId).subscribe(
-      (data: Group) => {
+      (data: GroupInfoModel) => {
         console.log(data);
         this.group = data;
+        this.setPermissionDescribe();
+      }, (response: HttpErrorResponse) => {
+        alert(response.error.status + ':' + response.error.message);
+        this.group = new GroupInfoModel();
       }
     )
   }
@@ -46,7 +51,25 @@ export class JoinGroupComponent implements OnInit {
       });
   }
 
-  doReset(){
-    this.group = new Group();
+  doReset() {
+    this.group = new GroupInfoModel();
+    this.permissionDescribe = '';
+  }
+
+  setPermissionDescribe(){
+    switch (this.group.permission) {
+      case 0:
+        this.permissionDescribe = '需要管理员审核';
+        break
+      case 1:
+        this.permissionDescribe = '允许任何人加入'
+        break
+      case 2:
+        this.permissionDescribe = '不允许任何人加入'
+        break
+      default:
+        this.permissionDescribe = '未知'
+        break
+    }
   }
 }
