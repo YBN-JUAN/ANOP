@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
         },
         (result)=>{
           this.error = true;
-          alert(result.message);
           this.errMsg=result.message;
         });
     }
