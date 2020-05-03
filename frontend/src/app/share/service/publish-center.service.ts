@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ResposeList} from '../model/respose-list';
-import {Group} from '../model/group-info';
-import {GroupUser} from '../model/user-info';
+import {ResponseModel} from '../model/response.model';
+import {GroupInfoModel} from '../model/group-info.model';
+import {GroupUser} from '../model/user-info.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublishCenterService {
-  public url:string = 'http://localhost:8080/v1/pub/groups';
+  public url: string = 'http://localhost:8080/v1/pub/groups';
+
   getCreateGroups(
     orderBy: string,
     pageNum: number,
@@ -18,7 +19,7 @@ export class PublishCenterService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<Group>>(`${this.url}`, { params });
+    return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}`, {params});
   }
 
   getManageGroups(
@@ -30,7 +31,7 @@ export class PublishCenterService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<Group>>(`${this.url}/manage`, { params });
+    return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}/manage`, {params});
   }
 
   getGroups(
@@ -45,7 +46,8 @@ export class PublishCenterService {
       return this.getManageGroups(orderBy, pageNum, pageSize);
     }
   }
-  deleteGroup(id: number){
+
+  deleteGroup(id: number) {
     this.http.delete(`${this.url}/${id}`).subscribe(
       data => {
         console.log("delete group ok", data);
@@ -57,7 +59,7 @@ export class PublishCenterService {
   }
 
   getGroup(id: number) {
-    return this.http.get<Group>(`${this.url}/${id}`);
+    return this.http.get<GroupInfoModel>(`${this.url}/${id}`);
   }
 
   getGroupUser(
@@ -70,8 +72,10 @@ export class PublishCenterService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<GroupUser>>(`${this.url}/${groupId}/users`, {params});
+    return this.http.get<ResponseModel<GroupUser>>(`${this.url}/${groupId}/users`, {params});
   }
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 
 }

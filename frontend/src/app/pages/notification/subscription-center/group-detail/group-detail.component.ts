@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Group} from '../../../../share/model/group-info';
+import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
-import {NzModalService, NzTableQueryParams} from 'ng-zorro-antd';
-import {GroupUser} from '../../../../share/model/user-info';
+import {NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
+import {GroupUser} from '../../../../share/model/user-info.model';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
 
 @Component({
@@ -13,7 +13,7 @@ import {PublishCenterService} from '../../../../share/service/publish-center.ser
 })
 
 export class GroupDetailComponent implements OnInit {
-  public group: Group;
+  public group: GroupInfoModel;
   total = 1;
   listOfUsers: GroupUser[] = [];
   loading = true;
@@ -27,8 +27,8 @@ export class GroupDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.group = new Group();
-    const id = +this.route.snapshot.paramMap.get('id');
+    this.group = new GroupInfoModel();
+    const id = toNumber(this.route.snapshot.paramMap.get('id'));
     this.group.remark = "";
     this.group.id = id;
     this.group.title = "...";

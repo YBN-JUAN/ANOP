@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserCenterService } from '../../../share/service/user-center.service';
-import { UserInfo } from '../../../share/model/user-info';
+import { UserInfoModel } from '../../../share/model/user-info.model';
 
 @Component({
   selector: 'app-edit-profile',
@@ -8,7 +8,7 @@ import { UserInfo } from '../../../share/model/user-info';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-  public user: UserInfo = {
+  public user: UserInfoModel = {
     id: 0,
     email: '',
     userName: '',

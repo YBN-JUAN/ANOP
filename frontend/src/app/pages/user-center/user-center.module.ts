@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserCenterRoutingModule } from './user-center-routing.module';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { EditPasswordComponent } from './edit-password/edit-password.component';
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UserCenterRoutingModule} from './user-center-routing.module';
+import {EditPasswordComponent} from './edit-password/edit-password.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-  declarations: [EditProfileComponent, EditPasswordComponent],
+  declarations: [EditPasswordComponent],
   imports: [
     CommonModule,
     UserCenterRoutingModule,
@@ -16,4 +15,5 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ]
 })
-export class UserCenterModule { }
+export class UserCenterModule {
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {UserRequest} from '../model/user-request';
-import {ResposeList} from '../model/respose-list';
+import {ResponseModel} from '../model/response.model';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 
@@ -21,7 +21,7 @@ export class UserRequestService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<UserRequest>>(`${this.url}`, { params });
+    return this.http.get<ResponseModel<UserRequest>>(`${this.url}`, { params });
   }
 
   getManageRequest(
@@ -33,7 +33,7 @@ export class UserRequestService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResposeList<UserRequest>>(`${this.url}/manage`, { params });
+    return this.http.get<ResponseModel<UserRequest>>(`${this.url}/manage`, { params });
   }
 
   getUserRequest(

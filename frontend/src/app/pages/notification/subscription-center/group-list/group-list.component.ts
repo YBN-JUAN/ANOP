@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Group} from '../../../../share/model/group-info';
+import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {NzTableQueryParams} from 'ng-zorro-antd';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
 
@@ -10,7 +10,7 @@ import {SubscriptionCenterService} from '../../../../share/service/subscription-
 })
 export class GroupListComponent implements OnInit {
   total = 1;
-  listOfGroups: Group[] = [];
+  listOfGroups: GroupInfoModel[] = [];
   loading = true;
   pageSize = 10;
   pageIndex = 1;

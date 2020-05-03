@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import {Group} from '../../../../share/model/group-info';
+import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
 import {NzModalService} from 'ng-zorro-antd';
 
@@ -11,7 +11,7 @@ import {NzModalService} from 'ng-zorro-antd';
 
 export class PublishCenterGroupListComponent implements OnInit {
   total = 1;
-  listOfGroups: Group[] = [];
+  listOfGroups: GroupInfoModel[] = [];
   loading = true;
   pageSize = 10;
   pageIndex = 1;
@@ -40,7 +40,7 @@ export class PublishCenterGroupListComponent implements OnInit {
     this.loadDataFromServer(pageIndex, pageSize);
   }
 
-  deletGroup(id: number): void {
+  deleteGroup(id: number): void {
     this.modal.confirm({
       nzTitle: '你确定要删除这个群组吗?',
       //nzContent: '<b style="color: red;">Some descriptions</b>',
