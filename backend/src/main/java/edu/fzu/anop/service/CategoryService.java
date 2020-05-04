@@ -2,10 +2,7 @@ package edu.fzu.anop.service;
 
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Category;
-import edu.fzu.anop.resource.CategoryAddResource;
-import edu.fzu.anop.resource.CategoryListResource;
-import edu.fzu.anop.resource.CategoryUpdateResource;
-import edu.fzu.anop.resource.PageParmResource;
+import edu.fzu.anop.resource.*;
 
 import java.util.List;
 
@@ -61,4 +58,13 @@ public interface CategoryService {
      * @return 分类列表
      */
     List<CategoryListResource> listAllCategories();
+
+
+    /**
+     * 获取指定ID分类的所有待办事项
+     * @param categoryId 分类ID
+     * @param page
+     * @return 待办事项列表
+     */
+    PageInfo<List<TodoResource>> listTodoByCategoryId(Integer categoryId, PageParmResource page);
 }

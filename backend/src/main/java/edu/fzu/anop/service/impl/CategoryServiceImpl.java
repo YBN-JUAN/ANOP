@@ -3,11 +3,11 @@ package edu.fzu.anop.service.impl;
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.mapper.CategoryMapper;
 import edu.fzu.anop.mapper.CustomCategoryMapper;
+import edu.fzu.anop.mapper.TodoMapper;
 import edu.fzu.anop.pojo.Category;
-import edu.fzu.anop.resource.CategoryAddResource;
-import edu.fzu.anop.resource.CategoryListResource;
-import edu.fzu.anop.resource.CategoryUpdateResource;
-import edu.fzu.anop.resource.PageParmResource;
+import edu.fzu.anop.pojo.Todo;
+import edu.fzu.anop.pojo.example.TodoExample;
+import edu.fzu.anop.resource.*;
 import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.CategoryService;
 import edu.fzu.anop.util.PageSortHelper;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Resource
     CustomCategoryMapper customCategoryMapper;
+
+    @Resource
+    TodoMapper todoMapper;
 
     @Override
     public Category addCategory(CategoryAddResource resource) {
@@ -57,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int updateCategory(Category oldCategory, CategoryUpdateResource resource) {
 
-        if(!oldCategory.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+        if (!oldCategory.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
             return -1;
         }
 
@@ -71,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = categoryMapper.selectByPrimaryKey(id);
 
-        if(!category.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+        if (!category.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
             return -1;
         }
 
@@ -80,9 +84,31 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryListResource> listAllCategories() {
-        List<CategoryListResource> categories = customCategoryMapper.listCategories(
-                SecurityUtil.getLoginUser(User.class).getId()
-        );
+        int userId = SecurityUtil.getLoginUser(User.class).getId();
+        List<CategoryListResource> categories = customCategoryMapper.listCategories(userId);
         return categories;
+    }
+
+    @Override
+    public PageInfo<List<TodoResource>> listTodoByCategoryId(Integer categoryId, PageParmResource page) {
+        TodoExample todoExample = new TodoExample();
+
+        TodoExample.Criteria criteria1 = todoExample.createCriteria();
+        criteria1.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
+                .andCategoryIdEqualTo(categoryId)
+                .andIsCompletedEqualTo((byte) 0)
+                .andEndDateGreaterThan(new Date());
+
+        TodoExample.Criteria criteria2 = todoExample.createCriteria();
+        criteria2.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
+                .andCategoryIdEqualTo(categoryId)
+                .andIsCompletedEqualTo((byte) 0)
+                .andEndDateIsNull();
+
+        todoExample.or(criteria2);
+
+        PageSortHelper.pageAndSort(page, TodoResource.class);
+        List<Todo> todos = todoMapper.selectByExample(todoExample);
+        return new PageInfo(todos);
     }
 }

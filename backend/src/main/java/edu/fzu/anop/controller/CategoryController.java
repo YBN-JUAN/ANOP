@@ -1,5 +1,6 @@
 package edu.fzu.anop.controller;
 
+import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Category;
 import edu.fzu.anop.resource.CategoryAddResource;
 import edu.fzu.anop.resource.CategoryUpdateResource;
@@ -7,6 +8,7 @@ import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.service.CategoryService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
+import edu.fzu.anop.util.Message;
 import io.swagger.annotations.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -126,5 +128,21 @@ public class CategoryController {
             return JsonResult.forbidden("you have no permission to delete this category", null);
         }
         return JsonResult.noContent().build();
+    }
+
+    @ApiOperation(value = "获取指定id的分类下的所有待办事项", notes = "获取指定id的分类下的所有待办事项")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "categoryId", value = "分类id", dataType = "int")
+    )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
+            @ApiResponse(code = 422, message = "分页参数验证错误",response = Message.class)
+    })
+    @GetMapping("/list/{categoryId}")
+    public Object getTodoByCategoryId(@PathVariable int categoryId, @Valid PageParmResource page, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
+        }
+        return JsonResult.ok(categoryService.listTodoByCategoryId(categoryId, page));
     }
 }
