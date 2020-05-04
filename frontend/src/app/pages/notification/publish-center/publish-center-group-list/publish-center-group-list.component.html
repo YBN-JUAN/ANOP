@@ -1,3 +1,16 @@
+<div class="plus" style="padding-left: 95%; padding-top: 10px;">
+  <i
+    style="font-size: 50px;"
+    nz-icon
+    nzType="plus-circle"
+    nzTheme="twotone"
+    nzTwotoneColor="#eb2f96" ></i>
+</div>
+<nz-row>
+  <nz-col nz-col="3" [nzOffset]="1">
+    <button nz-button nzType="primary" nzSize="large" (click)="changeList()">{{buttonTitle}}</button>
+  </nz-col>
+</nz-row>
 <nz-table
   nzShowSizeChanger
   [nzData]="listOfGroups"
@@ -24,9 +37,10 @@
       <td>{{ data.remark }}</td>
       <td>{{ data.creationDate }}</td>
       <td>
-        <i nz-icon nzType="info-circle" nzTheme="twotone" size="large"></i>
+        <i nz-icon nzType="info-circle" nzTheme="twotone" size="large"
+           routerLink="/notification/subscription/group-detail/{{data.id}}"></i>
         &nbsp;
-        <i nz-icon nzType="delete" nzTheme="twotone" nzTwotoneColor="#eb2f96" size="large" (click)="deletGroup(data.id)"></i>
+        <i nz-icon nzType="delete" nzTheme="twotone" nzTwotoneColor="#eb2f96" size="large" (click)="deleteGroup(data.id)"></i>
         &nbsp;
         <i nz-icon nzType="edit" nzTheme="twotone" nzTwotoneColor="#52c41a" size="large"></i>
         &nbsp;

@@ -1,1 +1,52 @@
-<p>register works!</p>
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入用户名!">
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input formControlName="username" placeholder="Username" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入要绑定的邮箱!">
+      <nz-input-group nzPrefixIcon="mobile">
+        <input type="text" nz-input formControlName="email" placeholder="Email" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-row>
+      <nz-col [nzSpan]="13">
+        <nz-form-control nzErrorTip="请输入验证码!">
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="text" nz-input formControlName="code" placeholder="Code" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-col>
+      <nz-col [nzOffset]="2">
+        <button nz-button nzType="primary" (click)="getCode()">获取验证码</button>
+      </nz-col>
+    </nz-row>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入密码!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input type="password" nz-input formControlName="password" placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请再次输入密码!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input type="password" nz-input formControlName="confirm" placeholder="Confirm" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button" nzType="primary" (click)="submitForm()">注册</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div class="alert alert-danger" [hidden]="!error">
+  <nz-alert nzType="error" nzMessage="{{errorMsg}}"></nz-alert>
+</div>

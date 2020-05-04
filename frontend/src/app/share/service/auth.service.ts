@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JsonResult } from '../model/json-result';
 import { finalize } from 'rxjs/operators';
+import { Router} from '@angular/router';
 
 interface User{
   id:number;
@@ -15,7 +16,10 @@ export class AuthService {
   private baseUrl:string='http://localhost:8080/v1/';
   user:User;
   authenticated = false;
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private route: Router
+  ) { }
 
   authenticate<T>(credentials, successCallback?:()=>void, errorCallback?:(result:JsonResult<T>)=>void) {
     if(!credentials)
@@ -36,6 +40,7 @@ export class AuthService {
             return successCallback && successCallback();
           },
           (errorResponse:HttpErrorResponse)=>{
+            this.route.navigateByUrl('/welcome/login');
             this.authenticated = false;
             console.log(errorResponse);
             return errorCallback && errorCallback(errorResponse.error);

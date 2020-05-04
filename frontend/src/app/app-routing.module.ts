@@ -11,11 +11,13 @@ import { EditProfileComponent } from './pages/user-center/edit-profile/edit-prof
 import {PublishCenterComponent} from './pages/notification/publish-center/publish-center.component';
 import {SubscriptionCenterComponent} from './pages/notification/subscription-center/subscription-center.component';
 import {ExamineCenterComponent} from './pages/notification/examine-center/examine-center.component';
-import {GroupComponent} from './pages/notification/subscription-center/group/group.component';
+import {GroupMessageComponent} from './pages/notification/subscription-center/group-message/group-message.component';
 import {GroupDetailComponent} from './pages/notification/subscription-center/group-detail/group-detail.component';
 import {GroupListComponent} from './pages/notification/subscription-center/group-list/group-list.component';
 import {JoinGroupComponent} from './pages/notification/subscription-center/join-group/join-group.component';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
+import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
+import {PublishCenterGroupDetailComponent} from './pages/notification/publish-center/publish-center-group-detail/publish-center-group-detail.component';
 
 const routes: Routes = [
   {
@@ -29,10 +31,17 @@ const routes: Routes = [
   },
   { path: 'notification', component: NotificationComponent,
     children:[
-      { path: 'publish', component: PublishCenterComponent },
+      { path: 'publish', component: PublishCenterComponent,
+        children:[
+          { path: 'group-list', component: PublishCenterGroupListComponent},
+          { path: 'group-detail/:id', component: PublishCenterGroupDetailComponent},
+          { path: '**', component: PublishCenterGroupListComponent },
+          { path: '', component: PublishCenterGroupListComponent}
+        ]
+      },
       { path: 'subscription', component: SubscriptionCenterComponent,
         children:[
-          { path: 'group', component: GroupComponent },
+          { path: 'group-message', component: GroupMessageComponent },
           { path: 'group-detail/:id', component: GroupDetailComponent },
           { path: 'group-list', component: GroupListComponent },
           { path: 'join-group', component: JoinGroupComponent },
@@ -50,7 +59,7 @@ const routes: Routes = [
       { path: 'all', component: AllTodoComponent },
       { path: 'subscription', component: SubscriptionCenterComponent,
         children:[
-          { path: 'group', component: GroupComponent },
+          { path: 'group', component: GroupMessageComponent },
           { path: 'group-detail', component: GroupDetailComponent },
           { path: 'group-list', component: GroupListComponent },
           { path: 'join-group', component: JoinGroupComponent },

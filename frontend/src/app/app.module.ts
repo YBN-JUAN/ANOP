@@ -22,14 +22,14 @@ import {SubscriptionCenterComponent} from './pages/notification/subscription-cen
 import {GroupListComponent} from './pages/notification/subscription-center/group-list/group-list.component';
 import {GroupDetailComponent} from './pages/notification/subscription-center/group-detail/group-detail.component';
 import {JoinGroupComponent} from './pages/notification/subscription-center/join-group/join-group.component';
-import {GroupComponent} from './pages/notification/subscription-center/group/group.component';
+import {GroupMessageComponent} from './pages/notification/subscription-center/group-message/group-message.component';
 import {CookieService} from 'ngx-cookie-service';
 import {GlobalInterceptor} from './interceptor/global-interceptor.interceptor';
 import {LoginComponent} from './pages/welcome/login/login.component';
 import {RegisterComponent} from './pages/welcome/register/register.component';
 import {HeadButtonComponent} from './share/head-button/head-button.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
-import {JoinGroupService} from './share/service/join-group.service';
+import {JoinGroupService} from './pages/notification/subscription-center/join-group/join-group.service';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import { TodoItemComponent } from './pages/memorandum/todo-item/todo-item.component';
 import { RequestListComponent } from './pages/notification/examine-center/request-list/request-list.component';
@@ -54,7 +54,7 @@ registerLocaleData(zh);
     GroupListComponent,
     GroupDetailComponent,
     JoinGroupComponent,
-    GroupComponent,
+    GroupMessageComponent,
     HeadButtonComponent,
     PublishCenterGroupListComponent,
     AllTodoComponent,

@@ -1,4 +1,4 @@
-export class Group {
+export class GroupInfoModel {
   id: number;
   title: string;
   userId: number;
@@ -6,6 +6,6 @@ export class Group {
   avatarUrl: string;
   remark: string;
   creationDate: string;
-  permission: string;
+  permission: number;
 }
 
