@@ -1,5 +1,6 @@
 package edu.fzu.anop.controller;
 
+import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Todo;
 import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.TodoAddResource;
@@ -8,6 +9,7 @@ import edu.fzu.anop.resource.TodoUpdateResource;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
+import edu.fzu.anop.util.Message;
 import io.swagger.annotations.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +51,9 @@ public class TodoController {
             @ApiImplicitParam(name = "flag", value = "0:所有 1:重要 2:收藏", required = false, dataType = "int")
     )
     @ApiResponses({
-            @ApiResponse(code = 200, message = "成功获取"),
-            @ApiResponse(code = 422, message = "参数未通过验证")
+            @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
+            @ApiResponse(code = 400, message = "flag参数验证错误"),
+            @ApiResponse(code = 422, message = "分页参数验证错误",response = Message.class)
     })
     @GetMapping()
     public Object getTodoList(@Valid TodoFlagResource flagResource, @Valid PageParmResource page, BindingResult bindingResult) {
@@ -92,7 +95,7 @@ public class TodoController {
     @ApiOperation(value = "切换待办事项状态", notes = "切换待办事项状态")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "flag", value = "0:完成 1:重要 2:收藏", required = false, dataType = "int"),
+            @ApiImplicitParam(name = "flag", value = "0:完成 1:重要 2:收藏", dataType = "int"),
     })
     @PutMapping("/check/{id}")
     public Object checkTodo(@PathVariable int id, @Valid TodoFlagResource resource) {
@@ -132,6 +135,10 @@ public class TodoController {
     @ApiOperation(value = "获取指定id的待办事项信息", notes = "获取指定id的待办事项信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "获取成功", response = Todo.class),
+            @ApiResponse(code = 404, message = "通知群组不存在", response = Message.class)
     })
     @GetMapping("/{id}")
     public Object getTodo(@PathVariable int id) {

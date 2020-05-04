@@ -69,7 +69,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int deleteCategory(Integer id) {
 
-        if(!id.equals(SecurityUtil.getLoginUser(User.class).getId())) {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+
+        if(!category.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
             return -1;
         }
 
