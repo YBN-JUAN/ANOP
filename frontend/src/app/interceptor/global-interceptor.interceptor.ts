@@ -4,14 +4,18 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpResponse,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { mergeMap, catchError } from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class GlobalInterceptor implements HttpInterceptor {
 
-  constructor(private cookieService:CookieService) {}
+  constructor(private cookieService:CookieService,private route: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const xhr = request.clone({
@@ -21,6 +25,17 @@ export class GlobalInterceptor implements HttpInterceptor {
       withCredentials:true
 
     });
-    return next.handle(xhr);
+    return next.handle(xhr).pipe(mergeMap((event: any) => {
+        return of(event);
+      }),
+      catchError((err: HttpErrorResponse) => this.handleData(err)));
+  }
+
+  private handleData(event: HttpResponse<any> | HttpErrorResponse): Observable<any> {
+    if(event.status==401 && this.route.routerState.snapshot.url!="/welcome/login"){
+      console.log(this.route);
+      this.route.navigateByUrl("/welcome/login");
+    }
+    return of(event);
   }
 }
