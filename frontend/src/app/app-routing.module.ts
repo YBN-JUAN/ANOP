@@ -18,6 +18,11 @@ import {JoinGroupComponent} from './pages/notification/subscription-center/join-
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
 import {PublishCenterGroupDetailComponent} from './pages/notification/publish-center/publish-center-group-detail/publish-center-group-detail.component';
+import {ImpTodoComponent} from './pages/memorandum/imp-todo/imp-todo.component';
+import {FavorTodoComponent} from './pages/memorandum/favor-todo/favor-todo.component';
+import {HistTodoComponent} from './pages/memorandum/hist-todo/hist-todo.component';
+import {AllCateComponent} from './pages/memorandum/all-cate/all-cate.component';
+import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.component';
 
 const routes: Routes = [
   {
@@ -57,17 +62,12 @@ const routes: Routes = [
   { path: 'memorandum', component: MemorandumComponent,
     children:[
       { path: 'all', component: AllTodoComponent },
-      { path: 'subscription', component: SubscriptionCenterComponent,
-        children:[
-          { path: 'group', component: GroupMessageComponent },
-          { path: 'group-detail', component: GroupDetailComponent },
-          { path: 'group-list', component: GroupListComponent },
-          { path: 'join-group', component: JoinGroupComponent },
-          { path: '**', component: GroupListComponent },
-          { path: '', component: GroupListComponent }
-        ]
-      },
-      { path: 'examine', component: ExamineCenterComponent },
+      { path: 'Important', component: ImpTodoComponent,},
+      { path: 'Favor', component: FavorTodoComponent },
+      { path: 'Cate', component: AllCateComponent},
+      // children:[{ path: 'cate-detail/:id',component: CateDetailComponent }]},
+      { path: 'cate-detail/:id',component: CateDetailComponent },
+      { path: 'History', component: HistTodoComponent },
       { path: '**', component: AllTodoComponent },
       { path: '', component: AllTodoComponent }
     ]

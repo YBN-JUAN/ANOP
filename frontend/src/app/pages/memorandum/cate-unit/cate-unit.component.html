@@ -1,0 +1,61 @@
+<nz-card style="width:100%;min-height: 5vh" (dblclick)="jump()">
+  <div nz-row [nzGutter]="16">
+
+
+    <!--分类名称块-->
+    <div nz-col class="gutter-row" [nzSpan]="8">
+      <div class="inner-box">
+        <div style="margin-top: 4%;display: flex;justify-content: space-around">
+          <h2 style="margin-right: 0.4vw;margin-top: 0.3%;font-weight: bolder">分类名称:</h2>
+          <nz-input-group  [nzAddOnAfter]="editTemplate" nzSize="large" style="display: inline-block;width: 21vw" >
+            <input type="text" nz-input [(ngModel)]="typeName"  [disabled]="edit" (blur)="updateCate()"/>
+          </nz-input-group>
+          <ng-template #editTemplate>
+            <i nz-icon nzType="edit" (click)="changeEditable()"></i>
+          </ng-template>
+<!--          nzAddOnBefore="分类名称:"-->
+        </div>
+      </div>
+    </div>
+
+    <div nz-col class="gutter-row" [nzSpan]="8">
+      <div class="inner-box">
+        <div nz-row [nzGutter]="16">
+          <span style="margin: auto auto;font-weight:bolder;">{{numText}}</span>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <span style="margin: auto auto;font-weight:bolder;font-size: 2vw">{{todoNum}}</span>
+        </div>
+      </div>
+    </div>
+
+<!--    &lt;!&ndash;最终时间块&ndash;&gt;-->
+<!--    <div nz-col class="gutter-row" [nzSpan]="9"><div class="inner-box">-->
+<!--      <div nz-row [nzGutter]="16">-->
+<!--        <span style="margin: auto auto auto 0;">{{Deadline}}</span>-->
+<!--      </div>-->
+<!--      <div nz-row [nzGutter]="16">-->
+<!--        <span style="margin: auto auto auto 0">{{itemDeadline}}</span>-->
+<!--      </div>-->
+<!--    </div></div>-->
+
+    <!--删除块-->
+    <div nz-col class="gutter-row" [nzSpan]="8">
+      <div class="inner-box">
+        <div style="margin-left:50%;margin-top: 4%">
+          <i nz-icon nzType="delete" class="bigIcon" (click)="isVisible=true"></i>
+        </div>
+      </div>
+    </div>
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="警告"
+      (nzOnCancel)="isVisible=false"
+      (nzOnOk)="deleteCate()"
+      [nzZIndex]="1000"
+    >
+      <p>删除分类会将该分类下的待办事项一并删除！</p>
+    </nz-modal>
+
+  </div>
+</nz-card>

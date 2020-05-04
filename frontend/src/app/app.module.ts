@@ -33,6 +33,14 @@ import {JoinGroupService} from './pages/notification/subscription-center/join-gr
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import { TodoItemComponent } from './pages/memorandum/todo-item/todo-item.component';
 import { RequestListComponent } from './pages/notification/examine-center/request-list/request-list.component';
+import { ImpTodoComponent } from './pages/memorandum/imp-todo/imp-todo.component';
+import {FavorTodoComponent} from './pages/memorandum/favor-todo/favor-todo.component';
+import {HistTodoComponent} from './pages/memorandum/hist-todo/hist-todo.component';
+import {AddTodoComponent} from './pages/memorandum/add-todo/add-todo.component';
+import {EditTodoComponent} from './pages/memorandum/edit-todo/edit-todo.component';
+import {AllCateComponent} from './pages/memorandum/all-cate/all-cate.component';
+import {CateUnitComponent} from './pages/memorandum/cate-unit/cate-unit.component';
+import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.component';
 
 registerLocaleData(zh);
 
@@ -59,7 +67,15 @@ registerLocaleData(zh);
     PublishCenterGroupListComponent,
     AllTodoComponent,
     TodoItemComponent,
-    RequestListComponent
+    RequestListComponent,
+    ImpTodoComponent,
+    FavorTodoComponent,
+    HistTodoComponent,
+    AddTodoComponent,
+    EditTodoComponent,
+    AllCateComponent,
+    CateUnitComponent,
+    CateDetailComponent
   ],
   imports: [
     ReactiveFormsModule,

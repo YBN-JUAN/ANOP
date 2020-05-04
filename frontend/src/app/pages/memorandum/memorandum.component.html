@@ -4,9 +4,9 @@
       <h1>A N O P</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-menu-item *ngFor="let item of collapsedItems">
+      <li nz-menu-item *ngFor="let item of collapsedItems" [routerLink]="item.route">
         <i nz-icon [nzType]="item.icon" class="side-icon"></i>
-        <span [routerLink]="item.route">{{item.title}}</span>
+        <span>{{item.title}}</span>
       </li>
     </ul>
   </nz-sider>
@@ -37,4 +37,3 @@
     <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
   </nz-layout>
 </nz-layout>
-<app-todo-item></app-todo-item>
