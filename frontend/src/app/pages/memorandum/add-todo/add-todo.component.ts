@@ -61,7 +61,7 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTodo(){
-    if(format(new Date(),'yyyy-MM-dd HH:mm:ss')>format(this.remindDate, 'yyyy-MM-dd HH:mm:ss')){
+    if(this.remindDate!=null&&format(new Date(),'yyyy-MM-dd HH:mm:ss')>format(this.remindDate, 'yyyy-MM-dd HH:mm:ss')){
       this.isVisible2=true;
     } else if(!this.isEmpty) {
       this.service.addTodo(

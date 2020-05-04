@@ -63,7 +63,7 @@ export class EditTodoComponent implements OnInit {
   }
 
   updateTodo() {
-    if(format(new Date(),'yyyy-MM-dd HH:mm:ss')>this.remindDate.toString()){
+    if(this.remindDate!=null&&format(new Date(),'yyyy-MM-dd HH:mm:ss')>this.remindDate.toString()){
       this.isVisible2=true;
     } else if(!this.isEmpty){
       this.service.updateTodo(
