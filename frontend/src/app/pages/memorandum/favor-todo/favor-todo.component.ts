@@ -3,12 +3,11 @@ import {TodoInfo} from '../../../share/model/todo-Info';
 import {MemorandumService} from '../../../share/service/memorandum.service';
 
 @Component({
-  selector: 'app-all-todo',
-  templateUrl: './all-todo.component.html',
-  styleUrls: ['./all-todo.component.css']
+  selector: 'app-favor-todo',
+  templateUrl: './favor-todo.component.html',
+  styleUrls: ['./favor-todo.component.css']
 })
-export class AllTodoComponent implements OnInit {
-
+export class FavorTodoComponent implements OnInit {
   todoList: TodoInfo[];
   loading = true;
   pageSize = 10;
@@ -17,7 +16,8 @@ export class AllTodoComponent implements OnInit {
   constructor(private service: MemorandumService) { }
 
   loadDataFromServer(): void {
-    this.service.getTodoList(0,'ASC', this.pageIndex, this.pageSize).subscribe(data => {
+    this.loading = true;
+    this.service.getTodoList(2,'ASC', this.pageIndex, this.pageSize).subscribe(data => {
         this.total = data.total;
         this.todoList = data.list;
         this.loading = false;
@@ -25,9 +25,7 @@ export class AllTodoComponent implements OnInit {
       error => { console.log(error); }
     );
   }
-
   ngOnInit(): void {
     this.loadDataFromServer()
   }
-
 }

@@ -7,3 +7,49 @@
 .heart-icon{
   color: #ed5a65;
 }
+.radio_type{
+  width: 1pt;
+  height: 1pt;
+  appearance: none;
+  position: relative;
+}
+.radio_type:before{
+  content: '';
+  width: 30px;
+  height: 30px;
+  border: 1px solid #7d7d7d;
+  display: inline-block;
+  background: white;
+  border-radius: 30%;
+  vertical-align: middle;
+}
+.radio_type:checked:before{
+  content: '';
+  width: 30px;
+  height: 30px;
+  border: 1px solid #c59c5a;
+  background:#55e7fc;
+  display: inline-block;
+  vertical-align: middle;
+}
+.radio_type:checked:after{
+  content: '';
+  width: 20px;
+  height:10px;
+  border: 2px solid white;
+  border-top: transparent;
+  border-right: transparent;
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 6px;
+  left:5px;
+  vertical-align: middle;
+  transform: rotate(-45deg);
+}
+.ball {
+  border-radius: 50%;
+  width: 0.7vw;
+  height: 0.7vw;
+}
+

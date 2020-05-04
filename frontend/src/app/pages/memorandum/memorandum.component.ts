@@ -16,22 +16,22 @@ export class MemorandumComponent implements OnInit {
     {
       title:'重要待办',
       icon:'heart',
-      route:'#'
+      route:'Important'
     },
     {
       title:'收藏',
       icon:'star',
-      route:'#'
+      route:'Favor'
     },
     {
       title:'分类',
       icon:'group',
-      route:'#'
+      route:'Cate'
     },
     {
       title:'历史待办事项',
       icon:'history',
-      route:'#'
+      route:'History'
     }
   ]
   constructor() { }

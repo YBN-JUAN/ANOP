@@ -1,0 +1,92 @@
+<i nz-icon nzType="plus-circle" nzTheme="fill" class="fixed-widgets" (click)="change()"></i>
+<nz-drawer
+  [nzClosable]="false"
+  nzWidth="24vw"
+  [nzVisible]="visible"
+  (nzOnClose)="change()"
+>
+  <nz-spin [nzSpinning]="loading" [nzSize]="'large'">
+    <div style="font-size: 1.6vw;font-weight: bolder">新建事项</div>
+    <hr>
+    <div>标题</div>
+    <textarea nz-input placeholder="请在此处输入标题" [nzAutosize]="{ minRows: 1, maxRows: 3 }" style="margin: 0.5vw 0" [(ngModel)]="title" (blur)="changeEmpty()"></textarea>
+
+    <div>内容</div>
+    <textarea nz-input placeholder="请在此处输入内容" [nzAutosize]="{ minRows: 3, maxRows: 6 }" style="margin: 0.5vw 0" [(ngModel)]="content" (blur)="changeEmpty()"></textarea>
+
+    <div>分类</div>
+    <nz-select style="width: 21.5vw;margin: 0.5vw 0" [(ngModel)]="categoryId" nzPlaceHolder="请点击此处选择分类">
+      <nz-option *ngFor='let item of cateList' [nzLabel]=item.typeName [nzValue]=item.id ></nz-option>
+    </nz-select>
+
+    <div style="display: flex;justify-content: space-between;">
+      <span>开始时间</span>
+      <span><nz-switch [(ngModel)]="begin" (click)="beginDate=null"></nz-switch></span>
+    </div>
+    <div>
+      <nz-date-picker
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="yyyy-MM-dd HH:mm"
+      nzPlaceHolder="请选择开始时间"
+      [(ngModel)]="beginDate"
+      style="width: 21.5vw"
+      [nzDisabled]="!begin"
+    ></nz-date-picker>
+    </div>
+
+    <div style="display: flex;justify-content: space-between;">
+      <span>结束时间</span>
+      <span><nz-switch [(ngModel)]="end" (click)="endDate=null"></nz-switch></span>
+    </div>
+    <div>
+      <nz-date-picker
+        [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="yyyy-MM-dd HH:mm"
+        nzPlaceHolder="请选择结束时间"
+        [(ngModel)]="endDate"
+        style="width: 21.5vw"
+        [nzDisabled]="!end"
+      ></nz-date-picker>
+    </div>
+
+    <div style="display: flex;justify-content: space-between;width: 21.5vw">
+      <span>邮件提醒时间</span>
+      <span><nz-switch [(ngModel)]="remind" (click)="remindDate=null"></nz-switch></span>
+    </div>
+    <div>
+      <nz-date-picker
+        [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="yyyy-MM-dd HH:mm"
+        nzPlaceHolder="请选择邮件提醒时间"
+        [(ngModel)]="remindDate"
+        style="width: 21.5vw"
+        [nzDisabled]="!remind"
+      ></nz-date-picker>
+    </div>
+
+
+    <div style="display: flex;justify-content: space-between;margin-top: 1vw">
+        <span>重要</span>
+      <span (click)="changeHeart()">
+        <i nz-icon [nzType]="'heart'" *ngIf="!isHeart" style="font-size: 1.6vw"></i>
+        <i nz-icon [nzType]="'heart'" [nzTheme]="'fill'" *ngIf="isHeart" class="heart-icon" style="font-size: 1.6vw;color: #ed5a65;"></i>
+      </span>
+        <span>收藏</span>
+      <span (click)="changeStar()">
+        <i nz-icon [nzType]="'star'" *ngIf="!isStar" style="font-size: 1.6vw"></i>
+        <i nz-icon [nzType]="'star'" [nzTheme]="'fill'" *ngIf="isStar" class="star-icon" style="font-size: 1.6vw;color: gold;"></i>
+      </span>
+    </div>
+    <div style="margin-top: 3vw;display: flex;justify-content: space-around;">
+      <a (click)="addTodo()">创建</a>
+      <a (click)="change()">取消</a>
+    </div>
+  </nz-spin>
+</nz-drawer>
+<nz-modal [(nzVisible)]="isVisible1" nzTitle="信息不完整" (nzOnCancel)="isVisible1=false" (nzOnOk)="isVisible1=false">
+  <p>标题和内容不能为空</p>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisible2" nzTitle="邮件提醒时间不合理" (nzOnCancel)="isVisible2=false" (nzOnOk)="isVisible2=false">
+  <p>请注意，您设置的邮件提醒时间已过，推荐邮件提醒时间与当前时间间隔不要太接近</p>
+</nz-modal>
+

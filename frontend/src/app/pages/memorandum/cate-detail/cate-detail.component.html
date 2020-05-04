@@ -22,8 +22,8 @@
                        [nzPageSizeOptions]="[2,4,6,8,10]"
                        [(nzPageIndex)]="pageIndex"
                        [(nzPageSize)]="pageSize"
-                       (nzPageIndexChange)="loadDataFromServer()"
-                       (nzPageSizeChange)="loadDataFromServer()"
+                       (nzPageIndexChange)="loadDataFromServer(id)"
+                       (nzPageSizeChange)="loadDataFromServer(id)"
                        nzShowQuickJumper
                        nzShowQuickJumper
                        nzResponsive
@@ -31,10 +31,7 @@
         </nz-pagination>
       </div>
     </div>
-
-    <app-add-todo></app-add-todo>
   </nz-spin>
 
 
 </div>
-
