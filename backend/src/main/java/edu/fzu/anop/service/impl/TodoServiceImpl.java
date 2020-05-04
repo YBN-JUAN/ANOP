@@ -21,7 +21,7 @@ import java.util.List;
  * @author ZYF
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Throwable.class)
 public class TodoServiceImpl implements TodoService {
 
     private static final byte UN_COMPLETED = 0;

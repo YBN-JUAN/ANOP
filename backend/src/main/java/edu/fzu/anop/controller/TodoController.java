@@ -8,10 +8,7 @@ import edu.fzu.anop.resource.TodoUpdateResource;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +30,10 @@ public class TodoController {
     TodoService todoService;
 
     @ApiOperation(value = "添加待办事项", notes = "添加待办事项")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "成功创建"),
+            @ApiResponse(code = 422, message = "参数未通过验证")
+    })
     @PostMapping()
     public Object addTodo(
             @RequestBody @Valid TodoAddResource resource, BindingResult bindingResult) throws URISyntaxException {
@@ -47,6 +48,10 @@ public class TodoController {
     @ApiImplicitParams(
             @ApiImplicitParam(name = "flag", value = "0:所有 1:重要 2:收藏", required = false, dataType = "int")
     )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功获取"),
+            @ApiResponse(code = 422, message = "参数未通过验证")
+    })
     @GetMapping()
     public Object getTodoList(@Valid TodoFlagResource flagResource, @Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -58,6 +63,11 @@ public class TodoController {
     @ApiOperation(value = "更新待办事项的信息", notes = "更新待办事项的信息（不包括完成状态）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "更新成功"),
+            @ApiResponse(code = 404, message = "未找到指定id的待办事项"),
+            @ApiResponse(code = 403, message = "没有此待办事项的访问权限")
     })
     @PutMapping("/{id}")
     public Object updateTodo(
@@ -100,6 +110,11 @@ public class TodoController {
     @ApiOperation(value = "删除指定id的待办事项", notes = "删除指定id的待办事项")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "删除成功"),
+            @ApiResponse(code = 404, message = "未找到指定id的待办事项"),
+            @ApiResponse(code = 403, message = "没有此待办事项的访问权限")
     })
     @DeleteMapping("/{id}")
     public Object deleteTodo(@PathVariable int id) {

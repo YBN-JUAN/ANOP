@@ -23,7 +23,7 @@ import java.util.List;
  * @author ZYF
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Throwable.class)
 public class CategoryServiceImpl implements CategoryService {
 
     @Resource
