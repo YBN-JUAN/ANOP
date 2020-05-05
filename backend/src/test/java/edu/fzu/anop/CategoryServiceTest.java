@@ -2,10 +2,7 @@ package edu.fzu.anop;
 
 import com.github.pagehelper.PageInfo;
 import edu.fzu.anop.pojo.Category;
-import edu.fzu.anop.resource.CategoryAddResource;
-import edu.fzu.anop.resource.CategoryListResource;
-import edu.fzu.anop.resource.CategoryUpdateResource;
-import edu.fzu.anop.resource.PageParmResource;
+import edu.fzu.anop.resource.*;
 import edu.fzu.anop.service.CategoryService;
 import edu.fzu.anop.util.MockUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,7 +70,7 @@ class CategoryServiceTest {
         // 更新id=1的分类，预期结果：更新成功
         oldCategory = categoryService.getCategory(1);
         updateResource.setTypeName("新名称");
-        affectedRow = categoryService.updateCategory(oldCategory,updateResource);
+        affectedRow = categoryService.updateCategory(oldCategory, updateResource);
         newCategory = categoryService.getCategory(1);
         assertThat(affectedRow).isEqualTo(1);
         assertThat(newCategory.getTypeName()).isEqualTo(updateResource.getTypeName());
@@ -81,7 +78,7 @@ class CategoryServiceTest {
         // 更新id=3的分类，预期结果：操作被拒绝
         oldCategory = categoryService.getCategory(3);
         updateResource.setTypeName("新名称");
-        affectedRow = categoryService.updateCategory(oldCategory,updateResource);
+        affectedRow = categoryService.updateCategory(oldCategory, updateResource);
         assertThat(affectedRow).isEqualTo(-1);
 
     }
@@ -110,5 +107,14 @@ class CategoryServiceTest {
     void listAllCategory() {
         List<CategoryListResource> resources = categoryService.listAllCategories();
         assertThat(resources).hasSize(3);
+    }
+
+    @Test
+    void listTodoByCategoryId() {
+        PageInfo<List<TodoResource>> pageInfo;
+        PageParmResource page = new PageParmResource();
+        pageInfo = categoryService.listTodoByCategoryId(1, page);
+        List<List<TodoResource>> todos = pageInfo.getList();
+        assertThat(todos).hasSize(1);
     }
 }
