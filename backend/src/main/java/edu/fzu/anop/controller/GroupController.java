@@ -105,8 +105,8 @@ public class GroupController {
     @PatchMapping("/{id}")
     public Object updateGroup(
         @RequestBody @Valid GroupUpdateResource resource,
-        @PathVariable("id") int id,
-        BindingResult bindingResult) {
+        BindingResult bindingResult,
+        @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
