@@ -16,6 +16,7 @@ import edu.fzu.anop.service.GroupAuthService;
 import edu.fzu.anop.service.GroupService;
 import edu.fzu.anop.service.GroupUserService;
 import edu.fzu.anop.service.UserRequestService;
+import edu.fzu.anop.util.PageSortHelper;
 import edu.fzu.anop.util.PropertyMapperUtil;
 import edu.fzu.anop.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,12 +109,14 @@ public class UserRequestServiceImpl implements UserRequestService {
 
     @Override
     public PageInfo<List<UserRequestResource>> listUserRequest(PageParmResource page) {
+        PageSortHelper.pageAndSort(page, UserRequestResource.class);
         List<UserRequestResource> resources = customUserRequestMapper.listUserRequest(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(resources);
     }
 
     @Override
     public PageInfo<List<UserRequestResource>> listManageUserRequest(PageParmResource page) {
+        PageSortHelper.pageAndSort(page, UserRequestResource.class);
         List<UserRequestResource> resources = customUserRequestMapper.listManageUserRequest(SecurityUtil.getLoginUser(User.class).getId());
         return new PageInfo(resources);
     }
