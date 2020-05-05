@@ -115,6 +115,6 @@ class CategoryServiceTest {
         PageParmResource page = new PageParmResource();
         pageInfo = categoryService.listTodoByCategoryId(1, page);
         List<List<TodoResource>> todos = pageInfo.getList();
-        assertThat(todos).hasSize(1);
+        assertThat(todos).hasSize(2);
     }
 }

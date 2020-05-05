@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,17 +94,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         TodoExample.Criteria criteria1 = todoExample.createCriteria();
         criteria1.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
-                .andCategoryIdEqualTo(categoryId)
-                .andIsCompletedEqualTo((byte) 0)
-                .andEndDateGreaterThan(new Date());
-
-        TodoExample.Criteria criteria2 = todoExample.createCriteria();
-        criteria2.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
-                .andCategoryIdEqualTo(categoryId)
-                .andIsCompletedEqualTo((byte) 0)
-                .andEndDateIsNull();
-
-        todoExample.or(criteria2);
+                .andCategoryIdEqualTo(categoryId);
 
         PageSortHelper.pageAndSort(page, TodoResource.class);
         List<Todo> todos = todoMapper.selectByExample(todoExample);
