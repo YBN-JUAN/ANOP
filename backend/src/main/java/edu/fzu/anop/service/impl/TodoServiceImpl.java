@@ -142,12 +142,8 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public PageInfo<List<Todo>> listHistoryTodo(PageParmResource page) {
         TodoExample todoExample = new TodoExample();
-        todoExample.or()
-                .andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
-                .andIsCompletedEqualTo((byte) 1);
-        todoExample.or()
-                .andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId())
-                .andEndDateLessThanOrEqualTo(new Date());
+        TodoExample.Criteria criteria = todoExample.createCriteria();
+        criteria.andUserIdEqualTo(SecurityUtil.getLoginUser(User.class).getId());
         PageSortHelper.pageAndSort(page, TodoResource.class);
         List<Todo> todos = todoMapper.selectByExample(todoExample);
         return new PageInfo(todos);

@@ -183,9 +183,9 @@ class TodoServiceTest {
     void listHistoryTodo() {
         PageInfo<List<Todo>> pageInfo;
         PageParmResource page = new PageParmResource();
-
+        page.setPageSize(10);
         pageInfo = todoService.listHistoryTodo(page);
         List<List<Todo>> todos = pageInfo.getList();
-        assertThat(todos).hasSize(3);
+        assertThat(todos).hasSize(6);
     }
 }

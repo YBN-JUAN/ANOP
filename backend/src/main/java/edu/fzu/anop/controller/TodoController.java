@@ -150,6 +150,10 @@ public class TodoController {
     }
 
     @ApiOperation(value = "获取历史待办事项列表", notes = "获取历史待办事项列表")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
+            @ApiResponse(code = 422, message = "分页参数验证错误",response = Message.class)
+    })
     @GetMapping("/histories")
     public Object getHistoryTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
