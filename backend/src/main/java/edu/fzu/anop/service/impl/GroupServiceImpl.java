@@ -58,19 +58,19 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public boolean isGroupCreator(int userId, int groupId) {
         Group group = groupMapper.selectByPrimaryKey(groupId);
-        return group.getUserId() == userId;
+        return group != null && group.getUserId() == userId;
     }
 
     @Override
     public boolean isPublicGroup(int groupId) {
         Group group = groupMapper.selectByPrimaryKey(groupId);
-        return group.getPermission() == PERMIT_ALL;
+        return group != null && group.getPermission() == PERMIT_ALL;
     }
 
     @Override
     public boolean isPrivateGroup(int groupId) {
         Group group = groupMapper.selectByPrimaryKey(groupId);
-        return group.getPermission() == REJECT_ALL;
+        return group != null && group.getPermission() == REJECT_ALL;
     }
 
     @Override
