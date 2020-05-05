@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Email, RegisterInfo} from '../model/register-info';
+import {Email, RegisterInfoModel} from '../model/register-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class RegisterService {
     return this.http.post(this.baseUrl + "valid_email", email, this.httpOptions);
   }
 
-  register(info: RegisterInfo) {
+  register(info: RegisterInfoModel) {
     return this.http.post(this.baseUrl + "signup", info, this.httpOptions);
   }
 }

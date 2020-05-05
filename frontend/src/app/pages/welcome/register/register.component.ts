@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Email, RegisterInfo} from '../../../share/model/register-info';
+import {Email, RegisterInfoModel} from '../../../share/model/register-info.model';
 import {RegisterService} from '../../../share/service/register.service';
 
 @Component({
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     if (!this.validateForm.valid) {
       this.openDirtyControl(this.validateForm);
     } else {
-      let info = new RegisterInfo();
+      let info = new RegisterInfoModel();
       info.code = this.validateForm.controls["code"].value;
       info.email = this.validateForm.controls["email"].value;
       info.password = this.validateForm.controls["password"].value;
