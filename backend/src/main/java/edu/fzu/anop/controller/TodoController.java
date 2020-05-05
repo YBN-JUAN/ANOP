@@ -6,10 +6,12 @@ import edu.fzu.anop.resource.PageParmResource;
 import edu.fzu.anop.resource.TodoAddResource;
 import edu.fzu.anop.resource.TodoFlagResource;
 import edu.fzu.anop.resource.TodoUpdateResource;
+import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.TodoService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
 import edu.fzu.anop.util.Message;
+import edu.fzu.anop.util.SecurityUtil;
 import io.swagger.annotations.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,8 @@ public class TodoController {
 
     @ApiOperation(value = "添加待办事项", notes = "添加待办事项")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "成功创建"),
-            @ApiResponse(code = 422, message = "参数未通过验证")
+            @ApiResponse(code = 201, message = "成功创建", response = Todo.class),
+            @ApiResponse(code = 422, message = "参数未通过验证", response = Message.class)
     })
     @PostMapping()
     public Object addTodo(
@@ -53,7 +55,7 @@ public class TodoController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
             @ApiResponse(code = 400, message = "flag参数验证错误"),
-            @ApiResponse(code = 422, message = "分页参数验证错误",response = Message.class)
+            @ApiResponse(code = 422, message = "分页参数验证错误", response = Message.class)
     })
     @GetMapping()
     public Object getTodoList(@Valid TodoFlagResource flagResource, @Valid PageParmResource page, BindingResult bindingResult) {
@@ -69,8 +71,8 @@ public class TodoController {
     })
     @ApiResponses({
             @ApiResponse(code = 201, message = "更新成功"),
-            @ApiResponse(code = 404, message = "未找到指定id的待办事项"),
-            @ApiResponse(code = 403, message = "没有此待办事项的访问权限")
+            @ApiResponse(code = 404, message = "未找到指定id的待办事项", response = Message.class),
+            @ApiResponse(code = 403, message = "没有此待办事项的访问权限", response = Message.class)
     })
     @PutMapping("/{id}")
     public Object updateTodo(
@@ -97,6 +99,11 @@ public class TodoController {
             @ApiImplicitParam(name = "id", value = "待办事项id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "flag", value = "0:完成 1:重要 2:收藏", dataType = "int"),
     })
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "切换状态成功"),
+            @ApiResponse(code = 403, message = "没有此待办事项的访问权限", response = Message.class),
+            @ApiResponse(code = 404, message = "未找到指定id的待办事项", response = Message.class)
+    })
     @PutMapping("/check/{id}")
     public Object checkTodo(@PathVariable int id, @Valid TodoFlagResource resource) {
         Todo todo = todoService.getTodo(id);
@@ -105,7 +112,7 @@ public class TodoController {
         }
         int result = todoService.checkTodo(todo, resource);
         if (result == -1) {
-            return JsonResult.forbidden("you have no permission to complete this todoitem", null);
+            return JsonResult.forbidden("you have no permission to check this todoitem", null);
         }
         return JsonResult.noContent().build();
     }
@@ -116,8 +123,8 @@ public class TodoController {
     })
     @ApiResponses({
             @ApiResponse(code = 204, message = "删除成功"),
-            @ApiResponse(code = 404, message = "未找到指定id的待办事项"),
-            @ApiResponse(code = 403, message = "没有此待办事项的访问权限")
+            @ApiResponse(code = 403, message = "没有此待办事项的访问权限", response = Message.class),
+            @ApiResponse(code = 404, message = "未找到指定id的待办事项", response = Message.class)
     })
     @DeleteMapping("/{id}")
     public Object deleteTodo(@PathVariable int id) {
@@ -138,7 +145,8 @@ public class TodoController {
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "获取成功", response = Todo.class),
-            @ApiResponse(code = 404, message = "通知群组不存在", response = Message.class)
+            @ApiResponse(code = 403, message = "没有此待办事项的访问权限", response = Message.class),
+            @ApiResponse(code = 404, message = "未找到指定id的待办事项", response = Message.class)
     })
     @GetMapping("/{id}")
     public Object getTodo(@PathVariable int id) {
@@ -146,13 +154,16 @@ public class TodoController {
         if (todo == null) {
             return JsonResult.notFound("todoItem was not found", null);
         }
+        if (!todo.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return JsonResult.forbidden("you have no permission to get this todoitem", null);
+        }
         return JsonResult.ok(todo);
     }
 
     @ApiOperation(value = "获取历史待办事项列表", notes = "获取历史待办事项列表")
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
-            @ApiResponse(code = 422, message = "分页参数验证错误",response = Message.class)
+            @ApiResponse(code = 422, message = "分页参数验证错误", response = Message.class)
     })
     @GetMapping("/histories")
     public Object getHistoryTodoList(@Valid PageParmResource page, BindingResult bindingResult) {
