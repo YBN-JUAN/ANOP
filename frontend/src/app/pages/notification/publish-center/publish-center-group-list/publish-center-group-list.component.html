@@ -22,29 +22,30 @@
   (nzQueryParams)="onQueryParamsChange($event)"
 >
   <thead>
-    <tr>
-      <th nzColumnKey="id" [nzSortFn]="true">id</th>
-      <th nzColumnKey="title" >名称</th>
-      <th nzColumnKey="remark" >备注</th>
-      <th nzColumnKey="creationDate" >创建时间</th>
-      <th>操作</th>
-    </tr>
+  <tr>
+    <th [nzSortFn]="true" nzColumnKey="id">id</th>
+    <th nzColumnKey="title">名称</th>
+    <th nzColumnKey="remark">备注</th>
+    <th nzColumnKey="creationDate">创建时间</th>
+    <th>操作</th>
+  </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of listOfGroups">
-      <td>{{ data.id }}</td>
-      <td>{{ data.title }}</td>
-      <td>{{ data.remark }}</td>
-      <td>{{ data.creationDate }}</td>
-      <td>
-        <i nz-icon nzType="info-circle" nzTheme="twotone" size="large"
-           routerLink="/notification/subscription/group-detail/{{data.id}}"></i>
-        &nbsp;
-        <i nz-icon nzType="delete" nzTheme="twotone" nzTwotoneColor="#eb2f96" size="large" (click)="deleteGroup(data.id)"></i>
-        &nbsp;
-        <i nz-icon nzType="edit" nzTheme="twotone" nzTwotoneColor="#52c41a" size="large"></i>
-        &nbsp;
-      </td>
-    </tr>
+  <tr *ngFor="let data of listOfGroups">
+    <td>{{ data.id }}</td>
+    <td>{{ data.title }}</td>
+    <td>{{ data.remark }}</td>
+    <td>{{ data.creationDate }}</td>
+    <td>
+      <i nz-icon nzTheme="twotone" nzType="info-circle" routerLink="/notification/subscription/group-detail/{{data.id}}"
+         size="large"></i>
+      &nbsp;
+      <i (click)="deleteGroup(data.id)" nz-icon nzTheme="twotone" nzTwotoneColor="#eb2f96" nzType="delete"
+         size="large"></i>
+      &nbsp;
+      <i [queryParams]="{gid:data.id}" nz-icon nzTheme="twotone" nzTwotoneColor="#52c41a" nzType="edit"
+         routerLink="/notification/publish/new-notification" size="large"></i>
+    </td>
+  </tr>
   </tbody>
 </nz-table>

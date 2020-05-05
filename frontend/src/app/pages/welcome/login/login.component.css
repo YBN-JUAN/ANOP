@@ -9,3 +9,7 @@
 .login-form-button {
   width: 100%;
 }
+
+.ant-card-ant-card-bordered .ant-card-body {
+  margin: 0 auto;
+}

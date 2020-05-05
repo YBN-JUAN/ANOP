@@ -5,17 +5,19 @@
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzTitle="订阅中心" nzIcon="search">
-<!--        <i nz-icon nzType="search" class="side-icon"></i>-->
-<!--        <span routerLink="/notification/subscription">订阅中心</span>-->
+        <!--        <i nz-icon nzType="search" class="side-icon"></i>-->
+        <!--        <span routerLink="/notification/subscription">订阅中心</span>-->
         <ul>
           <li nz-menu-item routerLink="/notification/subscription">首页</li>
           <li nz-menu-item routerLink="/notification/subscription/join-group">查找、加入群组</li>
           <li nz-menu-item routerLink="/notification/subscription/group-message">所有通知</li>
         </ul>
       </li>
-      <li nz-menu-item>
-        <i nz-icon nzType="edit" class="side-icon"></i>
-        <span routerLink="/notification/publish">发布中心</span>
+      <li nz-submenu nzIcon="edit" nzTitle="发布中心">
+        <ul>
+          <li nz-menu-item routerLink="/notification/publish">首页</li>
+          <li [queryParams]="{gid:0}" nz-menu-item routerLink="/notification/publish/new-notification">发布新通知</li>
+        </ul>
       </li>
       <li nz-menu-item>
         <i nz-icon nzType="check" class="side-icon"></i>
