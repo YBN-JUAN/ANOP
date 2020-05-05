@@ -11,12 +11,13 @@ import {RegisterService} from '../../../share/service/register.service';
 })
 export class RegisterComponent implements OnInit {
   validateForm: FormGroup;
-  error: boolean = false;
-  errorMsg: string = "";
+  error = false;
+  errorMsg = '';
 
   constructor(private fb: FormBuilder,
               private service: RegisterService,
-              private route: Router) {}
+              private route: Router) {
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -41,20 +42,20 @@ export class RegisterComponent implements OnInit {
     if (!this.validateForm.valid) {
       this.openDirtyControl(this.validateForm);
     } else {
-      let info = new RegisterInfoModel();
-      info.code = this.validateForm.controls["code"].value;
-      info.email = this.validateForm.controls["email"].value;
-      info.password = this.validateForm.controls["password"].value;
-      info.username = this.validateForm.controls["username"].value;
-      //console.log(info);
+      const info = new RegisterInfoModel();
+      info.code = this.validateForm.controls.code.value;
+      info.email = this.validateForm.controls.email.value;
+      info.password = this.validateForm.controls.password.value;
+      info.username = this.validateForm.controls.username.value;
+      // console.log(info);
       this.service.register(info).subscribe(
         data => {
           this.error = false;
-          this.route.navigateByUrl("/welcome/login");
+          this.route.navigateByUrl('/welcome/login');
         },
         error => {
           this.error = true;
-          this.errorMsg = "注册失败";
+          this.errorMsg = '注册失败';
           console.log(error);
         }
       )
@@ -62,28 +63,29 @@ export class RegisterComponent implements OnInit {
   }
 
   getCode() {
-    let body = new Email();
-    if (this.validateForm.controls["email"].valid) {
-      body.email = this.validateForm.controls["email"].value;
+    const body = new Email();
+    if (this.validateForm.controls.email.valid) {
+      body.email = this.validateForm.controls.email.value;
       this.service.sendCode(body).subscribe(
         data => {
           this.error = false;
-          window.alert("验证码已经发送");
+          window.alert('验证码已经发送');
         },
         error => {
           this.error = true;
-          this.errorMsg = "验证码发送失败";
+          this.errorMsg = '验证码发送失败';
           console.log(error);
         }
       )
     } else {
       this.error = true;
-      this.errorMsg = "邮箱地址不合法";
+      this.errorMsg = '邮箱地址不合法';
     }
   }
 
   // 打开脏检验
   openDirtyControl(data) {
+    // tslint:disable-next-line:forin
     for (const i in data.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -92,6 +94,7 @@ export class RegisterComponent implements OnInit {
 
   // 关闭脏校验
   closeDirtyControl(data) {
+    // tslint:disable-next-line:forin
     for (const i in data.controls) {
       this.validateForm.controls[i].clearValidators();
       this.validateForm.controls[i].updateValueAndValidity();

@@ -8,14 +8,14 @@ import {GroupUser} from '../model/user-info.model';
   providedIn: 'root'
 })
 export class PublishCenterService {
-  public url: string = 'http://localhost:8080/v1/pub/groups';
+  public url = 'http://localhost:8080/v1/pub/groups';
 
   getCreateGroups(
     orderBy: string,
     pageNum: number,
     pageSize: number
   ) {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
@@ -27,7 +27,7 @@ export class PublishCenterService {
     pageNum: number,
     pageSize: number
   ) {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
@@ -40,7 +40,7 @@ export class PublishCenterService {
     pageNum: number,
     pageSize: number
   ) {
-    if (listType == 0) {
+    if (listType === 0) {
       return this.getCreateGroups(orderBy, pageNum, pageSize);
     } else {
       return this.getManageGroups(orderBy, pageNum, pageSize);
@@ -50,10 +50,10 @@ export class PublishCenterService {
   deleteGroup(id: number) {
     this.http.delete(`${this.url}/${id}`).subscribe(
       data => {
-        console.log("delete group ok", data);
+        console.log('delete group ok', data);
       },
       error => {
-        console.log("delete group fail", error);
+        console.log('delete group fail', error);
       }
     )
   }
@@ -68,7 +68,7 @@ export class PublishCenterService {
     pageNum: number,
     pageSize: number
   ) {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
