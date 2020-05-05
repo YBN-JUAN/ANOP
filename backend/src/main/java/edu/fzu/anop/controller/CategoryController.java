@@ -5,10 +5,12 @@ import edu.fzu.anop.pojo.Category;
 import edu.fzu.anop.resource.CategoryAddResource;
 import edu.fzu.anop.resource.CategoryUpdateResource;
 import edu.fzu.anop.resource.PageParmResource;
+import edu.fzu.anop.security.user.User;
 import edu.fzu.anop.service.CategoryService;
 import edu.fzu.anop.util.BindingResultUtil;
 import edu.fzu.anop.util.JsonResult;
 import edu.fzu.anop.util.Message;
+import edu.fzu.anop.util.SecurityUtil;
 import io.swagger.annotations.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * @author ZYF
@@ -31,8 +34,8 @@ public class CategoryController {
 
     @ApiOperation(value = "添加待办事项分类", notes = "添加待办事项分类")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "成功创建"),
-            @ApiResponse(code = 422, message = "参数未通过验证")
+            @ApiResponse(code = 201, message = "成功创建", response = Category.class),
+            @ApiResponse(code = 422, message = "参数未通过验证", response = Message.class)
     })
     @PostMapping()
     public Object addCateGory(
@@ -51,8 +54,8 @@ public class CategoryController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "int")
     })
     @ApiResponses({
-            @ApiResponse(code = 200, message = "成功获取"),
-            @ApiResponse(code = 422, message = "参数未通过验证")
+            @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
+            @ApiResponse(code = 422, message = "分页参数验证错误", response = Message.class)
     })
     @GetMapping()
     public Object listCategories(@Valid PageParmResource page, BindingResult bindingResult) {
@@ -64,8 +67,8 @@ public class CategoryController {
 
     @ApiOperation(value = "获取当前用户的所有分类", notes = "获取当前用户的所有分类")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "成功获取"),
-            @ApiResponse(code = 422, message = "参数未通过验证")
+            @ApiResponse(code = 200, message = "成功获取", response = List.class),
+            @ApiResponse(code = 422, message = "参数未通过验证", response = Message.class)
     })
     @GetMapping("/all")
     public Object listAllCategories() {
@@ -74,8 +77,9 @@ public class CategoryController {
 
     @ApiOperation(value = "获取指定id的分类的基本信息", notes = "获取指定id的分类的基本信息")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "成功获取"),
-            @ApiResponse(code = 404, message = "未找到指定id的分类")
+            @ApiResponse(code = 200, message = "成功获取", response = Category.class),
+            @ApiResponse(code = 404, message = "未找到指定id的分类", response = Message.class),
+            @ApiResponse(code = 403, message = "没有此分类的访问权限", response = Message.class)
     })
     @GetMapping("/{id}")
     public Object getCategories(@PathVariable int id) {
@@ -83,14 +87,17 @@ public class CategoryController {
         if (category == null) {
             return JsonResult.notFound("category was not found", null);
         }
+        if (!category.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return JsonResult.forbidden("you have no permission to get this category", null);
+        }
         return JsonResult.ok(category);
     }
 
     @ApiOperation(value = "更新指定id的分类", notes = "更新指定id的分类")
     @ApiResponses({
             @ApiResponse(code = 201, message = "更新成功"),
-            @ApiResponse(code = 404, message = "未找到指定id的分类"),
-            @ApiResponse(code = 403, message = "没有此分类的访问权限")
+            @ApiResponse(code = 404, message = "未找到指定id的分类", response = Message.class),
+            @ApiResponse(code = 403, message = "没有此分类的访问权限", response = Message.class)
     })
     @PutMapping("/{id}")
     public Object updateCategories(
@@ -102,7 +109,7 @@ public class CategoryController {
         }
         Category category = categoryService.getCategory(id);
         if (category == null) {
-            return JsonResult.notFound("todoItem was not found", null);
+            return JsonResult.notFound("category was not found", null);
         }
         int result = categoryService.updateCategory(category, resource);
         if (result == -1) {
@@ -114,8 +121,8 @@ public class CategoryController {
     @ApiOperation(value = "删除指定id的分类", notes = "删除操作同时会将分类所属所有的待办事项删除！！")
     @ApiResponses({
             @ApiResponse(code = 204, message = "删除成功"),
-            @ApiResponse(code = 404, message = "未找到指定id的分类"),
-            @ApiResponse(code = 403, message = "没有此分类的访问权限")
+            @ApiResponse(code = 404, message = "未找到指定id的分类", response = Message.class),
+            @ApiResponse(code = 403, message = "没有此分类的访问权限", response = Message.class)
     })
     @DeleteMapping("/{id}")
     public Object deleteCategories(@PathVariable int id) {
@@ -136,12 +143,21 @@ public class CategoryController {
     )
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
-            @ApiResponse(code = 422, message = "分页参数验证错误",response = Message.class)
+            @ApiResponse(code = 422, message = "分页参数验证错误", response = Message.class),
+            @ApiResponse(code = 404, message = "未找到指定id的分类", response = Message.class),
+            @ApiResponse(code = 403, message = "没有此分类的访问权限", response = Message.class)
     })
     @GetMapping("/list/{categoryId}")
     public Object getTodoByCategoryId(@PathVariable int categoryId, @Valid PageParmResource page, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
+        }
+        Category category = categoryService.getCategory(categoryId);
+        if (category == null) {
+            return JsonResult.notFound("category was not found", null);
+        }
+        if (!category.getUserId().equals(SecurityUtil.getLoginUser(User.class).getId())) {
+            return JsonResult.forbidden("you have no permission to get the todos of this category", null);
         }
         return JsonResult.ok(categoryService.listTodoByCategoryId(categoryId, page));
     }
