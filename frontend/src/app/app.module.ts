@@ -31,9 +31,9 @@ import {HeadButtonComponent} from './share/head-button/head-button.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
 import {JoinGroupService} from './pages/notification/subscription-center/join-group/join-group.service';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
-import { TodoItemComponent } from './pages/memorandum/todo-item/todo-item.component';
-import { RequestListComponent } from './pages/notification/examine-center/request-list/request-list.component';
-import { ImpTodoComponent } from './pages/memorandum/imp-todo/imp-todo.component';
+import {TodoItemComponent} from './pages/memorandum/todo-item/todo-item.component';
+import {RequestListComponent} from './pages/notification/examine-center/request-list/request-list.component';
+import {ImpTodoComponent} from './pages/memorandum/imp-todo/imp-todo.component';
 import {FavorTodoComponent} from './pages/memorandum/favor-todo/favor-todo.component';
 import {HistTodoComponent} from './pages/memorandum/hist-todo/hist-todo.component';
 import {AddTodoComponent} from './pages/memorandum/add-todo/add-todo.component';
@@ -41,6 +41,7 @@ import {EditTodoComponent} from './pages/memorandum/edit-todo/edit-todo.componen
 import {AllCateComponent} from './pages/memorandum/all-cate/all-cate.component';
 import {CateUnitComponent} from './pages/memorandum/cate-unit/cate-unit.component';
 import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.component';
+import {NewNotificationComponent} from "./pages/notification/publish-center/new-notification/new-notification.component";
 
 registerLocaleData(zh);
 
@@ -75,7 +76,8 @@ registerLocaleData(zh);
     EditTodoComponent,
     AllCateComponent,
     CateUnitComponent,
-    CateDetailComponent
+    CateDetailComponent,
+    NewNotificationComponent
   ],
   imports: [
     ReactiveFormsModule,
