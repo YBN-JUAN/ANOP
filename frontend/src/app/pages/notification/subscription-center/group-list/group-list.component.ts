@@ -15,19 +15,16 @@ export class GroupListComponent implements OnInit {
   pageSize = 10;
   pageIndex = 1;
 
-  loadDataFromServer(
-    pageIndex: number,
-    pageSize: number,
-  ): void {
+  loadDataFromServer(pageIndex: number, pageSize: number): void {
     this.loading = true;
-    this.service.getGroups("id", pageIndex, pageSize).subscribe(data => {
+    this.service.getGroups('id', pageIndex, pageSize).subscribe(
+      data => {
         this.loading = false;
         this.total = 200; // mock the total data here
         this.listOfGroups = data.list;
         console.log(this.listOfGroups);
         console.log(data);
-      },
-      error => {
+      }, error => {
         console.log(error);
       }
     );
@@ -45,5 +42,4 @@ export class GroupListComponent implements OnInit {
   ngOnInit(): void {
     this.loadDataFromServer(this.pageIndex, this.pageSize);
   }
-
 }

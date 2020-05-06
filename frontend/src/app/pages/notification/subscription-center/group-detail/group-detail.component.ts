@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
@@ -38,7 +38,7 @@ export class GroupDetailComponent implements OnInit {
     this.loadDataFromServer(this.pageIndex, this.pageSize);
   }
 
-  getGroupInfo(id:number) {
+  getGroupInfo(id: number) {
     this.pubService.getGroup(id).subscribe(
       data => {
         this.group = data;
@@ -86,7 +86,7 @@ export class GroupDetailComponent implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params);
-    const { pageSize, pageIndex} = params;
+    const {pageSize, pageIndex} = params;
     this.loadDataFromServer(pageIndex, pageSize);
   }
 }

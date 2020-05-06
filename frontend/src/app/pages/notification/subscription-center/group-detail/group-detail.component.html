@@ -21,7 +21,7 @@
         <nz-badge nzColor="blue" nzText="备注:"></nz-badge>
       </nz-row>
       <div class="detail-mark">
-          {{ group.remark }}
+        {{ group.remark }}
       </div>
     </div>
     <div class="user-list">
@@ -59,7 +59,8 @@
         <button nz-button nzType="primary" nzSize="large" nzDanger (click)="quitGroup()">取消订阅</button>
       </nz-col>
       <nz-col nz-col="3" [nzOffset]="2">
-        <button nz-button nzType="primary" nzSize="large" routerLink="/notification/subscription/group-detail">返回</button>
+        <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回
+        </button>
       </nz-col>
     </nz-row>
   </nz-content>

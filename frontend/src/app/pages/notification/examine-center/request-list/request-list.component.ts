@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NzModalService, NzTableQueryParams} from 'ng-zorro-antd';
 import {UserRequest} from '../../../../share/model/user-request';
 import {UserRequestService} from '../../../../share/service/user-request.service';
@@ -15,41 +15,44 @@ export class RequestListComponent implements OnInit {
   loading = true;
   pageSize = 10;
   pageIndex = 1;
-  buttonTitle = "切换到我管理的群组的用户请求";
+  buttonTitle = '切换到我管理的群组的用户请求';
   listType = 0;
 
   constructor(private service: UserRequestService,
               private route: Router,
-              private modal: NzModalService) { }
+              private modal: NzModalService) {
+  }
 
   loadDataFromServer(
     pageIndex: number,
     pageSize: number,
   ): void {
     this.loading = true;
-    this.service.getUserRequest(this.listType,"id", pageIndex, pageSize).subscribe(data => {
+    this.service.getUserRequest(this.listType, 'id', pageIndex, pageSize).subscribe(data => {
         this.loading = false;
         this.total = 200; // mock the total data here
         this.requestList = data.list;
         console.log(this.requestList);
         console.log(data);
       },
-      error => { console.log(error); }
+      error => {
+        console.log(error);
+      }
     );
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params);
-    const { pageSize, pageIndex} = params;
+    const {pageSize, pageIndex} = params;
     this.loadDataFromServer(pageIndex, pageSize);
   }
 
   changeList() {
-    if (this.listType == 0) {
-      this.buttonTitle = "切换到我创建的群组的用户请求";
+    if (this.listType === 0) {
+      this.buttonTitle = '切换到我创建的群组的用户请求';
       this.listType = 1;
     } else {
-      this.buttonTitle = "切换到我管理的群组的用户请求";
+      this.buttonTitle = '切换到我管理的群组的用户请求';
       this.listType = 0;
     }
     this.pageIndex = 1;
@@ -57,22 +60,22 @@ export class RequestListComponent implements OnInit {
   }
 
   dealAll(isAccepted: number) {
-    let title = "";
-    if (isAccepted == 1) {
-      title = "你确定要接受所有用户的请求吗?";
+    let title: string;
+    if (isAccepted === 1) {
+      title = '你确定要接受所有用户的请求吗?';
     } else {
-      title = "你确定要拒绝所有用户的请求吗?";
+      title = '你确定要拒绝所有用户的请求吗?';
     }
     this.modal.confirm({
       nzTitle: title,
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: () => {
-        for (let req of this.requestList) {
+        for (const req of this.requestList) {
           this.service.dealRequest(req.id, isAccepted).subscribe(
             response => {
-            }
-          );
+              console.log(response)
+            });
         }
         this.ngOnInit();
       },
@@ -82,11 +85,11 @@ export class RequestListComponent implements OnInit {
   }
 
   dealOne(id: number, isAccepted: number) {
-    let title = "";
-    if (isAccepted == 1) {
-      title = "你确定要接受该用户的请求吗?";
+    let title: string;
+    if (isAccepted === 1) {
+      title = '你确定要接受该用户的请求吗?';
     } else {
-      title = "你确定要拒绝该用户的请求吗?";
+      title = '你确定要拒绝该用户的请求吗?';
     }
     this.modal.confirm({
       nzTitle: title,
@@ -95,8 +98,8 @@ export class RequestListComponent implements OnInit {
       nzOnOk: () => {
         this.service.dealRequest(id, isAccepted).subscribe(
           response => {
-          }
-        );
+            console.log(response)
+          });
         this.ngOnInit();
       },
       nzCancelText: '取消',
