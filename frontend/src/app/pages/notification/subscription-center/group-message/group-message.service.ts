@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {ApiUrlResource} from '../../../../share/resource/api-url.resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupMessageService {
 
-  private url = 'http://localhost:8080/v1/sub/groups';
+  private url = ApiUrlResource.subscribeGroupUrl;
   private suffix = 'notifications';
 
   constructor(private http: HttpClient) {
