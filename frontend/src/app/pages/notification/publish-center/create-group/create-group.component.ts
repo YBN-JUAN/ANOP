@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CreateGroupService} from './create-group.service';
-import {HttpErrorResponse} from '@angular/common/http';
+import {NewNotificationService} from '../new-notification/new-notification.service';
 
 @Component({
   selector: 'app-create-group',
@@ -11,7 +10,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class CreateGroupComponent implements OnInit {
   createGroupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private service: CreateGroupService) {
+  constructor(private formBuilder: FormBuilder, private service: NewNotificationService) {
     this.createGroupForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       remark: ['', null],
@@ -37,14 +36,5 @@ export class CreateGroupComponent implements OnInit {
     const remark = this.createGroupForm.controls.remark.value;
     const permission = this.createGroupForm.controls.permission.value;
     console.log(permission)
-    this.service.createGroupPost(title, remark, permission).subscribe(
-      (data) => {
-        console.log(data);
-        alert('创建成功！');
-      }, (error: HttpErrorResponse) => {
-        alert('出错了，请打开控制台查看错误信息。')
-        console.log(error);
-      }
-    )
   }
 }
