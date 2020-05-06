@@ -11,7 +11,6 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./new-notification.component.css']
 })
 export class NewNotificationComponent implements OnInit {
-
   newNotificationForm: FormGroup;
   private gid;
 

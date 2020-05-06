@@ -3,12 +3,13 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {ResponseModel} from '../model/response.model';
 import {GroupInfoModel} from '../model/group-info.model';
 import {GroupUser} from '../model/user-info.model';
+import {ApiUrlResource} from '../resource/api-url.resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublishCenterService {
-  public url = 'http://localhost:8080/v1/pub/groups';
+  private url = ApiUrlResource.publishGroupUrl;
 
   getCreateGroups(
     orderBy: string,
