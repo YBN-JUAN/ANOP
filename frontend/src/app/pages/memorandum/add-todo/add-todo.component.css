@@ -1,0 +1,33 @@
+.fixed-widgets {
+  position: fixed;
+  color: #63bbd0;
+  font-size: 4.5vw;
+  right: 3vw;
+  bottom: 5vw;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+div{
+  margin: 0.5vw 0;
+  font-size: 1vw;
+  width: 21.5vw
+}
+a{
+  position: relative;
+  display: inline-block;
+  padding: 12px 36px;
+  margin: 10px 0;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.4vw;
+  letter-spacing: 2px;
+  border-radius: 2vw;
+  overflow: hidden;
+  background: linear-gradient(90deg,#0162c8,#55e7fc);
+}
+a:nth-child(2){
+  background: linear-gradient(90deg,#55e7fc,#0162c8);
+}

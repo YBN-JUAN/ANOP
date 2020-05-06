@@ -1,0 +1,11 @@
+<nz-avatar nzSize="small" [nzSrc]="user.avatarUrl" nzIcon="user"></nz-avatar>
+&nbsp; {{user.userName}} &nbsp;
+<a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" [(nzVisible)]="visible">
+  <i nz-icon nzType="ellipsis"></i>
+</a>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item routerLink="/user">用户中心</li>
+    <li nz-menu-item routerLink="/welcome/login" (click)="signOut()">退出</li>
+  </ul>
+</nz-dropdown-menu>

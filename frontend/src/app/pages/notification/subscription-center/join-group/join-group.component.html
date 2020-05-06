@@ -1,0 +1,44 @@
+<div id="content">
+  <h1>加入群组</h1>
+  <form nz-form>
+    <div id="search-bar">
+      <nz-form-item id="search-form">
+
+        <nz-form-label id="search-label">请输入口令</nz-form-label>
+        <nz-form-control nzSpan="10">
+          <label for="search-text"></label>
+          <input nz-input datatype="text" name="inviteCode" type="search"
+                 id="search-text" [(ngModel)]="groupId"
+                 placeholder="输入口令查询或加入群组">
+        </nz-form-control>
+
+      </nz-form-item>
+    </div>
+    <button nz-button type="reset" id="reset-button" (click)="doReset()">重置</button>
+    <button nz-button id="search-button" (click)="doSearch()">搜索</button>
+    <button nz-button type="submit" id="submit-button" (click)="doJoin()">加入</button>
+  </form>
+
+</div>
+<div style="width: 70%;margin: 10px auto auto" class="table">
+  <nz-table>
+    <thead>
+    <tr>
+      <th>群组ID</th>
+      <th>群组名</th>
+      <th>创建者</th>
+      <th>创建时间</th>
+      <th>可加入状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{group.id}}</td>
+      <td>{{group.title}}</td>
+      <td>{{group.nickname}}</td>
+      <td>{{group.creationDate}}</td>
+      <td>{{permissionDescribe}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

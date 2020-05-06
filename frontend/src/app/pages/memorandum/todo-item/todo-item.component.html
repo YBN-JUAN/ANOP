@@ -1,0 +1,73 @@
+<nz-card style="width:100%;min-height: 5vh" (dblclick)="editTodoComponent.change()">
+<!-- 按钮-->
+  <div nz-row [nzGutter]="16">
+    <div nz-col class="gutter-row" [nzSpan]="2">
+      <div class="inner-box">
+<!--        <nz-radio-group  nzButtonStyle="solid">-->
+<!--          <label nz-radio-button [(ngModel)]="checked"></label>-->
+<!--        </nz-radio-group>-->
+        <input class="radio_type" type="checkbox" name="type" style="margin: 4px auto auto 2px;" [checked]="itemStatus" (click)="changeCheck()"/>
+      </div>
+    </div>
+
+<!--事项名称块-->
+    <div nz-col class="gutter-row" [nzSpan]="6">
+      <div class="inner-box">
+        <div nz-row [nzGutter]="16">
+          <span style="margin: auto auto auto 0;font-weight:bolder;">{{Name}}</span>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <span style="margin: auto auto auto 0">{{itemName}}</span>
+        </div>
+      </div>
+    </div>
+
+<!--最终时间块-->
+    <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
+      <div nz-row [nzGutter]="16">
+        <span style="margin: auto auto auto 0;">{{Deadline}}</span>
+      </div>
+      <div nz-row [nzGutter]="16">
+        <span style="margin: auto auto auto 0">{{itemDeadline}}</span>
+      </div>
+    </div></div>
+
+<!--状态块-->
+    <div nz-col class="gutter-row" [nzSpan]=4><div class="inner-box">
+      <div nz-row [nzGutter]="16">
+        <span style="margin: auto auto auto 0;">{{Status}}</span>
+      </div>
+      <div nz-row [nzGutter]="16">
+        <span style="margin: auto auto auto 0">
+          <div *ngIf="!itemStatus&&!isWasted"><div class="ball" style="display: inline-block;background: #c59c5a"></div><label>未完成</label></div>
+          <div *ngIf="itemStatus"><div class="ball" style="display: inline-block;background:greenyellow"></div><label>已完成</label></div>
+          <div *ngIf="!itemStatus&&isWasted"><div class="ball" style="display: inline-block;background: red"></div><label>已过期</label></div>
+        </span>
+      </div>
+    </div></div>
+
+<!--收藏块-->
+    <div nz-col class="gutter-row" [nzSpan]="3"><div class="inner-box" style="margin: 10% auto auto" (click)="changeStar()">
+      <i nz-icon [nzType]="'star'" *ngIf="!isStar"></i>
+      <i nz-icon [nzType]="'star'" [nzTheme]="'fill'" *ngIf="isStar" class="star-icon"></i>
+    </div></div>
+
+    <!--重要块-->
+    <div nz-col class="gutter-row" [nzSpan]="3"><div class="inner-box" style="margin: 10% auto auto;" (click)="changeHeart()">
+      <i nz-icon [nzType]="'heart'" *ngIf="!isHeart"></i>
+      <i nz-icon [nzType]="'heart'" [nzTheme]="'fill'" *ngIf="isHeart" class="heart-icon"></i>
+    </div></div>
+  </div>
+</nz-card>
+<app-edit-todo [id]="id"
+               [userId]="userId"
+               [beginDate]="BeginDate"
+               [title]="itemName"
+               [content]="content"
+               [endDate]="EndDate"
+               [remindDate]="RemindDate"
+               [categoryId]="categoryId"
+               [isHeart]="isHeart"
+               [isStar]="isStar"
+               #editTodoComponent></app-edit-todo>
+

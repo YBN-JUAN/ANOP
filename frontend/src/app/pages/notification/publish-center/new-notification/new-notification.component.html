@@ -1,0 +1,25 @@
+<form [formGroup]="newNotificationForm" ngForm>
+  <nz-form-item>
+    <nz-form-label nzRequired>标题</nz-form-label>
+    <nz-form-control>
+      <label>
+        <input formControlName="title" nz-input placeholder="请输入标题">
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>通知内容</nz-form-label>
+    <nz-form-control>
+      <label>
+        <textarea formControlName="content" nz-input placeholder="请输入通知内容" rows="2"></textarea>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzOffset]="7" [nzSpan]="12">
+      <button (click)="submitFrom()" [disabled]="!newNotificationForm.valid" nz-button nzType="primary">发布</button>
+      <button (click)="resetForm($event)" nz-button>重置</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+

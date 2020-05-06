@@ -1,0 +1,58 @@
+<div>
+  <div style="min-height: 5vh" *ngIf="loading"></div>
+  <nz-spin [nzSpinning]="loading" [nzSize]="'large'">
+
+    <app-cate-unit *ngFor="let item of cateList"
+                   [id]="item.id"
+                   [typeName]="item.typeName"
+                   [todoNum]="item.todoNum">
+    </app-cate-unit>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col class="gutter-row" [nzSpan]="6">
+      </div>
+      <div nz-col class="gutter-row" [nzSpan]="12">
+        <div class="inner-box">
+          <button nz-button nzType="dashed" nzSize="large" style="width: 100%;margin-top: 1vw;font-weight: bolder;font-size: 1vw;line-height: 1vw" (click)="changeVisible()">+创建分类</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center;margin-top: 2vw">
+      <div style="display: inline-block">
+        <nz-pagination [nzPageIndex]="1"
+                       [nzTotal]="total"
+                       [nzPageSize]="pageSize"
+                       [nzPageSizeOptions]="[2,4,6,8,10]"
+                       [(nzPageIndex)]="pageIndex"
+                       [(nzPageSize)]="pageSize"
+                       (nzPageIndexChange)="loadDataFromServer()"
+                       (nzPageSizeChange)="loadDataFromServer()"
+                       nzShowQuickJumper
+                       nzShowQuickJumper
+                       nzResponsive
+                       nzShowSizeChanger>
+        </nz-pagination>
+      </div>
+    </div>
+  </nz-spin>
+</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="创建分类"
+  (nzOnCancel)="changeVisible()"
+  (nzOnOk)="addCate()"
+  [nzOkLoading]="isOkLoading"
+>
+  <h3>分类名称：</h3>
+  <input nz-input placeholder="请在此处输入分类名称" [(ngModel)]="newCate" />
+</nz-modal>
+<nz-modal
+  [(nzVisible)]="isVisible2"
+  nzTitle="分类名称不合理"
+  (nzOnCancel)="isVisible2=false"
+  (nzOnOk)="isVisible2=false"
+  [nzZIndex]="1001"
+>
+  <p>分类名称不可为空！</p>
+</nz-modal>

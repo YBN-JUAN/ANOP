@@ -1,0 +1,23 @@
+<div class="content -fullscreen">
+  <nz-col></nz-col>
+  <nz-col>
+    <nz-card>
+      <p class="login-logo">
+        <strong>A N O P</strong>
+      </p>
+      <nz-tabset nzSize="large" [(nzSelectedIndex)]="selectIndex">
+        <nz-table nzTitle=""></nz-table>
+        <nz-tab [nzTitle]="item.title"
+                *ngFor="let item of tabs;"
+                (nzClick)='taoTo(item)'>
+        </nz-tab>
+        <nz-table nzTitle=""></nz-table>
+      </nz-tabset>
+      <router-outlet></router-outlet>
+    </nz-card>
+  </nz-col>
+  <nz-col></nz-col>
+</div>
+
+
+

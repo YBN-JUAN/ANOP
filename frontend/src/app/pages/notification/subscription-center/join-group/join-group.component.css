@@ -1,0 +1,44 @@
+#reset-button {
+  margin-top: 10px;
+  margin-left: 32%;
+  margin-bottom: 10px;
+}
+
+#submit-button, #search-button {
+  margin-top: 10px;
+  margin-left: 10%;
+  margin-bottom: 10px;
+}
+
+#search-bar {
+  width: 50%;
+  margin: auto;
+  /*border: #000c17 solid;*/
+}
+
+/*#content {*/
+/*  border: #000c17 1px solid;*/
+/*}*/
+
+h1 {
+  text-align: center;
+}
+
+#search-form {
+  margin: 0 auto;
+}
+
+#search-text {
+  width: 200%;
+
+}
+
+input::-webkit-input-placeholder {
+  color: #999;
+  -webkit-transition: color .5s;
+}
+
+input:focus::-webkit-input-placeholder, input:hover::-webkit-input-placeholder {
+  color: #c2c2c2;
+  -webkit-transition: color .5s;
+}

@@ -1,0 +1,25 @@
+div{
+  margin: 0.5vw 0;
+  font-size: 1vw;
+  width: 21.5vw
+}
+a{
+  position: relative;
+  display: inline-block;
+  padding: 1vw 1.8vw;
+  margin: 0.8vw 0;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.4vw;
+  letter-spacing: 2px;
+  border-radius: 2vw;
+  overflow: hidden;
+  background: linear-gradient(90deg,#0162c8,#55e7fc);
+}
+a:nth-child(2){
+  background: #55e7fc;
+}
+a:nth-child(3){
+  background: linear-gradient(90deg,#55e7fc,#0162c8);
+}

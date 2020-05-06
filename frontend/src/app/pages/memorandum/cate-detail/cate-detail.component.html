@@ -1,0 +1,37 @@
+<div>
+  <div style="min-height: 5vh" *ngIf="loading"></div>
+  <nz-spin [nzSpinning]="loading" [nzSize]="'large'">
+    <app-todo-item *ngFor="let item of todoList"
+                   [id]="item.id"
+                   [userId]="item.userId"
+                   [beginDate]="item.beginDate"
+                   [remindDate]="item.remindDate"
+                   [content]="item.content"
+                   [categoryId]="item.categoryId"
+                   [itemDeadline]="item.endDate"
+                   [itemName]="item.title"
+                   [itemStatus]="item.isCompleted"
+                   [isStar]="item.isFavorite"
+                   [isHeart]="item.isImportant">
+    </app-todo-item>
+    <div style="text-align: center;margin-top: 2vw">
+      <div style="display: inline-block">
+        <nz-pagination [nzPageIndex]="1"
+                       [nzTotal]="total"
+                       [nzPageSize]="pageSize"
+                       [nzPageSizeOptions]="[2,4,6,8,10]"
+                       [(nzPageIndex)]="pageIndex"
+                       [(nzPageSize)]="pageSize"
+                       (nzPageIndexChange)="loadDataFromServer(id)"
+                       (nzPageSizeChange)="loadDataFromServer(id)"
+                       nzShowQuickJumper
+                       nzShowQuickJumper
+                       nzResponsive
+                       nzShowSizeChanger>
+        </nz-pagination>
+      </div>
+    </div>
+  </nz-spin>
+
+
+</div>

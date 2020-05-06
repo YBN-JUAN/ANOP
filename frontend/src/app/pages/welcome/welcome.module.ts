@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { WelcomeRoutingModule } from './welcome-routing.module';
-
-import { WelcomeComponent } from './welcome.component';
 
 
 @NgModule({
-  imports: [WelcomeRoutingModule],
-  declarations: [WelcomeComponent],
-  exports: [WelcomeComponent]
+  declarations: [],
+  imports: [
+    CommonModule,
+    WelcomeRoutingModule
+  ]
 })
 export class WelcomeModule { }

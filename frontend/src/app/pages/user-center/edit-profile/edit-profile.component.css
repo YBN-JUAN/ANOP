@@ -1,0 +1,71 @@
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.left-content {
+  padding: 15px 0px 15px 15px;
+  margin-right: 50px;
+  background: #fff;
+  float: left;
+  width: 70%;
+  height: 100%;
+}
+
+.right-content {
+  text-align: center;
+  background: #fff;
+  float: left;
+  width: 20%;
+  height: 100%;
+}
+
+.row {
+  margin: 15px auto;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.row button {
+  margin-left: 20px;
+}
+
+button {
+  font-size: 17px;
+}
+
+#hide {
+  display: none;
+}
+
+input {
+  width: 300px;
+  font-size: 20px;
+}
+
+.name-header {
+  word-wrap: break-word;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 30px;
+}
+
+nz-avatar {
+  margin-top: 50px;
+}
+
+#upload-hide {
+  display: none;
+}
+
+.upload-button input{
+  width: 150px;
+}
+
+/* :host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 150px;
+  height: 150px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+  margin: 50px 50px 0 50px;
+} */

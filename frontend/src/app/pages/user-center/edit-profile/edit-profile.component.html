@@ -1,0 +1,99 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item><a routerLink='/user'>用户中心</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>修改个人资料</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="left-content">
+  <div nz-row>
+    <div nz-col nzSpan="8" class="row">
+      <nz-badge nzColor="yellow"></nz-badge>
+      用户ID
+    </div>
+    <div nz-col nzSpan="16" class="row">
+      {{user.id}}
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col nzSpan="8" class="row">
+      <nz-badge nzColor="orange"></nz-badge>
+      登录名
+    </div>
+    <div nz-col nzSpan="16" class="row">
+      {{user.userName}}
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col nzSpan="8" class="row">
+      <nz-badge nzColor="cyan"></nz-badge>
+      姓名
+      <i nz-icon nz-tooltip nzTitle="长度在1-31之间"
+        nzType="question-circle" nzTheme="outline"></i>
+    </div>
+    <div nz-col nzSpan="16" class="row" id="show">
+      {{user.nickName}}
+      <button nz-button nzType="dashed" (click)="onEditUsername()">修改姓名</button>
+    </div>
+    <div nz-col nzSpan="16" class="row" id="hide">
+      <input nz-input [(ngModel)]="user.nickName"/>
+      <button nz-button nzType="dashed" (click)="onSubmit()"
+      [disabled]="user.nickName.length>0 && user.nickName.length<=31 ? false : true">确认</button>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col nzSpan="8" class="row">
+      <nz-badge nzColor="lime"></nz-badge>
+      注册邮箱
+    </div>
+    <div nz-col nzSpan="16" class="row">
+      {{user.email}}
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col nzSpan="8" class="row">
+      <nz-badge nzColor="blue"></nz-badge>
+      注册时间
+    </div>
+    <div nz-col nzSpan="16" class="row">
+      {{user.creationTime | date: 'yyyy-MM-dd HH:mm:ss'}}
+    </div>
+  </div>
+</div>
+
+<div class="right-content">
+  <!-- <nz-upload 
+    class="avatar-uploader"
+    nzAction= "http://localhost:8080/v1/avatar"
+    nzName="avatarimg"
+    nzListType="picture-card"
+    [(nzFileList)]="fileList"
+    [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
+    (nzChange)="handleChange($event)"
+  >
+    <ng-container *ngIf="!user.avatarUrl">
+      <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+      <div class="ant-upload-text">上传头像</div>
+    </ng-container> -->
+    <nz-avatar [nzSrc]="user.avatarUrl" nzIcon="user" [nzSize]="150"></nz-avatar>
+  <!-- </nz-upload> -->
+
+  <div class="name-header">{{user.nickName}}</div>
+  <div class="upload-button" id="upload-show">
+    <button nz-button nz-popover
+    nzType="dashed"
+    nzPopoverTitle="头像设置"
+    nzPopoverContent="文件:点击头像/URL:点击按钮" (click)="onUrlUpload()">
+    <i nz-icon nzType="upload">
+    </i><span>上传头像</span>
+    </button>
+  </div>
+
+  <div class="upload-button" id="upload-hide">
+    <input nz-input [(ngModel)]="avatarURL" placeholder="URL地址"/>
+    <button nz-button nzType="dashed" (click)="getAvatarUrl()">确认</button>
+  </div>
+</div>
