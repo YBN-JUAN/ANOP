@@ -23,7 +23,8 @@ import {FavorTodoComponent} from './pages/memorandum/favor-todo/favor-todo.compo
 import {HistTodoComponent} from './pages/memorandum/hist-todo/hist-todo.component';
 import {AllCateComponent} from './pages/memorandum/all-cate/all-cate.component';
 import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.component';
-import {NewNotificationComponent} from "./pages/notification/publish-center/new-notification/new-notification.component";
+import {NewNotificationComponent} from './pages/notification/publish-center/new-notification/new-notification.component';
+import {CreateGroupComponent} from './pages/notification/publish-center/create-group/create-group.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,7 @@ const routes: Routes = [
       {
         path: 'publish', component: PublishCenterComponent,
         children: [
+          {path: 'create-group', component: CreateGroupComponent},
           {path: 'new-notification', component: NewNotificationComponent},
           {path: 'group-list', component: PublishCenterGroupListComponent},
           {path: 'group-detail/:id', component: PublishCenterGroupDetailComponent},

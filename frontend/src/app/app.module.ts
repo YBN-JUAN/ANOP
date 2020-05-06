@@ -29,7 +29,6 @@ import {LoginComponent} from './pages/welcome/login/login.component';
 import {RegisterComponent} from './pages/welcome/register/register.component';
 import {HeadButtonComponent} from './share/head-button/head-button.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
-import {JoinGroupService} from './pages/notification/subscription-center/join-group/join-group.service';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import {TodoItemComponent} from './pages/memorandum/todo-item/todo-item.component';
 import {RequestListComponent} from './pages/notification/examine-center/request-list/request-list.component';
@@ -41,7 +40,8 @@ import {EditTodoComponent} from './pages/memorandum/edit-todo/edit-todo.componen
 import {AllCateComponent} from './pages/memorandum/all-cate/all-cate.component';
 import {CateUnitComponent} from './pages/memorandum/cate-unit/cate-unit.component';
 import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.component';
-import {NewNotificationComponent} from "./pages/notification/publish-center/new-notification/new-notification.component";
+import {NewNotificationComponent} from './pages/notification/publish-center/new-notification/new-notification.component';
+import {CreateGroupComponent} from './pages/notification/publish-center/create-group/create-group.component';
 
 registerLocaleData(zh);
 
@@ -77,7 +77,8 @@ registerLocaleData(zh);
     AllCateComponent,
     CateUnitComponent,
     CateDetailComponent,
-    NewNotificationComponent
+    NewNotificationComponent,
+    CreateGroupComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -91,8 +92,7 @@ registerLocaleData(zh);
   ],
   providers: [{provide: NZ_I18N, useValue: zh_CN},
     {provide: HTTP_INTERCEPTORS, useClass: GlobalInterceptor, multi: true},
-    CookieService,
-    JoinGroupService],
+    CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
