@@ -10,7 +10,7 @@ export class CreateGroupService {
   constructor(private http: HttpClient) {
   }
 
-  createGroupPost(title: string, remark, permission) {
+  createGroupPost(title, remark, permission) {
     const url = ApiUrlResource.publishGroupUrl;
     return this.http.post(`${url}`, {title, remark, permission});
   }
