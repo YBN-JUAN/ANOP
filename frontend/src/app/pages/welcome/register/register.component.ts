@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       info.email = this.validateForm.controls.email.value;
       info.password = this.validateForm.controls.password.value;
       info.username = this.validateForm.controls.username.value;
-      // console.log(info);
+      console.log(info);
       this.service.register(info).subscribe(
         data => {
           this.error = false;
