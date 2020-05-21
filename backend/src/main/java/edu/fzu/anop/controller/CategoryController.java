@@ -48,11 +48,6 @@ public class CategoryController {
     }
 
     @ApiOperation(value = "获取当前用户的分类列表", notes = "获取当前用户的分类列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "orderBy", value = "排序规则", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示的项目数", required = true, dataType = "int")
-    })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功获取", response = PageInfo.class),
             @ApiResponse(code = 422, message = "分页参数验证错误", response = Message.class)
@@ -97,13 +92,14 @@ public class CategoryController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "更新成功"),
             @ApiResponse(code = 404, message = "未找到指定id的分类", response = Message.class),
-            @ApiResponse(code = 403, message = "没有此分类的访问权限", response = Message.class)
-    })
+            @ApiResponse(code = 403, message = "没有此分类的访问权限", response = Message.class),
+            @ApiResponse(code = 422, message = "参数未通过验证", response = Message.class)
+            })
     @PutMapping("/{id}")
     public Object updateCategories(
+            @PathVariable int id,
             @RequestBody @Valid CategoryUpdateResource resource,
-            @PathVariable int id
-            , BindingResult bindingResult) {
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return JsonResult.unprocessableEntity("error in validating", BindingResultUtil.getErrorList(bindingResult));
         }
