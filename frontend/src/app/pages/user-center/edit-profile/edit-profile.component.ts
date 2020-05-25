@@ -17,6 +17,7 @@ export class EditProfileComponent implements OnInit {
     avatarUrl: '',
   };
   public avatarURL = '';
+  public loading = false;
 
   constructor(
     public service:UserCenterService
