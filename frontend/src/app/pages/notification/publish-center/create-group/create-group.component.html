@@ -1,32 +1,39 @@
-<form [formGroup]="createGroupForm">
-  <nz-form-item>
-    <nz-form-label nzRequired>群名</nz-form-label>
-    <nz-form-control>
-      <label>
-        <input formControlName="title" nz-input placeholder="请输入群组名：">
-      </label>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>描述</nz-form-label>
-    <nz-form-control>
-      <label>
-        <textarea formControlName="remark" nz-input placeholder="请输入群组描述：" rows="2"></textarea>
-      </label>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>群组权限</nz-form-label>
-    <nz-select formControlName="permission" nzPlaceHolder="选择权限">
-      <nz-option nzLabel="需要管理员审核" nzValue="0"></nz-option>
-      <nz-option nzLabel="不允许任何人加入" nzValue="1"></nz-option>
-      <nz-option nzLabel="允许任何人加入" nzValue="2"></nz-option>
-    </nz-select>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button (click)="submitFrom()" [disabled]="!createGroupForm.valid" nz-button nzType="primary">提交</button>
-      <button (click)="resetForm($event)" nz-button>重置</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+<div nz-row nzAlign="middle">
+  <div nz-col nzOffset="5" nzSpan="16" style="margin-top: 3em">
+    <form (ngSubmit)="submitFrom()" [formGroup]="createGroupForm" nz-form>
+      <h1 style="text-align: center">创建群组</h1>
+      <nz-form-item>
+        <nz-form-label nzRequired nzSm="6" nzXs="24">群名</nz-form-label>
+        <nz-form-control nzSm="14" nzXs="24">
+          <label>
+            <input formControlName="title" nz-input placeholder="请输入群组名：">
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzXs="24">描述</nz-form-label>
+        <nz-form-control nzSm="14" nzXs="24">
+          <label>
+            <textarea formControlName="remark" nz-input placeholder="请输入群组描述：" rows="2"></textarea>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24">群组权限</nz-form-label>
+        <nz-form-control nzSm="14" nzXs="24">
+          <nz-select formControlName="permission" nzPlaceHolder="选择权限">
+            <nz-option nzLabel="需要管理员审核" nzValue="0"></nz-option>
+            <nz-option nzLabel="不允许任何人加入" nzValue="1"></nz-option>
+            <nz-option nzLabel="允许任何人加入" nzValue="2"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzOffset="6" nzSm="14" nzXs="24">
+          <button [disabled]="!createGroupForm.valid" nz-button nzType="primary">提交</button>
+          <button (click)="resetForm($event)" nz-button>重置</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>
