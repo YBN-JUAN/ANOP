@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {CateInfo} from '../../../share/model/cate-info';
 import {MemorandumService} from '../../../share/service/memorandum.service';
-import {format} from 'date-fns';
+import {format,differenceInMinutes} from 'date-fns';
 
 @Component({
   selector: 'app-edit-todo',
@@ -31,6 +31,7 @@ export class EditTodoComponent implements OnInit {
   isEmpty=true;
   isVisible1=false;
   isVisible2=false;
+  remindText='';
 
   change(): void{
     this.visible=!this.visible;
@@ -64,20 +65,25 @@ export class EditTodoComponent implements OnInit {
 
   updateTodo() {
     if(this.remindDate!=null&&format(new Date(),'yyyy-MM-dd HH:mm:ss')>this.remindDate.toString()){
+      this.remindText='请注意，您设置的邮件提醒时间已过。';
+      this.isVisible2=true;
+    } else if(differenceInMinutes(this.remindDate, new Date())<=3){
+      this.remindText='请注意，您设置的邮件提醒时间与当前时间相差不到3分钟，推荐邮件提醒时间与当前时间间隔不要太接近。';
       this.isVisible2=true;
     } else if(!this.isEmpty){
       this.service.updateTodo(
-        this.beginDate===null?null:format(this.beginDate, 'yyyy-MM-dd HH:mm'),
+        this.beginDate==null?null:format(this.beginDate, 'yyyy-MM-dd HH:mm'),
         this.categoryId===undefined?null:this.categoryId,
         this.content,
-        this.endDate===null?null:format(this.endDate, 'yyyy-MM-dd HH:mm'),
+        this.endDate==null?null:format(this.endDate, 'yyyy-MM-dd HH:mm'),
         this.isHeart?1:0,
         this.isStar?1:0,
-        this.remindDate===null?null:format(this.remindDate, 'yyyy-MM-dd HH:mm'),
+        this.remindDate==null?null:format(this.remindDate, 'yyyy-MM-dd HH:mm'),
         this.title,
         this.id
       ).subscribe(
         data=>{
+          console.log(this.remindDate);
           console.log('更新待办实现成功');
           this.change();
           location.reload();

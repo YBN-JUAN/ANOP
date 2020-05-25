@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {MemorandumService} from '../../../share/service/memorandum.service';
 import {CateInfo} from '../../../share/model/cate-info';
-import {format} from 'date-fns';
+import {format, differenceInMinutes} from 'date-fns';
 
 @Component({
   selector: 'app-add-todo',
@@ -19,6 +19,7 @@ export class AddTodoComponent implements OnInit {
   begin=true;
   end=true;
   remind=true;
+  remindText='';
 
   beginDate: Date;
   categoryId: number;
@@ -62,16 +63,20 @@ export class AddTodoComponent implements OnInit {
 
   addTodo(){
     if(this.remindDate!=null&&format(new Date(),'yyyy-MM-dd HH:mm:ss')>format(this.remindDate, 'yyyy-MM-dd HH:mm:ss')){
+      this.remindText='请注意，您设置的邮件提醒时间已过。';
+      this.isVisible2=true;
+    } else if(differenceInMinutes(this.remindDate, new Date())<=3){
+      this.remindText='请注意，您设置的邮件提醒时间与当前时间相差不到3分钟，推荐邮件提醒时间与当前时间间隔不要太接近。';
       this.isVisible2=true;
     } else if(!this.isEmpty) {
       this.service.addTodo(
-        this.beginDate===null?null:format(this.beginDate, 'yyyy-MM-dd HH:mm'),
+        this.beginDate==null?null:format(this.beginDate, 'yyyy-MM-dd HH:mm'),
         this.categoryId===undefined?null:this.categoryId,
         this.content,
-        this.endDate===null?null:format(this.endDate, 'yyyy-MM-dd HH:mm'),
+        this.endDate==null?null:format(this.endDate, 'yyyy-MM-dd HH:mm'),
         this.isHeart?1:0,
         this.isStar?1:0,
-        this.remindDate===null?null:format(this.remindDate, 'yyyy-MM-dd HH:mm'),
+        this.remindDate==null?null:format(this.remindDate, 'yyyy-MM-dd HH:mm'),
         this.title
       ).subscribe(
         data=>{
