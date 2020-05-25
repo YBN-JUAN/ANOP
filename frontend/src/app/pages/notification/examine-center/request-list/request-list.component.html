@@ -19,6 +19,7 @@
   [nzFrontPagination]="false"
   [nzLoading]="loading"
   [nzTotal]="total"
+  [nzPageSizeOptions]="[5]"
   [nzPageSize]="pageSize"
   [nzPageIndex]="pageIndex"
   (nzQueryParams)="onQueryParamsChange($event)"
@@ -39,9 +40,11 @@
     <td>{{ data.groupName }}</td>
     <td>{{ data.requestTime }}</td>
     <td>
-      <i nz-icon nzType="check" nzTheme="outline" size="large" (click)="dealOne(data.id, 1)"></i>
+      <i nz-icon nzType="check" nzTheme="outline" size="large" class="check-icon"
+         (click)="dealOne(data.id, 1)"></i>
       &nbsp;&nbsp;
-      <i nz-icon nzType="close" nzTheme="outline" size="large" (click)="dealOne(data.id, 2)"></i>
+      <i nz-icon nzType="close" nzTheme="outline" size="large" class="close-icon"
+         (click)="dealOne(data.id, 2)"></i>
     </td>
   </tr>
   </tbody>

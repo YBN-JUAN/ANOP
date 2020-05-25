@@ -12,7 +12,7 @@ export class GroupListComponent implements OnInit {
   total = 1;
   listOfGroups: GroupInfoModel[] = [];
   loading = true;
-  pageSize = 10;
+  pageSize = 6;
   pageIndex = 1;
 
   loadDataFromServer(pageIndex: number, pageSize: number): void {
@@ -20,7 +20,7 @@ export class GroupListComponent implements OnInit {
     this.service.getGroups('id', pageIndex, pageSize).subscribe(
       data => {
         this.loading = false;
-        this.total = 200; // mock the total data here
+        this.total = data.total;
         this.listOfGroups = data.list;
         console.log(this.listOfGroups);
         console.log(data);
