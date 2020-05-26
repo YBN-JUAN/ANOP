@@ -17,6 +17,29 @@ export class GroupMessageComponent implements OnInit {
 
   notificationList: NotificationInfoModel[] = [];
 
+  listOfColumn = [
+    {
+      title: '群组ID',
+      compare: ((a, b) => a.id - b.id)
+    },
+    {
+      title: '标题',
+      compare: (a: NotificationInfoModel, b: NotificationInfoModel) => a.title.localeCompare(b.title),
+      // priority: 3
+    },
+    {
+      title: '内容',
+    },
+    {
+      title: '发布时间',
+      // compare: (a: NotificationInfoModel, b: NotificationInfoModel) => a.creationDate > b.creationDate,
+      // priority: 1
+    },
+    {
+      title: '操作'
+    }
+  ];
+
   constructor(private route: ActivatedRoute, private service: GroupMessageService) {
   }
 
@@ -51,5 +74,6 @@ export class GroupMessageComponent implements OnInit {
         console.log(error);
       }
     );
+    this.notificationList.sort(((a, b) => a.creationDate.localeCompare(b.creationDate)))
   }
 }

@@ -1,16 +1,13 @@
 <div>
-  <nz-table
-    nzShowSizeChanger
-    [nzData]="notificationList"
-    [nzFrontPagination]="false"
-    [nzLoading]="loading">
+  <nz-table [nzData]="notificationList" [nzFrontPagination]="false" [nzLoading]="loading" nzShowSizeChanger>
     <thead>
     <tr>
-      <th nzColumnKey="id" [nzSortFn]="true">群组id</th>
-      <th nzColumnKey="title">标题</th>
-      <th nzColumnKey="content">内容</th>
-      <th nzColumnKey="creationDate">发布时间</th>
-      <th>操作</th>
+      <!--      <th nzColumnKey="id" [nzSortFn]="true">群组id</th>-->
+      <!--      <th nzColumnKey="title">标题</th>-->
+      <!--      <th nzColumnKey="content">内容</th>-->
+      <!--      <th nzColumnKey="creationDate">发布时间</th>-->
+      <!--      <th>操作</th>-->
+      <th *ngFor="let column of listOfColumn">{{column.title}}</th>
     </tr>
     </thead>
     <tbody>
