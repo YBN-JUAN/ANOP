@@ -49,10 +49,6 @@ input {
   margin: 2.65vw;
 }
 
-nz-avatar {
-  margin-top: 50px;
-}
-
 #upload-hide {
   display: none;
 }
@@ -62,12 +58,8 @@ nz-avatar {
 }
 
 :host ::ng-deep .avatar-uploader > .ant-upload {
-  width: 13vw;
-  height: 13vw;
-  -moz-border-radius: 8.8vw;
-  -webkit-border-radius: 8.8vw;
-  border-radius: 8.8vw;
-  margin: 4.4vw 4.4vw 0 4.4vw;
+  margin: 4.4vw 3vw 0 3vw;
+  border-radius: 50%;
 }
 
 @media screen and (max-width:960px) {

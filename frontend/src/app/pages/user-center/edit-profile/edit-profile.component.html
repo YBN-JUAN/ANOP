@@ -64,8 +64,7 @@
 </div>
 
 <div class="right-content">
-  <div class="avatar">
-    <!-- <nz-upload 
+  <nz-upload 
     class="avatar-uploader"
     nzAction= "http://localhost:8080/v1/avatar"
     nzName="avatarimg"
@@ -76,12 +75,10 @@
     (nzChange)="handleChange($event)"
   >
     <ng-container *ngIf="!user.avatarUrl">
-      <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
-      <div class="ant-upload-text">上传头像</div>
-    </ng-container> -->
+      <i class="loading-icon" nz-icon [nzType]="loading ? 'loading' : ''"></i>
+    </ng-container>
     <nz-avatar [nzSrc]="user.avatarUrl" nzIcon="user" [nzSize]="150" style="width:9vw;height:9vw;"></nz-avatar>
-    <!-- </nz-upload> -->
-  </div>
+  </nz-upload>
 
   <div class="name-header">{{user.nickName}}</div>
   <div class="upload-button" id="upload-show">
