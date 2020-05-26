@@ -38,7 +38,8 @@
     <div nz-col nzSpan="16" class="row" id="hide">
       <input nz-input [(ngModel)]="user.nickName"/>
       <button nz-button nzType="dashed" (click)="onSubmit()"
-      [disabled]="user.nickName.length>0 && user.nickName.length<=31 ? false : true">确认</button>
+              [disabled]="!(user.nickName.length>0 && user.nickName.length<=31)">确认
+      </button>
     </div>
   </div>
 
@@ -65,7 +66,7 @@
 
 <div class="right-content">
   <div class="avatar">
-    <!-- <nz-upload 
+    <!-- <nz-upload
     class="avatar-uploader"
     nzAction= "http://localhost:8080/v1/avatar"
     nzName="avatarimg"

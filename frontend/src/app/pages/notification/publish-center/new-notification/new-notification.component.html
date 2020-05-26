@@ -1,24 +1,37 @@
-<form [formGroup]="newNotificationForm" ngForm>
-  <nz-form-item>
-    <nz-form-label nzRequired>标题</nz-form-label>
-    <nz-form-control>
-      <label>
-        <input formControlName="title" nz-input placeholder="请输入标题">
-      </label>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>通知内容</nz-form-label>
-    <nz-form-control>
-      <label>
-        <textarea formControlName="content" nz-input placeholder="请输入通知内容" rows="3"></textarea>
-      </label>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button (click)="submitFrom()" [disabled]="!newNotificationForm.valid" nz-button nzType="primary">发布</button>
-      <button (click)="resetForm($event)" nz-button>重置</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+<nz-breadcrumb>
+  <nz-breadcrumb-item><a routerLink='/publish'>发布中心</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item><a routerLink="/notification/publish/new-notification">{{gTitle}}</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>发布通知</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div nz-row nzAlign="middle">
+  <div nz-col nzOffset="4" nzSpan="16" style="margin-top: 5vh">
+    <form [formGroup]="newNotificationForm" ngForm>
+      <h1>{{gTitle}}</h1>
+      <nz-form-item>
+        <nz-form-label nzRequired nzSm="6" nzXs="24">标题</nz-form-label>
+        <nz-form-control nzSm="14" nzXs="24">
+          <label>
+            <input formControlName="title" nz-input placeholder="请输入标题">
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24">通知内容</nz-form-label>
+        <nz-form-control nzSm="14" nzXs="24">
+          <label>
+            <textarea formControlName="content" nz-input placeholder="请输入通知内容" rows="3"></textarea>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="14" nzOffset="6" nzSm="14">
+          <button (click)="submitFrom()" [disabled]="!newNotificationForm.valid" class="submit"
+                  nz-button nzType="primary">发布
+          </button>
+          <button (click)="resetForm($event)" class="reset" nz-button>重置</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>
