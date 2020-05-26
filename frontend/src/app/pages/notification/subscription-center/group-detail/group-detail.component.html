@@ -1,4 +1,4 @@
-<div style="background: #ECECEC;padding:40px;">
+<div style="padding:40px;">
   <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="11">
       <nz-card nzTitle="通知群组详细信息">
@@ -56,10 +56,10 @@
     </div>
   </div>
   <nz-row class="buttons">
-    <nz-col nz-col="3" [nzOffset]="8">
+    <nz-col nz-col="3">
       <button nz-button nzType="primary" nzSize="large" nzDanger (click)="quitGroup()">取消订阅</button>
     </nz-col>
-    <nz-col nz-col="3" [nzOffset]="2">
+    <nz-col nz-col="3" [nzOffset]="1">
       <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回
       </button>
     </nz-col>
