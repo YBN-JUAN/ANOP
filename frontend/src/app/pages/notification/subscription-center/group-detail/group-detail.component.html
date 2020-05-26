@@ -1,67 +1,67 @@
-<div class="content">
-  <div class="head-div">
-    <p class="head-title">通知群组详细信息</p>
+<div style="background: #ECECEC;padding:40px;">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="11">
+      <nz-card nzTitle="通知群组详细信息">
+        <div class="group-info">
+          <nz-row>
+            <nz-badge nzColor="blue" nzText="名称:{{group.title}}"></nz-badge>
+          </nz-row>
+          <nz-row>
+            <nz-badge nzColor="blue" nzText="口令:"></nz-badge>
+          </nz-row>
+          <nz-row>
+            {{ group.avatarUrl }}
+          </nz-row>
+          <nz-row>
+            <nz-badge nzColor="blue" nzText="创建时间:{{group.creationDate}}"></nz-badge>
+          </nz-row>
+          <nz-row>
+            <nz-badge nzColor="blue" nzText="备注:"></nz-badge>
+          </nz-row>
+          <div class="detail-mark">
+            {{ group.remark }}
+          </div>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="13">
+      <nz-card nzTitle="群组成员列表">
+        <div class="user-list">
+          <div class="table">
+            <nz-table
+              nzShowSizeChanger
+              [nzData]="listOfUsers"
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzTotal]="total"
+              [nzPageSize]="pageSize"
+              [nzPageSizeOptions]="[3]"
+              [nzPageIndex]="pageIndex"
+              (nzQueryParams)="onQueryParamsChange($event)"
+            >
+              <thead>
+              <tr>
+                <th nzColumnKey="nickname">成员昵称</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of listOfUsers">
+                <td>{{ data.nickname }}</td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </div>
+      </nz-card>
+    </div>
   </div>
-  <hr/>
-  <nz-content>
-    <div class="group-info">
-      <nz-row>
-        <nz-badge nzColor="blue" nzText="名称:{{group.title}}"></nz-badge>
-      </nz-row>
-      <nz-row>
-        <nz-badge nzColor="blue" nzText="口令:"></nz-badge>
-      </nz-row>
-      <nz-row>
-        {{ group.avatarUrl }}
-      </nz-row>
-      <nz-row>
-        <nz-badge nzColor="blue" nzText="创建时间:{{group.creationDate}}"></nz-badge>
-      </nz-row>
-      <nz-row>
-        <nz-badge nzColor="blue" nzText="备注:"></nz-badge>
-      </nz-row>
-      <div class="detail-mark">
-        {{ group.remark }}
-      </div>
-    </div>
-    <div class="user-list">
-      <nz-row>
-        <nz-col [nzOffset]="8">
-          <nz-badge nzColor="blue" nzText="成员列表:"></nz-badge>
-        </nz-col>
-      </nz-row>
-      <div class="table">
-        <nz-table
-          nzShowSizeChanger
-          [nzData]="listOfUsers"
-          [nzFrontPagination]="false"
-          [nzLoading]="loading"
-          [nzTotal]="total"
-          [nzPageSize]="pageSize"
-          [nzPageIndex]="pageIndex"
-          (nzQueryParams)="onQueryParamsChange($event)"
-        >
-          <thead>
-          <tr>
-            <th nzColumnKey="nickname">成员昵称</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let data of listOfUsers">
-            <td>{{ data.nickname }}</td>
-          </tr>
-          </tbody>
-        </nz-table>
-      </div>
-    </div>
-    <nz-row class="buttons">
-      <nz-col nz-col="3" [nzOffset]="8">
-        <button nz-button nzType="primary" nzSize="large" nzDanger (click)="quitGroup()">取消订阅</button>
-      </nz-col>
-      <nz-col nz-col="3" [nzOffset]="2">
-        <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回
-        </button>
-      </nz-col>
-    </nz-row>
-  </nz-content>
+  <nz-row class="buttons">
+    <nz-col nz-col="3" [nzOffset]="8">
+      <button nz-button nzType="primary" nzSize="large" nzDanger (click)="quitGroup()">取消订阅</button>
+    </nz-col>
+    <nz-col nz-col="3" [nzOffset]="2">
+      <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回
+      </button>
+    </nz-col>
+  </nz-row>
 </div>

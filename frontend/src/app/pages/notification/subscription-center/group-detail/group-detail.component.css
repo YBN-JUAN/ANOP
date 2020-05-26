@@ -1,18 +1,3 @@
-.head-div {
-  padding: 0px;
-  margin: 0px;
-}
-
-.content {
-  width: 550px;
-  height: 685px;
-  border-radius: 12px 12px 12px 12px;
-  margin-left: 35%;
-  margin-top: 10px;
-  border-style: groove;
-  text-align: center;
-}
-
 .detail-mark {
   margin-top: 10px;
   width: 200px;
@@ -34,15 +19,7 @@
   margin-top: 10px;
 }
 
-.head-title {
-  font-size: 20px;
-}
-
-.group-info {
-  margin-left: 35%;
-}
-
 .group-info nz-row {
-  margin-top: 5px;
+  margin-top:5%;
 }
 
