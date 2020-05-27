@@ -87,6 +87,6 @@
   <p>标题和内容不能为空</p>
 </nz-modal>
 <nz-modal [(nzVisible)]="isVisible2" nzTitle="邮件提醒时间不合理" (nzOnCancel)="isVisible2=false" (nzOnOk)="isVisible2=false">
-  <p>请注意，您设置的邮件提醒时间已过，推荐邮件提醒时间与当前时间间隔不要太接近</p>
+  <p>{{ remindText }}</p>
 </nz-modal>
 

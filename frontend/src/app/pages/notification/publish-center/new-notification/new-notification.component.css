@@ -2,6 +2,16 @@
   max-width: 600px;
 }
 
-button {
-  margin-left: 8px;
+/*button {*/
+/*  !*margin-left: 4.5vw;*!*/
+/*  margin-left: 5vw;*/
+/*}*/
+.submit {
+  margin-left: 20%;
+  /*margin-left: 2vw;*/
+}
+
+.reset {
+  margin-left: 20%;
+  /*margin-left: 3vw;*/
 }

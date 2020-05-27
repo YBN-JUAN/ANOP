@@ -11,8 +11,6 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./new-notification.component.css']
 })
 export class NewNotificationComponent implements OnInit {
-  newNotificationForm: FormGroup;
-  private gid;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: NewNotificationService) {
     this.newNotificationForm = this.formBuilder.group({
@@ -21,10 +19,26 @@ export class NewNotificationComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params: Params) => {
-      this.gid = params.gid;
-    });
+  newNotificationForm: FormGroup;
+
+  private _gid;
+
+  get gid() {
+    return this._gid;
+  }
+
+  set gid(value) {
+    this._gid = value;
+  }
+
+  private _gTitle;
+
+  get gTitle() {
+    return this._gTitle;
+  }
+
+  set gTitle(value) {
+    this._gTitle = value;
   }
 
   resetForm(e: MouseEvent): void {
@@ -35,6 +49,13 @@ export class NewNotificationComponent implements OnInit {
       this.newNotificationForm.controls[key].markAsPristine();
       this.newNotificationForm.controls[key].updateValueAndValidity();
     }
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.gid = params.gid;
+      this.gTitle = params.title;
+    });
   }
 
   submitFrom() {

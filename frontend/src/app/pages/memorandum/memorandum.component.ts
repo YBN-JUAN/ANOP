@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemorandumComponent implements OnInit {
   isCollapsed = false;
+  siderSpan=4;
   collapsedItems=[
     {
       title:'待办事项',

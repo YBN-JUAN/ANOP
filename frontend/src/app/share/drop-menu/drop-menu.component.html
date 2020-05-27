@@ -1,7 +1,12 @@
-<nz-avatar nzSize="small" [nzSrc]="user.avatarUrl" nzIcon="user"></nz-avatar>
-&nbsp; {{user.userName}} &nbsp;
+<nz-avatar
+  nzSize="small"
+  [nzSrc]="user.avatarUrl"
+  nzIcon="user"
+  style="width:1.8vw;height:1.8vw;">
+</nz-avatar>
+&nbsp;
 <a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" [(nzVisible)]="visible">
-  <i nz-icon nzType="ellipsis"></i>
+  {{user.userName}}
 </a>
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>

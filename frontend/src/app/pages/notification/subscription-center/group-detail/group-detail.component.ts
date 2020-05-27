@@ -17,7 +17,7 @@ export class GroupDetailComponent implements OnInit {
   total = 1;
   listOfUsers: GroupUser[] = [];
   loading = true;
-  pageSize = 5;
+  pageSize = 3;
   pageIndex = 1;
 
   constructor(private route: ActivatedRoute,
@@ -73,7 +73,7 @@ export class GroupDetailComponent implements OnInit {
     this.loading = true;
     this.pubService.getGroupUser(this.group.id, 'id', pageIndex, pageSize).subscribe(data => {
         this.loading = false;
-        this.total = 200; // mock the total data here
+        this.total = data.total;
         this.listOfUsers = data.list;
         console.log(this.listOfUsers);
         console.log(data);

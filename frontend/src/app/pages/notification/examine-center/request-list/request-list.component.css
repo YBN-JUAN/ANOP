@@ -2,3 +2,12 @@
   padding-top: 28px;
   padding-bottom: 28px;
 }
+
+.check-icon {
+  color: chartreuse;
+}
+
+.close-icon {
+  color: red;
+}
+

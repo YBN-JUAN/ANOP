@@ -13,7 +13,7 @@ export class RequestListComponent implements OnInit {
   total = 1;
   requestList: UserRequest[] = [];
   loading = true;
-  pageSize = 10;
+  pageSize = 5;
   pageIndex = 1;
   buttonTitle = '切换到我管理的群组的用户请求';
   listType = 0;
@@ -30,7 +30,7 @@ export class RequestListComponent implements OnInit {
     this.loading = true;
     this.service.getUserRequest(this.listType, 'id', pageIndex, pageSize).subscribe(data => {
         this.loading = false;
-        this.total = 200; // mock the total data here
+        this.total = data.total;
         this.requestList = data.list;
         console.log(this.requestList);
         console.log(data);

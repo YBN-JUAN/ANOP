@@ -2,14 +2,14 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="请输入用户名!">
       <nz-input-group nzPrefixIcon="user">
-        <input type="text" nz-input formControlName="username" placeholder="Username" />
+        <input formControlName="username" nz-input placeholder="请设置用户名" type="text"/>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control nzErrorTip="请输入要绑定的邮箱!">
       <nz-input-group nzPrefixIcon="mobile">
-        <input type="text" nz-input formControlName="email" placeholder="Email" />
+        <input formControlName="email" nz-input placeholder="请设置绑定邮箱" type="text"/>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -18,7 +18,7 @@
       <nz-col [nzSpan]="13">
         <nz-form-control nzErrorTip="请输入验证码!">
           <nz-input-group nzPrefixIcon="mail">
-            <input type="text" nz-input formControlName="code" placeholder="Code" />
+            <input formControlName="code" nz-input placeholder="请输入验证码" type="text"/>
           </nz-input-group>
         </nz-form-control>
       </nz-col>
@@ -30,20 +30,20 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="请输入密码!">
       <nz-input-group nzPrefixIcon="lock">
-        <input type="password" nz-input formControlName="password" placeholder="Password" />
+        <input formControlName="password" nz-input placeholder="请设置密码" type="password"/>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control nzErrorTip="请再次输入密码!">
       <nz-input-group nzPrefixIcon="lock">
-        <input type="password" nz-input formControlName="confirm" placeholder="Confirm" />
+        <input formControlName="confirm" nz-input placeholder="请重复密码" type="password"/>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <button nz-button class="login-form-button" nzType="primary" (click)="submitForm()">注册</button>
+      <button nz-button class="login-form-button" nzType="primary">注册</button>
     </nz-form-control>
   </nz-form-item>
 </form>
