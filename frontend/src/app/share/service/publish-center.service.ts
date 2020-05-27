@@ -11,11 +11,7 @@ import {ApiUrlResource} from '../resource/api-url.resource';
 export class PublishCenterService {
   private url = ApiUrlResource.publishGroupUrl;
 
-  getCreateGroups(
-    orderBy: string,
-    pageNum: number,
-    pageSize: number
-  ) {
+  getCreateGroups(orderBy: string, pageNum: number, pageSize: number) {
     const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
@@ -23,11 +19,7 @@ export class PublishCenterService {
     return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}`, {params});
   }
 
-  getManageGroups(
-    orderBy: string,
-    pageNum: number,
-    pageSize: number
-  ) {
+  getManageGroups(orderBy: string, pageNum: number, pageSize: number) {
     const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
@@ -35,12 +27,7 @@ export class PublishCenterService {
     return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}/manage`, {params});
   }
 
-  getGroups(
-    listType: number,
-    orderBy: string,
-    pageNum: number,
-    pageSize: number
-  ) {
+  getGroups(listType: number, orderBy: string, pageNum: number, pageSize: number) {
     if (listType === 0) {
       return this.getCreateGroups(orderBy, pageNum, pageSize);
     } else {
@@ -48,7 +35,7 @@ export class PublishCenterService {
     }
   }
 
-  deleteGroup(id: number) {
+  dismissGroup(id: number) {
     this.http.delete(`${this.url}/${id}`).subscribe(
       data => {
         console.log('delete group ok', data);
@@ -56,19 +43,14 @@ export class PublishCenterService {
       error => {
         console.log('delete group fail', error);
       }
-    )
+    );
   }
 
   getGroup(id: number) {
     return this.http.get<GroupInfoModel>(`${this.url}/${id}`);
   }
 
-  getGroupUser(
-    groupId: number,
-    orderBy: string,
-    pageNum: number,
-    pageSize: number
-  ) {
+  getGroupUser(groupId: number, orderBy: string, pageNum: number, pageSize: number) {
     const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
