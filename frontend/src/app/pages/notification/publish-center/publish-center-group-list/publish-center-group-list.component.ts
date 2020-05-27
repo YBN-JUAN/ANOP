@@ -52,7 +52,7 @@ export class PublishCenterGroupListComponent implements OnInit {
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: () => {
-        this.service.deleteGroup(id);
+        this.service.dismissGroup(id);
         this.ngOnInit();
       },
       nzCancelText: '取消',
