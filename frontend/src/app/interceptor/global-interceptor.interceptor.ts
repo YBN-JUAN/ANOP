@@ -32,7 +32,7 @@ export class GlobalInterceptor implements HttpInterceptor {
   }
 
   private handleData(event: HttpResponse<any> | HttpErrorResponse): Observable<any> {
-    if(event.status==401 && this.route.routerState.snapshot.url!="/welcome/login"){
+    if(event.status==401 && !this.route.routerState.snapshot.url.startsWith('/welcome')){
       console.log(this.route);
       this.route.navigateByUrl("/welcome/login");
     }

@@ -3,8 +3,8 @@ nz-breadcrumb {
 }
 
 .left-content {
-  padding: 15px 0px 15px 15px;
-  margin-right: 50px;
+  padding: 1.3vw 0 0 1.3vw;
+  margin-right: 4.4vw;
   background: #fff;
   float: left;
   width: 70%;
@@ -20,17 +20,17 @@ nz-breadcrumb {
 }
 
 .row {
-  margin: 15px auto;
-  font-size: 20px;
-  padding: 10px;
+  margin: 1.3vw auto;
+  font-size: 1.3vw;
+  padding: 1vw;
 }
 
 .row button {
-  margin-left: 20px;
+  margin-left: 1.76vw;
 }
 
 button {
-  font-size: 17px;
+  font-size: 1.2vw;
 }
 
 #hide {
@@ -38,19 +38,15 @@ button {
 }
 
 input {
-  width: 300px;
-  font-size: 20px;
+  width: 25vw;
+  font-size: 1.2vw;
 }
 
 .name-header {
   word-wrap: break-word;
-  font-size: 24px;
+  font-size: 1.7vw;
   font-weight: bold;
-  margin: 30px;
-}
-
-nz-avatar {
-  margin-top: 50px;
+  margin: 2.65vw;
 }
 
 #upload-hide {
@@ -58,14 +54,16 @@ nz-avatar {
 }
 
 .upload-button input{
-  width: 150px;
+  width: 13.2vw;
 }
 
-/* :host ::ng-deep .avatar-uploader > .ant-upload {
-  width: 150px;
-  height: 150px;
-  -moz-border-radius: 100px;
-  -webkit-border-radius: 100px;
-  border-radius: 100px;
-  margin: 50px 50px 0 50px;
-} */
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  margin: 4.4vw 3vw 0 3vw;
+  border-radius: 50%;
+}
+
+@media screen and (max-width:960px) {
+  input {
+    width: 17vw;
+  }
+}

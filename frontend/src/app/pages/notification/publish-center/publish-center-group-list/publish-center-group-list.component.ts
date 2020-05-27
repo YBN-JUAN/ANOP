@@ -13,7 +13,7 @@ export class PublishCenterGroupListComponent implements OnInit {
   total = 1;
   listOfGroups: GroupInfoModel[] = [];
   loading = true;
-  pageSize = 10;
+  pageSize = 6;
   pageIndex = 1;
   buttonTitle = '切换到我管理的群组列表';
   listType = 0;
@@ -28,7 +28,7 @@ export class PublishCenterGroupListComponent implements OnInit {
     this.loading = true;
     this.service.getGroups(this.listType, 'id', pageIndex, pageSize).subscribe(data => {
         this.loading = false;
-        this.total = 200; // mock the total data here
+        this.total = data.total;
         this.listOfGroups = data.list;
         console.log(this.listOfGroups);
         console.log(data);
@@ -52,7 +52,7 @@ export class PublishCenterGroupListComponent implements OnInit {
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: () => {
-        this.service.deleteGroup(id);
+        this.service.dismissGroup(id);
         this.ngOnInit();
       },
       nzCancelText: '取消',

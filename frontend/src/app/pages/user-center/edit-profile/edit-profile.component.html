@@ -38,7 +38,8 @@
     <div nz-col nzSpan="16" class="row" id="hide">
       <input nz-input [(ngModel)]="user.nickName"/>
       <button nz-button nzType="dashed" (click)="onSubmit()"
-      [disabled]="user.nickName.length>0 && user.nickName.length<=31 ? false : true">确认</button>
+              [disabled]="!(user.nickName.length>0 && user.nickName.length<=31)">确认
+      </button>
     </div>
   </div>
 
@@ -64,9 +65,9 @@
 </div>
 
 <div class="right-content">
-  <!-- <nz-upload 
+  <nz-upload 
     class="avatar-uploader"
-    nzAction= "http://localhost:8080/v1/avatar"
+    nzAction= "http://localhost:8080/v1/usr/avatar"
     nzName="avatarimg"
     nzListType="picture-card"
     [(nzFileList)]="fileList"
@@ -75,11 +76,10 @@
     (nzChange)="handleChange($event)"
   >
     <ng-container *ngIf="!user.avatarUrl">
-      <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
-      <div class="ant-upload-text">上传头像</div>
-    </ng-container> -->
-    <nz-avatar [nzSrc]="user.avatarUrl" nzIcon="user" [nzSize]="150"></nz-avatar>
-  <!-- </nz-upload> -->
+      <i class="loading-icon" nz-icon [nzType]="loading ? 'loading' : ''"></i>
+    </ng-container>
+    <nz-avatar [nzSrc]="user.avatarUrl" nzIcon="user" [nzSize]="150" style="width:9vw;height:9vw;"></nz-avatar>
+  </nz-upload>
 
   <div class="name-header">{{user.nickName}}</div>
   <div class="upload-button" id="upload-show">

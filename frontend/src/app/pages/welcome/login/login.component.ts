@@ -32,14 +32,18 @@ export class LoginComponent implements OnInit {
     if (!this.validateForm.valid) {
       this.openDirtyControl(this.validateForm);
     } else {
+      this.error = true;
       this.app.authenticate<object>(this.validateForm.value, () => {
           this.router.navigateByUrl('/notification');
           this.userCenterService.storageUser();
+          this.error = false;
         },
         (result)=>{
           this.error = true;
-          this.errMsg=result.message;
         });
+      if (this.error) {
+        this.errMsg="用户名或者密码错误";
+      }
     }
   }
 
