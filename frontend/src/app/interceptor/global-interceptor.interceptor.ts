@@ -8,7 +8,7 @@ import {
   HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
 import {Router} from '@angular/router';
 
@@ -36,6 +36,6 @@ export class GlobalInterceptor implements HttpInterceptor {
       console.log(this.route);
       this.route.navigateByUrl("/welcome/login");
     }
-    return of(event);
+    return throwError(event);
   }
 }
