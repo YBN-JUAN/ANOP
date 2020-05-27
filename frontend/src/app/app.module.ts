@@ -90,7 +90,7 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [{provide: NZ_I18N, useValue: zh_CN},
     {provide: HTTP_INTERCEPTORS, useClass: GlobalInterceptor, multi: true},

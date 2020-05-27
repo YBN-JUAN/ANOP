@@ -1,5 +1,6 @@
 <div class="plus-button">
-  <i nz-icon nzType="plus-circle" nzTheme="twotone" nzTwotoneColor="#eb2f96" routerLink="/notification/subscription/join-group"></i>
+  <i nz-icon nzTheme="twotone" nzTwotoneColor="#eb2f96" nzType="plus-circle"
+     routerLink="/notification/subscription/join-group"></i>
 </div>
 <nz-table
   nzShowSizeChanger
@@ -14,8 +15,8 @@
   <thead>
   <tr>
     <th nzColumnKey="id" [nzSortFn]="true">id</th>
-    <th nzColumnKey="title" >名称</th>
-    <th nzColumnKey="remark" >备注</th>
+    <th nzColumnKey="title">名称</th>
+    <th nzColumnKey="remark">备注</th>
     <th>消息</th>
     <th>详情</th>
   </tr>
@@ -29,10 +30,7 @@
       <p>有未读消息</p>
     </td>
     <td>
-      <i nz-icon
-         nzType="info-circle"
-         nzTheme="twotone"
-         size="large"
+      <i nz-icon nzTheme="twotone" nzType="info-circle" size="large"
          routerLink="/notification/subscription/group-detail/{{data.id}}"></i>
     </td>
   </tr>
