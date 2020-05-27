@@ -1,11 +1,17 @@
-export class TableParamsModel {
-  private _data: any[];
+export class TableParamsModel<T> {
+  constructor(loading: boolean, pageSize: number, pageIndex: number) {
+    this._loading = loading;
+    this._pageSize = pageSize;
+    this._pageIndex = pageIndex;
+  }
 
-  get data(): any[] {
+  private _data: T[];
+
+  get data(): T[] {
     return this._data;
   }
 
-  set data(value: any[]) {
+  set data(value: T[]) {
     this._data = value;
   }
 
@@ -48,4 +54,5 @@ export class TableParamsModel {
   set total(value: number) {
     this._total = value;
   }
+
 }
