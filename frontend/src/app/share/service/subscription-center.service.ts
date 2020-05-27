@@ -36,10 +36,9 @@ export class SubscriptionCenterService {
 
   getGroupMessage(gid: number, orderBy: string, pageNum: number, pageSize: number): Observable<any> {
     const params = new HttpParams()
-      .append('gid', `${gid}`)
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get(`${this.url}/${params}/${this.suffix}`);
+    return this.http.get(`${this.url}/${gid}/${this.suffix}`, {params});
   }
 }
