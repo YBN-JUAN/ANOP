@@ -6,8 +6,6 @@ import { Observable, Observer } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 
-const BASE_URL = 'http://localhost:8080/';
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -40,7 +38,13 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.service.getConfig().subscribe(data => {
       this.user = data;
-      this.user.avatarUrl = BASE_URL + data.avatarUrl;
+      var avatar = data.avatarUrl;
+      if(avatar.startsWith('https://')) {
+        this.user.avatarUrl = data.avatarUrl;
+      }
+      else {
+        this.user.avatarUrl = 'http://' + data.avatarUrl;
+      }
     });
   }
 
@@ -67,7 +71,7 @@ export class EditProfileComponent implements OnInit {
     this.service.getConfig().subscribe(data => {
       this.user.avatarUrl = data.avatarUrl;
     });
-    window.location.reload();
+    location.reload();
   }
 
   beforeUpload = (file: File) => {
@@ -96,25 +100,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   handleChange(info: { file: UploadFile }): void {
-    let formData = new FormData();
-    let file = this.fileList[0]	//	可以获取到具体文件，多个文件可以通过files来判断
-    formData.append("avatarimg",file);
-    this.upload(file); // { avatarimg: info.file!.originFileObj! }
-
-    this.http
-      .post("http://localhost:8080/v1/avatar", file, this.httpOptions)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log("上传失败！", error);
-        },
-        () => {
-          console.log("上传成功！");
-        }
-      );
-
+    let file = this.fileList[0]
+    this.upload(file);
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
@@ -123,6 +110,8 @@ export class EditProfileComponent implements OnInit {
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loading = false;
           this.user.avatarUrl = img;
+          window.alert("修改成功！");
+          location.reload();
         });
         break;
       case 'error':
@@ -134,9 +123,9 @@ export class EditProfileComponent implements OnInit {
 
   upload(img: File) {
     let formData = new FormData();
-    formData.append("avatarimg",img);
+    formData.append("avatarimg", img);
     this.http
-      .post("http://localhost:8080/v1/avatar", formData, this.httpOptions)
+      .post("http://localhost:8080/v1/usr/avatar", formData, this.httpOptions)
       .subscribe(
         file => {
           console.log(file);
@@ -145,7 +134,7 @@ export class EditProfileComponent implements OnInit {
           console.log(error);
         },
         () => {
-          console.log("上传成功！");
+          location.reload();
         }
       );
   }
