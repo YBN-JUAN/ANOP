@@ -4,9 +4,9 @@
   padding-left: 24%;
 }
 
-.content {
-  padding: 0px;
-  margin-left: 720px;
-  margin-top: 260px;
+.card {
+  position: absolute;
+  top:28%;
+  left:40%;
 }
 
