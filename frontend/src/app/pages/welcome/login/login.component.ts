@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../share/service/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -12,14 +12,15 @@ import {UserCenterService} from '../../../share/service/user-center.service';
 })
 export class LoginComponent implements OnInit {
   validateForm: FormGroup;
-  error: boolean = false;
-  errMsg:string;
+  error = false;
+  errMsg: string;
 
   constructor(private fb: FormBuilder,
-              private http:HttpClient,
+              private http: HttpClient,
               private router: Router,
               private app: AuthService,
-              private userCenterService: UserCenterService) {}
+              private userCenterService: UserCenterService) {
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -34,11 +35,13 @@ export class LoginComponent implements OnInit {
     } else {
       this.error = true;
       this.app.authenticate<object>(this.validateForm.value, () => {
-          this.router.navigateByUrl('/notification');
+          this.router.navigateByUrl('/notification/subscription').then(r => {
+            console.log(r)
+          });
           this.userCenterService.storageUser();
           this.error = false;
         },
-        (result)=>{
+        (result) => {
           this.error = true;
         });
       if (this.error) {

@@ -11,7 +11,7 @@ export class JoinGroupService {
   constructor(private http: HttpClient) {
   }
 
-  joinGroup(groupId: number): Observable<any> {
-    return this.http.post(`${this.url}`, {groupId: groupId});
+  joinGroup(gid: number): Observable<any> {
+    return this.http.post(`${this.url}`, {gid});
   }
 }
