@@ -74,6 +74,7 @@
     [nzShowUploadList]="false"
     [nzBeforeUpload]="beforeUpload"
     (nzChange)="handleChange($event)"
+    nzAccept="image/*"
   >
     <ng-container *ngIf="!user.avatarUrl">
       <i class="loading-icon" nz-icon [nzType]="loading ? 'loading' : ''"></i>

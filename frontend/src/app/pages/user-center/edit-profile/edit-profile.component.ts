@@ -67,28 +67,24 @@ export class EditProfileComponent implements OnInit {
   getAvatarUrl() {
     document.getElementById('upload-hide').style.display='none';
     document.getElementById('upload-show').style.display='block';
-    this.service.updateUserInfo(this.user.nickName, this.avatarURL);
-    this.service.getConfig().subscribe(data => {
-      this.user.avatarUrl = data.avatarUrl;
-    });
-    location.reload();
+    if(this.avatarURL) {
+      this.service.updateUserInfo(this.user.nickName, this.avatarURL);
+      this.service.getConfig().subscribe(data => {
+        this.user.avatarUrl = data.avatarUrl;
+      });
+      location.reload();
+    }
   }
 
   beforeUpload = (file: File) => {
     return new Observable((observer: Observer<boolean>) => {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
-        this.msg.error('头像只能为jpg/png格式的图片！');
-        observer.complete();
-        return;
-      }
       const isLt8M = file.size / 1024 / 1024 < 8;
       if (!isLt8M) {
         this.msg.error('图像必须小于8MB！');
         observer.complete();
         return;
       }
-      observer.next(isJpgOrPng && isLt8M);
+      observer.next(isLt8M);
       observer.complete();
     });
   };
@@ -110,8 +106,6 @@ export class EditProfileComponent implements OnInit {
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loading = false;
           this.user.avatarUrl = img;
-          window.alert("修改成功！");
-          location.reload();
         });
         break;
       case 'error':
