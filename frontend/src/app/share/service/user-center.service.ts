@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 })
 export class UserCenterService {
   public user: UserInfoModel;
-  public url: string = 'http://localhost:8080/v1/';
+  public url: string = 'http://localhost:8080/v1/usr/';
   storageOk: boolean = false;
   httpOptions = {
     headers: new HttpHeaders({
@@ -71,7 +71,7 @@ export class UserCenterService {
   }
 
   signOut() {
-    this.http.post(this.url + "signout", {}, this.httpOptions)
+    this.http.post("http://localhost:8080/logout", {}, this.httpOptions)
       .subscribe(response => {
         console.log(response);
         localStorage.removeItem('userid');

@@ -24,6 +24,13 @@ export class DropMenuComponent {
   ngOnInit(): void {
     this.service.getConfig().subscribe(data => {
       this.user = data;
+      var avatar = data.avatarUrl;
+      if(avatar.startsWith('https://')) {
+        this.user.avatarUrl = data.avatarUrl;
+      }
+      else {
+        this.user.avatarUrl = 'http://' + data.avatarUrl;
+      }
     });
   }
 
