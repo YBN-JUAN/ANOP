@@ -66,6 +66,7 @@ export class NewNotificationComponent implements OnInit {
       (response) => {
         console.log(response);
         alert('发布成功。');
+        this.newNotificationForm.reset();
       }, (error: HttpErrorResponse) => {
         console.log(error);
       }

@@ -2,15 +2,15 @@
 export class NotificationModel {
   private readonly _title: string;
   private readonly _content: string;
-  private readonly _gid: string;
+  private readonly _gid: number;
 
-  constructor(title: string, content: string, gid: string) {
+  constructor(title: string, content: string, gid: number) {
     this._title = title;
     this._content = content;
     this._gid = gid;
   }
 
-  get gid(): string {
+  get gid(): number {
     return this._gid;
   }
 

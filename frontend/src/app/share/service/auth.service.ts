@@ -13,7 +13,7 @@ interface User{
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl:string='http://localhost:8080/v1/';
+  private baseUrl ='http://localhost:8080/v1/';
   user:User;
   authenticated = false;
   constructor(
@@ -26,7 +26,7 @@ export class AuthService {
       return;
     this.http.options(this.baseUrl+'signin').pipe(
       finalize(()=>{
-        let formData=new URLSearchParams();
+        const formData=new URLSearchParams();
         formData.set('username',credentials.username);
         formData.set('password',credentials.password);
         this.http.post<User>(this.baseUrl+'signin',formData.toString(),{

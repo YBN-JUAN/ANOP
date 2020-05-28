@@ -3,12 +3,14 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {ResponseModel} from '../model/response.model';
 import {GroupInfoModel} from '../model/group-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionCenterService {
   private url = ApiUrlResource.subscribeGroupUrl;
+  private suffix = 'notifications';
 
   constructor(private http: HttpClient) {
   }
@@ -24,11 +26,19 @@ export class SubscriptionCenterService {
   quitGroup(id: number) {
     this.http.delete(`${this.url}/${id}`).subscribe(
       data => {
-        console.log('delete group ok', data);
+        console.log('quit group ok', data);
       },
       error => {
-        console.log('delete group fail', error);
+        console.log('quit group fail', error);
       }
     )
+  }
+
+  getGroupMessage(gid: number, orderBy: string, pageNum: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .append('orderBy', orderBy)
+      .append('pageNum', `${pageNum}`)
+      .append('pageSize', `${pageSize}`);
+    return this.http.get(`${this.url}/${gid}/${this.suffix}`, {params});
   }
 }
