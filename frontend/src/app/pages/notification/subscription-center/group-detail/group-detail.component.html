@@ -1,8 +1,9 @@
 <div nz-row>
   <div class="-left-content" nz-col nzSpan="17">
-    <nz-table [nzData]="nTable.data" [nzLoading]="nTable.loading" [nzPageIndex]="nTable.pageIndex"
+    <nz-table (nzQueryParams)="onQueryParamsChange($event)" [nzData]="nTable.data" [nzLoading]="nTable.loading"
+              [nzPageIndex]="nTable.pageIndex"
               [nzPageSize]="nTable.pageSize"
-              [nzScroll]="{y:'240px'}" [nzTotal]="nTable.total">
+              [nzScroll]="{y:'70vh'}" [nzTotal]="nTable.total" nzShowSizeChanger>
       <thead>
       <tr>
         <th nzColumnKey="title">标题</th>

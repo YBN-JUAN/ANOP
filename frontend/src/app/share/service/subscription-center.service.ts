@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class SubscriptionCenterService {
-  private url = ApiUrlResource.subscribeGroupUrl;
+  private url = ApiUrlResource.SUB_GROUPS;
   private suffix = 'notifications';
 
   constructor(private http: HttpClient) {

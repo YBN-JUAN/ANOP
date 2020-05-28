@@ -8,7 +8,7 @@ import {ApiUrlResource} from '../../../../share/resource/api-url.resource';
 })
 export class GroupMessageService {
 
-  private url = ApiUrlResource.subscribeGroupUrl;
+  private url = ApiUrlResource.SUB_GROUPS;
   private suffix = 'notifications';
 
   constructor(private http: HttpClient) {

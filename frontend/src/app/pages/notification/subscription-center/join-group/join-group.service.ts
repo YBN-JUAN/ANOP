@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {ApiUrlResource} from '../../../../share/resource/api-url.resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JoinGroupService {
-  public url = 'http://localhost:8080/v1/pub/requests';
+  private url = ApiUrlResource.PUB_REQUESTS;
 
   constructor(private http: HttpClient) {
   }

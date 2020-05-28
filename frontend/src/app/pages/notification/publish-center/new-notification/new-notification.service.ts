@@ -13,7 +13,7 @@ export class NewNotificationService {
   }
 
   sendNotification(notification: NotificationModel) {
-    return this.http.post(`${ApiUrlResource.publishGroupUrl}/${notification.gid}/${this.suffix}`, {
+    return this.http.post(`${ApiUrlResource.PUBLISH_GROUP_URL}/${notification.gid}/${this.suffix}`, {
       title: notification.title,
       content: notification.content
     });

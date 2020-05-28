@@ -9,7 +9,7 @@ import {ApiUrlResource} from '../resource/api-url.resource';
   providedIn: 'root'
 })
 export class PublishCenterService {
-  private url = ApiUrlResource.publishGroupUrl;
+  private url = ApiUrlResource.PUB_GROUPS;
 
   getCreateGroups(orderBy: string, pageNum: number, pageSize: number) {
     const params = new HttpParams()
