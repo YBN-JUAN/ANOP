@@ -33,26 +33,23 @@ export class LoginComponent implements OnInit {
     if (!this.validateForm.valid) {
       this.openDirtyControl(this.validateForm);
     } else {
-      this.error = true;
+      this.error = false;
       this.app.authenticate<object>(this.validateForm.value, () => {
           this.router.navigateByUrl('/notification/subscription').then(r => {
             console.log(r)
           });
           this.userCenterService.storageUser();
-          this.error = false;
         },
         (result) => {
           this.error = true;
+          this.errMsg='用户名或者密码错误';
         });
-      if (this.error) {
-        this.errMsg="用户名或者密码错误";
-      }
     }
   }
 
   // 打开脏检验
   openDirtyControl(data) {
-    for (const i in data.controls) {
+    for (const i in Object.keys(data.controls)) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
@@ -60,7 +57,7 @@ export class LoginComponent implements OnInit {
 
   // 关闭脏校验
   closeDirtyControl(data) {
-    for (const i in data.controls) {
+    for (const i in Object.keys(data.controls)) {
       this.validateForm.controls[i].clearValidators();
       this.validateForm.controls[i].updateValueAndValidity();
     }
