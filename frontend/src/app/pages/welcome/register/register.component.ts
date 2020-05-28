@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Email, RegisterInfo} from '../../../share/model/register-info.model';
 import {RegisterService} from '../../../share/service/register.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -31,9 +32,9 @@ export class RegisterComponent implements OnInit {
 
   confirmValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
-      return { error: true, required: true };
+      return {error: true, required: true};
     } else if (control.value !== this.validateForm.controls.password.value) {
-      return { confirm: true, error: true };
+      return {confirm: true, error: true};
     }
     return {};
   };
@@ -49,9 +50,11 @@ export class RegisterComponent implements OnInit {
       info.username = this.validateForm.controls.username.value;
       console.log(info);
       this.service.register(info).subscribe(
-        data => {
+        () => {
           this.error = false;
-          this.route.navigateByUrl('/welcome/login');
+          this.route.navigateByUrl('/welcome/login').then(() => {
+            alert('注册成功，返回登录页面');
+          });
         },
         error => {
           this.error = true;
@@ -67,13 +70,13 @@ export class RegisterComponent implements OnInit {
     if (this.validateForm.controls.email.valid) {
       body.email = this.validateForm.controls.email.value;
       this.service.sendCode(body).subscribe(
-        data => {
+        () => {
           this.error = false;
           window.alert('验证码已经发送');
         },
-        error => {
+        (error: HttpErrorResponse) => {
           this.error = true;
-          this.errorMsg = '验证码发送失败';
+          this.errorMsg = '验证码发送失败，' + error.message;
           console.log(error);
         }
       )
