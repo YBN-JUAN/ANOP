@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {UserRequest} from '../model/user-request';
 import {ResponseModel} from '../model/response.model';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {ApiUrlResource} from '../resource/api-url.resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserRequestService {
-  public url = 'http://localhost:8080/v1/pub/requests';
+  public url = ApiUrlResource.PUB_REQUESTS;
 
   constructor(private http: HttpClient) {
   }
-  ;
 
   private static handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -40,7 +40,7 @@ export class UserRequestService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResponseModel<UserRequest>>(`${this.url}`, { params });
+    return this.http.get<ResponseModel<UserRequest>>(`${this.url}`, {params});
   }
 
   getManageRequest(
@@ -52,7 +52,7 @@ export class UserRequestService {
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get<ResponseModel<UserRequest>>(`${this.url}/manage`, { params });
+    return this.http.get<ResponseModel<UserRequest>>(`${this.url}/manage`, {params});
   }
 
   getUserRequest(
@@ -75,9 +75,8 @@ export class UserRequestService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post(`${this.url}/${id}`, body, httpOptions)
-      .pipe(
-        catchError(UserRequestService.handleError)
-      )
+    return this.http.post(`${this.url}/${id}`, body, httpOptions).pipe(
+      catchError(UserRequestService.handleError)
+    )
   }
 }

@@ -11,7 +11,7 @@ export class CreateGroupService {
   }
 
   createGroupPost(title, remark, permission) {
-    const url = ApiUrlResource.PUBLISH_GROUP_URL;
+    const url = ApiUrlResource.PUB_GROUPS;
     return this.http.post(`${url}`, {title, remark, permission});
   }
 }

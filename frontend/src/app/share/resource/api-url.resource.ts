@@ -43,10 +43,16 @@ export class ApiUrlResource {
     return this.URL_PREFIX + this._LOGIN;
   }
 
-  private static _profileUrl = '/v1/usr/profile'
+  private static _LOGOUT = '/logout'
 
-  static get profileUrl(): string {
-    return this.URL_PREFIX + this._profileUrl;
+  static get LOGOUT(): string {
+    return this.URL_PREFIX + this._LOGOUT;
+  }
+
+  private static _PROFILE = '/v1/usr/profile'
+
+  static get PROFILE(): string {
+    return this.URL_PREFIX + this._PROFILE;
   }
 
   private static _AVATAR = '/v1/usr/avatar'
@@ -59,6 +65,12 @@ export class ApiUrlResource {
 
   static get userUrl(): string {
     return this.URL_PREFIX + this._userUrl;
+  }
+
+  private static _VALIDATE_EMAIL = '/v1/usr/valid_email'
+
+  static get VALIDATE_EMAIL(): string {
+    return this.URL_PREFIX + this._VALIDATE_EMAIL;
   }
 }
 
