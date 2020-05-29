@@ -1,18 +1,16 @@
 <div class="content -fullscreen">
-    <nz-card class="card">
-      <p class="login-logo">
-        <strong>A N O P</strong>
-      </p>
-      <nz-tabset nzSize="large" [(nzSelectedIndex)]="selectIndex">
-        <nz-table nzTitle=""></nz-table>
-        <nz-tab [nzTitle]="item.title"
-                *ngFor="let item of tabs;"
-                (nzClick)='taoTo(item)'>
-        </nz-tab>
-        <nz-table nzTitle=""></nz-table>
-      </nz-tabset>
-      <router-outlet></router-outlet>
-    </nz-card>
+  <nz-card class="card">
+    <p class="login-logo">
+      <strong>A N O P</strong>
+    </p>
+    <nz-tabset [(nzSelectedIndex)]="selectIndex" nzSize="large">
+      <nz-tab (nzClick)='taoTo(item)'
+              *ngFor="let item of tabs;"
+              [nzTitle]="item.title">
+      </nz-tab>
+    </nz-tabset>
+    <router-outlet></router-outlet>
+  </nz-card>
 </div>
 
 
