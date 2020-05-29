@@ -1,51 +1,54 @@
-<div class="examine-button">
+<div class="content" nz-row>
+  <div nz-col nzSm="24" nzXs="18">
+    <nz-table
+      (nzQueryParams)="onQueryParamsChange($event)"
+      [nzData]="requestList"
+      [nzFrontPagination]="false"
+      [nzLoading]="loading"
+      [nzPageIndex]="pageIndex"
+      [nzPageSizeOptions]="[5]"
+      [nzPageSize]="pageSize"
+      [nzTotal]="total"
+      nzShowSizeChanger
+    >
+      <thead>
+      <tr>
+        <th [hidden]="true" [nzSortFn]="true" nzColumnKey="id">id</th>
+        <th nzColumnKey="username">用户</th>
+        <th nzColumnKey="groupName">申请通知群组名称</th>
+        <th nzColumnKey="requestTime">申请日期</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of requestList">
+        <td [hidden]="true">{{ data.id }}</td>
+        <td>{{ data.username }}</td>
+        <td>{{ data.groupName }}</td>
+        <td>{{ data.requestTime }}</td>
+        <td>
+          <i (click)="dealOne(data.id, 1)" class="check-icon" nz-icon nzTheme="outline"
+             nzType="check"></i>
+          &nbsp;&nbsp;
+          <i (click)="dealOne(data.id, 2)" class="close-icon" nz-icon nzTheme="outline"
+             nzType="close"></i>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<div class="button-group">
   <nz-row>
-    <nz-col nz-col="3" [nzOffset]="8">
-      <button nz-button nzType="primary" nzSize="large" (click)="dealAll(1)">全部同意</button>
+    <nz-col [nzOffset]="2">
+      <button (click)="dealAll(1)" nz-button nzType="primary">全部同意</button>
     </nz-col>
-    <nz-col nz-col="3" [nzOffset]="2">
-      <button nz-button nzType="primary" nzSize="large" (click)="dealAll(2)">全部拒绝</button>
+    <nz-col [nzOffset]="2">
+      <button (click)="dealAll(2)" nz-button nzType="primary">全部拒绝</button>
+    </nz-col>
+    <nz-col [nzOffset]="2">
+      <button (click)="changeList()" nz-button nzType="primary">{{buttonTitle}}</button>
     </nz-col>
   </nz-row>
 </div>
-<nz-row>
-  <nz-col nz-col="3" [nzOffset]="1">
-    <button nz-button nzType="primary" nzSize="large" (click)="changeList()">{{buttonTitle}}</button>
-  </nz-col>
-</nz-row>
-<nz-table
-  nzShowSizeChanger
-  [nzData]="requestList"
-  [nzFrontPagination]="false"
-  [nzLoading]="loading"
-  [nzTotal]="total"
-  [nzPageSizeOptions]="[5]"
-  [nzPageSize]="pageSize"
-  [nzPageIndex]="pageIndex"
-  (nzQueryParams)="onQueryParamsChange($event)"
->
-  <thead>
-  <tr>
-    <th nzColumnKey="id" [nzSortFn]="true" [hidden]="true">id</th>
-    <th nzColumnKey="username" >用户</th>
-    <th nzColumnKey="groupName" >申请通知群组名称</th>
-    <th nzColumnKey="requestTime" >申请日期</th>
-    <th>操作</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let data of requestList">
-    <td [hidden]="true">{{ data.id }}</td>
-    <td>{{ data.username }}</td>
-    <td>{{ data.groupName }}</td>
-    <td>{{ data.requestTime }}</td>
-    <td>
-      <i nz-icon nzType="check" nzTheme="outline" size="large" class="check-icon"
-         (click)="dealOne(data.id, 1)"></i>
-      &nbsp;&nbsp;
-      <i nz-icon nzType="close" nzTheme="outline" size="large" class="close-icon"
-         (click)="dealOne(data.id, 2)"></i>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>

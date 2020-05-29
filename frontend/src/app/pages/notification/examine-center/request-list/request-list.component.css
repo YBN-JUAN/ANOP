@@ -1,6 +1,5 @@
-.examine-button {
-  padding-top: 28px;
-  padding-bottom: 28px;
+.button-group {
+  /*padding: 20px 0;*/
 }
 
 .check-icon {
@@ -9,5 +8,11 @@
 
 .close-icon {
   color: red;
+}
+
+.content {
+  min-height: 55vh;
+  min-width: 60vw;
+  max-height: 71vh;
 }
 
