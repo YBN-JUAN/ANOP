@@ -50,16 +50,20 @@ export class LoginComponent implements OnInit {
   // 打开脏检验
   openDirtyControl(data) {
     for (const i in Object.keys(data.controls)) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+      if (data.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
     }
   }
 
   // 关闭脏校验
   closeDirtyControl(data) {
     for (const i in Object.keys(data.controls)) {
-      this.validateForm.controls[i].clearValidators();
-      this.validateForm.controls[i].updateValueAndValidity();
+      if (data.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].clearValidators();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
     }
   }
 }

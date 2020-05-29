@@ -41,14 +41,14 @@ export class EditProfileComponent implements OnInit {
     this.service.getConfig().subscribe(data => {
       this.user = data;
       if(data.avatarUrl) {
-        var avatar = data.avatarUrl;
+        const avatar = data.avatarUrl;
         if(avatar.startsWith('https://')) {
           this.user.avatarUrl = data.avatarUrl;
         }
         else {
           this.user.avatarUrl = 'http://' + data.avatarUrl;
         }
-      } 
+      }
     });
   }
 
@@ -102,7 +102,7 @@ export class EditProfileComponent implements OnInit {
   handleChange(info: { file: UploadFile }): void {
     let file : File;
     if(this.fileList){
-      if(this.fileList.length == 1){
+      if(this.fileList.length === 1){
         file = this.fileList[0];
       }
     }
@@ -125,8 +125,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   upload(img: File) {
-    let formData = new FormData();
-    formData.append("avatarimg", img);
+    const formData = new FormData();
+    formData.append('avatarimg', img);
     this.http
       .post(this.URL, formData, this.httpOptions)
       .subscribe(

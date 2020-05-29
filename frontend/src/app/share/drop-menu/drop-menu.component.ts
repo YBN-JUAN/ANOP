@@ -21,10 +21,10 @@ export class DropMenuComponent {
     private service: UserCenterService
   ){ }
 
-  ngOnInit(): void {
+  OnInit(): void {
     this.service.getConfig().subscribe(data => {
       this.user = data;
-      var avatar = data.avatarUrl;
+      const avatar = data.avatarUrl;
       if(avatar.startsWith('https://')) {
         this.user.avatarUrl = data.avatarUrl;
       }

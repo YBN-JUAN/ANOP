@@ -9,7 +9,7 @@ import { UserCenterService } from '../../../share/service/user-center.service';
 })
 export class EditPasswordComponent implements OnInit {
   public resetForm: FormGroup;
-  public errorInput: boolean = false;
+  public errorInput = false;
 
   constructor(
     public fb: FormBuilder,
@@ -25,27 +25,29 @@ export class EditPasswordComponent implements OnInit {
   }
 
   submitForm(): void {
-    for (const i in this.resetForm.controls) {
-      this.resetForm.controls[i].markAsDirty();
-      this.resetForm.controls[i].updateValueAndValidity();
+    for (const i in Object.keys(this.resetForm.controls)) {
+      if (this.resetForm.controls.hasOwnProperty(i)) {
+        this.resetForm.controls[i].markAsDirty();
+        this.resetForm.controls[i].updateValueAndValidity();
+      }
     }
     this.service.resetPassword(this.resetForm.controls.newPassword.value, this.resetForm.controls.oldPassword.value);
   }
 
   updateConfirmValidator(): void {
-    Promise.resolve().then(() => 
+    Promise.resolve().then(() =>
       this.resetForm.controls.checkPassword.updateValueAndValidity());
   }
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
-      return { 
-        required: true 
+      return {
+        required: true
       };
     }
     else if (control.value !== this.resetForm.controls.newPassword.value) {
-      return { 
-        confirm: true, error: true 
+      return {
+        confirm: true, error: true
       };
     }
     return {};

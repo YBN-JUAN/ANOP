@@ -13,7 +13,7 @@ export class UserCenterService {
   public ProfileURL = ApiUrlResource.PROFILE;
   public PasswordURL = ApiUrlResource.PASSWORD;
   public LogoutURL = ApiUrlResource.LOGOUT;
-  storageOk: boolean = false;
+  storageOk = false;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -42,34 +42,34 @@ export class UserCenterService {
   }
 
   updateUserInfo(nickName: string, avatarUrl: string) {
-    this.http.put(this.ProfileURL, {nickname: nickName, avatarUrl: avatarUrl}, this.httpOptions)
+    this.http.put(this.ProfileURL, {nickname: nickName, avatarUrl}, this.httpOptions)
       .subscribe(
         response => {
           console.log(response);
-          window.alert("修改成功！");
+          window.alert('修改成功！');
         },
         error => {
           console.log(error);
-          window.alert("修改失败！");
+          window.alert('修改失败！');
         }
       );
   }
 
   resetPassword(newPassword: string, oldPassword: string) {
     this.http.post(this.PasswordURL, {
-      newPassword: newPassword,
-      oldPassword: oldPassword
+      newPassword,
+      oldPassword
     }, this.httpOptions)
       .subscribe(
         data => {
           console.log(data);
-          window.alert("修改成功，请重新登录！");
+          window.alert('修改成功，请重新登录！');
           this.signOut();
           this.route.navigateByUrl('/welcome/login');
         },
         error => {
           console.log(error);
-          window.alert("原密码输入错误，请重新输入！");
+          window.alert('原密码输入错误，请重新输入！');
         }
       );
   }
