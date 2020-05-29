@@ -15,9 +15,9 @@
   <thead>
   <tr>
     <th nzColumnKey="id" [nzSortFn]="true">id</th>
-    <th nzColumnKey="title">名称</th>
+    <th nzColumnKey="title">群组名</th>
     <th nzColumnKey="remark">备注</th>
-    <th>消息</th>
+    <th>状态</th>
     <th>详情</th>
   </tr>
   </thead>
@@ -30,7 +30,7 @@
       <p>有未读消息</p>
     </td>
     <td>
-      <i nz-icon nzTheme="twotone" nzType="info-circle" size="large"
+      <i nz-icon nzTheme="twotone" nzType="info-circle"
          routerLink="/notification/subscription/group-detail/{{data.id}}"></i>
     </td>
   </tr>
