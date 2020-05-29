@@ -17,9 +17,10 @@ export class AllCateComponent implements OnInit {
   isOkLoading=false;
   newCate: string;
   isVisible2=false;
+  inputValue = '';
   constructor(private service: MemorandumService) { }
   loadDataFromServer(): void {
-    this.service.getCateList('ASC', this.pageIndex, this.pageSize).subscribe(data => {
+    this.service.getCateList('ASC', this.pageIndex, this.pageSize, this.inputValue).subscribe(data => {
         this.total = data.total;
         this.cateList = data.list;
         this.loading = false;

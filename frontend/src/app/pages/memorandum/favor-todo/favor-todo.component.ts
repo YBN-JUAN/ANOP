@@ -13,11 +13,12 @@ export class FavorTodoComponent implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   total: number;
+  inputValue = '';
   constructor(private service: MemorandumService) { }
 
   loadDataFromServer(): void {
     this.loading = true;
-    this.service.getTodoList(2,'ASC', this.pageIndex, this.pageSize).subscribe(data => {
+    this.service.getTodoList(2,'ASC', this.pageIndex, this.pageSize,this.inputValue).subscribe(data => {
         this.total = data.total;
         this.todoList = data.list;
         this.loading = false;

@@ -9,20 +9,22 @@ import {CateInfo} from '../model/cate-info';
 })
 export class MemorandumService {
 
-  public todoUrl = 'http://localhost:8080/v1/todos';
-  public cateUrl = 'http://localhost:8080/v1/categories';
+  public todoUrl = 'http://localhost:8080/v1/tod/todos';
+  public cateUrl = 'http://localhost:8080/v1/tod/categories';
 
   // 获取待办事项
   getTodoList(
     flag: number,
     orderBy: string,
     pageNum: number,
-    pageSize: number
+    pageSize: number,
+    title: string
   ) {
     const params = new HttpParams()
       .append('flag', `${flag}`)
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
+      .append('title', title)
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResponseModel<TodoInfo>>(`${this.todoUrl}`, { params });
   }
@@ -96,11 +98,13 @@ export class MemorandumService {
   getHistories(
     orderBy: string,
     pageNum: number,
-    pageSize: number
+    pageSize: number,
+    title: string
   ){
     const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
+      .append('title', title)
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResponseModel<TodoInfo>>(`${this.todoUrl}`+'/histories', { params });
   }
@@ -109,11 +113,13 @@ export class MemorandumService {
   getCateList(
     orderBy: string,
     pageNum: number,
-    pageSize: number
+    pageSize: number,
+    typeName: string
   ) {
     const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
+      .append('typeName', typeName)
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResponseModel<CateInfo>>(`${this.cateUrl}`, { params });
   }

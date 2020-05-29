@@ -14,10 +14,11 @@ export class AllTodoComponent implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   total: number;
+  inputValue = '';
   constructor(private service: MemorandumService) { }
 
   loadDataFromServer(): void {
-    this.service.getTodoList(0,'ASC', this.pageIndex, this.pageSize).subscribe(data => {
+    this.service.getTodoList(0,'ASC', this.pageIndex, this.pageSize, this.inputValue).subscribe(data => {
         this.total = data.total;
         this.todoList = data.list;
         this.loading = false;

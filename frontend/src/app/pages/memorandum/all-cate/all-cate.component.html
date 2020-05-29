@@ -2,6 +2,13 @@
   <div style="min-height: 5vh" *ngIf="loading"></div>
   <nz-spin [nzSpinning]="loading" [nzSize]="'large'">
 
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="margin-top: 0.1vw;margin-bottom: 0.1vw" *ngIf="!loading">
+      <input type="text" nz-input placeholder="在此处输入您想要搜索的分类名称" [(ngModel)]="inputValue"/>
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="loadDataFromServer()"><i nz-icon nzType="search"></i></button>
+    </ng-template>
+
     <app-cate-unit *ngFor="let item of cateList"
                    [id]="item.id"
                    [typeName]="item.typeName"
