@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserCenterService} from '../service/user-center.service';
-import { UserInfoModel } from '../model/user-info.model';
+import {UserInfoModel} from '../model/user-info.model';
 
 @Component({
   selector: 'app-drop-menu',
@@ -17,15 +17,14 @@ export class DropMenuComponent implements OnInit {
   };
   visible = false;
 
-  constructor(
-    private service: UserCenterService
-  ){ }
+  constructor(private service: UserCenterService) {
+  }
 
   ngOnInit(): void {
     this.service.getConfig().subscribe(data => {
       this.user = data;
       const avatar = data.avatarUrl;
-      if (avatar.startsWith('https://')) {
+      if (avatar.startsWith('https://') || avatar.startsWith('http://')) {
         this.user.avatarUrl = data.avatarUrl;
       } else {
         this.user.avatarUrl = 'http://' + data.avatarUrl;

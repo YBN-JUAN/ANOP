@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { UserCenterService } from '../../../share/service/user-center.service';
-import { UserInfoModel } from '../../../share/model/user-info.model';
-import { UploadFile } from 'ng-zorro-antd/upload';
-import { Observable, Observer } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NzMessageService } from 'ng-zorro-antd';
-import { ApiUrlResource } from '../../../share/resource/api-url.resource';
+import {Component, OnInit} from '@angular/core';
+import {UserCenterService} from '../../../share/service/user-center.service';
+import {UserInfoModel} from '../../../share/model/user-info.model';
+import {UploadFile} from 'ng-zorro-antd/upload';
+import {Observable, Observer} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {NzMessageService} from 'ng-zorro-antd';
+import {ApiUrlResource} from '../../../share/resource/api-url.resource';
 
 @Component({
   selector: 'app-edit-profile',
@@ -32,46 +32,47 @@ export class EditProfileComponent implements OnInit {
   };
 
   constructor(
-    public service:UserCenterService,
+    public service: UserCenterService,
     private msg: NzMessageService,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.service.getConfig().subscribe(data => {
       this.user = data;
-      if(data.avatarUrl) {
+      if (data.avatarUrl) {
         const avatar = data.avatarUrl;
-        if(avatar.startsWith('https://')) {
+        if (avatar.startsWith('https://') || avatar.startsWith('http://')) {
           this.user.avatarUrl = data.avatarUrl;
-        }
-        else {
+        } else {
           this.user.avatarUrl = 'http://' + data.avatarUrl;
+          console.log('err')
         }
       }
     });
   }
 
   onEditUsername() {
-    document.getElementById('show').style.display='none';
-    document.getElementById('hide').style.display='block';
+    document.getElementById('show').style.display = 'none';
+    document.getElementById('hide').style.display = 'block';
   }
 
   onSubmit() {
-    document.getElementById('hide').style.display='none';
-    document.getElementById('show').style.display='block';
+    document.getElementById('hide').style.display = 'none';
+    document.getElementById('show').style.display = 'block';
     this.service.updateUserInfo(this.user.nickName, this.user.avatarUrl);
   }
 
   onUrlUpload() {
-    document.getElementById('upload-show').style.display='none';
-    document.getElementById('upload-hide').style.display='block';
+    document.getElementById('upload-show').style.display = 'none';
+    document.getElementById('upload-hide').style.display = 'block';
   }
 
   getAvatarUrl() {
-    document.getElementById('upload-hide').style.display='none';
-    document.getElementById('upload-show').style.display='block';
-    if(this.avatarURL) {
+    document.getElementById('upload-hide').style.display = 'none';
+    document.getElementById('upload-show').style.display = 'block';
+    if (this.avatarURL) {
       this.service.updateUserInfo(this.user.nickName, this.avatarURL);
       this.service.getConfig().subscribe(data => {
         this.user.avatarUrl = data.avatarUrl;
@@ -100,9 +101,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   handleChange(info: { file: UploadFile }): void {
-    let file : File;
-    if(this.fileList){
-      if(this.fileList.length === 1){
+    let file: File;
+    if (this.fileList) {
+      if (this.fileList.length === 1) {
         file = this.fileList[0];
       }
     }
@@ -127,18 +128,16 @@ export class EditProfileComponent implements OnInit {
   upload(img: File) {
     const formData = new FormData();
     formData.append('avatarimg', img);
-    this.http
-      .post(this.URL, formData, this.httpOptions)
-      .subscribe(
-        file => {
-          console.log(file);
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          location.reload();
-        }
-      );
+    this.http.post(this.URL, formData, this.httpOptions).subscribe(
+      file => {
+        console.log(file);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        location.reload();
+      }
+    );
   }
 }
