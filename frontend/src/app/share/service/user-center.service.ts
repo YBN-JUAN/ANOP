@@ -3,13 +3,16 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserInfoModel} from '../model/user-info.model';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {ApiUrlResource} from '../resource/api-url.resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserCenterService {
   public user: UserInfoModel;
-  public url: string = 'http://localhost:8080/v1/usr/';
+  public ProfileURL = ApiUrlResource.PROFILE;
+  public PasswordURL = ApiUrlResource.PASSWORD;
+  public LogoutURL = ApiUrlResource.LOGOUT;
   storageOk: boolean = false;
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,14 +27,14 @@ export class UserCenterService {
   }
 
   getConfig(): Observable<UserInfoModel> {
-    return this.http.get<UserInfoModel>(this.url + "profile");
+    return this.http.get<UserInfoModel>(this.ProfileURL);
   }
 
   storageUser() {
     if (this.storageOk) {
       return;
     }
-    this.http.get<UserInfoModel>(this.url + "profile").subscribe(data => (
+    this.http.get<UserInfoModel>(this.ProfileURL).subscribe(data => (
       localStorage.setItem('userid', String(data.id)),
         localStorage.setItem('username', String(data.userName))
     ))
@@ -39,7 +42,7 @@ export class UserCenterService {
   }
 
   updateUserInfo(nickName: string, avatarUrl: string) {
-    this.http.put(this.url + "profile", {nickname: nickName, avatarUrl: avatarUrl}, this.httpOptions)
+    this.http.put(this.ProfileURL, {nickname: nickName, avatarUrl: avatarUrl}, this.httpOptions)
       .subscribe(
         response => {
           console.log(response);
@@ -53,7 +56,7 @@ export class UserCenterService {
   }
 
   resetPassword(newPassword: string, oldPassword: string) {
-    this.http.post(this.url + "account/password", {
+    this.http.post(this.PasswordURL, {
       newPassword: newPassword,
       oldPassword: oldPassword
     }, this.httpOptions)
@@ -62,6 +65,7 @@ export class UserCenterService {
           console.log(data);
           window.alert("修改成功，请重新登录！");
           this.signOut();
+          this.route.navigateByUrl('/welcome/login');
         },
         error => {
           console.log(error);
@@ -71,7 +75,7 @@ export class UserCenterService {
   }
 
   signOut() {
-    this.http.post("http://localhost:8080/logout", {}, this.httpOptions)
+    this.http.post(this.LogoutURL, {}, this.httpOptions)
       .subscribe(response => {
         console.log(response);
         localStorage.removeItem('userid');

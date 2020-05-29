@@ -55,6 +55,12 @@ export class ApiUrlResource {
     return this.URL_PREFIX + this._PROFILE;
   }
 
+  private static _PASSWORD = '/v1/usr/account/password';
+
+  static get PASSWORD(): string {
+    return this.URL_PREFIX + this._PASSWORD;
+  }
+
   private static _AVATAR = '/v1/usr/avatar'
 
   static get AVATAR(): string {

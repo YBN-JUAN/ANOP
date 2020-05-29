@@ -5,6 +5,7 @@ import { UploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
+import { ApiUrlResource } from '../../../share/resource/api-url.resource';
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,6 +21,7 @@ export class EditProfileComponent implements OnInit {
     creationTime: '',
     avatarUrl: '',
   };
+  public URL = ApiUrlResource.AVATAR;
   public avatarURL = '';
   public loading = false;
   public fileList = [];
@@ -38,13 +40,15 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.service.getConfig().subscribe(data => {
       this.user = data;
-      var avatar = data.avatarUrl;
-      if(avatar.startsWith('https://')) {
-        this.user.avatarUrl = data.avatarUrl;
-      }
-      else {
-        this.user.avatarUrl = 'http://' + data.avatarUrl;
-      }
+      if(data.avatarUrl) {
+        var avatar = data.avatarUrl;
+        if(avatar.startsWith('https://')) {
+          this.user.avatarUrl = data.avatarUrl;
+        }
+        else {
+          this.user.avatarUrl = 'http://' + data.avatarUrl;
+        }
+      } 
     });
   }
 
@@ -96,8 +100,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   handleChange(info: { file: UploadFile }): void {
-    let file = this.fileList[0]
-    this.upload(file);
+    let file : File;
+    if(this.fileList){
+      if(this.fileList.length == 1){
+        file = this.fileList[0];
+      }
+    }
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
@@ -113,13 +121,14 @@ export class EditProfileComponent implements OnInit {
         this.loading = false;
         break;
     }
+    this.upload(file);
   }
 
   upload(img: File) {
     let formData = new FormData();
     formData.append("avatarimg", img);
     this.http
-      .post("http://localhost:8080/v1/usr/avatar", formData, this.httpOptions)
+      .post(this.URL, formData, this.httpOptions)
       .subscribe(
         file => {
           console.log(file);

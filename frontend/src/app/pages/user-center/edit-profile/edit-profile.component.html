@@ -28,7 +28,7 @@
     <div nz-col nzSpan="8" class="row">
       <nz-badge nzColor="cyan"></nz-badge>
       姓名
-      <i nz-icon nz-tooltip nzTitle="长度在1-31之间"
+      <i nz-icon nz-tooltip nzTooltipTitle="长度在1-31之间"
         nzType="question-circle" nzTheme="outline"></i>
     </div>
     <div nz-col nzSpan="16" class="row" id="show">
@@ -67,7 +67,7 @@
 <div class="right-content">
   <nz-upload 
     class="avatar-uploader"
-    nzAction= "http://localhost:8080/v1/usr/avatar"
+    [(nzAction)]= "URL"
     nzName="avatarimg"
     nzListType="picture-card"
     [(nzFileList)]="fileList"
@@ -84,7 +84,7 @@
 
   <div class="name-header">{{user.nickName}}</div>
   <div class="upload-button" id="upload-show">
-    <button nz-button nz-popover
+    <button nz-button nz-popconfirm
     nzType="dashed"
     nzPopoverTitle="头像设置"
     nzPopoverContent="文件:点击头像/URL:点击按钮" (click)="onUrlUpload()">

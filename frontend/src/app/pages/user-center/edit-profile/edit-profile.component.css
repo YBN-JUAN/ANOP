@@ -58,7 +58,7 @@ input {
 }
 
 :host ::ng-deep .avatar-uploader > .ant-upload {
-  margin: 4.4vw 3vw 0 3vw;
+  margin: 4.4vw 3vw auto;
   border-radius: 50%;
 }
 
