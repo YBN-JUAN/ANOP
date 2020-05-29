@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Email, RegisterInfo} from '../model/register-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
+import {JsonResult} from '../model/json-result';
+import {finalize} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,22 @@ export class RegisterService {
     return this.http.post(this.validateUrl, email, this.httpOptions);
   }
 
-  register(info: RegisterInfo) {
-    return this.http.post(this.signUpUrl, info, this.httpOptions);
+  register<T>(info: RegisterInfo, successCallback?: () => void,
+                  errorCallback?: (result: JsonResult<T>) => void) {
+    if (!info)
+      return;
+    this.http.options(this.signUpUrl).pipe(
+      finalize(() => {
+        this.http.post<RegisterInfo>(this.signUpUrl, info, this.httpOptions)
+          .subscribe(response => {
+            console.log("register ok");
+            return successCallback && successCallback();
+          },
+          (errorResponse: HttpErrorResponse) => {
+            console.log(errorResponse);
+            return errorCallback && errorCallback(errorResponse.error);
+          });
+      })
+    ).subscribe();
   }
 }

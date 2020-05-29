@@ -49,19 +49,15 @@ export class RegisterComponent implements OnInit {
       info.password = this.validateForm.controls.password.value;
       info.username = this.validateForm.controls.username.value;
       console.log(info);
-      this.service.register(info).subscribe(
-        () => {
-          this.error = false;
-          this.route.navigateByUrl('/welcome/login').then(() => {
-            alert('注册成功，返回登录页面');
-          });
-        },
-        error => {
-          this.error = true;
-          this.errorMsg = '注册失败';
-          console.log(error);
-        }
-      )
+      this.service.register(info, ()=> {
+        this.error = false;
+        this.route.navigateByUrl('/welcome/login').then(() => {
+          alert('注册成功，返回登录页面');
+        });
+      }, (result) => {
+        this.error = true;
+        this.errorMsg = '注册失败';
+      });
     }
   }
 
@@ -76,7 +72,7 @@ export class RegisterComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           this.error = true;
-          this.errorMsg = '验证码发送失败，' + error.message;
+          this.errorMsg = error.error.message;
           console.log(error);
         }
       )
@@ -88,8 +84,7 @@ export class RegisterComponent implements OnInit {
 
   // 打开脏检验
   openDirtyControl(data) {
-    // tslint:disable-next-line:forin
-    for (const i in data.controls) {
+    for (const i in Object.keys(data.controls)) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
@@ -97,8 +92,7 @@ export class RegisterComponent implements OnInit {
 
   // 关闭脏校验
   closeDirtyControl(data) {
-    // tslint:disable-next-line:forin
-    for (const i in data.controls) {
+    for (const i in Object.keys(data.controls)) {
       this.validateForm.controls[i].clearValidators();
       this.validateForm.controls[i].updateValueAndValidity();
     }
