@@ -77,7 +77,8 @@ export class RequestListComponent implements OnInit {
               console.log(response)
             });
         }
-        this.ngOnInit();
+        // this.ngOnInit();
+        location.reload();
       },
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel')
@@ -100,7 +101,8 @@ export class RequestListComponent implements OnInit {
           response => {
             console.log(response)
           });
-        this.ngOnInit();
+        location.reload();  // 刷新页面
+        this.loadDataFromServer(this.pageIndex, this.pageSize);
       },
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel')
