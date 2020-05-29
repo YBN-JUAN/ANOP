@@ -1,6 +1,7 @@
 <div nz-row>
   <div class="-left-content" nz-col nzSpan="17">
-    <nz-table (nzQueryParams)="onQueryParamsChange($event)" [nzData]="nTable.data" [nzLoading]="nTable.loading"
+    <nz-table (nzQueryParams)="onNotificationQueryParamsChange($event)" [nzData]="nTable.data"
+              [nzLoading]="nTable.loading"
               [nzPageIndex]="nTable.pageIndex"
               [nzPageSize]="nTable.pageSize"
               [nzScroll]="{y:'70vh'}" [nzTotal]="nTable.total" nzShowSizeChanger>
@@ -28,7 +29,7 @@
     </nz-table>
   </div>
 
-  <div class="-right-content" nz-col nzSpan="7">
+  <div class="-right-content" nz-col nzSpan="6">
     <nz-collapse>
       <nz-collapse-panel nzHeader="群组成员列表">
         <nz-list nzBordered nzItemLayout="horizontal" nzSize="small">
@@ -40,12 +41,8 @@
         </nz-list>
       </nz-collapse-panel>
     </nz-collapse>
+    <button (click)="openDrawer()" nz-button>群组详情</button>
   </div>
-</div>
-<div nz-row>
-  <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary">取消订阅</button>
-  <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回</button>
-  <button (click)="openDrawer()" nz-button>群组详情</button>
 </div>
 
 <nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="群组信息">
@@ -68,5 +65,7 @@
     <div class="detail-mark">
       {{ group.remark }}
     </div>
+    <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary">取消订阅</button>
+    <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回</button>
   </div>
 </nz-drawer>
