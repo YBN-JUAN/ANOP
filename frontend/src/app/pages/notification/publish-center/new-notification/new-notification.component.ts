@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationModel} from '../../../../share/model/notification.model';
 import {NewNotificationService} from './new-notification.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-new-notification',
@@ -12,7 +13,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class NewNotificationComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: NewNotificationService) {
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: NewNotificationService,
+              private msg: NzMessageService) {
     this.newNotificationForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
@@ -63,14 +65,13 @@ export class NewNotificationComponent implements OnInit {
     const content = this.newNotificationForm.controls.content.value;
 
     this.service.sendNotification(new NotificationModel(title, content, this.gid)).subscribe(
-      (response) => {
-        console.log(response);
-        alert('发布成功。');
+      () => {
+        this.msg.success('发布成功。')
         this.newNotificationForm.reset();
       }, (error: HttpErrorResponse) => {
+        this.msg.error(error.message);
         console.log(error);
       }
     );
-    console.log(new NotificationModel(title, content, this.gid));
   }
 }
