@@ -84,10 +84,11 @@
 
   <div class="name-header">{{user.nickName}}</div>
   <div class="upload-button" id="upload-show">
-    <button nz-button nz-popconfirm
+    <button nz-button nz-popover
     nzType="dashed"
     nzPopoverTitle="头像设置"
-    nzPopoverContent="文件:点击头像/URL:点击按钮" (click)="onUrlUpload()">
+    nzPopoverContent="文件:点击头像/URL:点击按钮"
+    (click)="onUrlUpload()">
     <i nz-icon nzType="upload">
     </i><span>上传头像</span>
     </button>

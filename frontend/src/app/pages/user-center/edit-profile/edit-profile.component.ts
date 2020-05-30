@@ -47,7 +47,6 @@ export class EditProfileComponent implements OnInit {
           this.user.avatarUrl = data.avatarUrl;
         } else {
           this.user.avatarUrl = 'http://' + data.avatarUrl;
-          console.log('err')
         }
       }
     });
@@ -96,7 +95,7 @@ export class EditProfileComponent implements OnInit {
 
   private getBase64(img: File, callback: (img: string) => void): void {
     const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result!.toString()));
+    reader.addEventListener('load', () => callback(reader.result.toString()));
     reader.readAsDataURL(img);
   }
 
@@ -112,7 +111,7 @@ export class EditProfileComponent implements OnInit {
         this.loading = true;
         break;
       case 'done':
-        this.getBase64(info.file!.originFileObj!, (img: string) => {
+        this.getBase64(info.file.originFileObj, (img: string) => {
           this.loading = false;
           this.user.avatarUrl = img;
         });
@@ -122,22 +121,15 @@ export class EditProfileComponent implements OnInit {
         this.loading = false;
         break;
     }
-    this.upload(file);
+    this.upload(file).subscribe(data => {
+      this.user.avatarUrl = data.toString();
+    });
+    location.reload();
   }
 
   upload(img: File) {
     const formData = new FormData();
     formData.append('avatarimg', img);
-    this.http.post(this.URL, formData, this.httpOptions).subscribe(
-      file => {
-        console.log(file);
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        location.reload();
-      }
-    );
+    return this.http.post(this.URL, formData, this.httpOptions);
   }
 }
