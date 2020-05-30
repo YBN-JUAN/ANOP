@@ -1,4 +1,4 @@
-<nz-card style="width:100%;min-height: 6vw" (dblclick)="editTodoComponent.change()">
+<nz-card style="width:100%;min-height: 5vw;" (dblclick)="editTodoComponent.change()">
 <!-- 按钮-->
   <div nz-row [nzGutter]="16">
     <div nz-col class="gutter-row" [nzSpan]="2">
@@ -47,13 +47,13 @@
     </div></div>
 
 <!--收藏块-->
-    <div nz-col class="gutter-row" [nzSpan]="3"><div class="inner-box" style="margin: 10% auto auto" (click)="changeStar()">
+    <div nz-col class="gutter-row" [nzSpan]="3"><div class="inner-box" style="margin: 2.5% auto auto" (click)="changeStar()">
       <i nz-icon [nzType]="'star'" *ngIf="!isStar"></i>
       <i nz-icon [nzType]="'star'" [nzTheme]="'fill'" *ngIf="isStar" class="star-icon"></i>
     </div></div>
 
     <!--重要块-->
-    <div nz-col class="gutter-row" [nzSpan]="3"><div class="inner-box" style="margin: 10% auto auto;" (click)="changeHeart()">
+    <div nz-col class="gutter-row" [nzSpan]="3"><div class="inner-box" style="margin: 2.5% auto auto;" (click)="changeHeart()">
       <i nz-icon [nzType]="'heart'" *ngIf="!isHeart"></i>
       <i nz-icon [nzType]="'heart'" [nzTheme]="'fill'" *ngIf="isHeart" class="heart-icon"></i>
     </div></div>
