@@ -1,12 +1,22 @@
 <div>
   <div style="min-height: 5vh" *ngIf="loading"></div>
   <nz-spin [nzSpinning]="loading" [nzSize]="'large'">
-    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="margin-top: 0.1vw;margin-bottom: 0.1vw" *ngIf="!loading">
-      <input type="text" nz-input placeholder="在此处输入您想要搜索的事项名称" [(ngModel)]="inputValue"/>
-    </nz-input-group>
-    <ng-template #suffixIconButton>
-      <button nz-button nzType="primary" nzSearch (click)="loadDataFromServer()"><i nz-icon nzType="search"></i></button>
-    </ng-template>
+    <div nz-row *ngIf="!loading">
+      <div nz-col [nzSpan]="18">
+        <nz-input-group nzSearch [nzSuffix]="suffixIconSearch"  style="margin-top: 0.1vw;margin-bottom: 0.1vw;">
+          <input type="text" nz-input placeholder="在此处输入您想要搜索的事项名称" [(ngModel)]="inputValue"/>
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''"></i>
+          <i nz-icon nzType="search" (click)="loadDataFromServer()"></i>
+        </ng-template>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div style="height: 2vw;line-height: 2vw;font-size: 1.2rem">
+          <span style="margin: 1.6vw auto auto 7vw ">共有 </span><span style="font-weight: bolder">{{total}}</span><span> 个结果</span>
+        </div>
+      </div>
+    </div>
     <app-todo-item *ngFor="let item of todoList"
                    [id]="item.id"
                    [userId]="item.userId"
