@@ -4,13 +4,14 @@
               [nzLoading]="nTable.loading"
               [nzPageIndex]="nTable.pageIndex"
               [nzPageSize]="nTable.pageSize"
-              [nzScroll]="{y:'61vh'}" [nzTotal]="nTable.total" nzShowSizeChanger>
+              [nzTotal]="nTable.total" nzShowSizeChanger>
       <thead>
       <tr>
         <th nzColumnKey="title">标题</th>
         <th nzColumnKey="nickname">发布人</th>
         <th nzColumnKey="creationDate">发布日期</th>
         <th>详情</th>
+        <th>操作</th>
       </tr>
       </thead>
       <tbody>
@@ -18,15 +19,24 @@
         <tr>
           <td>{{item.title}}</td>
           <td>{{item.nickname}}</td>
-          <td>{{item.creationDate}}</td>
+          <td>{{formattedDate(item.creationDate)}}</td>
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
+          <td>
+            <button (nzOnConfirm)="onReadStatusChange(item.isRead,item.id)" [disabled]="item.isRead === 1"
+                    class="read-mark" nz-button
+                    nz-popconfirm="确定要标记为已读？" nzPopconfirmPlacement="bottom"
+                    nzSize="small">标记为已读
+            </button>
+          </td>
         </tr>
         <tr [nzExpand]="expandSet.has(item.id)">
-          <td>{{item.content}}</td>
+          <td>正文：{{item.content}}</td>
         </tr>
       </ng-container>
       </tbody>
+
     </nz-table>
+    <button [nzLoading]="nTable.loading" nz-button nzType="link">全部已读</button>
   </div>
   <div class="divider" nz-col nzSpan="1"></div>
   <div class="-right-content" nz-col nzSpan="5">
@@ -40,6 +50,18 @@
         <nz-list-empty *ngIf="listOfUsers.length === 0"></nz-list-empty>
       </nz-list>
     </div>
+    <!--    <div>-->
+    <!--      <cdk-virtual-scroll-viewport itemSize="73">-->
+    <!--        <nz-list>-->
+    <!--          <nz-list-item *cdkVirtualFor="let item of dataSource">-->
+    <!--            <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>-->
+    <!--            <nz-list-item-meta [nzAvatar]="item.avatarUrl" [nzTitle]="item.nickname"></nz-list-item-meta>-->
+    <!--            <i *ngIf="item.isAdmin" nz-icon nzTheme="outline" nzType="user"></i>-->
+    <!--          </nz-list-item>-->
+    <!--        </nz-list>-->
+    <!--      </cdk-virtual-scroll-viewport>-->
+    <!--    </div>-->
+
     <div style="height: 10%">
       <button (click)="openDrawer()" nz-button>群组资料</button>
     </div>
@@ -80,5 +102,7 @@
     <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary">取消订阅</button>
     <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回</button>
   </div>
+
+
 </nz-drawer>
 

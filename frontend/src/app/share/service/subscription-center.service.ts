@@ -41,4 +41,8 @@ export class SubscriptionCenterService {
       .append('pageSize', `${pageSize}`);
     return this.http.get(`${this.url}/${gid}/${this.suffix}`, {params});
   }
+
+  setIsRead(gid: number, nid: number) {
+    return this.http.post(`${this.url}/${gid}/notifications/${nid}/readers`, {});
+  }
 }

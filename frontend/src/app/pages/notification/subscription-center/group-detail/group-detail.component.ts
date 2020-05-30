@@ -2,17 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
-import {NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
 import {GroupUser} from '../../../../share/model/user-info.model';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
 import {NotificationInfoModel} from '../../../../share/model/notification-info.model';
 import {TableParamsModel} from '../../../../share/model/table-params.model';
 import {HttpErrorResponse} from '@angular/common/http';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
-  styleUrls: ['./group-detail.component.css']
+  styleUrls: ['./group-detail.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class GroupDetailComponent implements OnInit {
@@ -21,16 +23,19 @@ export class GroupDetailComponent implements OnInit {
   total = 1;
   listOfUsers: GroupUser[] = [];
   loading = true;
-  pageSize = 3;
+  pageSize = 10;
   pageIndex = 1;
   visible = false;
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
   expandSet = new Set<number>();
 
+  // dataSource: MyDataSourceService;
+
   constructor(private route: ActivatedRoute,
               private pubService: PublishCenterService,
               private subService: SubscriptionCenterService,
-              private modal: NzModalService) {
+              private modal: NzModalService,
+              private msg: NzMessageService) {
   }
 
   ngOnInit(): void {
@@ -41,9 +46,11 @@ export class GroupDetailComponent implements OnInit {
     this.group.title = '...';
     this.group.creationDate = '...';
     this.group.avatarUrl = '...';
+    // this.dataSource = new MyDataSourceService(this.http, ApiUrlResource.PUB_GROUPS, this.group.id)
     this.getGroupInfo(id);
     this.loadMemberDataFromServer(this.pageIndex, this.pageSize);
     this.loadNotificationDataFromServer(this.nTable.pageIndex, this.nTable.pageSize);
+    // console.log(this.dataSource)
     // this.getNotifications(id);
   }
 
@@ -60,7 +67,6 @@ export class GroupDetailComponent implements OnInit {
       data => {
         this.group = data;
         console.log(data)
-        console.log(this.group);
       },
       error => {
         console.log(error);
@@ -90,7 +96,6 @@ export class GroupDetailComponent implements OnInit {
         this.loading = false;
         this.total = data.total;
         this.listOfUsers = data.list;
-        console.log(this.listOfUsers);
         console.log(data);
       }, error => {
         console.log(error);
@@ -131,5 +136,23 @@ export class GroupDetailComponent implements OnInit {
 
   closeDrawer(): void {
     this.visible = false;
+  }
+
+  onReadStatusChange(isRead: number, nid: number) {
+    console.log(nid)
+    // this.msg.success('操作成功');
+    this.subService.setIsRead(this.group.id, nid).subscribe(
+      r => {
+        console.log(r)
+        this.msg.success('操作成功');
+        location.reload();
+      }, (error: HttpErrorResponse) => {
+        this.msg.error(error.message);
+      }
+    );
+  }
+
+  formattedDate(creationDate: string): string {
+    return formatDate(creationDate, 'yyyy年MM月dd日 HH:mm', 'zh-CN');
   }
 }

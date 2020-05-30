@@ -28,3 +28,7 @@
   max-height: 90vh;
   /*border: #55e7fc solid 1px;*/
 }
+
+.read-mark {
+  border-radius: unset;
+}
