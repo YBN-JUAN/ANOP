@@ -3,7 +3,6 @@ import {UserCenterService} from '../../../share/service/user-center.service';
 import {UserInfoModel} from '../../../share/model/user-info.model';
 import {UploadFile} from 'ng-zorro-antd/upload';
 import {Observable, Observer} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ApiUrlResource} from '../../../share/resource/api-url.resource';
 
@@ -25,16 +24,10 @@ export class EditProfileComponent implements OnInit {
   public avatarURL = '';
   public loading = false;
   public fileList = [];
-  public httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': undefined
-    })
-  };
 
   constructor(
     public service: UserCenterService,
     private msg: NzMessageService,
-    private http: HttpClient
   ) {
   }
 
@@ -60,7 +53,17 @@ export class EditProfileComponent implements OnInit {
   onSubmit() {
     document.getElementById('hide').style.display = 'none';
     document.getElementById('show').style.display = 'block';
-    this.service.updateUserInfo(this.user.nickName, this.user.avatarUrl);
+    this.service.updateUserInfo(this.user.nickName, this.user.avatarUrl)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.msg.info('修改成功！');
+      },
+      error => {
+        console.log(error);
+        this.msg.info('修改失败！');
+      }
+    );
   }
 
   onUrlUpload() {
@@ -72,11 +75,18 @@ export class EditProfileComponent implements OnInit {
     document.getElementById('upload-hide').style.display = 'none';
     document.getElementById('upload-show').style.display = 'block';
     if (this.avatarURL) {
-      this.service.updateUserInfo(this.user.nickName, this.avatarURL);
-      this.service.getConfig().subscribe(data => {
-        this.user.avatarUrl = data.avatarUrl;
-      });
-      location.reload();
+      this.service.updateUserInfo(this.user.nickName, this.avatarURL)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.msg.info('修改成功！');
+          location.reload();
+        },
+        error => {
+          console.log(error);
+          this.msg.info('修改失败！');
+        }
+      );
     }
   }
 
@@ -108,6 +118,7 @@ export class EditProfileComponent implements OnInit {
     }
     switch (info.file.status) {
       case 'uploading':
+        this.msg.loading('上传中...');
         this.loading = true;
         break;
       case 'done':
@@ -116,20 +127,13 @@ export class EditProfileComponent implements OnInit {
           this.user.avatarUrl = img;
         });
         break;
-      case 'error':
-        this.msg.error('上传失败！');
-        this.loading = false;
-        break;
     }
-    this.upload(file).subscribe(data => {
-      this.user.avatarUrl = data.toString();
-    });
-    location.reload();
+    this.upload(file);  
   }
-
-  upload(img: File) {
+  
+  upload(file: File) {
     const formData = new FormData();
-    formData.append('avatarimg', img);
-    return this.http.post(this.URL, formData, this.httpOptions);
+    formData.append('avatarimg', file);
+    this.service.uploadAvatar(formData);location.reload();
   }
 }

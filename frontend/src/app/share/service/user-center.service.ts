@@ -13,10 +13,16 @@ export class UserCenterService {
   public ProfileURL = ApiUrlResource.PROFILE;
   public PasswordURL = ApiUrlResource.PASSWORD;
   public LogoutURL = ApiUrlResource.LOGOUT;
+  public AvatarURL = ApiUrlResource.AVATAR;
   storageOk = false;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
+    })
+  };
+  avatarHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': undefined
     })
   };
 
@@ -42,36 +48,15 @@ export class UserCenterService {
   }
 
   updateUserInfo(nickName: string, avatarUrl: string) {
-    this.http.put(this.ProfileURL, {nickname: nickName, avatarUrl}, this.httpOptions)
-      .subscribe(
-        response => {
-          console.log(response);
-          window.alert('修改成功！');
-        },
-        error => {
-          console.log(error);
-          window.alert('修改失败！');
-        }
-      );
+    return this.http.put(this.ProfileURL, {nickname: nickName, avatarUrl}, this.httpOptions);
   }
 
   resetPassword(newPassword: string, oldPassword: string) {
-    this.http.post(this.PasswordURL, {
-      newPassword,
-      oldPassword
-    }, this.httpOptions)
-      .subscribe(
-        data => {
-          console.log(data);
-          window.alert('修改成功，请重新登录！');
-          this.signOut();
-          this.route.navigateByUrl('/welcome/login');
-        },
-        error => {
-          console.log(error);
-          window.alert('原密码输入错误，请重新输入！');
-        }
-      );
+    return this.http.post(this.PasswordURL, { newPassword, oldPassword }, this.httpOptions);
+  }
+
+  uploadAvatar(formData: FormData) {
+    return this.http.post(this.AvatarURL, formData, this.avatarHttpOptions);
   }
 
   signOut() {
@@ -80,7 +65,7 @@ export class UserCenterService {
         console.log(response);
         localStorage.removeItem('userid');
         localStorage.removeItem('username');
-        this.route.navigateByUrl('/welcome/login');
       });
+    this.route.navigateByUrl('/welcome/login');
   }
 }
