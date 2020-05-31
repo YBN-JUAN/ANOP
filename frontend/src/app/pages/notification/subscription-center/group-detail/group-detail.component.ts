@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {SubscriptionCenterService} from '../../../../share/service/subscription-center.service';
 import {NzMessageService, NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
@@ -8,7 +8,6 @@ import {PublishCenterService} from '../../../../share/service/publish-center.ser
 import {NotificationInfoModel} from '../../../../share/model/notification-info.model';
 import {TableParamsModel} from '../../../../share/model/table-params.model';
 import {HttpErrorResponse} from '@angular/common/http';
-import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-group-detail',
@@ -25,18 +24,17 @@ export class GroupDetailComponent implements OnInit {
   expandSet = new Set<number>();
   isAuto = false;
 
-  // dataSource: MyDataSourceService;
-
-  constructor(private route: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
               private pubService: PublishCenterService,
               private subService: SubscriptionCenterService,
               private modal: NzModalService,
-              private msg: NzMessageService) {
+              private msg: NzMessageService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.group = new GroupInfoModel();
-    const id = toNumber(this.route.snapshot.paramMap.get('id'));
+    const id = toNumber(this.activatedRoute.snapshot.paramMap.get('id'));
     this.group.remark = '';
     this.group.id = id;
     this.group.title = '...';
@@ -70,16 +68,26 @@ export class GroupDetailComponent implements OnInit {
 
   quitGroup() {
     this.modal.confirm({
-      nzTitle: '你确定要退出这个群组吗?',
-      // nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzTitle: '您确定要退出这个群组吗?',
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: () => {
-        this.subService.quitGroup(this.group.id);
-        this.ngOnInit();
+        this.subService.quitGroup(this.group.id).subscribe(
+          () => {
+            this.router.navigateByUrl('/notification/subscription/group-list').then(
+              () => {
+                this.msg.success('您已退出群\"' + this.group.title + '\"');
+              }
+            )
+          }, (error: HttpErrorResponse) => {
+            this.msg.error(error.message);
+          }
+        );
       },
       nzCancelText: '取消',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => {
+        console.log('Cancel')
+      }
     });
   }
 
@@ -99,7 +107,7 @@ export class GroupDetailComponent implements OnInit {
 
   loadNotificationDataFromServer(pageIndex: number, pageSize: number): void {
     this.nTable.loading = true;
-    this.subService.getGroupMessage(this.group.id, 'creationDate desc', pageIndex, pageSize).subscribe(
+    this.subService.getGroupNotifications(this.group.id, 'creationDate desc', pageIndex, pageSize).subscribe(
       data => {
         this.nTable.loading = false;
         this.nTable.total = data.total;
@@ -133,8 +141,6 @@ export class GroupDetailComponent implements OnInit {
   }
 
   onReadStatusChange(isRead: number, nid: number) {
-    console.log(nid)
-    // this.msg.success('操作成功');
     this.subService.setIsRead(this.group.id, nid).subscribe(
       r => {
         console.log(r)
@@ -146,26 +152,23 @@ export class GroupDetailComponent implements OnInit {
     );
   }
 
-  formattedDate(creationDate: string): string {
-    return formatDate(creationDate, 'yyyy年MM月dd日 HH:mm', 'zh-CN');
-  }
-
   getAuto() {
     this.subService.getAuto(this.group.id).subscribe(
-      data => {
-        this.isAuto = (data.isAuto === 1);
-      }, error => {
-        console.log(error);
+      result => {
+        console.log(result)
+        this.isAuto = (result.isAuto === 1);
+      }, (error: HttpErrorResponse) => {
+        this.msg.error(error.message);
       }
     )
   }
 
   setAuto(isAuto: boolean) {
     this.subService.setAuto(this.group.id, isAuto === true ? 1 : 0).subscribe(
-      r => {
-        console.log(r)
-      }, error => {
-        console.log(error)
+      () => {
+        this.msg.success('修改成功', {nzDuration: 2000});
+      }, (error: HttpErrorResponse) => {
+        this.msg.error(error.message);
       }
     );
   }

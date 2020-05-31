@@ -25,14 +25,7 @@ export class SubscriptionCenterService {
   }
 
   quitGroup(id: number) {
-    this.http.delete(`${this.url}/${id}`).subscribe(
-      data => {
-        console.log('quit group ok', data);
-      },
-      error => {
-        console.log('quit group fail', error);
-      }
-    )
+    return this.http.delete(`${this.url}/${id}`);
   }
 
   getGroupNotifications(gid: number, orderBy: string, pageNum: number, pageSize: number):

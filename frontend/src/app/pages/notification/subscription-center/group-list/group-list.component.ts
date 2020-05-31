@@ -23,7 +23,6 @@ export class GroupListComponent implements OnInit {
         this.total = data.total;
         this.listOfGroups = data.list;
         console.log(this.listOfGroups);
-        console.log(data);
       }, error => {
         console.log(error);
       }

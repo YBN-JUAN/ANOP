@@ -22,7 +22,7 @@
         <tr>
           <td>{{item.title}}</td>
           <td>{{item.nickname}}</td>
-          <td>{{formattedDate(item.creationDate)}}</td>
+          <td>{{item.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
           <td>
             <button (nzOnConfirm)="onReadStatusChange(item.isRead,item.id)" [disabled]="item.isRead === 1"
@@ -37,7 +37,6 @@
         </tr>
       </ng-container>
       </tbody>
-
     </nz-table>
     <button [nzLoading]="nTable.loading" nz-button nzType="link">全部已读</button>
   </div>
@@ -64,44 +63,26 @@
     </div>
   </div>
 </div>
-
 <nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="群组资料"
            nzWidth="20%">
   <div class="group-info">
-
     <nz-list nzItemLayout="vertical">
       <nz-list-item>
         <nz-list-item-meta>
           <nz-list-item-meta-avatar [nzSrc]="group.avatarUrl"></nz-list-item-meta-avatar>
           <nz-list-item-meta-title>{{group.title}}</nz-list-item-meta-title>
           <nz-list-item-meta-description>备注：{{group.remark}}</nz-list-item-meta-description>
-          <nz-list-item-meta-description>创建时间：{{group.creationDate}}</nz-list-item-meta-description>
+          <nz-list-item-meta-description>
+            创建时间：{{group.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</nz-list-item-meta-description>
         </nz-list-item-meta>
       </nz-list-item>
     </nz-list>
-    <!--    <nz-row>-->
-    <!--      <nz-badge nzColor="blue" nzText="名称:{{group.title}}"></nz-badge>-->
-    <!--    </nz-row>-->
-    <!--    <nz-row>-->
-    <!--      <nz-badge nzColor="blue" nzText="口令:"></nz-badge>-->
-    <!--    </nz-row>-->
-    <!--    <nz-row>-->
-    <!--      {{ group.avatarUrl }}-->
-    <!--    </nz-row>-->
-    <!--    <nz-row>-->
-    <!--      <nz-badge nzColor="blue" nzText="创建时间:{{group.creationDate}}"></nz-badge>-->
-    <!--    </nz-row>-->
-    <!--    <nz-row>-->
-    <!--      <nz-badge nzColor="blue" nzText="备注:"></nz-badge>-->
-    <!--    </nz-row>-->
-    <!--    <div class="detail-mark">-->
-    <!--      {{ group.remark }}-->
-    <!--    </div>-->
     <div style="display: flex;justify-content: space-between;margin-bottom: 1.5vw">
-      <span>自动添加通知到待办事项</span>
+      <span>自动添加群通知到待办事项</span>
       <span><nz-switch [(ngModel)]="isAuto" (click)="setAuto(isAuto)"></nz-switch></span>
     </div>
-    <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary" style="margin: auto 0.2vw">取消订阅</button>
+    <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary" style="margin: auto 0.2vw">取消订阅
+    </button>
     <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回</button>
   </div>
 </nz-drawer>
