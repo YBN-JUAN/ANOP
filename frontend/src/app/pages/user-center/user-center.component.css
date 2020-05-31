@@ -4,7 +4,7 @@
 
 span {
   font-size: 15px;
-  font-family: Arial;
+  font-family: "PingFang SC", sans-serif;
 }
 
 nz-layout {
@@ -24,17 +24,11 @@ nz-layout {
   color: #1890ff;
 }
 
-.logo {
-  height: 100px;
+.logo-div {
+  min-height: 80px;
+  height: 15vh;
   background-color: darkblue;
-  margin: 0px;
-  padding-top: 1px;
-}
-
-.logo h1 {
-  font-size: 34px;
-  color: white;
-  margin: 20px 30px 20px 65px;
+  margin: 0;
 }
 
 nz-header {
@@ -48,6 +42,20 @@ nz-content {
   width: 100%;
 }
 
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
 nz-footer {
   text-align: center;
+}
+
+.wrapper {
+  width: 240px;
+}
+
+.logo-text {
+  font-size: 35px;
+  color: white;
+  margin-top: 15%;
 }

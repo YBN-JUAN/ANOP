@@ -1,42 +1,39 @@
 <nz-layout class="full-screen">
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="260">
-      <div class="logo">
-        <h1>A N O P</h1>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="260">
+    <div class="logo-div" nz-row nzAlign="middle" nzJustify="space-around">
+      <div nz-col>
+        <h1 class="logo-text" id="logo" nz-title style="padding-left: unset;text-align: center">A N O P</h1>
       </div>
-      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-        <li nz-menu-item routerLink="/user/profile" routerLinkActive="active">
-          <i nz-icon nzType="solution" class="side-icon"></i>
-          <span>修改个人资料</span>
-        </li>
-        <li nz-menu-item routerLink="/user/password" routerLinkActive="active">
-          <i nz-icon nzType="key" class="side-icon"></i>
-          <span>修改密码</span>
-        </li>
-      </ul>
-    </nz-sider>
-
-    <nz-layout>
-      <nz-header>
-        <nz-row>
-          <nz-col [nzSpan]="2">
-            <i
-              class="trigger"
-              nz-icon
-              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-              (click)="isCollapsed = !isCollapsed"
-            ></i>
-          </nz-col>
-          <nz-col [nzSpan]="12" [nzOffset]="6">
-            <app-head-button></app-head-button>
-          </nz-col>
-          <nz-col [nzSpan]="2" [nzOffset]="2">
-            <app-drop-menu></app-drop-menu>
-          </nz-col>
-        </nz-row>
-      </nz-header>
-      <nz-content>
-        <router-outlet></router-outlet>
-      </nz-content>
-      <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
-    </nz-layout>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item routerLink="/user/profile" routerLinkActive="active">
+        <i nz-icon nzType="solution" class="side-icon"></i>
+        <span>修改个人资料</span>
+      </li>
+      <li nz-menu-item routerLink="/user/password" routerLinkActive="active">
+        <i nz-icon nzType="key" class="side-icon"></i>
+        <span>修改密码</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div nz-row nzJustify="space-between">
+        <div nz-col nzSm="1" nzXs="1">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              (click)="setCollapsed()"></i>
+        </div>
+        <div nz-col nzSm="18" nzXs="16">
+          <app-head-button></app-head-button>
+        </div>
+        <div nz-col nzSm="2" nzXs="2">
+          <app-drop-menu></app-drop-menu>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
   </nz-layout>
+</nz-layout>

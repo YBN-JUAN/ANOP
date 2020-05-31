@@ -4,11 +4,12 @@ nz-breadcrumb {
 
 .left-content {
   padding: 1.3vw 0 0 1.3vw;
-  margin-right: 4.4vw;
+  margin-right: 3vw;
   background: #fff;
   float: left;
   width: 70%;
   height: 100%;
+  position: relative;
 }
 
 .right-content {
@@ -17,6 +18,7 @@ nz-breadcrumb {
   float: left;
   width: 20%;
   height: 100%;
+  position: relative;
 }
 
 .row {
@@ -58,12 +60,18 @@ input {
 }
 
 :host ::ng-deep .avatar-uploader > .ant-upload {
-  margin: 4.4vw 3vw auto;
+  margin: 4.4vw 3.5vw auto;
   border-radius: 50%;
+  width: 9vw;
+  height: 9vw;
 }
 
 @media screen and (max-width:960px) {
   input {
     width: 17vw;
+  }
+
+  :host ::ng-deep .avatar-uploader > .ant-upload {
+    margin: 4.4vw 1vw auto;
   }
 }
