@@ -1,26 +1,26 @@
 <nz-layout class="full-screen">
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="260">
-    <div class="logo">
-      <h1>A N O P</h1>
+    <div class="logo-div" nz-row nzAlign="middle" nzJustify="space-around">
+      <div nz-col>
+        <h1 class="logo-text" id="logo" nz-title style="padding-left: unset;text-align: center">A N O P</h1>
+      </div>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzTitle="订阅中心" nzIcon="search">
-        <!--        <i nz-icon nzType="search" class="side-icon"></i>-->
-        <!--        <span routerLink="/notification/subscription">订阅中心</span>-->
+      <li nz-submenu nzIcon="search" nzTitle="订阅">
         <ul>
-          <li nz-menu-item routerLink="/notification/subscription">首页</li>
-          <li nz-menu-item routerLink="/notification/subscription/join-group">查找、加入群组</li>
-          <li nz-menu-item routerLink="/notification/subscription/group-message">所有通知</li>
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription">订阅列表</li>
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/join-group">查找、加入群组</li>
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/group-message">所有通知</li>
         </ul>
       </li>
-      <li nz-submenu nzIcon="edit" nzTitle="发布中心">
+      <li nz-submenu nzIcon="edit" nzTitle="发布">
         <ul>
-          <li nz-menu-item routerLink="/notification/publish">群组列表</li>
-          <li nz-menu-item routerLink="/notification/publish/create-group">创建群组</li>
-<!--          <li [queryParams]="{gid:0}" nz-menu-item routerLink="/notification/publish/new-notification">发布新通知</li>-->
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/publish">群组管理</li>
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/publish/create-group">创建群组</li>
+          <!--          <li [queryParams]="{gid:0}" nz-menu-item routerLink="/notification/publish/new-notification">发布新通知</li>-->
         </ul>
       </li>
-      <li nz-menu-item>
+      <li nz-menu-item nzMatchRouter="true">
         <i nz-icon nzType="check" class="side-icon"></i>
         <span routerLink="/notification/examine">申请审核</span>
       </li>
@@ -28,18 +28,18 @@
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <nz-row>
-        <nz-col [nzSpan]="2">
+      <div nz-row nzJustify="space-between">
+        <div nz-col nzSm="1" nzXs="1">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-             (click)="isCollapsed = !isCollapsed"></i>
-        </nz-col>
-        <nz-col [nzSpan]="12" [nzOffset]="6">
+             (click)="setCollapsed()"></i>
+        </div>
+        <div nz-col nzSm="18" nzXs="16">
           <app-head-button></app-head-button>
-        </nz-col>
-        <nz-col [nzSpan]="2" [nzOffset]="2">
+        </div>
+        <div nz-col nzSm="2" nzXs="2">
           <app-drop-menu></app-drop-menu>
-        </nz-col>
-      </nz-row>
+        </div>
+      </div>
     </nz-header>
     <nz-content>
       <div class="inner-content">

@@ -40,15 +40,15 @@
 </div>
 
 <div class="button-group">
-  <nz-row>
-    <nz-col [nzOffset]="2">
-      <button (click)="dealAll(1)" nz-button nzType="primary">全部同意</button>
-    </nz-col>
-    <nz-col [nzOffset]="2">
-      <button (click)="dealAll(2)" nz-button nzType="primary">全部拒绝</button>
-    </nz-col>
-    <nz-col [nzOffset]="2">
-      <button (click)="changeList()" nz-button nzType="primary">{{buttonTitle}}</button>
-    </nz-col>
-  </nz-row>
+  <div nz-row>
+    <div [nzOffset]="2" nz-col>
+      <nz-button-group>
+        <button (click)="dealAll(1)" nz-button nzType="primary">全部同意</button>
+        <button (click)="dealAll(2)" nz-button nzType="danger">全部拒绝</button>
+      </nz-button-group>
+    </div>
+    <div [nzOffset]="2" nz-col>
+      <button (click)="changeList()" nz-button>{{buttonTitle}}</button>
+    </div>
+  </div>
 </div>

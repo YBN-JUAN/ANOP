@@ -24,17 +24,11 @@ nz-layout {
   color: #1890ff;
 }
 
-.logo {
-  height: 100px;
+.logo-div {
+  min-height: 80px;
+  height: 15vh;
   background-color: darkblue;
   margin: 0;
-  padding-top: 1px;
-}
-
-.logo h1 {
-  font-size: 34px;
-  color: white;
-  margin: 20px 30px 20px 65px;
 }
 
 nz-header {
@@ -63,10 +57,13 @@ nz-breadcrumb {
 nz-footer {
   text-align: center;
 }
+
 .wrapper {
   width: 240px;
 }
 
-button {
-  margin-bottom: 12px;
+.logo-text {
+  font-size: 35px;
+  color: white;
+  margin-top: 15%;
 }

@@ -1,16 +1,20 @@
-<nz-avatar
-  nzSize="small"
-  [nzSrc]="user.avatarUrl"
-  nzIcon="user"
-  style="width:1.8vw;height:1.8vw;">
-</nz-avatar>
-&nbsp;
-<a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" [(nzVisible)]="visible">
-  {{user.userName}}
-</a>
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <ul nz-menu>
-    <li nz-menu-item routerLink="/user">用户中心</li>
-    <li nz-menu-item routerLink="/welcome/login" (click)="signOut()">退出</li>
-  </ul>
-</nz-dropdown-menu>
+<div nz-row>
+  <div nz-col style="min-width: 20vw">
+    <nz-avatar
+      [nzSrc]="user.avatarUrl"
+      nzIcon="user"
+      nzSize="small"
+      style="width:1.8vw;height:1.8vw;">
+    </nz-avatar>
+    &nbsp;
+    <a [(nzVisible)]="visible" [nzClickHide]="false" [nzDropdownMenu]="menu" nz-dropdown>
+      {{user.userName}}
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item routerLink="/user">用户中心</li>
+        <li (click)="signOut()" nz-menu-item routerLink="/welcome/login">退出</li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</div>

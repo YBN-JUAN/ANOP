@@ -1,2 +1,15 @@
-<button class="head-button" nz-button routerLink="/notification/subscription">通知中心</button>
-<button nz-button class="head-button" routerLink="/memorandum">备忘录</button>
+<!--<button class="head-button" nz-button routerLink="/notification/subscription">通知中心</button>-->
+<!--<button nz-button class="head-button" routerLink="/memorandum">备忘录</button>-->
+<div nz-row nzAlign="middle" nzJustify="space-around">
+  <div class="head-button-div" nz-col>
+    <ul nz-menu nzMode="horizontal">
+      <li class="head-button" nz-menu-item nzMatchRouter>
+        <a routerLink="/notification/subscription">通知中心</a>
+      </li>
+      <li class="head-button" nz-menu-item nzMatchRouter>
+        <a routerLink="/memorandum">备忘录</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
