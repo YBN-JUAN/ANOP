@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {ResponseModel} from '../model/response.model';
-import {GroupInfoModel} from '../model/group-info.model';
+import {GroupInfoModel, GroupUpdateInfo, UpdateUserInfo} from '../model/group-info.model';
 import {GroupUser} from '../model/user-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
+import {JsonResult} from '../model/json-result';
+import {finalize} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,27 @@ export class PublishCenterService {
     }
   }
 
+  updateGroup<T>(id: number, info: GroupUpdateInfo,
+                  successCallback?: () => void,
+                  errorCallback?: (result: JsonResult<T>) => void) {
+    if (!info)
+      return;
+    this.http.options(`${this.url}/${id}`).pipe(
+      finalize(() => {
+        this.http.patch<GroupUpdateInfo>(`${this.url}/${id}`, info, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }).subscribe(response => {
+            return successCallback && successCallback();
+          },
+          (errorResponse: HttpErrorResponse) => {
+            return errorCallback && errorCallback(errorResponse.error);
+          });
+      })
+    ).subscribe();
+  }
+
   dismissGroup(id: number) {
     this.http.delete(`${this.url}/${id}`).subscribe(
       data => {
@@ -56,6 +79,21 @@ export class PublishCenterService {
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
     return this.http.get<ResponseModel<GroupUser>>(`${this.url}/${groupId}/users`, {params});
+  }
+
+  updateGroupUser(gid: number, uid: number, info: UpdateUserInfo) {
+    if (!info)
+      return;
+    return this.http.patch<UpdateUserInfo>(`${this.url}/${gid}/users/${uid}`, info, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  }
+
+
+  delGroupUser(gid: number, uid: number) {
+    return this.http.delete(`${this.url}/${gid}/users/${uid}`);
   }
 
   constructor(private http: HttpClient) {

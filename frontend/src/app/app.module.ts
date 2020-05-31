@@ -43,6 +43,7 @@ import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.co
 import {NewNotificationComponent} from './pages/notification/publish-center/new-notification/new-notification.component';
 import {CreateGroupComponent} from './pages/notification/publish-center/create-group/create-group.component';
 import {PublishCenterGroupDetailComponent} from './pages/notification/publish-center/publish-center-group-detail/publish-center-group-detail.component';
+import {ManageGroupComponent} from './pages/notification/publish-center/manage-group/manage-group.component';
 
 registerLocaleData(zh);
 
@@ -80,7 +81,8 @@ registerLocaleData(zh);
     CateUnitComponent,
     CateDetailComponent,
     NewNotificationComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    ManageGroupComponent
   ],
   imports: [
     ReactiveFormsModule,

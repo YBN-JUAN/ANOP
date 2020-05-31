@@ -99,8 +99,12 @@ export class RequestListComponent implements OnInit {
       nzOnOk: () => {
         this.service.dealRequest(id, isAccepted).subscribe(
           response => {
-            console.log(response)
-          });
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+          );
         location.reload();  // 刷新页面
         this.loadDataFromServer(this.pageIndex, this.pageSize);
       },

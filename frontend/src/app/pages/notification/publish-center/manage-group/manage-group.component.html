@@ -1,0 +1,75 @@
+<div style="padding:40px;">
+  <div [nzGutter]="8" nz-row>
+    <div [nzSpan]="11" nz-col>
+      <nz-card nzTitle="管理群组信息">
+        <div class="group-info">
+            <nz-row>
+              <nz-badge></nz-badge>
+            </nz-row>
+          <div class="group-info">
+            <nz-row>
+              <nz-badge nzColor="blue" nzText="名称: "></nz-badge>
+              <input type="text" [(ngModel)]="updateGroupInfo.title" style="margin-left:1%;"/>
+            </nz-row>
+            <nz-row>
+              <nz-badge nzColor="blue" nzText="备注: "></nz-badge>
+            </nz-row>
+              <input class="detail-mark" [(ngModel)]="updateGroupInfo.remark" style="margin-left:1%;"/>
+            <nz-row>
+              <nz-badge nzColor="blue" nzText="权限: "></nz-badge>
+              <select [(ngModel)]="permission" style="margin-left:1%;">
+                <option value=0>需要审核</option>
+                <option value=1>允许任何人加入</option>
+                <option value=2>拒绝任何人加入</option>
+              </select>
+            </nz-row>
+            <nz-row>
+              <button nz-button nzSize="large" nzType="primary" (click)="submitForm()">提交修改</button>
+            </nz-row>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+    <div [nzSpan]="13" nz-col>
+      <nz-card nzTitle="管理群组成员">
+        <div class="user-list">
+          <div class="table">
+            <nz-table (nzQueryParams)="onQueryParamsChange($event)" [nzData]="listOfUsers" [nzFrontPagination]="false"
+                      [nzLoading]="loading"
+                      [nzPageIndex]="pageIndex" [nzPageSizeOptions]="[3]" [nzPageSize]="pageSize" [nzTotal]="total"
+                      nzShowSizeChanger>
+              <thead>
+              <tr>
+                <th nzColumnKey="id">ID</th>
+                <th nzColumnKey="nickname">成员昵称</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of listOfUsers">
+                <td>{{ data.userId }}</td>
+                <td>{{ data.nickname }}</td>
+                <td>
+                  <i *ngIf="data.isAdmin == 0" nz-icon nzType="user-add" nzTheme="outline" style="color: green"
+                     (click)="updateUser(data)"></i>
+                  <i *ngIf="data.isAdmin == 1" nz-icon nzType="user-delete" nzTheme="outline" style="color: red"
+                     (click)="updateUser(data)"></i>
+                  &nbsp;
+                  <i class="close-icon" nz-icon nzTheme="outline" nzType="close" style="color: red"
+                     (click)="deletUser(data.userId)"></i>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+  <nz-row class="buttons" style="margin-top: 2%">
+    <nz-col nz-col="3">
+      <button nz-button nzSize="large" nzType="primary" routerLink="/notification/publish">返回
+      </button>
+    </nz-col>
+  </nz-row>
+</div>

@@ -1,0 +1,25 @@
+.detail-mark {
+	margin-top: 10px;
+	width: 200px;
+	height: 100px;
+	border-style: groove;
+	border-radius: 12px 12px 12px 12px;
+}
+
+.user-list {
+	margin-left: 22px;
+	margin-top: 20px;
+	width: 500px;
+	height: 300px;
+	border-style: groove;
+	border-radius: 12px 12px 12px 12px;
+}
+
+.buttons {
+	margin-bottom: 3%;
+}
+
+.group-info nz-row {
+	margin-top: 5%;
+}
+

@@ -9,3 +9,13 @@ export class GroupInfoModel {
   permission: number;
 }
 
+export class GroupUpdateInfo {
+  permission: number;
+  remark: string;
+  title: string;
+}
+
+export class UpdateUserInfo {
+  isAdmin: number;
+}
+

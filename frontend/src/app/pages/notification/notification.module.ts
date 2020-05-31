@@ -12,6 +12,7 @@ import {GroupMessageService} from './subscription-center/group-message/group-mes
   providers: [
     JoinGroupService,
     GroupMessageService
-  ]
+  ],
+  declarations: []
 })
 export class NotificationModule { }
