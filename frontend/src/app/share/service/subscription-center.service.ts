@@ -4,7 +4,7 @@ import {ResponseModel} from '../model/response.model';
 import {GroupInfoModel} from '../model/group-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
 import {Observable} from 'rxjs';
-import {AutoInfo} from '../model/autoInfo';
+import {NotificationInfoModel} from '../model/notification-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +35,13 @@ export class SubscriptionCenterService {
     )
   }
 
-  getGroupMessage(gid: number, orderBy: string, pageNum: number, pageSize: number): Observable<any> {
+  getGroupNotifications(gid: number, orderBy: string, pageNum: number, pageSize: number):
+    Observable<ResponseModel<NotificationInfoModel>> {
     const params = new HttpParams()
       .append('orderBy', orderBy)
       .append('pageNum', `${pageNum}`)
       .append('pageSize', `${pageSize}`);
-    return this.http.get(`${this.url}/${gid}/${this.suffix}`, {params});
+    return this.http.get<ResponseModel<NotificationInfoModel>>(`${this.url}/${gid}/${this.suffix}`, {params});
   }
 
   setIsRead(gid: number, nid: number) {
@@ -48,10 +49,10 @@ export class SubscriptionCenterService {
   }
 
   getAuto(gid: number) {
-    return this.http.get<AutoInfo>(`${this.url}/${gid}/autoTodo`);
+    return this.http.get<{ isAuto }>(`${this.url}/${gid}/autoTodo`);
   }
 
   setAuto(gid: number, isAuto: number) {
-    return this.http.patch(`${this.url}/${gid}/autoTodo`,{ 'isAuto': isAuto });
+    return this.http.patch(`${this.url}/${gid}/autoTodo`, {isAuto});
   }
 }
