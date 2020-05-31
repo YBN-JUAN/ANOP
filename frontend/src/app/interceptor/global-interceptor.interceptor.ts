@@ -25,7 +25,6 @@ export class GlobalInterceptor implements HttpInterceptor {
         .set('X-Requested-With', 'XMLHttpRequest')
         .set('X-XSRF-TOKEN', this.cookieService.get('XSRF-TOKEN')),
       withCredentials: true
-
     });
     return next.handle(xhr).pipe(mergeMap((event: any) => {
         return of(event);
@@ -34,10 +33,9 @@ export class GlobalInterceptor implements HttpInterceptor {
   }
 
   private handleData(event: HttpResponse<any> | HttpErrorResponse): Observable<any> {
-    if ((event.status === 401 || event.status === 403) && !this.route.routerState.snapshot.url.startsWith('/welcome')) {
+    if (event.status === 401 && !this.route.routerState.snapshot.url.startsWith('/welcome')) {
       console.log(this.route);
       this.route.navigateByUrl('/welcome/login').then(() => {
-        // alert('未登录')
         this.msg.error('未登录')
       });
     }
