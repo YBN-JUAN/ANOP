@@ -28,7 +28,7 @@ export class GroupDetailComponent implements OnInit {
   visible = false;
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
   expandSet = new Set<number>();
-  isAuto: false;
+  isAuto = false;
 
   // dataSource: MyDataSourceService;
 
@@ -51,6 +51,7 @@ export class GroupDetailComponent implements OnInit {
     this.getGroupInfo(id);
     this.loadMemberDataFromServer(this.pageIndex, this.pageSize);
     this.loadNotificationDataFromServer(this.nTable.pageIndex, this.nTable.pageSize);
+    this.getAuto();
     // console.log(this.dataSource)
     // this.getNotifications(id);
   }
@@ -155,6 +156,16 @@ export class GroupDetailComponent implements OnInit {
 
   formattedDate(creationDate: string): string {
     return formatDate(creationDate, 'yyyy年MM月dd日 HH:mm', 'zh-CN');
+  }
+
+  getAuto(){
+    this.subService.getAuto(this.group.id).subscribe(
+      data => {
+        this.isAuto = (data.isAuto === 1);
+      },error => {
+        console.log(error);
+      }
+    )
   }
 
   setAuto(isAuto: boolean) {
