@@ -76,7 +76,6 @@ export class ManageGroupComponent implements OnInit {
 
   submitForm(): void {
     this.updateGroupInfo.permission = Number(this.permission);
-    //console.log(this.updateGroupInfo);
     this.service.updateGroup(this.groupId, this.updateGroupInfo, () => {
         this.router.navigateByUrl('/notification/publish');
         }
@@ -87,7 +86,11 @@ export class ManageGroupComponent implements OnInit {
   }
 
   updateUser(info: GroupUser) {
-    this.adminInfo.isAdmin = info.isAdmin;
+    if (info.isAdmin == 0) {
+      this.adminInfo.isAdmin = 1;
+    } else {
+      this.adminInfo.isAdmin = 0;
+    }
     let uid = info.userId;
     this.service.updateGroupUser(this.groupId, uid, this.adminInfo).subscribe(
      data => {

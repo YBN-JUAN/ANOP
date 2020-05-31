@@ -44,11 +44,8 @@ export class PublishCenterService {
       return;
     this.http.options(`${this.url}/${id}`).pipe(
       finalize(() => {
-        this.http.patch<GroupUpdateInfo>(`${this.url}/${id}`, info, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).subscribe(response => {
+        this.http.patch<GroupUpdateInfo>(`${this.url}/${id}`, info)
+          .subscribe(response => {
             return successCallback && successCallback();
           },
           (errorResponse: HttpErrorResponse) => {
@@ -84,11 +81,7 @@ export class PublishCenterService {
   updateGroupUser(gid: number, uid: number, info: UpdateUserInfo) {
     if (!info)
       return;
-    return this.http.patch<UpdateUserInfo>(`${this.url}/${gid}/users/${uid}`, info, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    });
+    return this.http.patch<UpdateUserInfo>(`${this.url}/${gid}/users/${uid}`, info);
   }
 
 
