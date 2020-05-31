@@ -13,4 +13,14 @@ export class UserCenterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setCollapsed() {
+    this.isCollapsed = !this.isCollapsed;
+    const logo = document.getElementById('logo');
+    if (this.isCollapsed) {
+      logo.style.paddingLeft = '2px';
+    } else {
+      logo.style.paddingLeft = 'unset';
+    }
+  }
+
 }
