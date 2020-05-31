@@ -14,18 +14,13 @@ import {formatDate} from '@angular/common';
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
   styleUrls: ['./group-detail.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class GroupDetailComponent implements OnInit {
 
   public group: GroupInfoModel;
-  total = 1;
-  listOfUsers: GroupUser[] = [];
-  loading = true;
-  pageSize = 10;
-  pageIndex = 1;
   visible = false;
+  mTable: TableParamsModel<GroupUser> = new TableParamsModel(true, 6, 1);
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
   expandSet = new Set<number>();
   isAuto = false;
@@ -47,13 +42,10 @@ export class GroupDetailComponent implements OnInit {
     this.group.title = '...';
     this.group.creationDate = '...';
     this.group.avatarUrl = '...';
-    // this.dataSource = new MyDataSourceService(this.http, ApiUrlResource.PUB_GROUPS, this.group.id)
     this.getGroupInfo(id);
-    this.loadMemberDataFromServer(this.pageIndex, this.pageSize);
+    this.loadMemberDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
     this.loadNotificationDataFromServer(this.nTable.pageIndex, this.nTable.pageSize);
     this.getAuto();
-    // console.log(this.dataSource)
-    // this.getNotifications(id);
   }
 
   onExpandChange(id: number, checked: boolean): void {
@@ -92,12 +84,12 @@ export class GroupDetailComponent implements OnInit {
   }
 
   loadMemberDataFromServer(pageIndex: number, pageSize: number): void {
-    this.loading = true;
+    this.mTable.loading = true;
     this.pubService.getGroupUser(this.group.id, 'nickname', pageIndex, pageSize).subscribe(
       data => {
-        this.loading = false;
-        this.total = data.total;
-        this.listOfUsers = data.list;
+        this.mTable.loading = false;
+        this.mTable.total = data.total;
+        this.mTable.data = data.list;
         console.log(data);
       }, error => {
         console.log(error);
@@ -158,17 +150,23 @@ export class GroupDetailComponent implements OnInit {
     return formatDate(creationDate, 'yyyy年MM月dd日 HH:mm', 'zh-CN');
   }
 
-  getAuto(){
+  getAuto() {
     this.subService.getAuto(this.group.id).subscribe(
       data => {
         this.isAuto = (data.isAuto === 1);
-      },error => {
+      }, error => {
         console.log(error);
       }
     )
   }
 
   setAuto(isAuto: boolean) {
-    this.subService.setAuto(this.group.id, isAuto === true?1:0);
+    this.subService.setAuto(this.group.id, isAuto === true ? 1 : 0).subscribe(
+      r => {
+        console.log(r)
+      }, error => {
+        console.log(error)
+      }
+    );
   }
 }
