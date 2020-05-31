@@ -4,6 +4,7 @@ import {ResponseModel} from '../model/response.model';
 import {GroupInfoModel} from '../model/group-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
 import {Observable} from 'rxjs';
+import {AutoInfo} from '../model/autoInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,10 @@ export class SubscriptionCenterService {
 
   setIsRead(gid: number, nid: number) {
     return this.http.post(`${this.url}/${gid}/notifications/${nid}/readers`, {});
+  }
+
+  getAuto(gid: number) {
+    return this.http.get<AutoInfo>(`${this.url}/${gid}/autoTodo`);
   }
 
   setAuto(gid: number, isAuto: number) {
