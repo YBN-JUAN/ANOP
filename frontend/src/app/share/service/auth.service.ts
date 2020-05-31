@@ -29,7 +29,7 @@ export class AuthService {
                   errorCallback?: (result: JsonResult<T>) => void) {
     if (!credentials)
       return;
-    this.http.options(this.url).pipe(
+    this.http.get(this.url).pipe(
       finalize(() => {
         const formData = new URLSearchParams();
         formData.set('username', credentials.username);
