@@ -28,6 +28,7 @@ export class GroupDetailComponent implements OnInit {
   visible = false;
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
   expandSet = new Set<number>();
+  isAuto: false;
 
   // dataSource: MyDataSourceService;
 
@@ -154,5 +155,9 @@ export class GroupDetailComponent implements OnInit {
 
   formattedDate(creationDate: string): string {
     return formatDate(creationDate, 'yyyy年MM月dd日 HH:mm', 'zh-CN');
+  }
+
+  setAuto(isAuto: boolean) {
+    this.subService.setAuto(this.group.id, isAuto === true?1:0);
   }
 }

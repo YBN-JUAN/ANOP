@@ -45,4 +45,8 @@ export class SubscriptionCenterService {
   setIsRead(gid: number, nid: number) {
     return this.http.post(`${this.url}/${gid}/notifications/${nid}/readers`, {});
   }
+
+  setAuto(gid: number, isAuto: number) {
+    return this.http.patch(`${this.url}/${gid}/autoTodo`,{ 'isAuto': isAuto });
+  }
 }

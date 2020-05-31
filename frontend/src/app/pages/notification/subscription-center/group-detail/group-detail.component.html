@@ -99,7 +99,11 @@
     <!--    <div class="detail-mark">-->
     <!--      {{ group.remark }}-->
     <!--    </div>-->
-    <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary">取消订阅</button>
+    <div style="display: flex;justify-content: space-between;margin-bottom: 1.5vw">
+      <span>将通知自动转换为待办事项</span>
+      <span><nz-switch [(ngModel)]="isAuto" (click)="setAuto(isAuto)"></nz-switch></span>
+    </div>
+    <button (click)="quitGroup()" nz-button nzDanger nzSize="large" nzType="primary" style="margin: auto 0.2vw">取消订阅</button>
     <button nz-button nzSize="large" nzType="primary" routerLink="/notification/subscription/group-detail">返回</button>
   </div>
 

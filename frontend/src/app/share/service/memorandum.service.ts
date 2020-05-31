@@ -126,7 +126,7 @@ export class MemorandumService {
 
   // 修改对应ID的分类名称
   updateCate(id: number,typeName: string){
-    return this.http.put(`${this.cateUrl}`+'/'+`${id}`,{ 'typeName': typeName },);
+    return this.http.put(`${this.cateUrl}`+'/'+`${id}`,{ 'typeName': typeName });
   }
 
   // 删除对应ID的分类
