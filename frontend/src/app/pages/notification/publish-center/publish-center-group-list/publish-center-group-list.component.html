@@ -7,14 +7,13 @@
 <!--    nzTwotoneColor="#eb2f96"></i>-->
 <!--</div>-->
 <nz-table
-  nzShowSizeChanger
   [nzData]="listOfGroups"
   [nzFrontPagination]="false"
   [nzLoading]="loading"
   [nzTotal]="total"
   [nzPageSize]="pageSize"
   [nzPageIndex]="pageIndex"
-  [nzPageSizeOptions]="[6]"
+  nzHideOnSinglePage
   (nzQueryParams)="onQueryParamsChange($event)"
 >
   <thead>
