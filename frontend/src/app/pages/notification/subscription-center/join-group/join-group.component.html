@@ -10,12 +10,12 @@
   <form nz-form>
     <div id="search-bar">
       <nz-form-item id="search-form">
-        <nz-form-label id="search-label">请输入口令</nz-form-label>
+        <nz-form-label id="search-label">请输入群组ID</nz-form-label>
         <nz-form-control nzSpan="10">
           <label for="search-text"></label>
           <input nz-input datatype="text" name="inviteCode" type="search"
                  (ngModelChange)="doSearch()" [(ngModel)]="groupId" id="search-text"
-                 placeholder="输入口令查询或加入群组">
+                 placeholder="输入群组ID查询或加入群组">
         </nz-form-control>
       </nz-form-item>
     </div>

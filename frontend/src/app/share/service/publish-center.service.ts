@@ -45,12 +45,12 @@ export class PublishCenterService {
     this.http.options(`${this.url}/${id}`).pipe(
       finalize(() => {
         this.http.patch<GroupUpdateInfo>(`${this.url}/${id}`, info)
-          .subscribe(response => {
-            return successCallback && successCallback();
-          },
-          (errorResponse: HttpErrorResponse) => {
-            return errorCallback && errorCallback(errorResponse.error);
-          });
+          .subscribe(() => {
+              return successCallback && successCallback();
+            },
+            (errorResponse: HttpErrorResponse) => {
+              return errorCallback && errorCallback(errorResponse.error);
+            });
       })
     ).subscribe();
   }

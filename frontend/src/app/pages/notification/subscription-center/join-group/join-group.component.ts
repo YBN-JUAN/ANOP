@@ -13,7 +13,7 @@ import {NzMessageService} from 'ng-zorro-antd';
 })
 export class JoinGroupComponent implements OnInit {
 
-  groupId: number;
+  public groupId: number;
   group: GroupInfoModel;
   permissionDescribe = '';
 
@@ -70,6 +70,7 @@ export class JoinGroupComponent implements OnInit {
   doReset() {
     this.group = new GroupInfoModel();
     this.permissionDescribe = '';
+    this.groupId = null;
   }
 
   setPermissionDescribe() {
