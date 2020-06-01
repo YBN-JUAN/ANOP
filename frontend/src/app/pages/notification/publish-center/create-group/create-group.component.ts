@@ -27,10 +27,11 @@ export class CreateGroupComponent implements OnInit {
   resetForm(e: MouseEvent): void {
     e.preventDefault();
     this.createGroupForm.reset();
-    // tslint:disable-next-line:forin
     for (const key in this.createGroupForm.controls) {
-      this.createGroupForm.controls[key].markAsPristine();
-      this.createGroupForm.controls[key].updateValueAndValidity();
+      if (this.createGroupForm.controls.hasOwnProperty(key)) {
+        this.createGroupForm.controls[key].markAsPristine();
+        this.createGroupForm.controls[key].updateValueAndValidity();
+      }
     }
   }
 
