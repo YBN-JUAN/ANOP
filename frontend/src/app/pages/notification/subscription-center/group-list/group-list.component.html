@@ -3,14 +3,13 @@
      routerLink="/notification/subscription/join-group"></i>
 </div>
 <nz-table
-  nzShowSizeChanger
   [nzData]="listOfGroups"
   [nzFrontPagination]="false"
   [nzLoading]="loading"
   [nzTotal]="total"
   [nzPageSize]="pageSize"
-  [nzPageSizeOptions]="[6]"
   [nzPageIndex]="pageIndex"
+  nzHideOnSinglePage
   (nzQueryParams)="onQueryParamsChange($event)">
   <thead>
   <tr>
