@@ -13,7 +13,7 @@ export class RequestListComponent implements OnInit {
   total = 1;
   requestList: UserRequest[] = [];
   loading = true;
-  pageSize = 5;
+  pageSize = 6;
   pageIndex = 1;
   buttonTitle = '切换到我管理的群组的用户请求';
   listType = 0;

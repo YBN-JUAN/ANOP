@@ -6,11 +6,9 @@
       [nzFrontPagination]="false"
       [nzLoading]="loading"
       [nzPageIndex]="pageIndex"
-      [nzPageSizeOptions]="[5]"
       [nzPageSize]="pageSize"
       [nzTotal]="total"
-      nzShowSizeChanger
-    >
+      nzHideOnSinglePage>
       <thead>
       <tr>
         <th [hidden]="true" [nzSortFn]="true" nzColumnKey="id">id</th>
@@ -43,8 +41,12 @@
   <div nz-row>
     <div [nzOffset]="2" nz-col>
       <nz-button-group>
-        <button (click)="dealAll(1)" nz-button nzType="primary">全部同意</button>
-        <button (click)="dealAll(2)" nz-button nzType="danger">全部拒绝</button>
+        <button (click)="dealAll(1)" nz-button nzType="primary">
+          <i nz-icon nzTheme="outline" nzType="check-circle"></i>全部同意
+        </button>
+        <button (click)="dealAll(2)" nz-button nzType="danger">
+          <i nz-icon nzTheme="outline" nzType="stop"></i>全部拒绝
+        </button>
       </nz-button-group>
     </div>
     <div [nzOffset]="2" nz-col>
