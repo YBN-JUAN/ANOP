@@ -6,37 +6,27 @@ import {GroupUser} from '../model/user-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
 import {JsonResult} from '../model/json-result';
 import {finalize} from 'rxjs/operators';
+import {NotificationGroupService} from './notification-group.service';
+import {NzMessageService} from 'ng-zorro-antd';
+import {NotificationInfoModel} from '../model/notification-info.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PublishCenterService {
-  private url = ApiUrlResource.PUB_GROUPS;
+export class PublishCenterService extends NotificationGroupService {
+  protected url = ApiUrlResource.PUB_GROUPS;
 
-  constructor(private http: HttpClient) {
+  constructor(protected http: HttpClient, public msg: NzMessageService) {
+    super(http);
+    super.setUrl(this.url);
   }
 
-  getCreateGroups(orderBy: string, pageNum: number, pageSize: number) {
-    const params = new HttpParams()
-      .append('orderBy', orderBy)
-      .append('pageNum', `${pageNum}`)
-      .append('pageSize', `${pageSize}`);
-    return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}`, {params});
-  }
-
-  getManageGroups(orderBy: string, pageNum: number, pageSize: number) {
-    const params = new HttpParams()
-      .append('orderBy', orderBy)
-      .append('pageNum', `${pageNum}`)
-      .append('pageSize', `${pageSize}`);
-    return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}/manage`, {params});
-  }
-
-  getGroups(listType: number, orderBy: string, pageNum: number, pageSize: number) {
+  getGroupsByType(listType: number, orderBy: string, pageNum: number, pageSize: number) {
     if (listType === 0) {
-      return this.getCreateGroups(orderBy, pageNum, pageSize);
+      return this.getGroups(orderBy, pageNum, pageSize, '');
     } else {
-      return this.getManageGroups(orderBy, pageNum, pageSize);
+      return this.getGroups(orderBy, pageNum, pageSize, 'manage');
     }
   }
 
@@ -59,14 +49,7 @@ export class PublishCenterService {
   }
 
   dismissGroup(id: number) {
-    this.http.delete(`${this.url}/${id}`).subscribe(
-      data => {
-        console.log('delete group ok', data);
-      },
-      error => {
-        console.log('delete group fail', error);
-      }
-    );
+    return super.deleteGroup(id);
   }
 
   getGroup(id: number) {
@@ -88,10 +71,14 @@ export class PublishCenterService {
   }
 
 
-  delGroupUser(gid: number, uid: number) {
+  removeGroupUser(gid: number, uid: number) {
     return this.http.delete(`${this.url}/${gid}/users/${uid}`);
   }
 
+
+  getGroupNotifications(gid: number, orderBy: string, pageNum: number, pageSize: number): Observable<ResponseModel<NotificationInfoModel>> {
+    return super.getGroupNotifications(gid, orderBy, pageNum, pageSize);
+  }
 
   asTodo(gid: number, nid: number) {
     return this.http.post(`${this.url}/${gid}/notifications/${nid}/asTodo`, {});
