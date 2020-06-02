@@ -32,14 +32,11 @@
     <td>{{ data.remark }}</td>
     <td>{{ data.creationDate }}</td>
     <td>
-      <i nz-icon nzTheme="twotone" nzType="info-circle"
-         routerLink="/notification/publish/publish-group-detail/{{data.id}}"
-      ></i>
+      <i nz-icon nz-tooltip="查看群组详情" nzTheme="twotone" nzType="info-circle"
+         routerLink="/notification/publish/manage-group/{{data.id}}"></i>
       &nbsp;
-      <i (click)="deleteGroup(data.id)" nz-icon nzTheme="twotone" nzTwotoneColor="#eb2f96" nzType="delete"></i>
-      &nbsp;
-      <i [queryParams]="{gid:data.id, title:data.title}" nz-icon nzTheme="twotone" nzTwotoneColor="#52c41a"
-         nzType="edit" routerLink="/notification/publish/manage-group/{{data.id}}"></i>
+      <i (click)="dismiss(data.id)" nz-icon nz-tooltip="解散群组" nzTheme="twotone" nzTwotoneColor="#eb2f96"
+         nzType="delete"></i>
     </td>
   </tr>
   </tbody>
