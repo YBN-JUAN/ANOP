@@ -142,10 +142,9 @@ export class GroupDetailComponent implements OnInit {
     this.visible = false;
   }
 
-  onReadStatusChange(isRead: number, nid: number) {
+  onReadStatusChange(nid: number) {
     this.subService.setIsRead(this.group.id, nid).subscribe(
-      r => {
-        console.log(r)
+      () => {
         this.msg.success('操作成功');
         location.reload();
       }, (response: HttpErrorResponse) => {

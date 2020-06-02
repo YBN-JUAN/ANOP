@@ -24,7 +24,7 @@
           <td>{{item.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
           <td>
-            <button (nzOnConfirm)="onReadStatusChange(item.isRead,item.id)"
+            <button (nzOnConfirm)="onReadStatusChange(item.id)"
                     [disabled]="item.isRead === 1"
                     nz-tooltip="标记为已读" nzTooltipPlacement="leftTop"
                     class="read-mark" nz-button nzSize="small"
