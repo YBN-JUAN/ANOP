@@ -99,8 +99,9 @@ export class GroupDetailComponent implements OnInit {
         this.mTable.total = data.total;
         this.mTable.data = data.list;
         console.log(data);
-      }, error => {
-        console.log(error);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message)
+        console.log(response);
       }
     );
   }
@@ -114,8 +115,9 @@ export class GroupDetailComponent implements OnInit {
         this.nTable.data = data.list;
         console.log(this.nTable.data);
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.message);
+      (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message)
+        console.log(response);
       }
     );
   }
@@ -146,8 +148,8 @@ export class GroupDetailComponent implements OnInit {
         console.log(r)
         this.msg.success('操作成功');
         location.reload();
-      }, (error: HttpErrorResponse) => {
-        this.msg.error(error.message);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     );
   }
@@ -157,8 +159,8 @@ export class GroupDetailComponent implements OnInit {
       result => {
         console.log(result)
         this.isAuto = (result.isAuto === 1);
-      }, (error: HttpErrorResponse) => {
-        this.msg.error(error.message);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     )
   }
@@ -167,9 +169,19 @@ export class GroupDetailComponent implements OnInit {
     this.subService.setAuto(this.group.id, isAuto === true ? 1 : 0).subscribe(
       () => {
         this.msg.success('修改成功', {nzDuration: 2000});
-      }, (error: HttpErrorResponse) => {
-        this.msg.error(error.message);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     );
+  }
+
+  addTodo(nid: number) {
+    this.pubService.asTodo(this.group.id, nid).subscribe(
+      () => {
+        this.msg.success('添加成功');
+      }, (error: HttpErrorResponse) => {
+        this.msg.error(error.error.message);
+      }
+    )
   }
 }

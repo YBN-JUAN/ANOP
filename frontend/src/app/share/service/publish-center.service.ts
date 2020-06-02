@@ -13,6 +13,9 @@ import {finalize} from 'rxjs/operators';
 export class PublishCenterService {
   private url = ApiUrlResource.PUB_GROUPS;
 
+  constructor(private http: HttpClient) {
+  }
+
   getCreateGroups(orderBy: string, pageNum: number, pageSize: number) {
     const params = new HttpParams()
       .append('orderBy', orderBy)
@@ -38,8 +41,8 @@ export class PublishCenterService {
   }
 
   updateGroup<T>(id: number, info: GroupUpdateInfo,
-                  successCallback?: () => void,
-                  errorCallback?: (result: JsonResult<T>) => void) {
+                 successCallback?: () => void,
+                 errorCallback?: (result: JsonResult<T>) => void) {
     if (!info)
       return;
     this.http.options(`${this.url}/${id}`).pipe(
@@ -89,7 +92,8 @@ export class PublishCenterService {
     return this.http.delete(`${this.url}/${gid}/users/${uid}`);
   }
 
-  constructor(private http: HttpClient) {
-  }
 
+  asTodo(gid: number, nid: number) {
+    return this.http.post(`${this.url}/${gid}/notifications/${nid}/asTodo`, {});
+  }
 }

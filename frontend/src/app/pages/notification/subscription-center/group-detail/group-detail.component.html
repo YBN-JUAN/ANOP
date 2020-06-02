@@ -10,7 +10,7 @@
               [nzTotal]="nTable.total">
       <thead>
       <tr>
-        <th nzColumnKey="title">标题</th>
+        <th nzColumnKey="title" nzWidth="10vw">标题</th>
         <th nzColumnKey="nickname">发布人</th>
         <th nzColumnKey="creationDate">发布日期</th>
         <th>详情</th>
@@ -26,10 +26,15 @@
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
           <td>
             <button (nzOnConfirm)="onReadStatusChange(item.isRead,item.id)" [disabled]="item.isRead === 1"
-                    class="read-mark" nz-button
+                    class="read-mark" nz-button nzSize="small"
                     nz-popconfirm="确定要标记为已读？" nzPopconfirmPlacement="bottom"
-                    nzSize="small">标记为已读
+                    nzType="link">
+              <i [nzTwotoneColor]="'#52c41a'" nz-icon nzTheme="twotone" nzType="check-circle"></i>
             </button>
+            &nbsp;
+            <a (nzOnConfirm)="addTodo(item.id)" nz-popconfirm="确定要添加到待办事项吗？" nzPopconfirmPlacement="bottom">
+              <i nz-icon nzTheme="twotone" nzType="plus-circle"></i>
+            </a>
           </td>
         </tr>
         <tr [nzExpand]="expandSet.has(item.id)">
