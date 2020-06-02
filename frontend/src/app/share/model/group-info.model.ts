@@ -7,6 +7,7 @@ export class GroupInfoModel {
   remark: string;
   creationDate: string;
   permission: number;
+  unreadCount: number;
 }
 
 export class GroupUpdateInfo {
