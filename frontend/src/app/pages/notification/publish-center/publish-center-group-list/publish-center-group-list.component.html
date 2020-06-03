@@ -18,8 +18,8 @@
 >
   <thead>
   <tr>
-    <th [nzSortFn]="true" nzColumnKey="id">id</th>
-    <th nzColumnKey="title">名称</th>
+    <th [nzSortFn]="true" nzColumnKey="id">ID</th>
+    <th nzColumnKey="title">群组名</th>
     <th nzColumnKey="remark">备注</th>
     <th nzColumnKey="creationDate">创建时间</th>
     <th>操作</th>
@@ -30,7 +30,7 @@
     <td>{{ data.id }}</td>
     <td>{{ data.title }}</td>
     <td>{{ data.remark }}</td>
-    <td>{{ data.creationDate }}</td>
+    <td>{{ data.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
     <td>
       <i nz-icon nz-tooltip="查看群组详情" nzTheme="twotone" nzType="info-circle"
          routerLink="/notification/publish/manage-group/{{data.id}}"></i>
