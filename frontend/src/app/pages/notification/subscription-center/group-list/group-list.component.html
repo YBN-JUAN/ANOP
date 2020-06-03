@@ -3,12 +3,12 @@
      routerLink="/notification/subscription/join-group"></i>
 </div>
 <nz-table
-  [nzData]="listOfGroups"
+  [nzData]="groupTable.data"
   [nzFrontPagination]="false"
-  [nzLoading]="loading"
-  [nzTotal]="total"
-  [nzPageSize]="pageSize"
-  [nzPageIndex]="pageIndex"
+  [nzLoading]="groupTable.loading"
+  [nzPageIndex]="groupTable.pageIndex"
+  [nzPageSize]="groupTable.pageSize"
+  [nzTotal]="groupTable.total"
   nzHideOnSinglePage
   (nzQueryParams)="onQueryParamsChange($event)">
   <thead>
@@ -16,21 +16,20 @@
     <th nzColumnKey="id" [nzSortFn]="true">id</th>
     <th nzColumnKey="title">群组名</th>
     <th nzColumnKey="remark">备注</th>
-    <th>状态</th>
-    <th>详情</th>
+    <th>操作</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of listOfGroups">
+  <tr *ngFor="let data of groupTable.data">
     <td>{{ data.id }}</td>
     <td>{{ data.title }}</td>
     <td>{{ data.remark }}</td>
     <td>
-      <p>有未读消息</p>
-    </td>
-    <td>
-      <i nz-icon nzTheme="twotone" nzType="info-circle"
-         routerLink="/notification/subscription/group-detail/{{data.id}}"></i>
+      <nz-badge [nzCount]="data.unreadCount">
+        <button nz-button routerLink="/notification/subscription/group-detail/{{data.id}}">
+          <i nz-icon nzTheme="twotone" nzType="info-circle"></i>查看详情
+        </button>
+      </nz-badge>
     </td>
   </tr>
   </tbody>
