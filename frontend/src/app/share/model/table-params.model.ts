@@ -55,4 +55,9 @@ export class TableParamsModel<T> {
     this._total = value;
   }
 
+  setTable(data: T[], total: number, loading: boolean) {
+    this.data = data;
+    this.total = total;
+    this.loading = loading;
+  }
 }
