@@ -6,7 +6,8 @@
               [nzLoading]="nTable.loading"
               [nzPageIndex]="nTable.pageIndex"
               [nzPageSize]="nTable.pageSize"
-              [nzTotal]="nTable.total">
+              [nzTotal]="nTable.total"
+              nzHideOnSinglePage>
       <thead>
       <tr>
         <th nzColumnKey="title" nzWidth="10vw">标题</th>
@@ -26,8 +27,9 @@
           <td>
             <i nz-icon nz-tooltip="编辑" nzTheme="twotone" nzType="edit"></i>
             &nbsp;
-            <i (click)="deleteNotification(item.id)" nz-icon nz-tooltip="删除" nzTheme="twotone" nzTwotoneColor="#eb2f96"
-               nzType="delete"></i>
+            <i (nzOnConfirm)="deleteNotification(item.id)" nz-icon nz-popconfirm="删除这条通知？" nz-tooltip="删除"
+               nzTheme="twotone" nzTwotoneColor="#eb2f96" nzType="delete"
+            ></i>
           </td>
         </tr>
         <tr [nzExpand]="expandSet.has(item.id)">
@@ -67,10 +69,6 @@
                nzTheme="outline" nzType="user-delete"
                style="color: red"></i>
             &nbsp;
-            <i (nzOnConfirm)="updateUser(data)" [nz-popconfirm]="data.isAdmin == 0?'将该成员设为管理员？':'撤销该成员的管理员权限？'"
-               [nzType]="data.isAdmin == 0?'user-add':'user-delete'"
-               [style]="data.isAdmin == 0?'color:green':'color:red'"
-               nz-icon></i>
             <i (nzOnConfirm)="deleteUser(data.userId)" class="close-icon" nz-icon nz-popconfirm="确定要移除这个成员吗？"
                nzTheme="outline"
                nzType="close" style="color: red"></i>
@@ -83,11 +81,13 @@
 </div>
 <nz-row class="buttons" style="margin-top: 2%">
   <nz-col nz-col="3">
-    <button [nzLoading]="nTable.loading" nz-button nzType="danger"><i nz-icon nzTheme="outline" nzType="clear"></i>
-      全部删除
-    </button>
-    <button nz-button nzSize="large" nzType="primary" routerLink="/notification/publish">返回</button>
-    <button (click)="openDrawer()" nz-button>群组资料</button>
+    <nz-button-group>
+      <button [nzLoading]="nTable.loading" nz-button nzType="danger"><i nz-icon nzTheme="outline" nzType="clear"></i>
+        全部删除
+      </button>
+      <button nz-button nzType="primary" routerLink="/notification/publish">返回</button>
+      <button (click)="openDrawer()" nz-button>群组资料</button>
+    </nz-button-group>
   </nz-col>
 </nz-row>
 <nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="群组资料"

@@ -83,4 +83,8 @@ export class PublishCenterService extends NotificationGroupService {
   asTodo(gid: number, nid: number) {
     return this.http.post(`${this.url}/${gid}/notifications/${nid}/asTodo`, {});
   }
+
+  deleteNotification(gid: number, nid: number) {
+    return this.http.delete(`${this.url}/${gid}/notifications/${nid}`, {});
+  }
 }

@@ -177,7 +177,14 @@ export class ManageGroupComponent implements OnInit {
     }
   }
 
-  deleteNotification(id: number) {
-
+  deleteNotification(nid: number) {
+    this.service.deleteNotification(this.groupId, nid).subscribe(
+      () => {
+        this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
+        this.service.msg.success('删除成功');
+      }, (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
+      }
+    )
   }
 }
