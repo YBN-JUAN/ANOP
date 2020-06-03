@@ -7,6 +7,7 @@ import {NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
 import {TableParamsModel} from '../../../../share/model/table-params.model';
 import {NotificationInfoModel} from '../../../../share/model/notification-info.model';
 import {HttpErrorResponse} from '@angular/common/http';
+import {ResponseModel} from '../../../../share/model/response.model';
 
 @Component({
   selector: 'app-manage-group',
@@ -15,15 +16,11 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class ManageGroupComponent implements OnInit {
 
-  pageSize = 6;
   updateGroupInfo: GroupUpdateInfo;
   groupId: number;
   permission: string;
-  total = 1;
-  listOfUsers: GroupUser[] = [];
-  loading = true;
+
   expandSet = new Set<number>();
-  pageIndex = 1;
   adminInfo: UpdateUserInfo;
   mTable: TableParamsModel<GroupUser> = new TableParamsModel(true, 6, 1);
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
@@ -59,10 +56,10 @@ export class ManageGroupComponent implements OnInit {
     this.updateGroupInfo.remark = '';
     this.updateGroupInfo.title = '...';
     this.getGroupInfo(id);
-    this.loadDataFromServer(this.pageIndex, this.pageSize);
+    this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
   }
 
-	getGroupInfo(id: number) {
+  getGroupInfo(id: number) {
     this.service.getGroup(id).subscribe(
       data => {
         this.updateGroupInfo.permission = data.permission;
@@ -78,16 +75,14 @@ export class ManageGroupComponent implements OnInit {
   }
 
   loadDataFromServer(pageIndex: number, pageSize: number): void {
-    this.loading = true;
-    this.service.getGroupUser(this.groupId, 'id', pageIndex, pageSize).subscribe(data => {
-        this.loading = false;
-        this.total = data.total;
-        this.listOfUsers = data.list;
-        console.log(this.listOfUsers);
+    this.mTable.loading = true;
+    this.service.getGroupUser(this.groupId, 'id', pageIndex, pageSize).subscribe(
+      (data: ResponseModel<GroupUser>) => {
+        this.mTable.setTable(data.list, data.total, false);
         console.log(data);
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
       }
     );
   }
@@ -100,12 +95,11 @@ export class ManageGroupComponent implements OnInit {
 
   submitForm(): void {
     this.updateGroupInfo.permission = Number(this.permission);
-    this.service.updateGroup(this.groupId, this.updateGroupInfo, () => {
-        this.router.navigateByUrl('/notification/publish');
-        }
-      ,
-      (result) => {
-      console.log(result.message);
+    this.service.updateGroup(this.groupId, this.updateGroupInfo,
+      () => {
+        location.reload();
+      }, (result) => {
+        console.log(result.message);
       });
   }
 
@@ -119,7 +113,7 @@ export class ManageGroupComponent implements OnInit {
     this.service.updateGroupUser(this.groupId, uid, this.adminInfo).subscribe(
       () => {
         console.log('update user to admin ok');
-        this.loadDataFromServer(this.pageIndex, this.pageSize);
+        this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
       },
       error => {
         console.log(error);
@@ -131,7 +125,7 @@ export class ManageGroupComponent implements OnInit {
     this.service.removeGroupUser(this.groupId, uid).subscribe(
       () => {
         console.log('del user ok');
-        this.loadDataFromServer(this.pageIndex, this.pageSize);
+        this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
       },
       error => {
         console.log(error);

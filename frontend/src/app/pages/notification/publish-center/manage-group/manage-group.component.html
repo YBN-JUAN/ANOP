@@ -40,34 +40,44 @@
 
   <div [nzSpan]="6" nz-col>
     <div class="user-list">
-      <div class="table">
-        <nz-table (nzQueryParams)="onQueryParamsChange($event)" [nzData]="listOfUsers" [nzFrontPagination]="false"
-                  [nzLoading]="loading"
-                  [nzPageIndex]="pageIndex" [nzPageSize]="mTable.pageSize" [nzTotal]="total" nzHideOnSinglePage>
-          <thead>
-          <tr>
-            <th nzColumnKey="id">ID</th>
-            <th nzColumnKey="nickname">成员昵称</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let data of listOfUsers">
-            <td>{{ data.userId }}</td>
-            <td>{{ data.nickname }}</td>
-            <td>
-              <i (click)="updateUser(data)" *ngIf="data.isAdmin == 0" nz-icon nzTheme="outline" nzType="user-add"
-                 style="color: green"></i>
-              <i (click)="updateUser(data)" *ngIf="data.isAdmin == 1" nz-icon nzTheme="outline" nzType="user-delete"
-                 style="color: red"></i>
-              &nbsp;
-              <i (click)="deleteUser(data.userId)" class="close-icon" nz-icon nzTheme="outline" nzType="close"
-                 style="color: red"></i>
-            </td>
-          </tr>
-          </tbody>
-        </nz-table>
-      </div>
+      <nz-table (nzQueryParams)="onQueryParamsChange($event)"
+                [nzData]="mTable.data"
+                [nzFrontPagination]="false"
+                [nzLoading]="mTable.loading"
+                [nzPageIndex]="mTable.pageIndex"
+                [nzPageSize]="mTable.pageSize"
+                [nzTotal]="mTable.total"
+                nzHideOnSinglePage>
+        <thead>
+        <tr>
+          <th nzColumnKey="id">ID</th>
+          <th nzColumnKey="nickname">成员昵称</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of mTable.data">
+          <td>{{ data.userId }}</td>
+          <td>{{ data.nickname }}</td>
+          <td>
+            <i (nzOnConfirm)="updateUser(data)" *ngIf="data.isAdmin == 0" nz-icon nz-popconfirm="将该成员设为管理员？"
+               nzTheme="outline" nzType="user-add"
+               style="color: green"></i>
+            <i (nzOnConfirm)="updateUser(data)" *ngIf="data.isAdmin == 1" nz-icon nz-popconfirm="撤销该成员的管理员权限？"
+               nzTheme="outline" nzType="user-delete"
+               style="color: red"></i>
+            &nbsp;
+            <i (nzOnConfirm)="updateUser(data)" [nz-popconfirm]="data.isAdmin == 0?'将该成员设为管理员？':'撤销该成员的管理员权限？'"
+               [nzType]="data.isAdmin == 0?'user-add':'user-delete'"
+               [style]="data.isAdmin == 0?'color:green':'color:red'"
+               nz-icon></i>
+            <i (nzOnConfirm)="deleteUser(data.userId)" class="close-icon" nz-icon nz-popconfirm="确定要移除这个成员吗？"
+               nzTheme="outline"
+               nzType="close" style="color: red"></i>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
     </div>
   </div>
 </div>
@@ -92,7 +102,9 @@
           <div class="group-info">
             <nz-row>
               <nz-badge nzColor="blue" nzText="名称: "></nz-badge>
-              <input [(ngModel)]="updateGroupInfo.title" style="margin-left:1%;" type="text"/>
+              <label>
+                <input [(ngModel)]="updateGroupInfo.title" style="margin-left:1%;" type="text"/>
+              </label>
             </nz-row>
             <nz-row>
               <nz-badge nzColor="blue" nzText="备注: "></nz-badge>
