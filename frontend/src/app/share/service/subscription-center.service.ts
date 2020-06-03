@@ -36,10 +36,14 @@ export class SubscriptionCenterService extends NotificationGroupService {
   }
 
   getAuto(gid: number) {
-    return this.http.get<{ isAuto }>(`${this.url}/${gid}/autoTodo`);
+    return this.http.get<{ isAuto: number }>(`${this.url}/${gid}/autoTodo`);
   }
 
   setAuto(gid: number, isAuto: number) {
     return this.http.patch(`${this.url}/${gid}/autoTodo`, {isAuto});
+  }
+
+  getUnreadCount(id: number) {
+    return this.http.get<{ groupId: number, unreadCount: number }>(`${this.url}/${id}/notifications/unread_count`, {});
   }
 }
