@@ -37,6 +37,9 @@
       &nbsp;
       <i (click)="dismiss(data.id)" nz-icon nz-tooltip="解散群组" nzTheme="twotone" nzTwotoneColor="#eb2f96"
          nzType="delete"></i>
+      &nbsp;
+      <i [queryParams]="{gid:data.id, title:data.title}" nz-icon nz-tooltip="发布通知" nzTheme="twotone"
+         nzTwotoneColor="#52c41a" nzType="edit" routerLink="/notification/publish/new-notification"></i>
     </td>
   </tr>
   </tbody>
