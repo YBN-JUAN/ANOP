@@ -23,7 +23,7 @@
         <td [hidden]="true">{{ data.id }}</td>
         <td>{{ data.username }}</td>
         <td>{{ data.groupName }}</td>
-        <td>{{ data.requestTime }}</td>
+        <td>{{ data.requestTime|date:'yyyy年MM月dd日 HH时mm分' }}</td>
         <td>
           <i (click)="dealOne(data.id, 1)" class="check-icon" nz-icon nzTheme="outline"
              nzType="check"></i>
