@@ -8,8 +8,9 @@ import {JsonResult} from '../model/json-result';
 import {finalize} from 'rxjs/operators';
 import {NotificationGroupService} from './notification-group.service';
 import {NzMessageService} from 'ng-zorro-antd';
-import {NotificationInfoModel} from '../model/notification-info.model';
+import {NotificationModel} from '../model/notification.model';
 import {Observable} from 'rxjs';
+import {NotificationInfoModel} from '../model/notification-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +87,12 @@ export class PublishCenterService extends NotificationGroupService {
 
   deleteNotification(gid: number, nid: number) {
     return this.http.delete(`${this.url}/${gid}/notifications/${nid}`, {});
+  }
+
+  updateNotification(nid: number, model: NotificationModel) {
+    return this.http.patch(`${this.url}/${model.gid}/notifications/${nid}`, {
+      title: model.title,
+      content: model.content
+    });
   }
 }

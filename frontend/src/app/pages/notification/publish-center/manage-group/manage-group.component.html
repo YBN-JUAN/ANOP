@@ -25,7 +25,7 @@
           <td>{{item.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
           <td>
-            <i nz-icon nz-tooltip="编辑" nzTheme="twotone" nzType="edit"></i>
+            <i (click)="editNotification(item)" nz-icon nz-tooltip="编辑" nzTheme="twotone" nzType="edit"></i>
             &nbsp;
             <i (nzOnConfirm)="deleteNotification(item.id)" nz-icon nz-popconfirm="删除这条通知？" nz-tooltip="删除"
                nzTheme="twotone" nzTwotoneColor="#eb2f96" nzType="delete"
@@ -109,7 +109,9 @@
             <nz-row>
               <nz-badge nzColor="blue" nzText="备注: "></nz-badge>
             </nz-row>
-            <input [(ngModel)]="updateGroupInfo.remark" class="detail-mark" style="margin-left:1%;"/>
+            <label>
+              <input [(ngModel)]="updateGroupInfo.remark" class="detail-mark" style="margin-left:1%;"/>
+            </label>
             <nz-row>
               <nz-badge nzColor="blue" nzText="权限: "></nz-badge>
               <label>

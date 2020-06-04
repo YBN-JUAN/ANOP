@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {GroupUpdateInfo, UpdateUserInfo} from '../../../../share/model/group-info.model';
 import {GroupUser} from '../../../../share/model/user-info.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
 import {NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
 import {TableParamsModel} from '../../../../share/model/table-params.model';
 import {NotificationInfoModel} from '../../../../share/model/notification-info.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ResponseModel} from '../../../../share/model/response.model';
+import {UpdateNotificationComponent} from '../update-notification/update-notification.component';
 
 @Component({
   selector: 'app-manage-group',
@@ -28,7 +29,6 @@ export class ManageGroupComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private service: PublishCenterService,
-              private router: Router,
               private modal: NzModalService) {
   }
 
@@ -36,9 +36,7 @@ export class ManageGroupComponent implements OnInit {
     this.nTable.loading = true;
     this.service.getGroupNotifications(this.groupId, 'creationDate desc', pageIndex, pageSize).subscribe(
       data => {
-        this.nTable.loading = false;
-        this.nTable.total = data.total;
-        this.nTable.data = data.list;
+        this.nTable.setTable(data.list, data.total, false);
         console.log(this.nTable.data);
       },
       (response: HttpErrorResponse) => {
@@ -175,6 +173,28 @@ export class ManageGroupComponent implements OnInit {
     } else {
       this.expandSet.delete(id);
     }
+  }
+
+  editNotification(model: NotificationInfoModel) {
+    const modalRef = this.modal.create({
+      nzTitle: '编辑通知',
+      nzContent: UpdateNotificationComponent,
+      nzGetContainer: () => document.body,
+      nzComponentParams: {
+        service: this.service,
+        title: model.title,
+        content: model.content,
+        nid: model.id,
+        gid: this.groupId
+      },
+      nzOnOk: () => {
+        console.log('调用了nzOnOk')
+        modalRef.getContentComponent().submitFrom();
+        this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
+      }, nzOnCancel: () => {
+        console.log('调用了nzOnCancel')
+      }
+    });
   }
 
   deleteNotification(nid: number) {
