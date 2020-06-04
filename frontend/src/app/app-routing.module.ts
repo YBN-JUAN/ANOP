@@ -17,7 +17,6 @@ import {GroupListComponent} from './pages/notification/subscription-center/group
 import {JoinGroupComponent} from './pages/notification/subscription-center/join-group/join-group.component';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
-import {PublishCenterGroupDetailComponent} from './pages/notification/publish-center/publish-center-group-detail/publish-center-group-detail.component';
 import {ImpTodoComponent} from './pages/memorandum/imp-todo/imp-todo.component';
 import {FavorTodoComponent} from './pages/memorandum/favor-todo/favor-todo.component';
 import {HistTodoComponent} from './pages/memorandum/hist-todo/hist-todo.component';
@@ -47,7 +46,6 @@ const routes: Routes = [
           {path: 'manage-group/:id', component: ManageGroupComponent},
           {path: 'new-notification', component: NewNotificationComponent},
           {path: 'group-list', component: PublishCenterGroupListComponent},
-          {path: 'publish-group-detail/:id', component: PublishCenterGroupDetailComponent},
           {path: '**', component: PublishCenterGroupListComponent},
           {path: '', component: PublishCenterGroupListComponent}
         ]
