@@ -190,13 +190,16 @@ export class ManageGroupComponent implements OnInit {
       nzOnOk: () => {
         console.log('调用了nzOnOk')
         modalRef.getContentComponent().submitFrom();
-        this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
+        setTimeout(() => {
+          this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
+        }, 500);
       }, nzOnCancel: () => {
         console.log('调用了nzOnCancel')
       }
     });
   }
 
+  // 删除一条通知
   deleteNotification(nid: number) {
     this.service.deleteNotification(this.groupId, nid).subscribe(
       () => {
