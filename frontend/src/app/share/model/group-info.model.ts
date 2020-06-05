@@ -28,9 +28,12 @@ export class PatchGroupModel {
     this.remark = remark;
     this.permission = permission;
   }
-}
 
-export class UpdateUserInfo {
-  isAdmin: number;
-}
+  copy(model: PatchGroupModel) {
+    this.setValue(model.title, model.remark, model.permission);
+  }
 
+  equals(model: PatchGroupModel) {
+    return this.title === model.title && this.remark === model.remark && this.permission === model.permission;
+  }
+}

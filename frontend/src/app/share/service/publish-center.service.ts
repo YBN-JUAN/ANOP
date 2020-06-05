@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ResponseModel} from '../model/response.model';
-import {GroupInfoModel, PatchGroupModel, UpdateUserInfo} from '../model/group-info.model';
+import {GroupInfoModel, PatchGroupModel} from '../model/group-info.model';
 import {GroupUser} from '../model/user-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
 import {NotificationGroupService} from './notification-group.service';
@@ -49,17 +49,13 @@ export class PublishCenterService extends NotificationGroupService {
     return this.http.get<ResponseModel<GroupUser>>(`${this.url}/${groupId}/users`, {params});
   }
 
-  updateGroupUser(gid: number, uid: number, info: UpdateUserInfo) {
-    if (!info)
-      return;
-    return this.http.patch<UpdateUserInfo>(`${this.url}/${gid}/users/${uid}`, info);
+  updateUserPermission(gid: number, uid: number, isAdmin: number) {
+    return this.http.patch(`${this.url}/${gid}/users/${uid}`, {isAdmin});
   }
-
 
   removeGroupUser(gid: number, uid: number) {
     return this.http.delete(`${this.url}/${gid}/users/${uid}`);
   }
-
 
   getGroupNotifications(gid: number, orderBy: string, pageNum: number, pageSize: number): Observable<ResponseModel<NotificationInfoModel>> {
     return super.getGroupNotifications(gid, orderBy, pageNum, pageSize);

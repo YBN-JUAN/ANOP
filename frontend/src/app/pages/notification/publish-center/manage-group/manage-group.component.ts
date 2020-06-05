@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PatchGroupModel, UpdateUserInfo} from '../../../../share/model/group-info.model';
+import {PatchGroupModel} from '../../../../share/model/group-info.model';
 import {GroupUser} from '../../../../share/model/user-info.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
@@ -16,14 +16,14 @@ import {UpdateNotificationComponent} from '../update-notification/update-notific
   styleUrls: ['./manage-group.component.css']
 })
 export class ManageGroupComponent implements OnInit {
-
-  patchGroupModel: PatchGroupModel = new PatchGroupModel();
-  groupId: number;
+  origin: PatchGroupModel = new PatchGroupModel();
+  patched: PatchGroupModel = new PatchGroupModel();
+  gid: number;
   expandSet = new Set<number>();
-  adminInfo: UpdateUserInfo;
   mTable: TableParamsModel<GroupUser> = new TableParamsModel(true, 6, 1);
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
   visible = false;
+  editable = false;
   permissions = [
     {
       value: 0,
@@ -47,7 +47,7 @@ export class ManageGroupComponent implements OnInit {
 
   loadNotificationData(pageIndex: number, pageSize: number): void {
     this.nTable.loading = true;
-    this.service.getGroupNotifications(this.groupId, 'creationDate desc', pageIndex, pageSize).subscribe(
+    this.service.getGroupNotifications(this.gid, 'creationDate desc', pageIndex, pageSize).subscribe(
       data => {
         this.nTable.setTable(data.list, data.total, false);
         console.log(this.nTable.data);
@@ -60,16 +60,17 @@ export class ManageGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminInfo = new UpdateUserInfo();
-    this.groupId = toNumber(this.route.snapshot.paramMap.get('id'));
-    this.getGroupInfo(this.groupId);
+    this.gid = toNumber(this.route.snapshot.paramMap.get('id'));
+    this.getGroupInfo(this.gid);
     this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
+    this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
   }
 
   getGroupInfo(id: number) {
     this.service.getGroupInfo(id).subscribe(
       data => {
-        this.patchGroupModel.setValue(data.title, data.remark, data.permission);
+        this.origin.setValue(data.title, data.remark, data.permission);
+        this.patched.setValue(data.title, data.remark, data.permission);
         console.log(data);
       },
       (error: HttpErrorResponse) => {
@@ -80,12 +81,10 @@ export class ManageGroupComponent implements OnInit {
 
   loadDataFromServer(pageIndex: number, pageSize: number): void {
     this.mTable.loading = true;
-    this.service.getGroupUser(this.groupId, 'id', pageIndex, pageSize).subscribe(
+    this.service.getGroupUser(this.gid, 'id', pageIndex, pageSize).subscribe(
       (data: ResponseModel<GroupUser>) => {
         this.mTable.setTable(data.list, data.total, false);
-        console.log(data);
-      },
-      (error: HttpErrorResponse) => {
+      }, (error: HttpErrorResponse) => {
         this.service.msg.error(error.error.message);
       }
     );
@@ -98,24 +97,30 @@ export class ManageGroupComponent implements OnInit {
 
   // 提交编辑群组信息的表单
   submitForm(): void {
-    this.service.updateGroupInfo(this.groupId, this.patchGroupModel).subscribe(
-      () => {
-        this.service.msg.success('编辑成功');
-      }, (error: HttpErrorResponse) => {
-        this.service.msg.error(error.error.message);
-      }
-    );
+    // 如果没有更改表单内容就点击了保存，不会提交表单。
+    if (this.origin.equals(this.patched)) {
+      this.editable = false;
+    } else {
+      this.service.updateGroupInfo(this.gid, this.patched).subscribe(
+        () => {
+          this.service.msg.success('编辑成功');
+          this.editable = false;
+          this.origin.copy(this.patched);
+        }, (error: HttpErrorResponse) => {
+          this.service.msg.error(error.error.message);
+        }
+      );
+    }
   }
 
   // 设置或撤销管理员
-  setAdmin(info: GroupUser) {
-    if (info.isAdmin === 0) {
-      this.adminInfo.isAdmin = 1;
+  setAdmin(uid: number, isAdmin: number) {
+    if (isAdmin === 0) {
+      isAdmin = 1;
     } else {
-      this.adminInfo.isAdmin = 0;
+      isAdmin = 0;
     }
-    const uid = info.userId;
-    this.service.updateGroupUser(this.groupId, uid, this.adminInfo).subscribe(
+    this.service.updateUserPermission(this.gid, uid, isAdmin).subscribe(
       () => {
         this.service.msg.success('操作成功');
         setTimeout(() => {
@@ -129,7 +134,7 @@ export class ManageGroupComponent implements OnInit {
   }
 
   deleteUser(uid: number) {
-    this.service.removeGroupUser(this.groupId, uid).subscribe(
+    this.service.removeGroupUser(this.gid, uid).subscribe(
       () => {
         this.service.msg.success('操作成功');
         this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
@@ -146,7 +151,7 @@ export class ManageGroupComponent implements OnInit {
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: () => {
-        this.service.dismissGroup(this.groupId).subscribe(
+        this.service.dismissGroup(this.gid).subscribe(
           () => {
             this.router.navigateByUrl('/notification/publish').then(
               () => {
@@ -195,7 +200,7 @@ export class ManageGroupComponent implements OnInit {
         title: model.title,
         content: model.content,
         nid: model.id,
-        gid: this.groupId
+        gid: this.gid
       },
       nzOnOk: () => {
         console.log('调用了nzOnOk')
@@ -211,7 +216,7 @@ export class ManageGroupComponent implements OnInit {
 
   // 删除一条通知
   deleteNotification(nid: number) {
-    this.service.deleteNotification(this.groupId, nid).subscribe(
+    this.service.deleteNotification(this.gid, nid).subscribe(
       () => {
         this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
         this.service.msg.success('删除成功');
