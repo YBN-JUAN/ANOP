@@ -14,7 +14,7 @@ export class PublishCenterGroupListComponent implements OnInit {
   total = 1;
   listOfGroups: GroupInfoModel[] = [];
   loading = true;
-  pageSize = 6;
+  pageSize = 7;
   pageIndex = 1;
   buttonTitle = '切换到我管理的群组列表';
   listType = 0;

@@ -3,7 +3,7 @@ import {PatchGroupModel} from '../../../../share/model/group-info.model';
 import {GroupUser} from '../../../../share/model/user-info.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
-import {NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
+import {NzModalService, NzTableQueryParams} from 'ng-zorro-antd';
 import {TableParamsModel} from '../../../../share/model/table-params.model';
 import {NotificationInfoModel} from '../../../../share/model/notification-info.model';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -43,6 +43,13 @@ export class ManageGroupComponent implements OnInit {
               private service: PublishCenterService,
               private modal: NzModalService,
               private router: Router) {
+    this.route.queryParams.subscribe(
+      queryParams => {
+        this.gid = queryParams.gid;
+        this.origin.setValue(queryParams.title, queryParams.remark, queryParams.permission);
+        this.patched.setValue(queryParams.title, queryParams.remark, queryParams.permission);
+      });
+    console.log(this.gid)
   }
 
   loadNotificationData(pageIndex: number, pageSize: number): void {
@@ -60,23 +67,8 @@ export class ManageGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gid = toNumber(this.route.snapshot.paramMap.get('id'));
-    this.getGroupInfo(this.gid);
     this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
     this.loadNotificationData(this.nTable.pageIndex, this.nTable.pageSize);
-  }
-
-  getGroupInfo(id: number) {
-    this.service.getGroupInfo(id).subscribe(
-      data => {
-        this.origin.setValue(data.title, data.remark, data.permission);
-        this.patched.setValue(data.title, data.remark, data.permission);
-        console.log(data);
-      },
-      (error: HttpErrorResponse) => {
-        this.service.msg.error(error.error.message);
-      }
-    )
   }
 
   loadDataFromServer(pageIndex: number, pageSize: number): void {
@@ -169,7 +161,6 @@ export class ManageGroupComponent implements OnInit {
   }
 
   onNotificationQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const {pageSize, pageIndex} = params;
     this.loadNotificationData(pageIndex, pageSize);
   }

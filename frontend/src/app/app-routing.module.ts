@@ -43,7 +43,7 @@ const routes: Routes = [
         path: 'publish', component: PublishCenterComponent,
         children: [
           {path: 'create-group', component: CreateGroupComponent},
-          {path: 'manage-group/:id', component: ManageGroupComponent},
+          {path: 'manage-group', component: ManageGroupComponent},
           {path: 'new-notification', component: NewNotificationComponent},
           {path: 'group-list', component: PublishCenterGroupListComponent},
           {path: '**', component: PublishCenterGroupListComponent},

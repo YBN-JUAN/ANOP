@@ -33,7 +33,8 @@
     <td>{{ data.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
     <td>
       <i nz-icon nz-tooltip="查看群组详情" nzTheme="twotone" nzType="info-circle"
-         routerLink="/notification/publish/manage-group/{{data.id}}"></i>
+         [queryParams]="{gid:data.id,title:data.title,remark:data.remark,permission:data.permission}"
+         routerLink="/notification/publish/manage-group"></i>
       &nbsp;
       <i (click)="dismiss(data.id)" nz-icon nz-tooltip="解散群组" nzTheme="twotone" nzTwotoneColor="#eb2f96"
          nzType="delete"></i>
