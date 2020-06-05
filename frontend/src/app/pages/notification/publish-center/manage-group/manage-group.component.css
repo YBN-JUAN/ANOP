@@ -1,7 +1,3 @@
-.detail-mark {
-	margin-top: 10px;
-}
-
 .user-list {
 	margin-left: 22px;
 	height: 300px;
@@ -11,7 +7,7 @@
 	margin-bottom: 3%;
 }
 
-.group-info nz-row {
-	margin-top: 5%;
+.group-info {
+  margin-top: 5%;
 }
 

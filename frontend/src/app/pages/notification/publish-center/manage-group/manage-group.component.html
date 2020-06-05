@@ -62,10 +62,10 @@
           <td>{{ data.userId }}</td>
           <td>{{ data.nickname }}</td>
           <td>
-            <i (nzOnConfirm)="updateUser(data)" *ngIf="data.isAdmin == 0" nz-icon nz-popconfirm="将该成员设为管理员？"
+            <i (nzOnConfirm)="setAdmin(data)" *ngIf="data.isAdmin == 0" nz-icon nz-popconfirm="将该成员设为管理员？"
                nzTheme="outline" nzType="user-add"
                style="color: green"></i>
-            <i (nzOnConfirm)="updateUser(data)" *ngIf="data.isAdmin == 1" nz-icon nz-popconfirm="撤销该成员的管理员权限？"
+            <i (nzOnConfirm)="setAdmin(data)" *ngIf="data.isAdmin == 1" nz-icon nz-popconfirm="撤销该成员的管理员权限？"
                nzTheme="outline" nzType="user-delete"
                style="color: red"></i>
             &nbsp;
@@ -82,66 +82,61 @@
 <nz-row class="buttons" style="margin-top: 2%">
   <nz-col nz-col="3">
     <nz-button-group>
-      <button [nzLoading]="nTable.loading" nz-button nzType="danger"><i nz-icon nzTheme="outline" nzType="clear"></i>
-        全部删除
+      <button [nzLoading]="nTable.loading" nz-button nz-popover="这个功能很危险，所以没有实现。" nzType="danger">
+        <i nz-icon nzTheme="outline" nzType="clear"></i>全部删除
       </button>
-      <button nz-button nzType="primary" routerLink="/notification/publish">返回</button>
-      <button (click)="openDrawer()" nz-button>群组资料</button>
+      <button nz-button nzType="primary" routerLink="/notification/publish">
+        <i nz-icon nzTheme="outline" nzType="rollback"></i>返回
+      </button>
+      <button (click)="openDrawer()" nz-button>
+        <i nz-icon nzTheme="outline" nzType="info-circle"></i>群组资料
+      </button>
     </nz-button-group>
   </nz-col>
 </nz-row>
 <nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="群组资料"
            nzWidth="30%">
-  <div class="group-info">
-    <div [nzSpan]="11" nz-col>
-      <nz-card nzTitle="管理群组信息">
+  <div class="group-info" nz-row>
+    <div [nzSpan]="24" nz-col>
+      <nz-card nzTitle="编辑群组信息">
         <div class="group-info">
-          <nz-row>
-            <nz-badge></nz-badge>
-          </nz-row>
-          <div class="group-info">
-            <nz-row>
-              <nz-badge nzColor="blue" nzText="名称: "></nz-badge>
-              <label>
-                <input [(ngModel)]="updateGroupInfo.title" style="margin-left:1%;" type="text"/>
-              </label>
-            </nz-row>
-            <nz-row>
-              <nz-badge nzColor="blue" nzText="备注: "></nz-badge>
-            </nz-row>
-            <label>
-              <input [(ngModel)]="updateGroupInfo.remark" class="detail-mark" style="margin-left:1%;"/>
-            </label>
-            <nz-row>
-              <nz-badge nzColor="blue" nzText="权限: "></nz-badge>
-              <label>
-                <select [(ngModel)]="permission" style="margin-left:1%;">
-                  <option value=0>需要审核</option>
-                  <option value=1>允许任何人加入</option>
-                  <option value=2>拒绝任何人加入</option>
-                </select>
-              </label>
-            </nz-row>
-            <nz-row>
-              <button (click)="submitForm()" nz-button nzSize="large" nzType="primary">
-                <i nz-icon nzTheme="outline" nzType="save"></i>提交修改
-              </button>
-            </nz-row>
-          </div>
+          <form (ngSubmit)="submitForm()" nz-form>
+            <nz-form-item>
+              <nz-form-label nzRequired>名称</nz-form-label>
+              <nz-form-control>
+                <label>
+                  <input [(ngModel)]="patchGroupModel.title" name="title" nz-input type="text">
+                </label>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired>备注</nz-form-label>
+              <nz-form-control>
+                <label>
+                  <input [(ngModel)]="patchGroupModel.remark" class="detail-mark" name="remark" nz-input>
+                </label>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzSm="6" nzXs="24">加群方式</nz-form-label>
+              <nz-form-control nzSm="14" nzXs="24">
+                <nz-select [(ngModel)]="patchGroupModel.permission" name="permission" nzPlaceHolder="请选择加群方式">
+                  <nz-option *ngFor="let permission of permissions" [nzLabel]="permission.description"
+                             [nzValue]="permission.value"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button nzType="primary" type="submit">
+                  <i nz-icon nzTheme="outline" nzType="save"></i>提交
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
         </div>
       </nz-card>
     </div>
-    <!--    <nz-list nzItemLayout="vertical">-->
-    <!--      <nz-list-item>-->
-    <!--        <nz-list-item-meta>-->
-    <!--          <nz-list-item-meta-avatar [nzSrc]="group.avatarUrl"></nz-list-item-meta-avatar>-->
-    <!--          <nz-list-item-meta-title>{{group.title}}</nz-list-item-meta-title>-->
-    <!--          <nz-list-item-meta-description>备注：{{group.remark}}</nz-list-item-meta-description>-->
-    <!--          <nz-list-item-meta-description>-->
-    <!--            创建时间：{{group.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</nz-list-item-meta-description>-->
-    <!--        </nz-list-item-meta>-->
-    <!--      </nz-list-item>-->
-    <!--    </nz-list>-->
     <button (click)="dismissGroup()" nz-button nzDanger nzSize="large" nzType="primary" style="margin: auto 0.2vw">解散群组
     </button>
     <button nz-button nzSize="large" nzType="primary" routerLink="/notification/publish">返回</button>

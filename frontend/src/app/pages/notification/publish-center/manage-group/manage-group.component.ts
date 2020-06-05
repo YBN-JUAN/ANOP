@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupUpdateInfo, UpdateUserInfo} from '../../../../share/model/group-info.model';
+import {PatchGroupModel, UpdateUserInfo} from '../../../../share/model/group-info.model';
 import {GroupUser} from '../../../../share/model/user-info.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
 import {NzModalService, NzTableQueryParams, toNumber} from 'ng-zorro-antd';
 import {TableParamsModel} from '../../../../share/model/table-params.model';
@@ -17,19 +17,32 @@ import {UpdateNotificationComponent} from '../update-notification/update-notific
 })
 export class ManageGroupComponent implements OnInit {
 
-  updateGroupInfo: GroupUpdateInfo;
+  patchGroupModel: PatchGroupModel = new PatchGroupModel();
   groupId: number;
-  permission: string;
-
   expandSet = new Set<number>();
   adminInfo: UpdateUserInfo;
   mTable: TableParamsModel<GroupUser> = new TableParamsModel(true, 6, 1);
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
   visible = false;
+  permissions = [
+    {
+      value: 0,
+      description: '需要管理员审核',
+    },
+    {
+      value: 1,
+      description: '允许任何人加入',
+    },
+    {
+      value: 2,
+      description: '不允许任何人加入'
+    }
+  ]
 
   constructor(private route: ActivatedRoute,
               private service: PublishCenterService,
-              private modal: NzModalService) {
+              private modal: NzModalService,
+              private router: Router) {
   }
 
   loadNotificationData(pageIndex: number, pageSize: number): void {
@@ -47,27 +60,20 @@ export class ManageGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateGroupInfo = new GroupUpdateInfo();
     this.adminInfo = new UpdateUserInfo();
-    const id = toNumber(this.route.snapshot.paramMap.get('id'));
-    this.groupId = Number(id);
-    this.updateGroupInfo.remark = '';
-    this.updateGroupInfo.title = '...';
-    this.getGroupInfo(id);
+    this.groupId = toNumber(this.route.snapshot.paramMap.get('id'));
+    this.getGroupInfo(this.groupId);
     this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
   }
 
   getGroupInfo(id: number) {
-    this.service.getGroup(id).subscribe(
+    this.service.getGroupInfo(id).subscribe(
       data => {
-        this.updateGroupInfo.permission = data.permission;
-        this.updateGroupInfo.title = data.title;
-        this.updateGroupInfo.remark = data.remark;
-        this.permission = String(data.permission);
+        this.patchGroupModel.setValue(data.title, data.remark, data.permission);
         console.log(data);
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
       }
     )
   }
@@ -86,22 +92,23 @@ export class ManageGroupComponent implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const {pageSize, pageIndex} = params;
     this.loadDataFromServer(pageIndex, pageSize);
   }
 
+  // 提交编辑群组信息的表单
   submitForm(): void {
-    this.updateGroupInfo.permission = Number(this.permission);
-    this.service.updateGroup(this.groupId, this.updateGroupInfo,
+    this.service.updateGroupInfo(this.groupId, this.patchGroupModel).subscribe(
       () => {
-        location.reload();
-      }, (result) => {
-        console.log(result.message);
-      });
+        this.service.msg.success('编辑成功');
+      }, (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
+      }
+    );
   }
 
-  updateUser(info: GroupUser) {
+  // 设置或撤销管理员
+  setAdmin(info: GroupUser) {
     if (info.isAdmin === 0) {
       this.adminInfo.isAdmin = 1;
     } else {
@@ -110,11 +117,13 @@ export class ManageGroupComponent implements OnInit {
     const uid = info.userId;
     this.service.updateGroupUser(this.groupId, uid, this.adminInfo).subscribe(
       () => {
-        console.log('update user to admin ok');
-        this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
-      },
-      error => {
-        console.log(error);
+        this.service.msg.success('操作成功');
+        setTimeout(() => {
+          // 添加一个延时，防止新数据还未被写入时就读取了旧数据
+          this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
+        }, 500);
+      }, (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
       }
     );
   }
@@ -122,11 +131,11 @@ export class ManageGroupComponent implements OnInit {
   deleteUser(uid: number) {
     this.service.removeGroupUser(this.groupId, uid).subscribe(
       () => {
-        console.log('del user ok');
+        this.service.msg.success('操作成功');
         this.loadDataFromServer(this.mTable.pageIndex, this.mTable.pageSize);
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
       }
     )
   }
@@ -134,16 +143,17 @@ export class ManageGroupComponent implements OnInit {
   dismissGroup() {
     this.modal.confirm({
       nzTitle: '您确定要解散这个群组吗?',
-      // nzContent: '<b style="color: red;">Some descriptions</b>',
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: () => {
         this.service.dismissGroup(this.groupId).subscribe(
           () => {
-            this.service.msg.success('您已解散该群');
-          },
-          error => {
-            console.log('delete group fail', error);
+            this.router.navigateByUrl('/notification/publish').then(
+              () => {
+                this.service.msg.success('您已解散该群');
+              });
+          }, (error: HttpErrorResponse) => {
+            this.service.msg.error(error.error.message);
           }
         );
         this.ngOnInit();

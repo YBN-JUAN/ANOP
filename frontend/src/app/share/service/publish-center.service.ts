@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ResponseModel} from '../model/response.model';
-import {GroupInfoModel, GroupUpdateInfo, UpdateUserInfo} from '../model/group-info.model';
+import {GroupInfoModel, PatchGroupModel, UpdateUserInfo} from '../model/group-info.model';
 import {GroupUser} from '../model/user-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
-import {JsonResult} from '../model/json-result';
-import {finalize} from 'rxjs/operators';
 import {NotificationGroupService} from './notification-group.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {NotificationModel} from '../model/notification.model';
@@ -31,29 +29,15 @@ export class PublishCenterService extends NotificationGroupService {
     }
   }
 
-  updateGroup<T>(id: number, info: GroupUpdateInfo,
-                 successCallback?: () => void,
-                 errorCallback?: (result: JsonResult<T>) => void) {
-    if (!info)
-      return;
-    this.http.options(`${this.url}/${id}`).pipe(
-      finalize(() => {
-        this.http.patch<GroupUpdateInfo>(`${this.url}/${id}`, info)
-          .subscribe(() => {
-              return successCallback && successCallback();
-            },
-            (errorResponse: HttpErrorResponse) => {
-              return errorCallback && errorCallback(errorResponse.error);
-            });
-      })
-    ).subscribe();
+  updateGroupInfo(id: number, body: PatchGroupModel) {
+    return this.http.patch(`${this.url}/${id}`, body);
   }
 
   dismissGroup(id: number) {
     return super.deleteGroup(id);
   }
 
-  getGroup(id: number) {
+  getGroupInfo(id: number) {
     return this.http.get<GroupInfoModel>(`${this.url}/${id}`);
   }
 

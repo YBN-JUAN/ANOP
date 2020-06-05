@@ -18,10 +18,16 @@ export class GroupInfoModel {
   }
 }
 
-export class GroupUpdateInfo {
-  permission: number;
-  remark: string;
+export class PatchGroupModel {
   title: string;
+  remark: string;
+  permission: number;
+
+  setValue(title: string, remark: string, permission: number) {
+    this.title = title;
+    this.remark = remark;
+    this.permission = permission;
+  }
 }
 
 export class UpdateUserInfo {
