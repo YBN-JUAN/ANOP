@@ -27,7 +27,7 @@ export class JoinGroupComponent implements OnInit {
   }
 
   doSearch() {
-    this.searchGroupService.getGroup(this.groupId).subscribe(
+    this.searchGroupService.getGroupInfo(this.groupId).subscribe(
       (data: GroupInfoModel) => {
         console.log(data);
         this.group = data;
@@ -48,7 +48,7 @@ export class JoinGroupComponent implements OnInit {
       return;
     }
     // 根据id查找群组，目的是获取群组的可加入状态
-    this.searchGroupService.getGroup(this.groupId).subscribe(
+    this.searchGroupService.getGroupInfo(this.groupId).subscribe(
       (data: GroupInfoModel) => {
         this.joinGroupService.joinGroup(this.groupId).subscribe(
           () => {
