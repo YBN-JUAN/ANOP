@@ -55,13 +55,13 @@ export class GroupDetailComponent implements OnInit {
   }
 
   getGroupInfo(id: number) {
-    this.pubService.getGroup(id).subscribe(
+    this.pubService.getGroupInfo(id).subscribe(
       data => {
         this.group = data;
         console.log(data)
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.msg.error(error.error.message);
       }
     )
   }
@@ -80,14 +80,11 @@ export class GroupDetailComponent implements OnInit {
               }
             )
           }, (error: HttpErrorResponse) => {
-            this.msg.error(error.message);
+            this.msg.error(error.error.message);
           }
         );
       },
-      nzCancelText: '取消',
-      nzOnCancel: () => {
-        console.log('Cancel')
-      }
+      nzCancelText: '取消'
     });
   }
 
@@ -101,7 +98,6 @@ export class GroupDetailComponent implements OnInit {
         console.log(data);
       }, (response: HttpErrorResponse) => {
         this.msg.error(response.error.message)
-        console.log(response);
       }
     );
   }
@@ -117,19 +113,16 @@ export class GroupDetailComponent implements OnInit {
       },
       (response: HttpErrorResponse) => {
         this.msg.error(response.error.message)
-        console.log(response);
       }
     );
   }
 
   onMemberQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const {pageSize, pageIndex} = params;
     this.loadMemberDataFromServer(pageIndex, pageSize);
   }
 
   onNotificationQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const {pageSize, pageIndex} = params;
     this.loadNotificationDataFromServer(pageIndex, pageSize);
   }

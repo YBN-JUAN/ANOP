@@ -59,6 +59,7 @@
                 [nzPageIndex]="mTable.pageIndex"
                 [nzPageSize]="mTable.pageSize"
                 [nzTotal]="mTable.total"
+                nzHideOnSinglePage
                 nzTitle="成员列表">
         <tbody>
         <tr *ngFor="let user of mTable.data">
