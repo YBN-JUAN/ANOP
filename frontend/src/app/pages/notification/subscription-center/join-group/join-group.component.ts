@@ -27,13 +27,16 @@ export class JoinGroupComponent implements OnInit {
   }
 
   doSearch() {
+    if (this.groupId == null) {
+      this.msg.warning('请输入群组ID')
+      return;
+    }
     this.searchGroupService.getGroupInfo(this.groupId).subscribe(
       (data: GroupInfoModel) => {
         console.log(data);
         this.group = data;
         this.setPermissionDescribe();
       }, (response: HttpErrorResponse) => {
-        this.msg.remove()
         this.msg.error(response.error.message);
         this.group = new GroupInfoModel();
         this.permissionDescribe = '';
@@ -43,26 +46,18 @@ export class JoinGroupComponent implements OnInit {
 
   doJoin() {
     if (this.groupId == null) {
-      this.msg.remove();
       this.msg.warning('请输入群组ID')
       return;
     }
-    // 根据id查找群组，目的是获取群组的可加入状态
-    this.searchGroupService.getGroupInfo(this.groupId).subscribe(
-      (data: GroupInfoModel) => {
-        this.joinGroupService.joinGroup(this.groupId).subscribe(
-          () => {
-            if (data.permission === 0) {
-              this.msg.info('请求发送成功，请等待管理员审核');
-            } else {
-              this.msg.success('已成功加入群\"' + data.title + '\"');
-            }
-          }, (response: HttpErrorResponse) => {
-            this.msg.error(response.error.message);
-          }
-        );
-      }, (searchError: HttpErrorResponse) => {
-        this.msg.error(searchError.error.message);
+    this.joinGroupService.joinGroup(this.groupId).subscribe(
+      () => {
+        if (this.group.permission === 0) {
+          this.msg.info('请求发送成功，请等待管理员审核');
+        } else {
+          this.msg.success('已成功加入群\"' + this.group.title + '\"');
+        }
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     );
   }
