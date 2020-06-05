@@ -1,42 +1,30 @@
-<div nz-row style="min-height: 100%">
-
-  <div nz-col [nzSpan]="siderSpan">
+<nz-layout>
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="260">
     <div class="logo" *ngIf="!isCollapsed">
       <h1>A N O P</h1>
     </div>
-
-    <div style="background: #001529;min-height: 100%">
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item *ngFor="let item of collapsedItems" [routerLink]="item.route">
         <i nz-icon [nzType]="item.icon" class="side-icon"></i>
         <span>{{item.title}}</span>
       </li>
     </ul>
-    </div>
   </nz-sider>
-  </div>
-
-
-  <div nz-col [nzSpan]=24-siderSpan>
   <nz-layout>
     <nz-header>
-      <nz-row>
-        <nz-col [nzSpan]="2">
-          <i
-            class="trigger"
-            nz-icon
-            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            (click)="isCollapsed = !isCollapsed;siderSpan=siderSpan===4?1:4;"
-          ></i>
-        </nz-col>
-        <nz-col [nzSpan]="12" [nzOffset]="6">
+      <div nz-row nzJustify="space-between">
+        <div nz-col nzSm="1" nzXs="1">
+          <i (click)="isCollapsed = !isCollapsed" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+             class="trigger"
+             nz-icon></i>
+        </div>
+        <div nz-col nzSm="18" nzXs="16">
           <app-head-button></app-head-button>
-        </nz-col>
-        <nz-col [nzSpan]="2" [nzOffset]="2">
+        </div>
+        <div nz-col nzSm="2" nzXs="2" style="margin-right: 2.5vw">
           <app-drop-menu></app-drop-menu>
-        </nz-col>
-      </nz-row>
+        </div>
+      </div>
     </nz-header>
     <nz-content>
       <div class="inner-content">
@@ -45,7 +33,4 @@
     </nz-content>
     <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
   </nz-layout>
-  </div>
-
-
-</div>>
+</nz-layout>
