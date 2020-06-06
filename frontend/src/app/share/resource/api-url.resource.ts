@@ -19,7 +19,7 @@ export class ApiUrlResource {
     return this.URL_PREFIX + this._SUB_GROUPS;
   }
 
-  private static _CATEGORIES = '/v1/cat/categories'
+  private static _CATEGORIES = '/v1/tod/categories'
 
   static get CATEGORIES(): string {
     return this.URL_PREFIX + this._CATEGORIES;
