@@ -234,30 +234,4 @@ export class ManageGroupComponent implements OnInit {
       }
     );
   }
-
-  // setReaderNumber(model: NotificationInfoModel) {
-  //   this.service.getNotificationReaders(this.gid, model.id).subscribe(
-  //     readerList => {
-  //       readerList.forEach(reader => {
-  //         if (reader.isRead === 1) {
-  //           model.readNumber++;
-  //         } else {
-  //           model.unreadNumber++;
-  //         }
-  //       });
-  //     }, (error: HttpErrorResponse) => {
-  //       this.service.msg.error(error.error.message);
-  //     });
-  // }
-  //
-  // initNotificationList(rawList: NotificationInfoModel[]) {
-  //   const newList: NotificationInfoModel[] = [];
-  //   rawList.forEach(raw => {
-  //     const newItem = new NotificationInfoModel();
-  //     newItem.setValue(raw.id, raw.title, raw.content, raw.nickname, raw.creationDate, raw.avatarUrl);
-  //     newList.push(newItem);
-  //   });
-  //   return newList;
-  // }
 }
-

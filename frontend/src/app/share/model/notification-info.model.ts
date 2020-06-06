@@ -1,11 +1,10 @@
 export class NotificationInfoModel {
-  avatarUrl: string;
-  content: string;
-  creationDate: string;
-  groupId: number;
   id: number;
-  isRead: number;
+  userId: number;
   nickname: string;
   title: string;
-  userId: number;
+  content: string;
+  avatarUrl: string;
+  creationDate: string;
+  isRead: number;
 }
