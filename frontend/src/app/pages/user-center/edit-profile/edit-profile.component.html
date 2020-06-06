@@ -65,6 +65,7 @@
 </div>
 
 <div class="right-content">
+  <span nz-tooltip nzTooltipTitle="点击上传头像">
   <nz-upload 
     class="avatar-uploader"
     [(nzAction)]= "URL"
@@ -80,17 +81,13 @@
       <i class="loading-icon" nz-icon [nzType]="loading ? 'loading' : ''"></i>
     </ng-container>
     <nz-avatar [nzSrc]="user.avatarUrl" nzIcon="user" [nzSize]="150" style="width:9vw;height:9vw;"></nz-avatar>
-  </nz-upload>
+  </nz-upload></span>
 
   <div class="name-header">{{user.nickName}}</div>
   <div class="upload-button" id="upload-show">
-    <button nz-button nz-popover
-    nzType="dashed"
-    nzPopoverTitle="头像设置"
-    nzPopoverContent="文件:点击头像/URL:点击按钮"
-    (click)="onUrlUpload()">
-    <i nz-icon nzType="upload">
-    </i><span>上传头像</span>
+    <button nz-button nzType="dashed" (click)="onUrlUpload()">
+      <i nz-icon nzType="upload">
+      </i><span>设置头像URL</span>
     </button>
   </div>
 
