@@ -45,10 +45,7 @@ export class JoinGroupComponent implements OnInit {
   }
 
   doJoin() {
-    if (this.groupId == null) {
-      this.msg.warning('请输入群组ID')
-      return;
-    }
+    this.doSearch();
     this.joinGroupService.joinGroup(this.groupId).subscribe(
       () => {
         if (this.group.permission === 0) {
