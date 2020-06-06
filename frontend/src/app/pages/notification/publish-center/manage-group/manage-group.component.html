@@ -14,6 +14,7 @@
         <th nzColumnKey="nickname">发布人</th>
         <th nzColumnKey="creationDate">发布日期</th>
         <th>详情</th>
+        <th>已读情况</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -24,6 +25,9 @@
           <td>{{item.nickname}}</td>
           <td>{{item.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
+          <td>
+            <i (click)="showReaderList(item.id)" nz-icon nzTheme="outline" nzType="unordered-list"></i>
+          </td>
           <td>
             <i (click)="editNotification(item)" nz-icon nz-tooltip="编辑" nzTheme="twotone" nzType="edit"></i>
             &nbsp;
@@ -96,7 +100,8 @@
     </nz-button-group>
   </nz-col>
 </nz-row>
-<nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="群组资料"
+<nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right"
+           nzTitle="群组资料"
            nzWidth="25%">
   <div class="group-info" nz-row>
     <div [nzSpan]="24" nz-col>

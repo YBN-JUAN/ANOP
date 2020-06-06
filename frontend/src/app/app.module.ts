@@ -44,6 +44,7 @@ import {NewNotificationComponent} from './pages/notification/publish-center/new-
 import {CreateGroupComponent} from './pages/notification/publish-center/create-group/create-group.component';
 import {ManageGroupComponent} from './pages/notification/publish-center/manage-group/manage-group.component';
 import {UpdateNotificationComponent} from './pages/notification/publish-center/update-notification/update-notification.component';
+import {ReaderListComponent} from './pages/notification/publish-center/reader-list/reader-list.component';
 
 registerLocaleData(zh);
 
@@ -82,7 +83,8 @@ registerLocaleData(zh);
     NewNotificationComponent,
     CreateGroupComponent,
     ManageGroupComponent,
-    UpdateNotificationComponent
+    UpdateNotificationComponent,
+    ReaderListComponent
   ],
   imports: [
     ReactiveFormsModule,

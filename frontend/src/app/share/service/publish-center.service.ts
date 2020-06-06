@@ -75,4 +75,8 @@ export class PublishCenterService extends NotificationGroupService {
       content: model.content
     });
   }
+
+  getNotificationReaders(gid: number, nid: number): Observable<GroupUser[]> {
+    return this.http.get<GroupUser[]>(`${this.url}/${gid}/notifications/${nid}/readers`, {});
+  }
 }

@@ -14,7 +14,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     NzFormModule,
     ReactiveFormsModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
   ],
   providers: [
     JoinGroupService,

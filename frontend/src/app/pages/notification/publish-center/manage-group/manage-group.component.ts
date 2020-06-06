@@ -9,6 +9,7 @@ import {NotificationInfoModel} from '../../../../share/model/notification-info.m
 import {HttpErrorResponse} from '@angular/common/http';
 import {ResponseModel} from '../../../../share/model/response.model';
 import {UpdateNotificationComponent} from '../update-notification/update-notification.component';
+import {ReaderListComponent} from '../reader-list/reader-list.component';
 
 @Component({
   selector: 'app-manage-group',
@@ -22,7 +23,7 @@ export class ManageGroupComponent implements OnInit {
   expandSet = new Set<number>();
   mTable: TableParamsModel<GroupUser> = new TableParamsModel(true, 6, 1);
   nTable: TableParamsModel<NotificationInfoModel> = new TableParamsModel(true, 6, 1);
-  visible = false;
+  drawerVisible = false;
   editable = false;
   permissions = [
     {
@@ -37,7 +38,7 @@ export class ManageGroupComponent implements OnInit {
       value: 2,
       description: '不允许任何人加入'
     }
-  ]
+  ];
 
   constructor(private route: ActivatedRoute,
               private service: PublishCenterService,
@@ -49,7 +50,6 @@ export class ManageGroupComponent implements OnInit {
         this.origin.setValue(queryParams.title, queryParams.remark, queryParams.permission);
         this.patched.setValue(queryParams.title, queryParams.remark, queryParams.permission);
       });
-    console.log(this.gid)
   }
 
   loadNotificationData(pageIndex: number, pageSize: number): void {
@@ -166,11 +166,11 @@ export class ManageGroupComponent implements OnInit {
   }
 
   openDrawer(): void {
-    this.visible = true;
+    this.drawerVisible = true;
   }
 
   closeDrawer(): void {
-    this.visible = false;
+    this.drawerVisible = false;
   }
 
   onExpandChange(id: number, checked: boolean): void {
@@ -205,6 +205,24 @@ export class ManageGroupComponent implements OnInit {
     });
   }
 
+  showReaderList(nid: number) {
+    this.modal.create({
+      nzTitle: '已读情况',
+      nzContent: ReaderListComponent,
+      nzGetContainer: () => document.body,
+      nzComponentParams: {
+        service: this.service,
+        nid,
+        gid: this.gid
+      },
+      nzOnOk: () => {
+        console.log('调用了nzOnOk')
+      }, nzOnCancel: () => {
+        console.log('调用了nzOnCancel')
+      }
+    });
+  }
+
   // 删除一条通知
   deleteNotification(nid: number) {
     this.service.deleteNotification(this.gid, nid).subscribe(
@@ -214,6 +232,32 @@ export class ManageGroupComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         this.service.msg.error(error.error.message);
       }
-    )
+    );
   }
+
+  // setReaderNumber(model: NotificationInfoModel) {
+  //   this.service.getNotificationReaders(this.gid, model.id).subscribe(
+  //     readerList => {
+  //       readerList.forEach(reader => {
+  //         if (reader.isRead === 1) {
+  //           model.readNumber++;
+  //         } else {
+  //           model.unreadNumber++;
+  //         }
+  //       });
+  //     }, (error: HttpErrorResponse) => {
+  //       this.service.msg.error(error.error.message);
+  //     });
+  // }
+  //
+  // initNotificationList(rawList: NotificationInfoModel[]) {
+  //   const newList: NotificationInfoModel[] = [];
+  //   rawList.forEach(raw => {
+  //     const newItem = new NotificationInfoModel();
+  //     newItem.setValue(raw.id, raw.title, raw.content, raw.nickname, raw.creationDate, raw.avatarUrl);
+  //     newList.push(newItem);
+  //   });
+  //   return newList;
+  // }
 }
+

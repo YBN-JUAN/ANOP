@@ -1,0 +1,52 @@
+<div nz-row nzAlign="top" nzJustify="space-around">
+  <div nz-col nzSpan="12">
+    <nz-table
+      [nzData]="readList"
+      [nzPageIndex]="1"
+      [nzTotal]="readList.length"
+      nzFrontPagination
+      nzHideOnSinglePage
+      nzPageSize="7"
+      nzShowPagination
+      nzSize="small"
+      nzTitle="已读">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>昵称</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of readList">
+        <td>{{item.userId}}</td>
+        <td>{{item.nickname}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div nz-col nzSpan="12">
+    <nz-table
+      [nzData]="unreadList"
+      [nzPageIndex]="1"
+      [nzPageSize]="7"
+      [nzTotal]="unreadList.length"
+      nzFrontPagination
+      nzShowPagination
+      nzSize="small"
+      nzTitle="未读"
+    >
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>昵称</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of unreadList">
+        <td>{{item.userId}}</td>
+        <td>{{item.nickname}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
