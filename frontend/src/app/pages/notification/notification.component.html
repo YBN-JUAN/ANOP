@@ -2,27 +2,35 @@
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="260">
     <div class="logo-div" nz-row nzAlign="middle" nzJustify="space-around">
       <div nz-col>
-        <h1 class="logo-text" id="logo" nz-title style="padding-left: unset;text-align: center">A N O P</h1>
+        <h1 class="logo-text" id="logo">A N O P</h1>
       </div>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzIcon="search" nzTitle="订阅">
+      <li (nzOpenChange)="openHandler('sub1')" [(nzOpen)]="openMap.sub1" nz-submenu
+          nzIcon="check-square" nzTitle="订阅">
         <ul>
-          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription">订阅列表</li>
-          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/join-group">查找、加入群组</li>
-          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/group-message">所有通知</li>
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription">
+            <i nz-icon nzTheme="outline" nzType="unordered-list"></i>订阅列表
+          </li>
+          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/join-group">
+            <i nz-icon nzTheme="outline" nzType="search"></i>查找、加入群组
+          </li>
+          <!--          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/group-message">所有通知</li>-->
         </ul>
       </li>
-      <li nz-submenu nzIcon="edit" nzTitle="发布">
+      <li (nzOpenChange)="openHandler('sub2')" [(nzOpen)]="openMap.sub2" nz-submenu
+          nzIcon="notification" nzTitle="发布">
         <ul>
-          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/publish">群组管理</li>
-          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/publish/create-group">创建群组</li>
-          <!--          <li [queryParams]="{gid:0}" nz-menu-item routerLink="/notification/publish/new-notification">发布新通知</li>-->
+          <li nz-menu-item nzMatchRouterExact routerLink="/notification/publish">
+            <i nz-icon nzTheme="outline" nzType="audit"></i>群组管理
+          </li>
+          <li nz-menu-item nzMatchRouterExact routerLink="/notification/publish/create-group">
+            <i nz-icon nzTheme="outline" nzType="usergroup-add"></i>创建群组
+          </li>
+          <li nz-menu-item nzMatchRouterExact routerLink="/notification/examine">
+            <i nz-icon nzTheme="outline" nzType="check"></i>审核申请
+          </li>
         </ul>
-      </li>
-      <li nz-menu-item nzMatchRouter="true">
-        <i nz-icon nzType="check" class="side-icon"></i>
-        <span routerLink="/notification/examine">申请审核</span>
       </li>
     </ul>
   </nz-sider>
@@ -36,7 +44,7 @@
         <div nz-col nzSm="18" nzXs="16">
           <app-head-button></app-head-button>
         </div>
-        <div nz-col nzSm="2" nzXs="2">
+        <div nz-col nzSm="2" nzXs="2" style="margin-right: 2.5vw">
           <app-drop-menu></app-drop-menu>
         </div>
       </div>

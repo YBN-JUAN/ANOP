@@ -1,12 +1,14 @@
 .login-logo {
   font-size: 50px;
-  margin: 0px;
+  margin: 0;
   text-align: center;
 }
 
 .card {
+  max-width: 340px;
+  min-width: 300px;
+  max-height: 530px;
   position: absolute;
-  top:28%;
-  left:40%;
+  top: calc(50% - 250px);
+  left: calc(50% - 170px);
 }
-

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreateGroupService} from './create-group.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-create-group',
@@ -11,7 +12,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class CreateGroupComponent implements OnInit {
   createGroupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private service: CreateGroupService) {
+  constructor(private formBuilder: FormBuilder, private service: CreateGroupService,
+              private msg: NzMessageService) {
     this.createGroupForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       remark: ['', null],
@@ -25,10 +27,11 @@ export class CreateGroupComponent implements OnInit {
   resetForm(e: MouseEvent): void {
     e.preventDefault();
     this.createGroupForm.reset();
-    // tslint:disable-next-line:forin
     for (const key in this.createGroupForm.controls) {
-      this.createGroupForm.controls[key].markAsPristine();
-      this.createGroupForm.controls[key].updateValueAndValidity();
+      if (this.createGroupForm.controls.hasOwnProperty(key)) {
+        this.createGroupForm.controls[key].markAsPristine();
+        this.createGroupForm.controls[key].updateValueAndValidity();
+      }
     }
   }
 
@@ -36,13 +39,12 @@ export class CreateGroupComponent implements OnInit {
     const title = this.createGroupForm.controls.title.value;
     const remark = this.createGroupForm.controls.remark.value;
     const permission = this.createGroupForm.controls.permission.value;
-    console.log(permission)
     this.service.createGroupPost(title, remark, permission).subscribe(
-      (data) => {
-        console.log(data);
-        alert('创建成功！');
+      () => {
+        this.msg.success('群组创建成功');
+        this.createGroupForm.reset(); // 创建群组成功后重置表单
       }, (error: HttpErrorResponse) => {
-        alert('出错了，请打开控制台查看错误信息。')
+        this.msg.error(error.message)
         console.log(error);
       }
     )

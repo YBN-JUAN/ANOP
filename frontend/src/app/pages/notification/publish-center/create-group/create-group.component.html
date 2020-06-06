@@ -1,11 +1,13 @@
-<nz-breadcrumb>
-  <nz-breadcrumb-item><a routerLink="/publish">发布中心</a></nz-breadcrumb-item>
-  <nz-breadcrumb-item>创建群组</nz-breadcrumb-item>
-</nz-breadcrumb>
+<nz-page-header nzTitle="创建群组">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>发布中心</nz-breadcrumb-item>
+    <nz-breadcrumb-item>创建群组</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
 <div nz-row nzAlign="middle">
   <div nz-col nzOffset="5" nzSpan="16" style="margin-top: 3em">
     <form (ngSubmit)="submitFrom()" [formGroup]="createGroupForm" nz-form>
-      <h1 style="text-align: center">创建群组</h1>
       <nz-form-item>
         <nz-form-label nzRequired nzSm="6" nzXs="24">群名</nz-form-label>
         <nz-form-control nzSm="14" nzXs="24">
@@ -23,19 +25,23 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzSm="6" nzXs="24">群组权限</nz-form-label>
+        <nz-form-label nzSm="6" nzXs="24">加群方式</nz-form-label>
         <nz-form-control nzSm="14" nzXs="24">
-          <nz-select formControlName="permission" nzPlaceHolder="选择权限">
+          <nz-select formControlName="permission" nzPlaceHolder="请选择加群方式">
             <nz-option nzLabel="需要管理员审核" nzValue="0"></nz-option>
-            <nz-option nzLabel="不允许任何人加入" nzValue="1"></nz-option>
-            <nz-option nzLabel="允许任何人加入" nzValue="2"></nz-option>
+            <nz-option nzLabel="允许任何人加入" nzValue="1"></nz-option>
+            <nz-option nzLabel="不允许任何人加入" nzValue="2"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzOffset="6" nzSm="14" nzXs="24">
-          <button [disabled]="!createGroupForm.valid" nz-button nzType="primary">提交</button>
-          <button (click)="resetForm($event)" nz-button>重置</button>
+          <button [disabled]="!createGroupForm.valid" nz-button nzType="primary">
+            <i nz-icon nzTheme="outline" nzType="send"></i>提交
+          </button>
+          <button (click)="resetForm($event)" nz-button>
+            <i nz-icon nzTheme="outline" nzType="redo"></i>重置
+          </button>
         </nz-form-control>
       </nz-form-item>
     </form>

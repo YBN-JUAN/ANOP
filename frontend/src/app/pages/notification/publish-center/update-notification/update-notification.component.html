@@ -1,0 +1,22 @@
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label nzRequired nzSm="6" nzXs="6">标题</nz-form-label>
+    <nz-form-control nzDisableAutoTips nzErrorTip="标题不能为空" nzHasFeedback nzSm="14" nzXs="12">
+      <label>
+        <input [(ngModel)]="title" name="title" nz-input placeholder="请输入标题" required="required">
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired nzSm="6" nzXs="6">通知内容</nz-form-label>
+    <nz-form-control nzErrorTip="内容不能为空" nzHasFeedback nzSm="14" nzXs="12">
+      <label>
+          <textarea [(ngModel)]="content" name="content" nz-input
+                    placeholder="请输入通知内容" required="required" rows="3"></textarea>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+
+

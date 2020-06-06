@@ -19,7 +19,7 @@ export class ApiUrlResource {
     return this.URL_PREFIX + this._SUB_GROUPS;
   }
 
-  private static _CATEGORIES = '/v1/cat/categories'
+  private static _CATEGORIES = '/v1/tod/categories'
 
   static get CATEGORIES(): string {
     return this.URL_PREFIX + this._CATEGORIES;
@@ -67,10 +67,10 @@ export class ApiUrlResource {
     return this.URL_PREFIX + this._AVATAR;
   }
 
-  private static _userUrl = '/v1/usr/user'
+  private static _USER = '/v1/usr/user'
 
-  static get userUrl(): string {
-    return this.URL_PREFIX + this._userUrl;
+  static get USER(): string {
+    return this.URL_PREFIX + this._USER;
   }
 
   private static _VALIDATE_EMAIL = '/v1/usr/valid_email'

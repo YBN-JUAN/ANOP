@@ -1,40 +1,34 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ResponseModel} from '../model/response.model';
-import {GroupInfoModel} from '../model/group-info.model';
 import {ApiUrlResource} from '../resource/api-url.resource';
 import {Observable} from 'rxjs';
 import {NotificationInfoModel} from '../model/notification-info.model';
+import {NotificationGroupService} from './notification-group.service';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubscriptionCenterService {
-  private url = ApiUrlResource.SUB_GROUPS;
-  private suffix = 'notifications';
+export class SubscriptionCenterService extends NotificationGroupService {
+  protected readonly url = ApiUrlResource.SUB_GROUPS;
 
-  constructor(private http: HttpClient) {
+  constructor(protected http: HttpClient, public msg: NzMessageService) {
+    super(http);
+    super.setUrl(this.url);
   }
 
   getGroups(orderBy: string, pageNum: number, pageSize: number) {
-    const params = new HttpParams()
-      .append('orderBy', orderBy)
-      .append('pageNum', `${pageNum}`)
-      .append('pageSize', `${pageSize}`);
-    return this.http.get<ResponseModel<GroupInfoModel>>(`${this.url}`, {params});
+    return super.getGroups(orderBy, pageNum, pageSize, '');
   }
 
   quitGroup(id: number) {
-    return this.http.delete(`${this.url}/${id}`);
+    return super.deleteGroup(id);
   }
 
   getGroupNotifications(gid: number, orderBy: string, pageNum: number, pageSize: number):
     Observable<ResponseModel<NotificationInfoModel>> {
-    const params = new HttpParams()
-      .append('orderBy', orderBy)
-      .append('pageNum', `${pageNum}`)
-      .append('pageSize', `${pageSize}`);
-    return this.http.get<ResponseModel<NotificationInfoModel>>(`${this.url}/${gid}/${this.suffix}`, {params});
+    return super.getGroupNotifications(gid, orderBy, pageNum, pageSize);
   }
 
   setIsRead(gid: number, nid: number) {
@@ -42,10 +36,14 @@ export class SubscriptionCenterService {
   }
 
   getAuto(gid: number) {
-    return this.http.get<{ isAuto }>(`${this.url}/${gid}/autoTodo`);
+    return this.http.get<{ isAuto: number }>(`${this.url}/${gid}/autoTodo`);
   }
 
   setAuto(gid: number, isAuto: number) {
     return this.http.patch(`${this.url}/${gid}/autoTodo`, {isAuto});
+  }
+
+  getUnreadCount(id: number) {
+    return this.http.get<{ groupId: number, unreadCount: number }>(`${this.url}/${id}/notifications/unread_count`, {});
   }
 }

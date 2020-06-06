@@ -55,13 +55,13 @@ export class GroupDetailComponent implements OnInit {
   }
 
   getGroupInfo(id: number) {
-    this.pubService.getGroup(id).subscribe(
+    this.pubService.getGroupInfo(id).subscribe(
       data => {
         this.group = data;
         console.log(data)
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.msg.error(error.error.message);
       }
     )
   }
@@ -80,14 +80,11 @@ export class GroupDetailComponent implements OnInit {
               }
             )
           }, (error: HttpErrorResponse) => {
-            this.msg.error(error.message);
+            this.msg.error(error.error.message);
           }
         );
       },
-      nzCancelText: '取消',
-      nzOnCancel: () => {
-        console.log('Cancel')
-      }
+      nzCancelText: '取消'
     });
   }
 
@@ -99,8 +96,8 @@ export class GroupDetailComponent implements OnInit {
         this.mTable.total = data.total;
         this.mTable.data = data.list;
         console.log(data);
-      }, error => {
-        console.log(error);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message)
       }
     );
   }
@@ -114,20 +111,18 @@ export class GroupDetailComponent implements OnInit {
         this.nTable.data = data.list;
         console.log(this.nTable.data);
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.message);
+      (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message)
       }
     );
   }
 
   onMemberQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const {pageSize, pageIndex} = params;
     this.loadMemberDataFromServer(pageIndex, pageSize);
   }
 
   onNotificationQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const {pageSize, pageIndex} = params;
     this.loadNotificationDataFromServer(pageIndex, pageSize);
   }
@@ -140,14 +135,13 @@ export class GroupDetailComponent implements OnInit {
     this.visible = false;
   }
 
-  onReadStatusChange(isRead: number, nid: number) {
+  onReadStatusChange(nid: number) {
     this.subService.setIsRead(this.group.id, nid).subscribe(
-      r => {
-        console.log(r)
+      () => {
         this.msg.success('操作成功');
         location.reload();
-      }, (error: HttpErrorResponse) => {
-        this.msg.error(error.message);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     );
   }
@@ -157,8 +151,8 @@ export class GroupDetailComponent implements OnInit {
       result => {
         console.log(result)
         this.isAuto = (result.isAuto === 1);
-      }, (error: HttpErrorResponse) => {
-        this.msg.error(error.message);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     )
   }
@@ -167,9 +161,19 @@ export class GroupDetailComponent implements OnInit {
     this.subService.setAuto(this.group.id, isAuto === true ? 1 : 0).subscribe(
       () => {
         this.msg.success('修改成功', {nzDuration: 2000});
-      }, (error: HttpErrorResponse) => {
-        this.msg.error(error.message);
+      }, (response: HttpErrorResponse) => {
+        this.msg.error(response.error.message);
       }
     );
+  }
+
+  addTodo(nid: number) {
+    this.pubService.asTodo(this.group.id, nid).subscribe(
+      () => {
+        this.msg.success('添加成功');
+      }, (error: HttpErrorResponse) => {
+        this.msg.error(error.error.message);
+      }
+    )
   }
 }

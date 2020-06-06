@@ -13,7 +13,7 @@ export class RequestListComponent implements OnInit {
   total = 1;
   requestList: UserRequest[] = [];
   loading = true;
-  pageSize = 5;
+  pageSize = 6;
   pageIndex = 1;
   buttonTitle = '切换到我管理的群组的用户请求';
   listType = 0;
@@ -99,8 +99,12 @@ export class RequestListComponent implements OnInit {
       nzOnOk: () => {
         this.service.dealRequest(id, isAccepted).subscribe(
           response => {
-            console.log(response)
-          });
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+          );
         location.reload();  // 刷新页面
         this.loadDataFromServer(this.pageIndex, this.pageSize);
       },

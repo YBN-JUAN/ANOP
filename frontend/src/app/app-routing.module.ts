@@ -17,7 +17,6 @@ import {GroupListComponent} from './pages/notification/subscription-center/group
 import {JoinGroupComponent} from './pages/notification/subscription-center/join-group/join-group.component';
 import {AllTodoComponent} from './pages/memorandum/all-todo/all-todo.component';
 import {PublishCenterGroupListComponent} from './pages/notification/publish-center/publish-center-group-list/publish-center-group-list.component';
-import {PublishCenterGroupDetailComponent} from './pages/notification/publish-center/publish-center-group-detail/publish-center-group-detail.component';
 import {ImpTodoComponent} from './pages/memorandum/imp-todo/imp-todo.component';
 import {FavorTodoComponent} from './pages/memorandum/favor-todo/favor-todo.component';
 import {HistTodoComponent} from './pages/memorandum/hist-todo/hist-todo.component';
@@ -25,6 +24,7 @@ import {AllCateComponent} from './pages/memorandum/all-cate/all-cate.component';
 import {CateDetailComponent} from './pages/memorandum/cate-detail/cate-detail.component';
 import {NewNotificationComponent} from './pages/notification/publish-center/new-notification/new-notification.component';
 import {CreateGroupComponent} from './pages/notification/publish-center/create-group/create-group.component';
+import {ManageGroupComponent} from './pages/notification/publish-center/manage-group/manage-group.component';
 
 const routes: Routes = [
   {
@@ -43,9 +43,9 @@ const routes: Routes = [
         path: 'publish', component: PublishCenterComponent,
         children: [
           {path: 'create-group', component: CreateGroupComponent},
+          {path: 'manage-group', component: ManageGroupComponent},
           {path: 'new-notification', component: NewNotificationComponent},
           {path: 'group-list', component: PublishCenterGroupListComponent},
-          {path: 'publish-group-detail/:id', component: PublishCenterGroupDetailComponent},
           {path: '**', component: PublishCenterGroupListComponent},
           {path: '', component: PublishCenterGroupListComponent}
         ]

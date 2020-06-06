@@ -6,11 +6,10 @@
               [nzPageIndex]="nTable.pageIndex"
               [nzPageSize]="nTable.pageSize"
               [nzFrontPagination]="false"
-              [nzPageSizeOptions]="[6]"
               [nzTotal]="nTable.total">
       <thead>
       <tr>
-        <th nzColumnKey="title">标题</th>
+        <th nzColumnKey="title" nzWidth="10vw">标题</th>
         <th nzColumnKey="nickname">发布人</th>
         <th nzColumnKey="creationDate">发布日期</th>
         <th>详情</th>
@@ -25,11 +24,21 @@
           <td>{{item.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
           <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
           <td>
-            <button (nzOnConfirm)="onReadStatusChange(item.isRead,item.id)" [disabled]="item.isRead === 1"
-                    class="read-mark" nz-button
+            <button (nzOnConfirm)="onReadStatusChange(item.id)"
+                    [disabled]="item.isRead === 1"
+                    nz-tooltip="标记为已读" nzTooltipPlacement="leftTop"
+                    class="read-mark" nz-button nzSize="small"
                     nz-popconfirm="确定要标记为已读？" nzPopconfirmPlacement="bottom"
-                    nzSize="small">标记为已读
+                    nzType="link">
+              <i [nzTwotoneColor]="item.isRead ===1?'#AAAAAA':'#52c41a'" nz-icon nzTheme="twotone"
+                 nzType="check-circle"></i>
             </button>
+            &nbsp;
+            <a (nzOnConfirm)="addTodo(item.id)"
+               nz-popconfirm="确定要添加到待办事项吗？" nz-tooltip="添加到待办事项"
+               nzPopconfirmPlacement="bottom" nzTooltipPlacement="rightTop">
+              <i nz-icon nzTheme="twotone" nzType="plus-circle"></i>
+            </a>
           </td>
         </tr>
         <tr [nzExpand]="expandSet.has(item.id)">
@@ -43,9 +52,14 @@
   <div class="divider" nz-col nzSpan="1"></div>
   <div class="-right-content" nz-col nzSpan="5">
     <div style="min-height: 70vh">
-      <nz-table (nzQueryParams)="onMemberQueryParamsChange($event)" [nzData]="mTable.data" [nzFrontPagination]="false"
+      <nz-table (nzQueryParams)="onMemberQueryParamsChange($event)"
+                [nzData]="mTable.data"
+                [nzFrontPagination]="false"
                 [nzLoading]="mTable.loading"
-                [nzPageIndex]="mTable.pageIndex" [nzPageSize]="mTable.pageSize" [nzTotal]="mTable.total"
+                [nzPageIndex]="mTable.pageIndex"
+                [nzPageSize]="mTable.pageSize"
+                [nzTotal]="mTable.total"
+                nzHideOnSinglePage
                 nzTitle="成员列表">
         <tbody>
         <tr *ngFor="let user of mTable.data">
@@ -53,7 +67,8 @@
             <nz-avatar [nzSrc]="user.avatarUrl"></nz-avatar>
           </td>
           <td>{{user.nickname}}</td>
-          <td><i *ngIf="user.isAdmin" nz-icon nzTheme="outline" nzType="user"></i></td>
+          <td><i *ngIf="user.isAdmin" nz-icon nz-tooltip="管理员" nzTheme="outline" nzType="user"></i>
+          </td>
         </tr>
         </tbody>
       </nz-table>

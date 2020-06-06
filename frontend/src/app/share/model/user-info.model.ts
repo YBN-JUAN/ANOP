@@ -9,7 +9,7 @@ export class UserInfoModel {
 
 export class GroupUser {
   groupId: number;
-  id: number;
+  userId: number;
   nickname: string;
   avatarUrl: string;
   isAdmin: number;

@@ -1,0 +1,146 @@
+<div nz-row>
+  <div class="-left-content" nz-col nzSpan="18">
+    <nz-table (nzQueryParams)="onNotificationQueryParamsChange($event)"
+              [nzData]="nTable.data"
+              [nzFrontPagination]="false"
+              [nzLoading]="nTable.loading"
+              [nzPageIndex]="nTable.pageIndex"
+              [nzPageSize]="nTable.pageSize"
+              [nzTotal]="nTable.total"
+              nzHideOnSinglePage>
+      <thead>
+      <tr>
+        <th nzColumnKey="title" nzWidth="10vw">标题</th>
+        <th nzColumnKey="nickname">发布人</th>
+        <th nzColumnKey="creationDate">发布日期</th>
+        <th>详情</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let item of nTable.data">
+        <tr>
+          <td>{{item.title}}</td>
+          <td>{{item.nickname}}</td>
+          <td>{{item.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
+          <td (nzExpandChange)="onExpandChange(item.id, $event)" [nzExpand]="expandSet.has(item.id)"></td>
+          <td>
+            <i (click)="editNotification(item)" nz-icon nz-tooltip="编辑" nzTheme="twotone" nzType="edit"></i>
+            &nbsp;
+            <i (nzOnConfirm)="deleteNotification(item.id)" nz-icon nz-popconfirm="删除这条通知？" nz-tooltip="删除"
+               nzTheme="twotone" nzTwotoneColor="#eb2f96" nzType="delete"
+            ></i>
+          </td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(item.id)">
+          <td>正文：{{item.content}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <div [nzSpan]="6" nz-col>
+    <div class="user-list">
+      <nz-table (nzQueryParams)="onQueryParamsChange($event)"
+                [nzData]="mTable.data"
+                [nzFrontPagination]="false"
+                [nzLoading]="mTable.loading"
+                [nzPageIndex]="mTable.pageIndex"
+                [nzPageSize]="mTable.pageSize"
+                [nzTotal]="mTable.total"
+                nzHideOnSinglePage>
+        <thead>
+        <tr>
+          <th nzColumnKey="id">ID</th>
+          <th nzColumnKey="nickname">成员昵称</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of mTable.data">
+          <td>{{ data.userId }}</td>
+          <td>{{ data.nickname }}</td>
+          <td>
+            <i (nzOnConfirm)="setAdmin(data.userId,data.isAdmin)" *ngIf="data.isAdmin == 0" nz-icon
+               nz-popconfirm="将该成员设为管理员？"
+               nzTheme="outline" nzType="user-add"
+               style="color: green"></i>
+            <i (nzOnConfirm)="setAdmin(data.userId,data.isAdmin)" *ngIf="data.isAdmin == 1" nz-icon
+               nz-popconfirm="撤销该成员的管理员权限？"
+               nzTheme="outline" nzType="user-delete"
+               style="color: red"></i>
+            &nbsp;
+            <i (nzOnConfirm)="deleteUser(data.userId)" class="close-icon" nz-icon nz-popconfirm="确定要移除这个成员吗？"
+               nzTheme="outline"
+               nzType="close" style="color: red"></i>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+<nz-row class="buttons" style="margin-top: 2%">
+  <nz-col nz-col="3">
+    <nz-button-group>
+      <button [nzLoading]="nTable.loading" nz-button nz-popover="这个功能很危险，所以没有实现。" nzType="danger">
+        <i nz-icon nzTheme="outline" nzType="clear"></i>全部删除
+      </button>
+      <button nz-button nzType="primary" routerLink="/notification/publish">
+        <i nz-icon nzTheme="outline" nzType="rollback"></i>返回
+      </button>
+      <button (click)="openDrawer()" nz-button>
+        <i nz-icon nzTheme="outline" nzType="info-circle"></i>群组资料
+      </button>
+    </nz-button-group>
+  </nz-col>
+</nz-row>
+<nz-drawer (nzOnClose)="closeDrawer()" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="群组资料"
+           nzWidth="25%">
+  <div class="group-info" nz-row>
+    <div [nzSpan]="24" nz-col>
+      <div class="group-info">
+        <form (ngSubmit)="submitForm()" nz-form>
+          <nz-form-item>
+            <nz-form-label nzRequired>名称</nz-form-label>
+            <nz-form-control>
+              <label>
+                <input [(ngModel)]="patched.title" [disabled]="!editable" name="title" nz-input type="text">
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>备注</nz-form-label>
+            <nz-form-control>
+              <label>
+                <textarea [(ngModel)]="patched.remark" [disabled]="!editable" name="remark" nz-input></textarea>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>加群方式</nz-form-label>
+            <nz-form-control nzSm="14" nzXs="24">
+              <nz-select [(ngModel)]="patched.permission" [nzDisabled]="!editable"
+                         name="permission" nzPlaceHolder="请选择加群方式">
+                <nz-option *ngFor="let permission of permissions" [nzLabel]="permission.description"
+                           [nzValue]="permission.value"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzSm="20" nzXs="16">
+              <button (click)="editable = !editable" *ngIf="!editable" nz-button>编辑</button>
+              <button *ngIf="editable" nz-button nzType="primary" type="submit">
+                <i nz-icon nzTheme="outline" nzType="save"></i>保存
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+    </div>
+    <button (click)="dismissGroup()" nz-button nzDanger nzSize="large" nzType="primary" style="margin: auto 0.2vw">解散群组
+    </button>
+    <button nz-button nzSize="large" nzType="primary" routerLink="/notification/publish">返回</button>
+  </div>
+</nz-drawer>

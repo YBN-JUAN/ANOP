@@ -21,18 +21,8 @@ export class NewNotificationComponent implements OnInit {
     });
   }
 
+  private model: NotificationModel;
   newNotificationForm: FormGroup;
-
-  private _gid;
-
-  get gid() {
-    return this._gid;
-  }
-
-  set gid(value) {
-    this._gid = value;
-  }
-
   private _gTitle;
 
   get gTitle() {
@@ -55,16 +45,16 @@ export class NewNotificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
-      this.gid = params.gid;
+      this.model = new NotificationModel('', '', params.gid);
       this.gTitle = params.title;
     });
   }
 
   submitFrom() {
-    const title = this.newNotificationForm.controls.title.value;
-    const content = this.newNotificationForm.controls.content.value;
+    this.model.title = this.newNotificationForm.controls.title.value;
+    this.model.content = this.newNotificationForm.controls.content.value;
 
-    this.service.sendNotification(new NotificationModel(title, content, this.gid)).subscribe(
+    this.service.sendNotification(this.model).subscribe(
       () => {
         this.msg.success('发布成功。')
         this.newNotificationForm.reset();

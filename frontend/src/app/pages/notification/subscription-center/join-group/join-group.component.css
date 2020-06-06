@@ -12,16 +12,8 @@
 
 #search-bar {
   width: 50%;
-  margin: auto;
+  margin: auto auto 3vh;
   /*border: #000c17 solid;*/
-}
-
-/*#content {*/
-/*  border: #000c17 1px solid;*/
-/*}*/
-
-h1 {
-  text-align: center;
 }
 
 #search-form {

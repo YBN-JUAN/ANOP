@@ -12,8 +12,12 @@
     </a>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item routerLink="/user">用户中心</li>
-        <li (click)="signOut()" nz-menu-item routerLink="/welcome/login">退出</li>
+        <li nz-menu-item routerLink="/user">
+          <i nz-icon nzTheme="outline" nzType="home"></i>用户中心
+        </li>
+        <li (click)="signOut()" nz-menu-item routerLink="/welcome/login">
+          <i nz-icon nzTheme="outline" nzType="logout"></i>退出
+        </li>
       </ul>
     </nz-dropdown-menu>
   </div>

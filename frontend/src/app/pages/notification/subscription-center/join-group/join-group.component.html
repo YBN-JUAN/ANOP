@@ -1,24 +1,33 @@
+<nz-page-header nzTitle="加入群组">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a routerLink='/notification/subscription'>订阅</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>加入群组</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
 <div id="content">
-  <h1>加入群组</h1>
   <form nz-form>
     <div id="search-bar">
       <nz-form-item id="search-form">
-
-        <nz-form-label id="search-label">请输入口令</nz-form-label>
+        <nz-form-label id="search-label" nzRequired>请输入群组ID</nz-form-label>
         <nz-form-control nzSpan="10">
           <label for="search-text"></label>
-          <input nz-input datatype="text" name="inviteCode" type="search"
-                 id="search-text" [(ngModel)]="groupId"
-                 placeholder="输入口令查询或加入群组">
+          <input [(ngModel)]="groupId" datatype="text" id="search-text" name="inviteCode" nz-input
+                 placeholder="输入群组ID查询或加入群组" required="required" type="search">
         </nz-form-control>
-
       </nz-form-item>
     </div>
-    <button nz-button type="reset" id="reset-button" (click)="doReset()">重置</button>
-    <button nz-button id="search-button" (click)="doSearch()">搜索</button>
-    <button nz-button type="submit" id="submit-button" (click)="doJoin()">加入</button>
+    <button (click)="doReset()" id="reset-button" nz-button nzType="danger" type="reset">
+      <i nz-icon nzTheme="outline" nzType="redo"></i>重置
+    </button>
+    <button (click)="doSearch()" id="search-button" nz-button>
+      <i nz-icon nzTheme="outline" nzType="search"></i>搜索
+    </button>
+    <button (click)="doJoin()" id="submit-button" nz-button nzType="primary" type="submit">
+      <i nz-icon nzTheme="outline" nzType="send"></i>加入
+    </button>
   </form>
-
 </div>
 <div style="width: 70%;margin: 10px auto auto" class="table">
   <nz-table>
@@ -36,8 +45,13 @@
       <td>{{group.id}}</td>
       <td>{{group.title}}</td>
       <td>{{group.nickname}}</td>
-      <td>{{group.creationDate}}</td>
-      <td>{{permissionDescribe}}</td>
+      <td>{{group.creationDate|date:'yyyy年MM月dd日 HH时mm分'}}</td>
+      <td>
+        <i [hidden]="group.permission !== 0" nz-icon nzTheme="outline" nzType="security-scan"></i>
+        <i [hidden]="group.permission !== 1" nz-icon nzTheme="outline" nzType="unlock"></i>
+        <i [hidden]="group.permission !== 2" nz-icon nzTheme="outline" nzType="lock"></i>
+        {{permissionDescribe}}
+      </td>
     </tr>
     </tbody>
   </nz-table>

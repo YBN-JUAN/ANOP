@@ -3,6 +3,7 @@ import {JoinGroupService} from './join-group.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {GroupInfoModel} from '../../../../share/model/group-info.model';
 import {PublishCenterService} from '../../../../share/service/publish-center.service';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-join-group',
@@ -13,10 +14,12 @@ import {PublishCenterService} from '../../../../share/service/publish-center.ser
 export class JoinGroupComponent implements OnInit {
 
   public groupId: number;
-  public group: GroupInfoModel;
-  public permissionDescribe: string;
+  group: GroupInfoModel;
+  permissionDescribe = '';
 
-  constructor(private joinGroupService: JoinGroupService, private searchGroupService: PublishCenterService) {
+  constructor(private joinGroupService: JoinGroupService,
+              private searchGroupService: PublishCenterService,
+              private msg: NzMessageService) {
   }
 
   ngOnInit(): void {
@@ -24,39 +27,48 @@ export class JoinGroupComponent implements OnInit {
   }
 
   doSearch() {
-    // alert('搜索群组' + this.groupId);
-    this.searchGroupService.getGroup(this.groupId).subscribe(
+    if (this.groupId == null) {
+      this.msg.warning('请输入群组ID')
+      return;
+    }
+    this.searchGroupService.getGroupInfo(this.groupId).subscribe(
       (data: GroupInfoModel) => {
         console.log(data);
         this.group = data;
         this.setPermissionDescribe();
       }, (response: HttpErrorResponse) => {
-        alert(response.error.status + ':' + response.error.message);
+        this.msg.error(response.error.message);
         this.group = new GroupInfoModel();
+        this.permissionDescribe = '';
       }
     )
   }
 
   doJoin() {
-    // alert("加入群组" + this.groupId);
     if (this.groupId == null) {
-      alert('请输入群组ID');
+      this.msg.warning('请输入群组ID')
       return;
     }
     this.joinGroupService.joinGroup(this.groupId).subscribe(
       () => {
-        alert('申请加群成功，请等待管理员审核。');
+        if (this.group.permission === 0) {
+          this.msg.info('请求发送成功，请等待管理员审核');
+        } else {
+          this.msg.success('已成功加入群\"' + this.group.title + '\"');
+        }
       }, (response: HttpErrorResponse) => {
-        alert(response.error.status + ':' + response.error.message);
-      });
+        this.msg.error(response.error.message);
+      }
+    );
   }
 
   doReset() {
     this.group = new GroupInfoModel();
     this.permissionDescribe = '';
+    this.groupId = null;
   }
 
-  setPermissionDescribe(){
+  setPermissionDescribe() {
     switch (this.group.permission) {
       case 0:
         this.permissionDescribe = '需要管理员审核';
@@ -68,7 +80,7 @@ export class JoinGroupComponent implements OnInit {
         this.permissionDescribe = '不允许任何人加入'
         break
       default:
-        this.permissionDescribe = '未知'
+        this.permissionDescribe = ''
         break
     }
   }
