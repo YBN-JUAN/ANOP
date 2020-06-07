@@ -4,7 +4,7 @@
     <div nz-row *ngIf="!loading">
       <div nz-col [nzSpan]="18">
         <nz-input-group nzSearch [nzSuffix]="suffixIconSearch"  style="margin-top: 0.1vw;margin-bottom: 0.1vw;">
-          <input type="text" nz-input placeholder="在此处输入您想要搜索的事项名称" [(ngModel)]="inputValue"/>
+          <input [(ngModel)]="inputValue" nz-input placeholder="在此处输入您想要搜索的事项名称" type="text"/>
         </nz-input-group>
         <ng-template #suffixIconSearch>
           <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''"></i>

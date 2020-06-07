@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MemorandumService} from '../../../share/service/memorandum.service';
 import {CateInfo} from '../../../share/model/cate-info';
-import {format, differenceInMinutes} from 'date-fns';
+import {differenceInMinutes, format} from 'date-fns';
 
 @Component({
   selector: 'app-add-todo',
@@ -70,13 +70,13 @@ export class AddTodoComponent implements OnInit {
       this.isVisible2=true;
     } else if(!this.isEmpty) {
       this.service.addTodo(
-        this.beginDate==null?null:format(this.beginDate, 'yyyy-MM-dd HH:mm'),
-        this.categoryId===undefined?null:this.categoryId,
+        this.beginDate == null ? null : format(this.beginDate, 'yyyy-MM-dd HH:mm'),
+        this.categoryId === undefined ? null : this.categoryId,
         this.content,
-        this.endDate==null?null:format(this.endDate, 'yyyy-MM-dd HH:mm'),
-        this.isHeart?1:0,
-        this.isStar?1:0,
-        this.remindDate==null?null:format(this.remindDate, 'yyyy-MM-dd HH:mm'),
+        this.endDate == null ? null : format(this.endDate, 'yyyy-MM-dd HH:mm'),
+        this.isStar ? 1 : 0,
+        this.isHeart ? 1 : 0,
+        this.remindDate == null ? null : format(this.remindDate, 'yyyy-MM-dd HH:mm'),
         this.title
       ).subscribe(
         data=>{
