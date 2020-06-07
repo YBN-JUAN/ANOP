@@ -128,9 +128,9 @@ export class EditProfileComponent implements OnInit {
         });
         break;
     }
-    this.upload(file);  
+    this.upload(file);
   }
-  
+
   upload(file: File) {
     const formData = new FormData();
     formData.append('avatarimg', file);

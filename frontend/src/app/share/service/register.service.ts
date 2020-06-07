@@ -33,14 +33,14 @@ export class RegisterService {
     this.http.options(this.signUpUrl).pipe(
       finalize(() => {
         this.http.post<RegisterInfo>(this.signUpUrl, info, this.httpOptions)
-          .subscribe(response => {
-            console.log("register ok");
-            return successCallback && successCallback();
-          },
-          (errorResponse: HttpErrorResponse) => {
-            console.log(errorResponse);
-            return errorCallback && errorCallback(errorResponse.error);
-          });
+          .subscribe(() => {
+              console.log('register ok');
+              return successCallback && successCallback();
+            },
+            (errorResponse: HttpErrorResponse) => {
+              console.log(errorResponse);
+              return errorCallback && errorCallback(errorResponse.error);
+            });
       })
     ).subscribe();
   }

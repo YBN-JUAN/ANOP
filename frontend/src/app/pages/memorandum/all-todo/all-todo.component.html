@@ -3,54 +3,53 @@
   <nz-spin [nzSpinning]="loading" [nzSize]="'large'">
     <div nz-row *ngIf="!loading">
       <div nz-col [nzSpan]="18">
-        <nz-input-group nzSearch [nzSuffix]="suffixIconSearch"  style="margin-top: 0.1vw;margin-bottom: 0.1vw;">
+        <nz-input-group [nzSuffix]="suffixIconSearch" nzSearch style="margin-top: 0.1vw;margin-bottom: 0.1vw;">
           <input [(ngModel)]="inputValue" nz-input placeholder="在此处输入您想要搜索的事项名称" type="text"/>
         </nz-input-group>
         <ng-template #suffixIconSearch>
-          <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''"></i>
+          <i (click)="inputValue = ''" *ngIf="inputValue" class="ant-input-clear-icon" nz-icon nzTheme="fill"
+             nzType="close-circle"></i>
           <i nz-icon nzType="search" (click)="loadDataFromServer()"></i>
         </ng-template>
       </div>
       <div nz-col [nzSpan]="6">
         <div style="height: 2vw;line-height: 2vw;font-size: 1.2rem">
-          <span style="margin: 1.6vw auto auto 7vw ">共有 </span><span style="font-weight: bolder">{{total}}</span><span> 个结果</span>
+          <span style="margin: 1.6vw auto auto 7vw ">共有 </span><span style="font-weight: bolder">{{total}}
+        </span><span> 个结果</span>
         </div>
       </div>
     </div>
-    <app-todo-item *ngFor="let item of todoList"
-                   [id]="item.id"
-                   [userId]="item.userId"
-                   [beginDate]="item.beginDate"
-                   [remindDate]="item.remindDate"
-                   [content]="item.content"
-                   [categoryId]="item.categoryId"
-                   [itemDeadline]="item.endDate"
-                   [itemName]="item.title"
-                   [itemStatus]="item.isCompleted"
-                   [isStar]="item.isFavorite"
-                   [isHeart]="item.isImportant">
+    <app-todo-item
+      *ngFor="let item of todoList"
+      [beginDate]="item.beginDate"
+      [categoryId]="item.categoryId"
+      [content]="item.content"
+      [id]="item.id"
+      [isHeart]="item.isImportant"
+      [isStar]="item.isFavorite"
+      [itemDeadline]="item.endDate"
+      [itemName]="item.title"
+      [itemStatus]="item.isCompleted"
+      [remindDate]="item.remindDate"
+      [userId]="item.userId">
     </app-todo-item>
     <div style="text-align: center;margin-top: 2vw">
       <div style="display: inline-block">
-        <nz-pagination [nzPageIndex]="1"
-                       [nzTotal]="total"
-                       [nzPageSize]="pageSize"
-                       [nzPageSizeOptions]="[2,4,6,8,10]"
-                       [(nzPageIndex)]="pageIndex"
-                       [(nzPageSize)]="pageSize"
-                       (nzPageIndexChange)="loadDataFromServer()"
-                       (nzPageSizeChange)="loadDataFromServer()"
-                       nzShowQuickJumper
-                       nzShowQuickJumper
-                       nzResponsive
-                       nzShowSizeChanger>
+        <nz-pagination
+          (nzPageIndexChange)="loadDataFromServer()"
+          (nzPageSizeChange)="loadDataFromServer()"
+          [(nzPageIndex)]="pageIndex"
+          [(nzPageSize)]="pageSize"
+          [nzPageSizeOptions]="[2,4,6,8,10]"
+          [nzPageSize]="pageSize"
+          [nzTotal]="total"
+          nzResponsive
+          nzShowQuickJumper
+          nzShowSizeChanger>
         </nz-pagination>
       </div>
     </div>
-
     <app-add-todo></app-add-todo>
   </nz-spin>
-
-
 </div>
 

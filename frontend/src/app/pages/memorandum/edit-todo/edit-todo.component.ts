@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CateInfo} from '../../../share/model/cate-info';
 import {MemorandumService} from '../../../share/service/memorandum.service';
 import {differenceInMinutes, format} from 'date-fns';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-todo',
@@ -20,57 +21,57 @@ export class EditTodoComponent implements OnInit {
   @Input() remindDate: Date;
   @Input() title: string;
 
-  visible=false;
+  visible = false;
   cateList: CateInfo[];
   loading = true;
-  pageIndex=1;
-  pageSize=10;
-  begin=true;
-  end=true;
-  remind=true;
-  isEmpty=true;
-  isVisible1=false;
-  isVisible2=false;
-  remindText='';
+  pageIndex = 1;
+  pageSize = 10;
+  begin = true;
+  end = true;
+  remind = true;
+  isEmpty = true;
+  isVisible1 = false;
+  isVisible2 = false;
+  remindText = '';
 
-  change(): void{
-    this.visible=!this.visible;
+  constructor(private service: MemorandumService) {
   }
 
-  changeStar(): void{
-    this.isStar=!this.isStar;
+  change(): void {
+    this.visible = !this.visible;
   }
 
-  changeHeart(): void{
-    this.isHeart=!this.isHeart;
+  changeStar(): void {
+    this.isStar = !this.isStar;
   }
 
-  changeEmpty(): void{
-    if(this.title.match(/^\s*$/)||this.content.match(/^\s*$/)){
-      this.isEmpty=true;
-    } else {
-      this.isEmpty=false;
-    }
+  changeHeart(): void {
+    this.isHeart = !this.isHeart;
   }
-  constructor(private service: MemorandumService) { }
+
+  changeEmpty(): void {
+    this.isEmpty = !!(this.title.match(/^\s*$/) || this.content.match(/^\s*$/));
+  }
 
   loadDataFromServer(): void {
     this.service.getAllCate().subscribe(data => {
         this.cateList = data.list;
         this.loading = false;
       },
-      error => { console.log(error); }
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
     );
   }
 
   updateTodo() {
-    if(this.remindDate!=null&&format(new Date(),'yyyy-MM-dd HH:mm:ss')>this.remindDate.toString()){
-      this.remindText='请注意，您设置的邮件提醒时间已过。';
-      this.isVisible2=true;
-    } else if(differenceInMinutes(this.remindDate, new Date())<=3){
-      this.remindText='请注意，您设置的邮件提醒时间与当前时间相差不到3分钟，推荐邮件提醒时间与当前时间间隔不要太接近。';
-      this.isVisible2=true;
-    } else if(!this.isEmpty){
+    if (this.remindDate != null && format(new Date(), 'yyyy-MM-dd HH:mm:ss') > this.remindDate.toString()) {
+      this.remindText = '请注意，您设置的邮件提醒时间已过。';
+      this.isVisible2 = true;
+    } else if (differenceInMinutes(this.remindDate, new Date()) <= 3) {
+      this.remindText = '请注意，您设置的邮件提醒时间与当前时间相差不到3分钟，推荐邮件提醒时间与当前时间间隔不要太接近。';
+      this.isVisible2 = true;
+    } else if (!this.isEmpty) {
       this.service.updateTodo(
         this.beginDate == null ? null : format(this.beginDate, 'yyyy-MM-dd HH:mm'),
         this.categoryId === undefined ? null : this.categoryId,
@@ -82,26 +83,28 @@ export class EditTodoComponent implements OnInit {
         this.title,
         this.id
       ).subscribe(
-        data=>{
+        () => {
           console.log(this.remindDate);
-          console.log('更新待办实现成功');
+          this.service.msg.success('编辑成功成功');
           this.change();
           location.reload();
-        },error => {
+        }, (error: HttpErrorResponse) => {
+          this.service.msg.error(error.error.message);
           console.log(error);
         }
       )
     } else {
-      this.isVisible1=true;
+      this.isVisible1 = true;
     }
   }
 
-  deleteTodo(){
+  deleteTodo() {
     this.service.deleteTodo(this.id).subscribe(
-      data=>{
-        console.log('删除待办事项成功');
+      () => {
+        this.service.msg.success('删除成功');
         location.reload();
-      },error => {
+      }, (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
         console.log(error)
       }
     )
@@ -110,6 +113,4 @@ export class EditTodoComponent implements OnInit {
   ngOnInit(): void {
     this.loadDataFromServer();
   }
-
-
 }

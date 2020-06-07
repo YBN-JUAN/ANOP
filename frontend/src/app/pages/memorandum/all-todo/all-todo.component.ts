@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoInfo} from '../../../share/model/todo-Info';
 import {MemorandumService} from '../../../share/service/memorandum.service';
 
@@ -15,20 +15,23 @@ export class AllTodoComponent implements OnInit {
   pageIndex = 1;
   total: number;
   inputValue = '';
-  constructor(private service: MemorandumService) { }
+
+  constructor(private service: MemorandumService) {
+  }
 
   loadDataFromServer(): void {
-    this.service.getTodoList(0,'ASC', this.pageIndex, this.pageSize, this.inputValue).subscribe(data => {
+    this.service.getTodoList(0, 'ASC', this.pageIndex, this.pageSize, this.inputValue).subscribe(data => {
         this.total = data.total;
         this.todoList = data.list;
         this.loading = false;
       },
-      error => { console.log(error); }
+      error => {
+        console.log(error);
+      }
     );
   }
 
   ngOnInit(): void {
     this.loadDataFromServer()
   }
-
 }
