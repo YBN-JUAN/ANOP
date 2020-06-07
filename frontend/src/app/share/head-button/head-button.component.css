@@ -1,11 +1,11 @@
 .head-button-div {
-  min-width: 225px;
-  margin: 0;
+  min-width: 180px;
+  margin-left: 2vw;
   padding: 0;
 }
 
 .head-button {
-  min-width: 110px;
+  min-width: 85px;
   width: 15vw;
   text-align: center;
 }

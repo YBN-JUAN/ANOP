@@ -15,7 +15,6 @@
           <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/join-group">
             <i nz-icon nzTheme="outline" nzType="search"></i>查找、加入群组
           </li>
-          <!--          <li nz-menu-item nzMatchRouterExact="true" routerLink="/notification/subscription/group-message">所有通知</li>-->
         </ul>
       </li>
       <li (nzOpenChange)="openHandler('sub2')" [(nzOpen)]="openMap.sub2" nz-submenu
@@ -38,7 +37,7 @@
     <nz-header>
       <div nz-row nzJustify="space-between">
         <div nz-col nzSm="1" nzXs="1">
-          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          <i [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" class="trigger" id="trigger" nz-icon
              (click)="setCollapsed()"></i>
         </div>
         <div nz-col nzSm="18" nzXs="16">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-memorandum',
@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemorandumComponent implements OnInit {
   isCollapsed = false;
-  siderSpan=4;
   collapsedItems=[
     {
       title:'待办事项',
@@ -30,14 +29,23 @@ export class MemorandumComponent implements OnInit {
       route:'Cate'
     },
     {
-      title:'历史待办事项',
-      icon:'history',
-      route:'History'
+      title: '历史待办事项',
+      icon: 'history',
+      route: 'History'
     }
   ]
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  // 监听窗口宽度，小于一定数值自动折叠侧边菜单
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    const trigger = document.getElementById('trigger');
+    trigger.hidden = event.target.innerWidth < 850;
+    this.isCollapsed = event.target.innerWidth < 850;
+  }
 }

@@ -22,8 +22,8 @@ nz-layout {
 }
 
 .logo-div {
-  min-height: 80px;
-  height: 15vh;
+  min-height: 100px;
+  height: 16vh;
   background-color: darkblue;
   margin: 0;
 }
@@ -53,8 +53,4 @@ nz-breadcrumb {
 
 nz-footer {
   text-align: center;
-}
-
-.wrapper {
-  width: 240px;
 }
