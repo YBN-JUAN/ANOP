@@ -25,6 +25,7 @@ export class TodoItemComponent implements OnInit {
   EndDate: Date;
   BeginDate: Date;
   RemindDate: Date;
+
   Name = '事项名称';
   Deadline = '最终时间：';
   Status = '状态:';
@@ -38,7 +39,7 @@ export class TodoItemComponent implements OnInit {
     const date = new Date();
     const deadline = format(new Date(this.itemDeadline), 'yyyy-MM-dd HH:mm:ss');
     this.Now = format(date, 'yyyy-MM-dd HH:mm:ss');
-    this.isWasted = this.Now > deadline && this.itemDeadline != null;
+    this.isWasted = (this.Now > deadline && this.itemDeadline != null);
     this.EndDate = this.itemDeadline == null ? null : new Date(this.itemDeadline);
     this.BeginDate = this.beginDate == null ? null : new Date(this.beginDate);
     this.RemindDate = this.remindDate == null ? null : new Date(this.remindDate);
@@ -46,9 +47,8 @@ export class TodoItemComponent implements OnInit {
 
   changeStar(): void {
     this.isStar = !this.isStar;
-    this.service.changeChecked(2, this.id).subscribe(
-      () => {
-        console.log('收藏状态切换成功');
+    this.service.changeChecked(2, this.id).subscribe(() => {
+        this.service.msg.success('收藏状态切换成功');
       }, (error: HttpErrorResponse) => {
         this.service.msg.error(error.error.message);
       }
@@ -57,9 +57,8 @@ export class TodoItemComponent implements OnInit {
 
   changeHeart(): void {
     this.isHeart = !this.isHeart;
-    this.service.changeChecked(1, this.id).subscribe(
-      () => {
-        console.log('重要状态切换成功');
+    this.service.changeChecked(1, this.id).subscribe(() => {
+        this.service.msg.success('重要状态切换成功');
       }, (error: HttpErrorResponse) => {
         this.service.msg.error(error.error.message);
       }
@@ -68,9 +67,8 @@ export class TodoItemComponent implements OnInit {
 
   changeCheck(): void {
     this.itemStatus = !this.itemStatus;
-    this.service.changeChecked(0, this.id).subscribe(
-      () => {
-        console.log('完成状态切换成功');
+    this.service.changeChecked(0, this.id).subscribe(() => {
+        this.service.msg.success('完成状态切换成功');
       }, (error: HttpErrorResponse) => {
         this.service.msg.error(error.error.message);
       }

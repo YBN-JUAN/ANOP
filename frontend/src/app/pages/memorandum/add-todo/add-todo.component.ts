@@ -56,10 +56,9 @@ export class AddTodoComponent implements OnInit {
         this.cateList = data.list;
         this.loading = false;
       },
-      error => {
-        console.log(error);
-      }
-    );
+      (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
+      });
   }
 
   addTodo() {
@@ -81,18 +80,18 @@ export class AddTodoComponent implements OnInit {
         this.title
       ).subscribe(
         () => {
-          this.service.msg.success('添加成功');
+          this.service.msg.success('添加待办实现成功');
           this.change();
           location.reload();
         }, (error: HttpErrorResponse) => {
           this.service.msg.error(error.error.message);
-          console.log(error);
         }
       )
     } else {
       this.isVisible1 = true;
     }
   }
+
 
   ngOnInit(): void {
     this.loadDataFromServer()

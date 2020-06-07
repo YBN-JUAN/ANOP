@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoInfo} from '../../../share/model/todo-Info';
 import {MemorandumService} from '../../../share/service/memorandum.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-all-todo',
@@ -25,8 +26,8 @@ export class AllTodoComponent implements OnInit {
         this.todoList = data.list;
         this.loading = false;
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
       }
     );
   }
@@ -34,4 +35,5 @@ export class AllTodoComponent implements OnInit {
   ngOnInit(): void {
     this.loadDataFromServer()
   }
+
 }

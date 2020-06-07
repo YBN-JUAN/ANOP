@@ -59,7 +59,7 @@ export class EditTodoComponent implements OnInit {
         this.loading = false;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.service.msg.error(error.error.message);
       }
     );
   }
@@ -84,13 +84,11 @@ export class EditTodoComponent implements OnInit {
         this.id
       ).subscribe(
         () => {
-          console.log(this.remindDate);
-          this.service.msg.success('编辑成功成功');
+          this.service.msg.success('更新待办实现成功');
           this.change();
           location.reload();
         }, (error: HttpErrorResponse) => {
           this.service.msg.error(error.error.message);
-          console.log(error);
         }
       )
     } else {
@@ -101,11 +99,10 @@ export class EditTodoComponent implements OnInit {
   deleteTodo() {
     this.service.deleteTodo(this.id).subscribe(
       () => {
-        this.service.msg.success('删除成功');
+        this.service.msg.success('删除待办事项成功');
         location.reload();
       }, (error: HttpErrorResponse) => {
         this.service.msg.error(error.error.message);
-        console.log(error)
       }
     )
   }
@@ -113,4 +110,6 @@ export class EditTodoComponent implements OnInit {
   ngOnInit(): void {
     this.loadDataFromServer();
   }
+
+
 }

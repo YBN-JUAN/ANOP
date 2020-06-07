@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MemorandumService} from '../../../share/service/memorandum.service';
 import {CateInfo} from '../../../share/model/cate-info';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-all-cate',
@@ -39,11 +40,11 @@ export class AllCateComponent implements OnInit {
     } else {
       this.isOkLoading=true;
       this.service.addCate(this.newCate).subscribe(
-        data=>{
-          console.log('添加新分类成功');
+        () => {
+          this.service.msg.success('添加新分类成功');
           location.reload();
-        },error => {
-          console.log(error);
+        }, (error: HttpErrorResponse) => {
+          this.service.msg.error(error.error.message);
         }
       )
     }

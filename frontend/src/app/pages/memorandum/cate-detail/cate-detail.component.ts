@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoInfo} from '../../../share/model/todo-Info';
 import {MemorandumService} from '../../../share/service/memorandum.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-cate-detail',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CateDetailComponent implements OnInit {
   todoList: TodoInfo[];
-  id:number;
+  id: number;
   loading = true;
   pageSize = 10;
   pageIndex = 1;
@@ -22,11 +23,11 @@ export class CateDetailComponent implements OnInit {
         this.total = data.total;
         this.todoList = data.list;
         this.loading = false;
-        console.log('获取指定ID分类下待办事项成功');
-        console.log(data.list);
-        console.log(this.todoList);
+        this.service.msg.success('获取指定ID分类下待办事项成功');
       },
-      error => { console.log(error); }
+      (error: HttpErrorResponse) => {
+        this.service.msg.error(error.error.message);
+      }
     );
   }
 
