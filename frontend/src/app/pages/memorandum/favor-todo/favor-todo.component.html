@@ -33,18 +33,16 @@
   </nz-spin>
   <div style="text-align: center;margin-top: 2vw">
     <div style="display: inline-block">
-      <nz-pagination [nzPageIndex]="1"
-                     [nzTotal]="total"
-                     [nzPageSize]="pageSize"
-                     [nzPageSizeOptions]="[2,4,6,8,10]"
-                     [(nzPageIndex)]="pageIndex"
-                     [(nzPageSize)]="pageSize"
-                     (nzPageIndexChange)="loadDataFromServer()"
-                     (nzPageSizeChange)="loadDataFromServer()"
-                     nzShowQuickJumper
-                     nzShowQuickJumper
-                     nzResponsive
-                     nzShowSizeChanger>
+      <nz-pagination
+        (nzPageIndexChange)="loadDataFromServer()"
+        (nzPageSizeChange)="loadDataFromServer()"
+        [(nzPageIndex)]="pageIndex"
+        [(nzPageSize)]="pageSize"
+        [nzPageSizeOptions]="[2,4,6,8,10]"
+        [nzTotal]="total"
+        nzResponsive
+        nzShowQuickJumper
+        nzShowSizeChanger>
       </nz-pagination>
     </div>
   </div>
